@@ -1,0 +1,196 @@
+#-------------------------
+# Operating Specific Junk Files
+#-------------------------
+
+# OS X
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# OS X Thumbnails
+._*
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# Linux
+*~
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+#-------------------------
+# Environment Files
+#-------------------------
+# These should never be under version control,
+# as it poses a security risk.
+.env
+.vagrant
+Vagrantfile
+
+#-------------------------
+# Temporary Files
+#-------------------------
+writable/cache/*
+!writable/cache/index.html
+
+writable/logs/*
+!writable/logs/index.html
+
+writable/session/*
+!writable/session/index.html
+
+writable/uploads/users/origins/*
+!writable/uploads/users/origins/index.html
+writable/uploads/users/thumbs/*
+!writable/uploads/users/thumbs/index.html
+
+writable/uploads/banners/origins/*
+!writable/uploads/banners/origins/index.html
+writable/uploads/banners/thumbs/*
+!writable/uploads/banners/thumbs/index.html
+
+writable/uploads/companies/origins/*
+!writable/uploads/companies/origins/index.html
+writable/uploads/companies/thumbs/*
+!writable/uploads/companies/thumbs/index.html
+
+writable/uploads/outlets/origins/*
+!writable/uploads/outlets/origins/index.html
+writable/uploads/outlets/thumbs/*
+!writable/uploads/outlets/thumbs/index.html
+
+writable/uploads/logos/origins/*
+!writable/uploads/logos/origins/index.html
+writable/uploads/logos/thumbs/*
+!writable/uploads/logos/thumbs/index.html
+
+writable/uploads/orderstemp/*
+!writable/uploads/orderstemp/index.html
+writable/uploads/orders/*
+!writable/uploads/orders/index.html
+
+writable/uploads/documentsPo/*
+!writable/uploads/documentsPo/index.html
+
+writable/mpdf_temp/*
+!writable/mpdf_temp/index.html
+
+writable/uploads/documentsSo/*
+!writable/uploads/documentsSo/index.html
+
+writable/uploads/documentsCertificate/*
+!writable/uploads/documentsCertificate/index.html
+
+writable/uploads/documentsCertificateQR/*
+!writable/uploads/documentsCertificateQR/index.html
+
+writable/uploads/pdf/*
+!writable/uploads/pdf/index.html
+
+writable/uploads/documentBuktiPembayaran/*
+!writable/uploads/documentBuktiPembayaran/index.html
+
+writable/uploads/excel/*
+!writable/uploads/excel/index.html
+
+writable/uploads/product/origins/*
+!writable/uploads/product/origins/index.html
+writable/uploads/product/thumbs/*
+!writable/uploads/product/thumbs/index.html
+
+writable/uploads/category/origins/*
+!writable/uploads/category/origins/index.html
+writable/uploads/category/thumbs/*
+!writable/uploads/category/thumbs/index.html
+
+writable/uploads/certificates/origins/*
+!writable/uploads/certificates/origins/index.html
+writable/uploads/certificates/thumbs/*
+!writable/uploads/certificates/thumbs/index.html
+
+writable/debugbar/*
+
+php_errors.log
+
+#-------------------------
+# User Guide Temp Files
+#-------------------------
+user_guide_src/build/*
+user_guide_src/cilexer/build/*
+user_guide_src/cilexer/dist/*
+user_guide_src/cilexer/pycilexer.egg-info/*
+
+#-------------------------
+# Test Files
+#-------------------------
+tests/coverage*
+
+# Don't save phpunit under version control.
+phpunit
+
+#-------------------------
+# Composer
+#-------------------------
+vendor/
+
+#-------------------------
+# IDE / Development Files
+#-------------------------
+
+# Modules Testing
+_modules/*
+
+# phpenv local config
+.php-version
+
+# Jetbrains editors (PHPStorm, etc)
+.idea/
+*.iml
+
+# Netbeans
+nbproject/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+.nb-gradle/
+
+# Sublime Text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
+.phpintel
+/api/
+
+# Visual Studio Code
+.vscode/
+
+/results/
+/phpunit*.xml
+/.phpunit.*.cache
+
+# Cypress Testing
+/cypress-testing/node_modules
+*.lock
