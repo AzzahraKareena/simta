@@ -84,6 +84,7 @@
                                             </option>
                                         <?php endforeach; ?>
                                     </select>
+                                    <br>
                                     <label class="form-label required fs-6 fw-bolder text-dark">id_rekom_dospem2</label>
                                     <select class="form-select form-select-lg form-select-solid" name="id_rekom_dospem2" required>
                                         <option value="">Select rekomendasi dospem</option>

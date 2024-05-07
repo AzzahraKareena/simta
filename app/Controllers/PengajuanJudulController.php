@@ -116,7 +116,7 @@ class PengajuanJudulController extends ResourceController
             'id_rekom_dospem1'  => $this->request->getVar('id_rekom_dospem1'), 
             'id_rekom_dospem2'  => $this->request->getVar('id_rekom_dospem2'), 
         ];
-        dd($data);
+        // dd($data);
         $insert = $this->model->insert($data);
         
         if($insert){

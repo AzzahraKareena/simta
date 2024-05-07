@@ -64,7 +64,8 @@
                                         <th class="">Nama Judul 3</th>
                                         <th class="">Deskripsi Sistem 3</th>
                                         <th class="">Catatan</th>
-                                        <th class="">Rekomendasi Dosen</th>
+                                        <th class="">Rekomendasi Dosen 1</th>
+                                        <th class="">Rekomendasi Dosen 2</th>
                                         <th class="">Status pj</th>
                                         <!-- <th class="min-w-20px text-end">#</th> -->
                                     </tr>
@@ -96,6 +97,9 @@
                 </td>
                 <td>
                     <span class="text-dark text-hover-primary d-block fs-6"><?= $vdata->id_rekom_dospem1 ?></span>
+                </td>
+                <td>
+                    <span class="text-dark text-hover-primary d-block fs-6"><?= $vdata->id_rekom_dospem2 ?></span>
                 </td>
                 <td>
                     <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->status_pj ?></span>
