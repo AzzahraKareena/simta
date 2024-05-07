@@ -18,8 +18,8 @@ class PengajuanBimbinganModel extends Model
         'status_ajuan',
         'created_at',
         'updated_at',
-        'jadwal_bimbingan_start',
-        'jadwal_bimbingan_end',
+        'waktu_bimbingan',
+        'jadwal_bimbingan',
         'agenda',
         'id_acc_judul'
     ];
@@ -31,8 +31,8 @@ class PengajuanBimbinganModel extends Model
     //     'lokasi_bimbingan' => 'required',
     //     'hasil_bimbingan' => 'required',
     //     'status_ajuan' => 'required',
-    //     'jadwal_bimbingan_start' => 'required',
-    //     'jadwal_bimbingan_end' => 'required',
+    //     'waktu_bimbingan' => 'required',
+    //     'jadwal_bimbingan' => 'required',
     //     'agenda' => 'required',
     //     'id_acc_judul' => 'required'
     // ];

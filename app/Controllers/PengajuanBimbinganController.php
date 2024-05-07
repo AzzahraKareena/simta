@@ -79,8 +79,8 @@ class PengajuanBimbinganController extends ResourceController
             'id_mhs'  => session()->get('user_id'),
             'lokasi_bimbingan' => $this->request->getPost('lokasi_bimbingan'),
             'hasil_bimbingan' => $this->request->getPost('hasil_bimbingan'),
-            'jadwal_bimbingan_start' => $this->request->getPost('jadwal_bimbingan_start'),
-            'jadwal_bimbingan_end' => $this->request->getPost('jadwal_bimbingan_end'),
+            'waktu_bimbingan' => $this->request->getPost('waktu_bimbingan'),
+            'jadwal_bimbingan' => $this->request->getPost('jadwal_bimbingan'),
             'agenda' => $this->request->getPost('agenda'),
         ];
         // dd($data);

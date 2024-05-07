@@ -84,12 +84,12 @@
                                                 <span class="text-muted fw-bold text-muted d-block fs-7">Status Ajuan: <?= $vdata->status_ajuan ?></span>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata->jadwal_bimbingan_start ?></span>
-                                                <span class="text-muted fw-bold text-muted d-block fs-7">End: <?= $vdata->jadwal_bimbingan_start ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata->waktu_bimbingan ?></span>
+                                                <span class="text-muted fw-bold text-muted d-block fs-7">End: <?= $vdata->waktu_bimbingan ?></span>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata->jadwal_bimbingan_end ?></span>
-                                                <span class="text-muted fw-bold text-muted d-block fs-7">End: <?= $vdata->jadwal_bimbingan_end ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata->jadwal_bimbingan ?></span>
+                                                <span class="text-muted fw-bold text-muted d-block fs-7">End: <?= $vdata->jadwal_bimbingan ?></span>
                                             </td>
                                             <td>
                                                 <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Agenda: <?= $vdata->agenda ?></span>
@@ -115,8 +115,8 @@
                                         <th class="">Lokasi Bimbingan</th>
                                         <th class="">Hasil Bimbingan</th>
                                         <th class="">Status Ajuan</th>
-                                        <th class="">Jadwal Bimbingan Start</th>
-                                        <th class="">Jadwal Bimbingan End</th>
+                                        <th class="">Waktu Bimbingan</th>
+                                        <th class="">Jadwal Bimbingan</th>
                                         <th class="">Agenda</th>
                                         <th class="min-w-20px text-end">#</th>
                                         <!-- <th class="min-w-20px text-end">#</th> -->
@@ -148,12 +148,12 @@
                                                 <span class="text-muted fw-bold text-muted d-block fs-7">Status Ajuan: <?= $vdata->status_ajuan ?></span>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata->jadwal_bimbingan_start ?></span>
-                                                <span class="text-muted fw-bold text-muted d-block fs-7">End: <?= $vdata->jadwal_bimbingan_start ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata->waktu_bimbingan ?></span>
+                                                <span class="text-muted fw-bold text-muted d-block fs-7">End: <?= $vdata->waktu_bimbingan ?></span>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata->jadwal_bimbingan_end ?></span>
-                                                <span class="text-muted fw-bold text-muted d-block fs-7">End: <?= $vdata->jadwal_bimbingan_end ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata->jadwal_bimbingan ?></span>
+                                                <span class="text-muted fw-bold text-muted d-block fs-7">End: <?= $vdata->jadwal_bimbingan ?></span>
                                             </td>
                                             <td>
                                                 <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Agenda: <?= $vdata->agenda ?></span>
@@ -362,8 +362,8 @@
                 { "data": "lokasi_bimbingan" },
                 { "data": "hasil_bimbingan" },
                 { "data": "status_ajuan" },
-                { "data": "jadwal_bimbingan_start" },
-                { "data": "jadwal_bimbingan_end" },
+                { "data": "waktu_bimbingan" },
+                { "data": "jadwal_bimbingan" },
                 { "data": "agenda" },
             ]
         });
