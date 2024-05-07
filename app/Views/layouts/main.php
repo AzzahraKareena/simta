@@ -33,7 +33,9 @@ License: For each use you must have a valid license purchased only from above li
 		<link href="<?= base_url('assets/plugins/custom/datatables/datatables.bundle.css')?>" rel="stylesheet" type="text/css" />
 		<link href="<?= base_url('assets/plugins/global/plugins.bundle.css')?>" rel="stylesheet" type="text/css" />
 		<link href="<?= base_url('assets/css/style.bundle.css')?>" rel="stylesheet" type="text/css" />
-		<link href="<?= base_url('assets/css/trix.css')?>" rel="stylesheet" type="text/css" />
+		<!-- <link href="<?= base_url('assets/css/trix.css')?>" rel="stylesheet" type="text/css" /> -->
+		<link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
+  		<script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
 		<!--end::Global Stylesheets Bundle-->
 	</head>
 	<!--end::Head-->
@@ -591,7 +593,7 @@ License: For each use you must have a valid license purchased only from above li
 		<script src="<?= base_url('assets/js/scripts.bundle.js')?>"></script>
 		<script src="<?= base_url('assets/plugins/custom/prismjs/prismjs.bundle.js')?>"></script>
 		<script src="<?= base_url('assets/plugins/custom/datatables/datatables.bundle.js')?>"></script>
-		<script src="<?= base_url('assets/js/trix.js')?>"></script>
+		<!-- <script src="<?= base_url('assets/js/trix.js')?>"></script> -->
 		<script>
 			KTUtil.onDOMContentLoaded(function () {
 				if ($('.menu-link.active').parent().parent().parent().hasClass('menu-item menu-accordion')) {
