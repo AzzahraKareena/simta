@@ -50,7 +50,7 @@
                                     </div>
                                     <div class="fv-row mb-10">
                                         <label class="form-label required fs-6 fw-bolder text-dark">Deskripsi Sistem 1</label>
-                                        <trix-editor input="deskripsi_sistem1"><?= old('deskripsi_sistem1')?? $dataForm->deskripsi_sistem1??"" ?></trix-editor>
+                                        <trix-editor input="deskripsi_sistem1" name="deskripsi_sistem1"><?= old('deskripsi_sistem1')?? $dataForm->deskripsi_sistem1??"" ?></trix-editor>
                                         <!-- <input class="form-control form-control-lg form-control-solid" type="text" name="deskripsi_sistem1" autocomplete="off" placeholder="Input deskripsi_sistem1" value="<?= old('deskripsi_sistem1')?? $dataForm->deskripsi_sistem1??"" ?>" required /> -->
                                     </div>
                                     <div class="fv-row mb-10">
@@ -59,7 +59,7 @@
                                     </div>
                                     <div class="fv-row mb-10">
                                         <label class="form-label required fs-6 fw-bolder text-dark">Deskripsi Sistem 2</label>
-                                        <trix-editor input="deskripsi_sistem2"><?= old('deskripsi_sistem2')?? $dataForm->deskripsi_sistem2??"" ?></trix-editor>
+                                        <trix-editor input="deskripsi_sistem2" name="deskripsi_sistem2"><?= old('deskripsi_sistem2')?? $dataForm->deskripsi_sistem2??"" ?></trix-editor>
                                         <!-- <input class="form-control form-control-lg form-control-solid" type="text" name="deskripsi_sistem2" autocomplete="off" placeholder="Input deskripsi_sistem2" value="<?= old('deskripsi_sistem2')?? $dataForm->deskripsi_sistem2??"" ?>" required /> -->
                                     </div>
                                     <div class="fv-row mb-10">
@@ -68,7 +68,7 @@
                                     </div>
                                     <div class="fv-row mb-10">
                                         <label class="form-label required fs-6 fw-bolder text-dark">Deskripsi Sistem 3</label>
-                                        <trix-editor input="deskripsi_sistem3"><?= old('deskripsi_sistem3')?? $dataForm->deskripsi_sistem3??"" ?></trix-editor>
+                                        <trix-editor input="deskripsi_sistem3" name="deskripsi_sistem3"><?= old('deskripsi_sistem3')?? $dataForm->deskripsi_sistem3??"" ?></trix-editor>
                                         <!-- <input class="form-control form-control-lg form-control-solid" type="text" name="deskripsi_sistem3" autocomplete="off" placeholder="Input deskripsi_sistem3" value="<?= old('deskripsi_sistem3')?? $dataForm->deskripsi_sistem3??"" ?>" required /> -->
                                     </div>
                                     <div class="fv-row mb-10">
@@ -77,6 +77,15 @@
                                         <option value="">Select rekomendasi dospem</option>
                                         <?php foreach ($rekomendasi_dosen as $rekomendasi): ?>
                                             <option value="<?= $rekomendasi['nama'] ?>" <?= ($rekomendasi['nama'] == old('id_rekom_dospem1') || (isset($dataForm->id_rekom_dospem1) && $rekomendasi['nama'] == $dataForm->id_rekom_dospem1)) ? 'selected' : '' ?>>
+                                                <?= $rekomendasi['nama'] ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <label class="form-label required fs-6 fw-bolder text-dark">id_rekom_dospem2</label>
+                                    <select class="form-select form-select-lg form-select-solid" name="id_rekom_dospem2" required>
+                                        <option value="">Select rekomendasi dospem</option>
+                                        <?php foreach ($rekomendasi_dosen as $rekomendasi): ?>
+                                            <option value="<?= $rekomendasi['nama'] ?>" <?= ($rekomendasi['nama'] == old('id_rekom_dospem2') || (isset($dataForm->id_rekom_dospem2) && $rekomendasi['nama'] == $dataForm->id_rekom_dospem2)) ? 'selected' : '' ?>>
                                                 <?= $rekomendasi['nama'] ?>
                                             </option>
                                         <?php endforeach; ?>

@@ -60,8 +60,8 @@
                                         <th class="">Lokasi Bimbingan</th>
                                         <th class="">Hasil Bimbingan</th>
                                         <th class="">Status Ajuan</th>
-                                        <th class="">Jadwal Bimbingan Start</th>
-                                        <th class="">Jadwal Bimbingan End</th>
+                                        <th class="">Waktu bimbingan</th>
+                                        <th class="">Jadwal Bimbingan</th>
                                         <th class="">Agenda</th>
                                         
                                     </tr>
@@ -80,16 +80,21 @@
                                                 <span class="text-muted fw-bold text-muted d-block fs-7">Hasil Bimbingan: <?= $vdata->hasil_bimbingan ?></span>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Status Ajuan: <?= $vdata->status_ajuan ?></span>
-                                                <span class="text-muted fw-bold text-muted d-block fs-7">Status Ajuan: <?= $vdata->status_ajuan ?></span>
+                                                <?php if ($vdata->status_ajuan == 'PENDING') : ?>
+                                                    <div class="badge badge-warning"><?= $vdata->status_ajuan ?></div>
+                                                <?php elseif ($vdata->status_ajuan == 'DITOLAK') : ?>
+                                                    <div class="badge badge-danger"><?= $vdata->status_ajuan ?></div>
+                                                <?php else : ?>
+                                                    <div class="badge badge-success"><?= $vdata->status_ajuan ?></div>
+                                                <?php endif; ?>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata->jadwal_bimbingan_start ?></span>
-                                                <span class="text-muted fw-bold text-muted d-block fs-7">End: <?= $vdata->jadwal_bimbingan_start ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata->waktu_bimbingan ?></span>
+                                                <span class="text-muted fw-bold text-muted d-block fs-7">End: <?= $vdata->waktu_bimbingan ?></span>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata->jadwal_bimbingan_end ?></span>
-                                                <span class="text-muted fw-bold text-muted d-block fs-7">End: <?= $vdata->jadwal_bimbingan_end ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata->jadwal_bimbingan ?></span>
+                                                <span class="text-muted fw-bold text-muted d-block fs-7">End: <?= $vdata->jadwal_bimbingan ?></span>
                                             </td>
                                             <td>
                                                 <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Agenda: <?= $vdata->agenda ?></span>
@@ -115,8 +120,8 @@
                                         <th class="">Lokasi Bimbingan</th>
                                         <th class="">Hasil Bimbingan</th>
                                         <th class="">Status Ajuan</th>
-                                        <th class="">Jadwal Bimbingan Start</th>
-                                        <th class="">Jadwal Bimbingan End</th>
+                                        <th class="">Waktu Bimbingan</th>
+                                        <th class="">Jadwal Bimbingan</th>
                                         <th class="">Agenda</th>
                                         <th class="min-w-20px text-end">#</th>
                                         <!-- <th class="min-w-20px text-end">#</th> -->
@@ -144,16 +149,75 @@
                                                 <span class="text-muted fw-bold text-muted d-block fs-7">Hasil Bimbingan: <?= $vdata->hasil_bimbingan ?></span>
                                             </td>
                                             <td>
+                                                <?php if ($vdata->status_ajuan == 'PENDING') : ?>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-warning dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            PENDING
+                                                        </button>
+                                                        <ul class="dropdown-menu dropdown-menu-dark">
+                                                            <li>
+                                                                <a class="dropdown-item" href="#">
+                                                                    <form class="alert-verifikasi" action="/update/status/<?= $vdata->id_pengajuanbimbingan; ?>" method="POST">
+                                                                    <?= csrf_field() ?>
+                                                                    <input type="hidden" value="DITERIMA" name="status">
+                                                                    <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">DITERIMA</button>
+                                                                    </form>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="dropdown-item" href="#">
+                                                                    <form class="alert-verifikasi" action="/update/status/<?= $vdata->id_pengajuanbimbingan; ?>" method="POST">
+                                                                    <?= csrf_field() ?>
+                                                                    <input type="hidden" value="DITOLAK" name="status">
+                                                                    <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">DITOLAK</button>
+                                                                    </form>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                <?php elseif ($vdata->status_ajuan == 'DITOLAK') : ?>
+                                                    <div class="badge badge-danger"><?= $vdata->status_ajuan ?></div>
+                                                <?php elseif ($vdata->status_ajuan == 'DITERIMA') : ?>
+                                                    <div class="badge badge-success"><?= $vdata->status_ajuan ?></div>
+                                                <?php endif; ?>
+                                            </td>
+
+                                            <!-- <td>
+                                                <?php if ($vdata->status_ajuan == 'PENDING') : ?>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-sm btn-warning mt-2 mb-2 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            PENDING
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                            <form class="alert-verifikasi" action="" method="POST">
+                                                                <?= csrf_field() ?>
+                                                                <input type="hidden" value="DITERIMA" name="status">
+                                                                <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">DiTERIMA</button>
+                                                            </form>
+                                                            <form class="alert-verifikasi" action="" method="POST">
+                                                                <?= csrf_field() ?>
+                                                                <input type="hidden" value="ditolak" name="status">
+                                                                <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Ditolak">DITOLAK</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                <?php elseif ($vdata->status_ajuan == 'DITOLAK') : ?>
+                                                    <div class="badge badge-danger"><?= $vdata->status_ajuan ?></div>
+                                                <?php else : ?>
+                                                    <div class="badge badge-success"><?= $vdata->status_ajuan ?></div>
+                                                <?php endif; ?>
+                                            </td> -->
+                                            <!-- <td>
                                                 <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Status Ajuan: <?= $vdata->status_ajuan ?></span>
                                                 <span class="text-muted fw-bold text-muted d-block fs-7">Status Ajuan: <?= $vdata->status_ajuan ?></span>
+                                            </td> -->
+                                            <td>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata->waktu_bimbingan ?></span>
+                                                <span class="text-muted fw-bold text-muted d-block fs-7">End: <?= $vdata->waktu_bimbingan ?></span>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata->jadwal_bimbingan_start ?></span>
-                                                <span class="text-muted fw-bold text-muted d-block fs-7">End: <?= $vdata->jadwal_bimbingan_start ?></span>
-                                            </td>
-                                            <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata->jadwal_bimbingan_end ?></span>
-                                                <span class="text-muted fw-bold text-muted d-block fs-7">End: <?= $vdata->jadwal_bimbingan_end ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata->jadwal_bimbingan ?></span>
+                                                <span class="text-muted fw-bold text-muted d-block fs-7">End: <?= $vdata->jadwal_bimbingan ?></span>
                                             </td>
                                             <td>
                                                 <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Agenda: <?= $vdata->agenda ?></span>
@@ -362,8 +426,8 @@
                 { "data": "lokasi_bimbingan" },
                 { "data": "hasil_bimbingan" },
                 { "data": "status_ajuan" },
-                { "data": "jadwal_bimbingan_start" },
-                { "data": "jadwal_bimbingan_end" },
+                { "data": "waktu_bimbingan" },
+                { "data": "jadwal_bimbingan" },
                 { "data": "agenda" },
             ]
         });

@@ -65,7 +65,7 @@ $routes->group('api/pengajuanjudul', static function ($routes) {
 });
 
 $routes->post('pengajuanjudul/update_status/(:num)', 'PengajuanJudulController::updateStatus/$1');
-
+$routes->post('update/status/(:num)', 'PengajuanBimbinganController::updateStatus/$1');
 //PENGAJUAN BIMBINGAN
 $routes->group('pengajuanbimbingan', static function ($routes) {
     $routes->get('/', 'PengajuanBimbinganController::get_data');
@@ -73,6 +73,7 @@ $routes->group('pengajuanbimbingan', static function ($routes) {
     $routes->post('store', 'PengajuanBimbinganController::store');
     $routes->get('edit/(:segment)', 'PengajuanBimbinganController::edit/$1');
     $routes->post('update/(:num)', 'PengajuanBimbinganController::update/$1');
+    // $routes->post('update/status/(:num)', 'PengajuanBimbinganController::updateStatus/$1');
     $routes->get('delete/(:num)', 'PengajuanBimbinganController::delete/$1');
     $routes->get('data', 'PengajuanBimbinganController::get_data');
 });
