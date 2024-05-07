@@ -216,6 +216,10 @@
                                                 <span class="text-muted fw-bold text-muted d-block fs-7">End: <?= $vdata->waktu_bimbingan ?></span>
                                             </td>
                                             <td>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata->waktu_bimbingan ?></span>
+                                                <span class="text-muted fw-bold text-muted d-block fs-7">End: <?= $vdata->waktu_bimbingan ?></span>
+                                            </td>
+                                            <td>
                                                 <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata->jadwal_bimbingan ?></span>
                                                 <span class="text-muted fw-bold text-muted d-block fs-7">End: <?= $vdata->jadwal_bimbingan ?></span>
                                             </td>

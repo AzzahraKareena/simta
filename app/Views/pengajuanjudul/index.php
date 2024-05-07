@@ -74,28 +74,28 @@
                                     <?php foreach ($data as $vdata): ?>
                                         <tr>
                                         <td>
-                    <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->nama_judul1 ?></span>
+                    <span class="text-dark text-hover-primary d-block fs-6"><?= $vdata->nama_judul1 ?></span>
                 </td>
                 <td>
-                    <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->deskripsi_sistem1 ?></span>
+                    <span class="text-dark text-hover-primary d-block fs-6"><?= $vdata->deskripsi_sistem1 ?></span>
                 </td>
                 <td>
-                    <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->nama_judul2 ?></span>
+                    <span class="text-dark text-hover-primary d-block fs-6"><?= $vdata->nama_judul2 ?></span>
                 </td>
                 <td>
-                    <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->deskripsi_sistem2 ?></span>
+                    <span class="text-dark text-hover-primary d-block fs-6"><?= $vdata->deskripsi_sistem2 ?></span>
                 </td>
                 <td>
-                    <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->nama_judul3 ?></span>
+                    <span class="text-dark text-hover-primary d-block fs-6"><?= $vdata->nama_judul3 ?></span>
                 </td>
                 <td>
-                    <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->deskripsi_sistem3 ?></span>
+                    <span class="text-dark text-hover-primary d-block fs-6"><?= $vdata->deskripsi_sistem3 ?></span>
                 </td>
                 <td>
-                    <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->catatan ?></span>
+                    <span class="text-dark text-hover-primary d-block fs-6"><?= $vdata->catatan ?></span>
                 </td>
                 <td>
-                    <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->id_rekom_dospem1 ?></span>
+                    <span class="text-dark text-hover-primary d-block fs-6"><?= $vdata->id_rekom_dospem1 ?></span>
                 </td>
                 <td>
                     <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->status_pj ?></span>

@@ -55,14 +55,14 @@
                                     <div class="row">
                                         <div class="col">
                                             <div class="fv-row mb-10">
-                                                <label class="form-label required fs-6 fw-bolder text-dark">Jadwal Bimbingan Start Date</label>
-                                                <input class="form-control form-control-lg form-control-solid" type="time" name="jadwal_bimbingan_start" autocomplete="off" placeholder="Input Jadwal Bimbingan Start Date" value="<?= old('jadwal_bimbingan_start')?? $dataForm->jadwal_bimbingan_start??"" ?>" required />
+                                                <label class="form-label required fs-6 fw-bolder text-dark">Waktu bimbingan</label>
+                                                <input class="form-control form-control-lg form-control-solid" type="time" name="waktu_bimbingan" autocomplete="off" placeholder="Input Jadwal Bimbingan Start Date" value="<?= old('waktu_bimbingan') ?? $dataForm->waktu_bimbingan ?? "" ?>" required />
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="fv-row mb-10">
-                                                <label class="form-label required fs-6 fw-bolder text-dark">Pengajuan Bimbingan End Date</label>
-                                                <input class="form-control form-control-lg form-control-solid" type="date" name="jadwal_bimbingan_end" autocomplete="off" placeholder="Input Pengajuan Judul End Date" value="<?= old('pengajuan_judul_end')?? $dataForm->pengajuan_judul_end??"" ?>" required />
+                                                <label class="form-label required fs-6 fw-bolder text-dark">Jadwal bimbingan</label>
+                                                <input class="form-control form-control-lg form-control-solid" type="date" name="jadwal_bimbingan" autocomplete="off" placeholder="Input Pengajuan Judul End Date" value="<?= old('jadwal_bimbingan')?? $dataForm->jadwal_bimbingan??"" ?>" required />
                                             </div>
                                         </div>
                                     </div>
@@ -78,7 +78,7 @@
                                                 <label class="form-label required fs-6 fw-bolder text-dark">Pengajuan Bimbingan End Date</label>
                                                 <input class="form-control form-control-lg form-control-solid" type="date" name="pengajuan_bimbingan_end" autocomplete="off" placeholder="Input Pengajuan Bimbingan End Date" value="<?= old('pengajuan_bimbingan_end')?? $dataForm->pengajuan_bimbingan_end??"" ?>" required />
                                                 <label class="form-label required fs-6 fw-bolder text-dark">Jadwal Bimbingan End Date</label>
-                                                <input class="form-control form-control-lg form-control-solid" type="time" name="jadwal_bimbingan_end" autocomplete="off" placeholder="Input Jadwal Bimbingan End Date" value="<?= old('jadwal_bimbingan_end')?? $dataForm->jadwal_bimbingan_end??"" ?>" required />
+                                                <input class="form-control form-control-lg form-control-solid" type="time" name="jadwal_bimbingan" autocomplete="off" placeholder="Input Jadwal Bimbingan End Date" value="<?= old('jadwal_bimbingan')?? $dataForm->jadwal_bimbingan??"" ?>" required />
                                             </div>
                                         </div>
                                     </div> -->

@@ -19,7 +19,7 @@
                     <!--begin::Body-->
                     <div class="card-body py-3">
                         <!--begin::Form-->
-                        <form class="form w-100" method="post" id="form_pengajuanjudul" action="<?= service('router')->getMatchedRoute()[0] == "pengajuanjudul/create" ? base_url('pengajuanjudul/store') : base_url('pengajuanjudul/update/'.$dataForm->id_pengajuanjudul??"") ?>">
+                        <form class="form w-100" method="post" enctype="multipart/form-data" id="form_pengajuanjudul" action="<?= service('router')->getMatchedRoute()[0] == "pengajuanjudul/create" ? base_url('pengajuanjudul/store') : base_url('pengajuanjudul/update/'.$dataForm->id_pengajuanjudul??"") ?>">
                             <?= csrf_field() ?>
                             <!--begin::Input group-->
                             <?php if (session()->getFlashdata('errorForm')) : ?>
@@ -50,7 +50,8 @@
                                     </div>
                                     <div class="fv-row mb-10">
                                         <label class="form-label required fs-6 fw-bolder text-dark">Deskripsi Sistem 1</label>
-                                        <trix-editor input="deskripsi_sistem1" name="deskripsi_sistem1"><?= old('deskripsi_sistem1')?? $dataForm->deskripsi_sistem1??"" ?></trix-editor>
+                                        <input type="hidden" id="deskripsi_sistem1" name="deskripsi_sistem1" value="<?= old('deskripsi_sistem1')?? $dataForm->deskripsi_sistem1??"" ?>">
+                                        <trix-editor input="deskripsi_sistem1"><?= old('deskripsi_sistem1')?? $dataForm->deskripsi_sistem1??"" ?></trix-editor>
                                         <!-- <input class="form-control form-control-lg form-control-solid" type="text" name="deskripsi_sistem1" autocomplete="off" placeholder="Input deskripsi_sistem1" value="<?= old('deskripsi_sistem1')?? $dataForm->deskripsi_sistem1??"" ?>" required /> -->
                                     </div>
                                     <div class="fv-row mb-10">
@@ -59,7 +60,8 @@
                                     </div>
                                     <div class="fv-row mb-10">
                                         <label class="form-label required fs-6 fw-bolder text-dark">Deskripsi Sistem 2</label>
-                                        <trix-editor input="deskripsi_sistem2" name="deskripsi_sistem2"><?= old('deskripsi_sistem2')?? $dataForm->deskripsi_sistem2??"" ?></trix-editor>
+                                        <input type="hidden" id="deskripsi_sistem2" name="deskripsi_sistem2" value="<?= old('deskripsi_sistem2')?? $dataForm->deskripsi_sistem2??"" ?>">
+                                        <trix-editor input="deskripsi_sistem2"><?= old('deskripsi_sistem2')?? $dataForm->deskripsi_sistem2??"" ?></trix-editor>
                                         <!-- <input class="form-control form-control-lg form-control-solid" type="text" name="deskripsi_sistem2" autocomplete="off" placeholder="Input deskripsi_sistem2" value="<?= old('deskripsi_sistem2')?? $dataForm->deskripsi_sistem2??"" ?>" required /> -->
                                     </div>
                                     <div class="fv-row mb-10">
@@ -68,7 +70,8 @@
                                     </div>
                                     <div class="fv-row mb-10">
                                         <label class="form-label required fs-6 fw-bolder text-dark">Deskripsi Sistem 3</label>
-                                        <trix-editor input="deskripsi_sistem3" name="deskripsi_sistem3"><?= old('deskripsi_sistem3')?? $dataForm->deskripsi_sistem3??"" ?></trix-editor>
+                                        <input type="hidden" id="deskripsi_sistem3" name="deskripsi_sistem3" value="<?= old('deskripsi_sistem3')?? $dataForm->deskripsi_sistem3??"" ?>">
+                                        <trix-editor input="deskripsi_sistem3"><?= old('deskripsi_sistem3')?? $dataForm->deskripsi_sistem3??"" ?></trix-editor>
                                         <!-- <input class="form-control form-control-lg form-control-solid" type="text" name="deskripsi_sistem3" autocomplete="off" placeholder="Input deskripsi_sistem3" value="<?= old('deskripsi_sistem3')?? $dataForm->deskripsi_sistem3??"" ?>" required /> -->
                                     </div>
                                     <div class="fv-row mb-10">
