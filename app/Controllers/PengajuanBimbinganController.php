@@ -25,12 +25,27 @@ class PengajuanBimbinganController extends ResourceController
 
         // fetch data from bimbingan, then get nama mahasiswa from mahasiswa table where id mhs in bimbingan table
         $data = $bimbinganModel->asObject()->findAll();
+        // $data2 = $mahasiswaModel->asObject()->findAll();
+
+        
         foreach ($data as $bimbingan) {
-            $mahasiswa = $mahasiswaModel->where('id_user', $bimbingan->id_mhs)->first();
-            $bimbingan->nama_mahasiswa = $mahasiswa->nama;
-            $bimbingan->nim = $mahasiswa->nim;
+            if (session()->get('role') == 'Mahasiswa') {
+                // Jika rolenya adalah "Mahasiswa", maka hanya data yang sesuai dengan ID mahasiswa yang sedang login yang akan ditampilkan
+                $mahasiswa = $mahasiswaModel->where('id_user', session()->get('id'))->first();
+                if ($mahasiswa) {
+                    $bimbingan->id_mhs = $mahasiswa->id_user;
+                    $bimbingan->nama_mahasiswa = $mahasiswa->nama;
+                    $bimbingan->nim = $mahasiswa->nim;
+                }
+            } else {
+                // Jika rolenya bukan "Mahasiswa", maka semua data bimbingan akan ditampilkan
+                $mahasiswa = $mahasiswaModel->first();
+                $bimbingan->id_mhs = $mahasiswa->id_user;
+                $bimbingan->nama_mahasiswa = $mahasiswa->nama;
+                $bimbingan->nim = $mahasiswa->nim;
+            }
         }
-        // return $this->response->setJSON($data);
+        // return $this->response->setJSON($mahasiswa->nama);
 
         // since i'm not using it as rest api, send it to view
         $operation['data'] = $data;
@@ -57,6 +72,8 @@ class PengajuanBimbinganController extends ResourceController
     {
         // $data = $this->request->getPost();
         // get data from request per field
+        $pengajuanBimbinganModel = new PengajuanBimbinganModel();
+
         $data = [
             // id_mhs get from user session
             'id_mhs'  => session()->get('user_id'),
@@ -66,17 +83,18 @@ class PengajuanBimbinganController extends ResourceController
             'jadwal_bimbingan_end' => $this->request->getPost('jadwal_bimbingan_end'),
             'agenda' => $this->request->getPost('agenda'),
         ];
-        $pengajuanBimbinganModel = new PengajuanBimbinganModel();
+        // dd($data);
         $insert = $pengajuanBimbinganModel->insert($data);
-        // return redirect()->to('pengajuanbimbingan/index');
+
         if ($insert) {
-            // return $this->response->setJSON(['status' => 'success', 'message' => 'Data berhasil disimpan']);
             return redirect()->to('pengajuanbimbingan');
         } else {
             return $this->response->setJSON(['status' => 'error', 'message' => 'Data gagal disimpan']);
         }
 
     }
+
+
 
     public function edit($id = null)
     {

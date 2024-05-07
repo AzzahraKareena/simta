@@ -56,13 +56,13 @@
                                         <div class="col">
                                             <div class="fv-row mb-10">
                                                 <label class="form-label required fs-6 fw-bolder text-dark">Jadwal Bimbingan Start Date</label>
-                                                <input class="form-control form-control-lg form-control-solid" type="time" name="jadwal_bimbingan_start" autocomplete="off" placeholder="Input Jadwal Bimbingan Start Date" value="<?= old('jadwal_bimbingan_start')?? $dataForm->jadwal_bimbingan_start??"" ?>" required />
+                                                <input class="form-control form-control-lg form-control-solid" type="datetime-local" name="jadwal_bimbingan_start" autocomplete="off" placeholder="Input Jadwal Bimbingan Start Date" value="<?= old('jadwal_bimbingan_start')?? $dataForm->jadwal_bimbingan_start??"" ?>" required />
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="fv-row mb-10">
                                                 <label class="form-label required fs-6 fw-bolder text-dark">Pengajuan Bimbingan End Date</label>
-                                                <input class="form-control form-control-lg form-control-solid" type="date" name="jadwal_bimbingan_end" autocomplete="off" placeholder="Input Pengajuan Judul End Date" value="<?= old('pengajuan_judul_end')?? $dataForm->pengajuan_judul_end??"" ?>" required />
+                                                <input class="form-control form-control-lg form-control-solid" type="datetime-local" name="jadwal_bimbingan_end" autocomplete="off" placeholder="Input Pengajuan Judul End Date" value="<?= old('pengajuan_judul_end')?? $dataForm->pengajuan_judul_end??"" ?>" required />
                                             </div>
                                         </div>
                                     </div>
