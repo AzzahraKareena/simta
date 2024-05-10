@@ -56,10 +56,10 @@
                                 <!--begin::Table head-->
                                 <thead>
                                     <tr class="fw-bolder text-muted">
-                                        <th class="">Abstrak</th>
-                                        <th class="">Proposal TA</th>
-                                        <th class="">Ajuan Tanggal Ujian</th>
-                                        <th class="min-w-20px text-end">#</th>
+                                        <th class="min-w-20px text-center">Abstrak</th>
+                                        <th class="min-w-20px text-center">Proposal TA</th>
+                                        <th class="min-w-20px text-center">Ajuan Tanggal Ujian</th>
+                                        <th class="min-w-20px text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <!--end::Table head-->
@@ -80,27 +80,45 @@
                                                 <span class="text-muted fw-bold text-muted d-block fs-7">End: <?=$vdata['ajuan_tgl_ujian']?></span>
                                             </td>
                                             <td>
-                                                <div class="d-flex justify-content-end flex-shrink-0">
-                                                    <a href="<?= base_url('assets/berkas/Berita Acara.pdf') ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Unduh Berkas">
-                                                        <span class="svg-icon svg-icon-3">
-                                                            <!-- Icon untuk unduh berkas -->
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download">
-                                                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                                                <polyline points="7 10 12 15 17 10"></polyline>
-                                                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                                                <?php if(session()->get('role') == 'Koordinator'): ?>
+                                                    <div class="d-flex justify-content-end flex-shrink-0">
+                                                        <button onclick="openFileUploader(<?php echo $vdata['id_ujianproposal']; ?>)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Upload Jadwal">
+                                                            <span class="svg-icon svg-icon-3 svg-icon-dark">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                                <title>Upload Jadwal</title>
+                                                                <defs/>
+                                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                    <rect x="0" y="0" width="24" height="24"/>
+                                                                    <path d="M2,13 C2,12.5 2.5,12 3,12 C3.5,12 4,12.5 4,13 C4,13.3333333 4,15 4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 C2,15 2,13.3333333 2,13 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
+                                                                    <rect fill="#000000" opacity="0.3" x="11" y="2" width="2" height="14" rx="1"/>
+                                                                    <path d="M12.0362375,3.37797611 L7.70710678,7.70710678 C7.31658249,8.09763107 6.68341751,8.09763107 6.29289322,7.70710678 C5.90236893,7.31658249 5.90236893,6.68341751 6.29289322,6.29289322 L11.2928932,1.29289322 C11.6689749,0.916811528 12.2736364,0.900910387 12.6689647,1.25670585 L17.6689647,5.75670585 C18.0794748,6.12616487 18.1127532,6.75845471 17.7432941,7.16896473 C17.3738351,7.57947475 16.7415453,7.61275317 16.3310353,7.24329415 L12.0362375,3.37797611 Z" fill="#000000" fill-rule="nonzero"/>
+                                                                </g>
                                                             </svg>
-                                                        </span>
-                                                    </a>
-                                                    <a href="<?= base_url('assets/rilisjadwal/Jadwal Seminar Proposal Hari I.pdf') ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Lihat Pengumuman Seminar Proposal">
-                                                        <span class="svg-icon svg-icon-3">
-                                                            <!-- Icon untuk lihat pengumuman -->
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye">
-                                                                <circle cx="12" cy="12" r="3"></circle>
-                                                                <path d="M2 12s5-8 10-8 10 8 10 8-5 8-10 8-10-8-10-8z"></path>
-                                                            </svg>
-                                                        </span>
-                                                    </a>
-                                                 </div>
+                                                            </span>
+                                                        </button>
+                                                <?php endif; ?>
+                                                <?php if($vdata['jadwal'] == !NULL): ?>
+                                                        <a href="<?= base_url('assets/berkas/Berita Acara.pdf') ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Unduh Berkas">
+                                                            <span class="svg-icon svg-icon-3">
+                                                                <!-- Icon untuk unduh berkas -->
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download">
+                                                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                                                </svg>
+                                                            </span>
+                                                        </a>
+                                                        <a href="<?= base_url('public/assets/jadwalujian/'. $vdata['jadwal']) ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Lihat Pengumuman Seminar Proposal" target="_blank">
+                                                            <span class="svg-icon svg-icon-3">
+                                                                <!-- Icon untuk lihat pengumuman -->
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye">
+                                                                    <circle cx="12" cy="12" r="3"></circle>
+                                                                    <path d="M2 12s5-8 10-8 10 8 10 8-5 8-10 8-10-8-10-8z"></path>
+                                                                </svg>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -254,6 +272,53 @@
                 </div>
             </div>
         </div>
+        <script>
+            function openFileUploader(proposalId) {
+                var fileInput = document.createElement('input');
+                fileInput.type = 'file';
+                fileInput.accept = 'application/pdf'; // Set hanya menerima file PDF
+                fileInput.onchange = function(e) {
+                    var file = e.target.files[0];
+                    
+                    if (!file || file.type !== 'application/pdf') {
+                        alert('Mohon pilih file PDF.');
+                        return;
+                    }
+
+                    var formData = new FormData();
+                    formData.append('file', file);
+
+                    // Ganti '(:num)' dengan nilai yang sesuai, misalnya idProposal
+                    var route = 'upload/jadwal/' + proposalId; 
+
+                    fetch(route, {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Gagal mengunggah file');
+                        }
+                        return response.text();
+                    })
+                    .then(data => {
+                        console.log('Respon dari server:', data);
+                        console.log('File berhasil diunggah:', file.name); // Menampilkan nama file yang diunggah
+
+                        //Reload halaman setelah file berhasil diunggah
+                        location.reload();
+                    })
+                    .catch(error => {
+                        console.error('Terjadi kesalahan:', error);
+                    });
+                };
+
+                fileInput.click();
+            }
+        </script>
+
+
+
         <!--end::Modal - New Product-->
         <!--end::Modals-->
     </div>

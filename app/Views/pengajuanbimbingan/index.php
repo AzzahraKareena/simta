@@ -229,7 +229,7 @@
                                             </td>
                                             <td>
                                                 <div class="d-flex justify-content-end flex-shrink-0">
-                                                    <a href="<?= base_url('pengajuanbimbingan/edit/'.$vdata->id_pengajuanbimbingan) ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Edit Data">
+                                                    <a href="javascript:;" data-id="<?= $vdata->id_pengajuanbimbingan ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1 edit-btn" title="Edit Data">
                                                         <!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
                                                         <span class="svg-icon svg-icon-3">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -436,3 +436,23 @@
             ]
         });
     }); -->
+
+    <script>
+    // Fungsi untuk menangani klik tombol Edit
+    $('.edit-btn').click(function() {
+        var id = $(this).data('id');
+        // Kirim permintaan Ajax untuk mengambil data yang akan diedit
+        $.ajax({
+            url: '/PengajuanBimbingan/get_data/' + id, // Ganti controller_name dengan nama controller Anda
+            type: 'GET',
+            success: function(response) {
+                // Tampilkan data dalam formulir edit
+                $('#edit-modal #name').val(response.name);
+                $('#edit-modal #description').val(response.description);
+                $('#edit-modal #price').val(response.price);
+                // Tampilkan modal atau form edit
+                $('#edit-modal').modal('show');
+            }
+        });
+    });
+</script>

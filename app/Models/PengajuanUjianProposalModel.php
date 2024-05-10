@@ -19,7 +19,8 @@ class PengajuanUjianProposalModel extends Model
         'revisi_proposal_date',
         'ajuan_tgl_ujian',
         'id_penguji1',
-        'id_penguji2'
+        'id_penguji2',
+        'jadwal'
     ];
 
     // Jika Anda memiliki aturan validasi, Anda dapat mendefinisikannya di sini
