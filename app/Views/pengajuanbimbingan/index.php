@@ -132,26 +132,15 @@
                                 <tbody>
                                     <?php foreach ($data as $vdata): ?>
                                         <tr>
-                                            <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->nama_mahasiswa ?></span>
-                                                <span class="text-muted fw-bold text-muted d-block fs-7">Nama Mahasiswa: <?= $vdata->nama_mahasiswa ?></span>
-                                            </td>
-                                            <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->nim ?></span>
-                                                <span class="text-muted fw-bold text-muted d-block fs-7">NIM: <?= $vdata->nim ?></span>
-                                            </td>
-                                            <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->lokasi_bimbingan ?></span>
-                                                <span class="text-muted fw-bold text-muted d-block fs-7">Lokasi Bimbingan: <?= $vdata->lokasi_bimbingan ?></span>
-                                            </td>
-                                            <td>
-                                                <!-- <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata->hasil_bimbingan ?></span> -->
-                                                <span class="text-muted fw-bold text-muted d-block fs-7">Hasil Bimbingan: <?= $vdata->hasil_bimbingan ?></span>
-                                            </td>
+                                            <td class="nilaiId d-none"><?= $vdata->nama_mahasiswa ?></td>
+                                            <td contenteditable="true" class="nama_mahasiswa"><?= $vdata->nama_mahasiswa ?></td>
+                                            <td contenteditable="true" class="nim"><?= $vdata->nim ?></td>
+                                            <td contenteditable="true" class="lokasi_bimbingan"><?= $vdata->lokasi_bimbingan ?></td>
+                                            <td contenteditable="true" class="hasil_bimbingan"><?= $vdata->hasil_bimbingan ?></td>
                                             <td>
                                                 <?php if ($vdata->status_ajuan == 'PENDING') : ?>
                                                     <div class="dropdown">
-                                                        <button class="btn btn-warning dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <button class="btn btn-sm btn-warning dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             PENDING
                                                         </button>
                                                         <ul class="dropdown-menu dropdown-menu-dark">
@@ -181,52 +170,9 @@
                                                     <div class="badge badge-success"><?= $vdata->status_ajuan ?></div>
                                                 <?php endif; ?>
                                             </td>
-
-                                            <!-- <td>
-                                                <?php if ($vdata->status_ajuan == 'PENDING') : ?>
-                                                    <div class="dropdown">
-                                                        <button class="btn btn-sm btn-warning mt-2 mb-2 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            PENDING
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                            <form class="alert-verifikasi" action="" method="POST">
-                                                                <?= csrf_field() ?>
-                                                                <input type="hidden" value="DITERIMA" name="status">
-                                                                <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">DiTERIMA</button>
-                                                            </form>
-                                                            <form class="alert-verifikasi" action="" method="POST">
-                                                                <?= csrf_field() ?>
-                                                                <input type="hidden" value="ditolak" name="status">
-                                                                <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Ditolak">DITOLAK</button>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                <?php elseif ($vdata->status_ajuan == 'DITOLAK') : ?>
-                                                    <div class="badge badge-danger"><?= $vdata->status_ajuan ?></div>
-                                                <?php else : ?>
-                                                    <div class="badge badge-success"><?= $vdata->status_ajuan ?></div>
-                                                <?php endif; ?>
-                                            </td> -->
-                                            <!-- <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Status Ajuan: <?= $vdata->status_ajuan ?></span>
-                                                <span class="text-muted fw-bold text-muted d-block fs-7">Status Ajuan: <?= $vdata->status_ajuan ?></span>
-                                            </td> -->
-                                            <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata->waktu_bimbingan ?></span>
-                                                <span class="text-muted fw-bold text-muted d-block fs-7">End: <?= $vdata->waktu_bimbingan ?></span>
-                                            </td>
-                                            <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata->waktu_bimbingan ?></span>
-                                                <span class="text-muted fw-bold text-muted d-block fs-7">End: <?= $vdata->waktu_bimbingan ?></span>
-                                            </td>
-                                            <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata->jadwal_bimbingan ?></span>
-                                                <span class="text-muted fw-bold text-muted d-block fs-7">End: <?= $vdata->jadwal_bimbingan ?></span>
-                                            </td>
-                                            <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Agenda: <?= $vdata->agenda ?></span>
-                                                <span class="text-muted fw-bold text-muted d-block fs-7">Agenda: <?= $vdata->agenda ?></span>
-                                            </td>
+                                            <td contenteditable="true" class="waktu_bimbingan"><?= $vdata->waktu_bimbingan ?></td>
+                                            <td contenteditable="true" class="jadwal_bimbingan"><?= $vdata->jadwal_bimbingan ?></td>
+                                            <td contenteditable="true" class="agenda"><?= $vdata->agenda ?></td>
                                             <td>
                                                 <div class="d-flex justify-content-end flex-shrink-0">
                                                     <a href="javascript:;" data-id="<?= $vdata->id_pengajuanbimbingan ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1 edit-btn" title="Edit Data">
@@ -410,6 +356,40 @@
         <!--end::Modal - New Product-->
         <!--end::Modals-->
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('td[contenteditable=true]').on('blur', function() {
+                var cell = $(this);
+                var column = cell.index();
+                var rowId = cell.closest('tr').find('.nilaiId').text();
+                var value = cell.text();
+                
+                // Prepare data to send
+                var data = {
+                    column: column,
+                    value: value,
+                    rowId: rowId
+                };
+
+                // Send data to server
+                $.ajax({
+                    url: 'pengajuanbimbingan/update/' + rowId,
+                    type: 'POST',
+                    data: data,
+                    success: function(response) {
+                        console.log('Data updated successfully:', response);
+                        // You can provide feedback to the user here if needed
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error updating data:', error);
+                        // Handle errors here
+                    }
+                });
+            });
+        });
+    </script>
 <?= $this->endSection() ?>
 
 <?= $this->section('js_custom') ?>
