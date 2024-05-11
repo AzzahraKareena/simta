@@ -59,7 +59,10 @@
                                         <th class="min-w-20px text-center">Abstrak</th>
                                         <th class="min-w-20px text-center">Proposal TA</th>
                                         <th class="min-w-20px text-center">Ajuan Tanggal Ujian</th>
-                                        <th class="min-w-20px text-center">Action</th>
+                                        <th class="min-w-20px text-center">Revisi Proposal</th>
+                                        <?php if(isset($vdata) && $vdata['jadwal'] !== null): ?>
+                                            <th class="min-w-20px text-center">Action</th>
+                                        <?php endif; ?>
                                     </tr>
                                 </thead>
                                 <!--end::Table head-->
@@ -80,6 +83,92 @@
                                                 <span class="text-muted fw-bold text-muted d-block fs-7">End: <?=$vdata['ajuan_tgl_ujian']?></span>
                                             </td>
                                             <td>
+                                                <?php if(session()->get('role') == 'Dosen'): ?>
+                                                    <?php if (!empty($vdata) && isset($vdata['status_pengajuan'])) : ?>
+                                                        <?php if ($vdata['status_pengajuan'] == 'PENDING') : ?>
+                                                            <div class="dropdown">
+                                                                <button class="btn btn-sm btn-warning dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    PENDING
+                                                                </button>
+                                                                <ul class="dropdown-menu dropdown-menu-dark">
+                                                                    <li>
+                                                                        <a class="dropdown-item" href="#">
+                                                                            <form class="alert-verifikasi" action="/update/status_up/<?= $vdata['id_ujianproposal']; ?>" method="POST">
+                                                                                <?= csrf_field() ?>
+                                                                                <input type="hidden" value="DITERIMA" name="status">
+                                                                                <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">DITERIMA</button>
+                                                                            </form>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="dropdown-item" href="#">
+                                                                            <form class="alert-verifikasi" action="/update/status_up/<?= $vdata['id_ujianproposal']; ?>" method="POST">
+                                                                                <?= csrf_field() ?>
+                                                                                <input type="hidden" value="REVISI" name="status">
+                                                                                <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">REVISI</button>
+                                                                            </form>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="dropdown-item" href="#">
+                                                                            <form class="alert-verifikasi" action="/update/status_up/<?= $vdata['id_ujianproposal']; ?>" method="POST">
+                                                                                <?= csrf_field() ?>
+                                                                                <input type="hidden" value="DITOLAK" name="status">
+                                                                                <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">DITOLAK</button>
+                                                                            </form>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        <?php elseif ($vdata['status_pengajuan'] == 'REVISI') : ?>
+                                                            <div class="dropdown">
+                                                                <button class="btn btn-sm btn-info dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    REVISI
+                                                                </button>
+                                                                <ul class="dropdown-menu dropdown-menu-dark">
+                                                                    <li>
+                                                                        <a class="dropdown-item" href="#">
+                                                                            <form class="alert-verifikasi" action="/update/status_up/<?= $vdata['id_ujianproposal']; ?>" method="POST">
+                                                                                <?= csrf_field() ?>
+                                                                                <input type="hidden" value="DITERIMA" name="status">
+                                                                                <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">DITERIMA</button>
+                                                                            </form>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="dropdown-item" href="#">
+                                                                            <form class="alert-verifikasi" action="/update/status_up/<?= $vdata['id_ujianproposal']; ?>" method="POST">
+                                                                                <?= csrf_field() ?>
+                                                                                <input type="hidden" value="DITOLAK" name="status">
+                                                                                <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">DITOLAK</button>
+                                                                            </form>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        <?php elseif ($vdata['status_pengajuan'] == 'DITOLAK') : ?>
+                                                            <div class="badge badge-danger"><?= $vdata['status_pengajuan'] ?></div>
+                                                        <?php elseif ($vdata['status_pengajuan'] == 'DITERIMA') : ?>
+                                                            <div class="badge badge-success"><?= $vdata['status_pengajuan'] ?></div>
+                                                        <?php endif; ?>
+                                                    <?php endif; ?>
+
+                                                <?php elseif(session()->get('role') == 'Mahasiswa'): ?>
+                                                    <!-- Button code here -->
+                                                    <?php if (!empty($vdata) && isset($vdata['status_pengajuan'])) : ?>
+                                                        <?php if ($vdata['status_pengajuan'] == 'PENDING') : ?>
+                                                            <div class="badge badge-warning"><?= $vdata['status_pengajuan'] ?></div>
+                                                        <?php elseif ($vdata['status_pengajuan'] == 'DITOLAK') : ?>
+                                                            <div class="badge badge-danger"><?= $vdata['status_pengajuan'] ?></div>
+                                                        <?php elseif ($vdata['status_pengajuan'] == 'DITERIMA') : ?>
+                                                            <div class="badge badge-success"><?= $vdata['status_pengajuan'] ?></div>
+                                                        <?php elseif ($vdata['status_pengajuan'] == 'REVISI') : ?>
+                                                            <div class="badge badge-info"><?= $vdata['status_pengajuan'] ?></div>
+                                                        <?php endif; ?>
+                                                    <?php endif; ?>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td>
                                                 <?php if(session()->get('role') == 'Koordinator'): ?>
                                                     <div class="d-flex justify-content-end flex-shrink-0">
                                                         <button onclick="openFileUploader(<?php echo $vdata['id_ujianproposal']; ?>)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Upload Jadwal">
@@ -98,7 +187,8 @@
                                                         </button>
                                                 <?php endif; ?>
                                                 <?php if($vdata['jadwal'] == !NULL): ?>
-                                                        <a href="<?= base_url('assets/berkas/Berita Acara.pdf') ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Unduh Berkas">
+                                                    <!-- <div class="d-flex justify-content-end flex-shrink-0"> -->
+                                                        <a href="<?= base_url('assets/berkas/Berita Acara.pdf') ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1 mb-3" title="Unduh Berkas">
                                                             <span class="svg-icon svg-icon-3">
                                                                 <!-- Icon untuk unduh berkas -->
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download">
@@ -108,7 +198,8 @@
                                                                 </svg>
                                                             </span>
                                                         </a>
-                                                        <a href="<?= base_url('public/assets/jadwalujian/'. $vdata['jadwal']) ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Lihat Pengumuman Seminar Proposal" target="_blank">
+                                                        
+                                                        <a href="<?= base_url('public/assets/jadwalujian/'. $vdata['jadwal']) ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1 mb-3" title="Lihat Pengumuman Seminar Proposal" target="_blank">
                                                             <span class="svg-icon svg-icon-3">
                                                                 <!-- Icon untuk lihat pengumuman -->
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye">
@@ -117,7 +208,25 @@
                                                                 </svg>
                                                             </span>
                                                         </a>
-                                                    </div>
+                                                <?php endif; ?>
+                                                <?php if(session()->get('role') == 'Mahasiswa'): ?>
+                                                    <?php if($vdata['status_pengajuan'] == 'REVISI'): ?>
+                                                            <button onclick="openFileUploader(<?php echo $vdata['id_ujianproposal']; ?>)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Upload Revisi">
+                                                                <span class="svg-icon svg-icon-3 svg-icon-dark">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                                    <title>Upload Revisi</title>
+                                                                    <defs/>
+                                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <rect x="0" y="0" width="24" height="24"/>
+                                                                        <path d="M2,13 C2,12.5 2.5,12 3,12 C3.5,12 4,12.5 4,13 C4,13.3333333 4,15 4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 C2,15 2,13.3333333 2,13 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
+                                                                        <rect fill="#000000" opacity="0.3" x="11" y="2" width="2" height="14" rx="1"/>
+                                                                        <path d="M12.0362375,3.37797611 L7.70710678,7.70710678 C7.31658249,8.09763107 6.68341751,8.09763107 6.29289322,7.70710678 C5.90236893,7.31658249 5.90236893,6.68341751 6.29289322,6.29289322 L11.2928932,1.29289322 C11.6689749,0.916811528 12.2736364,0.900910387 12.6689647,1.25670585 L17.6689647,5.75670585 C18.0794748,6.12616487 18.1127532,6.75845471 17.7432941,7.16896473 C17.3738351,7.57947475 16.7415453,7.61275317 16.3310353,7.24329415 L12.0362375,3.37797611 Z" fill="#000000" fill-rule="nonzero"/>
+                                                                    </g>
+                                                                </svg>
+                                                                </span>
+                                                            </button>
+                                                        <!-- </div> -->
+                                                    <?php endif; ?>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>

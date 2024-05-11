@@ -67,6 +67,9 @@ $routes->group('api/pengajuanjudul', static function ($routes) {
 $routes->post('pengajuanjudul/update_status/(:num)', 'PengajuanJudulController::updateStatus/$1');
 $routes->post('update/status/(:num)', 'PengajuanBimbinganController::updateStatus/$1');
 $routes->post('upload/jadwal/(:num)', 'PengajuanUjianProposalController::uploadJadwal/$1');
+
+$routes->post('update/status_up/(:num)', 'PengajuanUjianProposalController::updateStatus/$1');
+
 //PENGAJUAN BIMBINGAN
 $routes->group('pengajuanbimbingan', static function ($routes) {
     $routes->get('/', 'PengajuanBimbinganController::get_data');

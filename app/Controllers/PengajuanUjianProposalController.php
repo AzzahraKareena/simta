@@ -27,6 +27,8 @@ class PengajuanUjianProposalController extends BaseController
     public function store()
     {
         $data = $this->request->getPost();
+        $data['status'] = $this->request->getPost('status');
+
         $pengajuanUjianProposalModel = new PengajuanUjianProposalModel();
         $pengajuanUjianProposalModel->insert($data);
         return redirect()->to('pengajuanujianproposal');
@@ -40,6 +42,16 @@ class PengajuanUjianProposalController extends BaseController
         $operation['title'] = 'Pengajuan Ujian Proposal';
         $operation['sub_title'] = 'Edit Pengajuan Ujian Proposal';
         return view('pengajuanujianproposal/create', $operation);
+    }
+
+    public function updateStatus($id = null)
+    {
+        $pengajuanUjianProposalModel = new PengajuanUjianProposalModel();
+        $data = $this->request->getPost('status');
+        // dd($data);
+        $pengajuanUjianProposalModel->update($id, ['status_pengajuan' => $data]);
+        // $model->update($id, ['status' => $status]);
+        return redirect()->to('pengajuanujianproposal');
     }
 
     public function update($id)

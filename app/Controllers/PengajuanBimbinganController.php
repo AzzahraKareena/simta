@@ -131,25 +131,25 @@ class PengajuanBimbinganController extends ResourceController
         return redirect()->to('pengajuanbimbingan');
     }
 
-    public function verifikasi($id = null)
-    {
-        // Pastikan hanya admin yang dapat melakukan verifikasi
-        if (session()->get('role') !== 'Admin') {
-            return redirect()->back()->with('error', 'Anda tidak memiliki izin untuk melakukan verifikasi.');
-        }
+    // public function verifikasi($id = null)
+    // {
+    //     // Pastikan hanya admin yang dapat melakukan verifikasi
+    //     if (session()->get('role') !== 'Admin') {
+    //         return redirect()->back()->with('error', 'Anda tidak memiliki izin untuk melakukan verifikasi.');
+    //     }
 
-        $status = $this->request->getPost('status');
+    //     $status = $this->request->getPost('status');
 
-        // Periksa apakah status yang diinginkan adalah status yang valid
-        if (!in_array($status, ['Disetujui', 'revisi', 'ditolak'])) {
-            return redirect()->back()->with('error', 'Status ajuan tidak valid.');
-        }
+    //     // Periksa apakah status yang diinginkan adalah status yang valid
+    //     if (!in_array($status, ['Disetujui', 'revisi', 'ditolak'])) {
+    //         return redirect()->back()->with('error', 'Status ajuan tidak valid.');
+    //     }
 
-        // Perbarui status ajuan di database
-        $pengajuanBimbinganModel = new PengajuanBimbinganModel();
-        $pengajuanBimbinganModel->update($id, ['status_ajuan' => $status]);
+    //     // Perbarui status ajuan di database
+    //     $pengajuanBimbinganModel = new PengajuanBimbinganModel();
+    //     $pengajuanBimbinganModel->update($id, ['status_ajuan' => $status]);
 
-        return redirect()->back()->with('success', 'Status ajuan berhasil diperbarui.');
-    }
+    //     return redirect()->back()->with('success', 'Status ajuan berhasil diperbarui.');
+    // }
 
 }
