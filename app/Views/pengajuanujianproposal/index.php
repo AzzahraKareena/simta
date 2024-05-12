@@ -60,9 +60,10 @@
                                         <th class="min-w-20px text-center">Proposal TA</th>
                                         <th class="min-w-20px text-center">Ajuan Tanggal Ujian</th>
                                         <th class="min-w-20px text-center">Revisi Proposal</th>
-                                        <?php if(isset($vdata) && $vdata['jadwal'] !== null): ?>
+                                        <th class="min-w-20px text-center">Action</th>
+                                        <!-- <?php if(isset($vdata) && $vdata['jadwal'] !== null): ?>
                                             <th class="min-w-20px text-center">Action</th>
-                                        <?php endif; ?>
+                                        <?php endif; ?> -->
                                     </tr>
                                 </thead>
                                 <!--end::Table head-->
@@ -153,7 +154,7 @@
                                                         <?php endif; ?>
                                                     <?php endif; ?>
 
-                                                <?php elseif(session()->get('role') == 'Mahasiswa'): ?>
+                                                <?php elseif(session()->get('role') !== 'Dosen'): ?>
                                                     <!-- Button code here -->
                                                     <?php if (!empty($vdata) && isset($vdata['status_pengajuan'])) : ?>
                                                         <?php if ($vdata['status_pengajuan'] == 'PENDING') : ?>
@@ -170,8 +171,8 @@
                                             </td>
                                             <td>
                                                 <?php if(session()->get('role') == 'Koordinator'): ?>
-                                                    <div class="d-flex justify-content-end flex-shrink-0">
-                                                        <button onclick="openFileUploader(<?php echo $vdata['id_ujianproposal']; ?>)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Upload Jadwal">
+                                                    <!-- <div class="d-flex justify-content-end flex-shrink-0"> -->
+                                                        <button onclick="openFileUploader(<?php echo $vdata['id_ujianproposal']; ?>)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1 mb-3" title="Upload Jadwal">
                                                             <span class="svg-icon svg-icon-3 svg-icon-dark">
                                                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                                                 <title>Upload Jadwal</title>
@@ -211,7 +212,7 @@
                                                 <?php endif; ?>
                                                 <?php if(session()->get('role') == 'Mahasiswa'): ?>
                                                     <?php if($vdata['status_pengajuan'] == 'REVISI'): ?>
-                                                            <button onclick="openFileUploader(<?php echo $vdata['id_ujianproposal']; ?>)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Upload Revisi">
+                                                            <button onclick="openFileUploaderRevisi(<?php echo $vdata['id_ujianproposal']; ?>)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Upload Revisi">
                                                                 <span class="svg-icon svg-icon-3 svg-icon-dark">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                                                     <title>Upload Revisi</title>
@@ -225,7 +226,7 @@
                                                                 </svg>
                                                                 </span>
                                                             </button>
-                                                        <!-- </div> -->
+                                                    <!-- </div> -->
                                                     <?php endif; ?>
                                                 <?php endif; ?>
                                             </td>
@@ -399,6 +400,49 @@
 
                     // Ganti '(:num)' dengan nilai yang sesuai, misalnya idProposal
                     var route = 'upload/jadwal/' + proposalId; 
+
+                    fetch(route, {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Gagal mengunggah file');
+                        }
+                        return response.text();
+                    })
+                    .then(data => {
+                        console.log('Respon dari server:', data);
+                        console.log('File berhasil diunggah:', file.name); // Menampilkan nama file yang diunggah
+
+                        //Reload halaman setelah file berhasil diunggah
+                        location.reload();
+                    })
+                    .catch(error => {
+                        console.error('Terjadi kesalahan:', error);
+                    });
+                };
+
+                fileInput.click();
+            }
+
+            function openFileUploaderRevisi(proposalId) {
+                var fileInput = document.createElement('input');
+                fileInput.type = 'file';
+                fileInput.accept = 'application/pdf'; // Set hanya menerima file PDF
+                fileInput.onchange = function(e) {
+                    var file = e.target.files[0];
+                    
+                    if (!file || file.type !== 'application/pdf') {
+                        alert('Mohon pilih file PDF.');
+                        return;
+                    }
+
+                    var formData = new FormData();
+                    formData.append('file', file);
+
+                    // Ganti '(:num)' dengan nilai yang sesuai, misalnya idProposal
+                    var route = 'upload/revisi/' + proposalId; 
 
                     fetch(route, {
                         method: 'POST',

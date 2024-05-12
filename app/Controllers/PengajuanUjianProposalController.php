@@ -84,6 +84,28 @@ class PengajuanUjianProposalController extends BaseController
         }
     }
 
+    public function uploadRevisi($proposalId)
+    {
+        $uploadedFile = $this->request->getFile('file');
+
+        // Pastikan file berhasil diunggah
+        if ($uploadedFile->isValid() && $uploadedFile->getClientMimeType() === 'application/pdf') {
+            // Pindahkan file yang diunggah ke folder yang diinginkan
+            $newFileName = $uploadedFile->getName();
+            $uploadedFile->move('public/assets/revisi_ujian/', $newFileName);
+
+            // Simpan detail file ke dalam database
+            $proposalModel = new PengajuanUjianProposalModel();
+            $proposalModel->update($proposalId, ['revisi_proposal' => $newFileName]);
+
+            // Kirim respon ke client
+            return $this->response->setJSON(['status' => 'success', 'message' => 'File berhasil diunggah']);
+        } else {
+            // Jika file tidak valid atau bukan PDF, kirim respon dengan status error
+            return $this->response->setStatusCode(400)->setJSON(['status' => 'error', 'message' => 'File tidak valid atau bukan PDF']);
+        }
+    }
+
 
     public function delete($id)
     {

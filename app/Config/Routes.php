@@ -69,6 +69,8 @@ $routes->post('update/status/(:num)', 'PengajuanBimbinganController::updateStatu
 $routes->post('upload/jadwal/(:num)', 'PengajuanUjianProposalController::uploadJadwal/$1');
 
 $routes->post('update/status_up/(:num)', 'PengajuanUjianProposalController::updateStatus/$1');
+$routes->post('upload/revisi/(:num)', 'PengajuanUjianProposalController::uploadRevisi/$1');
+
 
 //PENGAJUAN BIMBINGAN
 $routes->group('pengajuanbimbingan', static function ($routes) {
