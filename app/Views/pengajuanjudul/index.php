@@ -35,6 +35,7 @@
                                 <!--begin::Toolbar-->
                                 <div class="d-flex justify-content-end" data-kt-docs-table-toolbar="base">
                                     <!--begin::Add customer-->
+                                    <?php if(session()->get('role') == 'Mahasiswa'): ?>
                                     <a href="<?= base_url('pengajuanjudul/create')?>" class="btn btn-primary" data-bs-toggle="tooltip" title="Klik tambah data">
                                         <span class="svg-icon svg-icon-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -44,6 +45,7 @@
                                         </span>
                                         Tambah Data
                                     </a>
+                                    <?php endif ?>
                                     <!--end::Add customer-->
                                 </div>
                                 <!--end::Toolbar-->

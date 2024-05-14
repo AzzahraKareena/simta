@@ -18,6 +18,8 @@ class PengajuanUjianProposalModel extends Model
         'proposal_ta',
         'revisi_proposal_date',
         'ajuan_tgl_ujian',
+        'status_pengajuan',
+        'status_ajuan_revisi',
         'id_penguji1',
         'id_penguji2',
         'jadwal'
