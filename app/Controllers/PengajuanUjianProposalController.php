@@ -27,6 +27,8 @@ class PengajuanUjianProposalController extends BaseController
     public function store()
     {
         $data = $this->request->getPost();
+        $data['status'] = $this->request->getPost('status');
+
         $pengajuanUjianProposalModel = new PengajuanUjianProposalModel();
         $pengajuanUjianProposalModel->insert($data);
         return redirect()->to('pengajuanujianproposal');
@@ -40,6 +42,16 @@ class PengajuanUjianProposalController extends BaseController
         $operation['title'] = 'Pengajuan Ujian Proposal';
         $operation['sub_title'] = 'Edit Pengajuan Ujian Proposal';
         return view('pengajuanujianproposal/create', $operation);
+    }
+
+    public function updateStatus($id = null)
+    {
+        $pengajuanUjianProposalModel = new PengajuanUjianProposalModel();
+        $data = $this->request->getPost('status');
+        // dd($data);
+        $pengajuanUjianProposalModel->update($id, ['status_pengajuan' => $data]);
+        // $model->update($id, ['status' => $status]);
+        return redirect()->to('pengajuanujianproposal');
     }
 
     public function update($id)
@@ -63,6 +75,28 @@ class PengajuanUjianProposalController extends BaseController
             // Simpan detail file ke dalam database
             $proposalModel = new PengajuanUjianProposalModel();
             $proposalModel->update($proposalId, ['jadwal' => $newFileName]);
+
+            // Kirim respon ke client
+            return $this->response->setJSON(['status' => 'success', 'message' => 'File berhasil diunggah']);
+        } else {
+            // Jika file tidak valid atau bukan PDF, kirim respon dengan status error
+            return $this->response->setStatusCode(400)->setJSON(['status' => 'error', 'message' => 'File tidak valid atau bukan PDF']);
+        }
+    }
+
+    public function uploadRevisi($proposalId)
+    {
+        $uploadedFile = $this->request->getFile('file');
+
+        // Pastikan file berhasil diunggah
+        if ($uploadedFile->isValid() && $uploadedFile->getClientMimeType() === 'application/pdf') {
+            // Pindahkan file yang diunggah ke folder yang diinginkan
+            $newFileName = $uploadedFile->getName();
+            $uploadedFile->move('public/assets/revisi_ujian/', $newFileName);
+
+            // Simpan detail file ke dalam database
+            $proposalModel = new PengajuanUjianProposalModel();
+            $proposalModel->update($proposalId, ['revisi_proposal' => $newFileName]);
 
             // Kirim respon ke client
             return $this->response->setJSON(['status' => 'success', 'message' => 'File berhasil diunggah']);

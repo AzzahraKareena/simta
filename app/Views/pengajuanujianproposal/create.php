@@ -57,11 +57,13 @@
                                             <div class="fv-row mb-10">
                                                 <label class="form-label required fs-6 fw-bolder text-dark">Ajuan Tanggal Ujian</label>
                                                 <input class="form-control form-control-lg form-control-solid" type="date" name="ajuan_tgl_ujian" autocomplete="off" placeholder="Input Ajuan Tanggal Ujian Proposal" value="<?= old('ajuan_tgl_ujian')?? $dataForm->ajuan_tgl_ujian??"" ?>" required />
+
+                                                <input type="hidden" value="PENDING" name="status">
                                             </div>
                                         </div>
                                     </div>
+                                    
                                 </div>
-                               
                             
                             <!--begin::Actions-->
                             <div class="text-center">
