@@ -33,6 +33,7 @@
                                 <!--end::Search-->
 
                                 <!--begin::Toolbar-->
+                                <?php if(session()->get('role') == 'Mahasiswa'): ?>
                                 <div class="d-flex justify-content-end" data-kt-docs-table-toolbar="base">
                                     <!--begin::Add customer-->
                                     <a href="<?= base_url('pengajuanujianproposal/create')?>" class="btn btn-primary" data-bs-toggle="tooltip" title="Klik tambah data">
@@ -46,6 +47,7 @@
                                     </a>
                                     <!--end::Add customer-->
                                 </div>
+                                <?php endif; ?>
                                 <!--end::Toolbar-->
                             </div>
                             <!--end::Wrapper-->
@@ -98,7 +100,7 @@
                                                         </button>
                                                 <?php endif; ?>
                                                 <?php if($vdata['jadwal'] == !NULL): ?>
-                                                        <a href="<?= base_url('assets/berkas/Berita Acara.pdf') ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Unduh Berkas">
+                                                        <a href="<?= base_url('pengajuanujianproposal/berita-acara') ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Unduh Berkas">
                                                             <span class="svg-icon svg-icon-3">
                                                                 <!-- Icon untuk unduh berkas -->
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download">

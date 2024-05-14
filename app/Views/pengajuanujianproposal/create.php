@@ -19,7 +19,7 @@
                     <!--begin::Body-->
                     <div class="card-body py-3">
                         <!--begin::Form-->
-                        <form class="form w-100" method="post" id="form_pengajuanujianproposal" action="<?= service('router')->getMatchedRoute()[0] == "pengajuanujianproposal/create" ? base_url('pengajuanujianproposal/store') : base_url('pengajuanujianproposal/update/'.$dataForm->id_ujianproposal??"") ?>">
+                        <form class="form w-100" method="post" enctype="multipart/form-data" id="form_pengajuanujianproposal" action="<?= service('router')->getMatchedRoute()[0] == "pengajuanujianproposal/create" ? base_url('pengajuanujianproposal/store') : base_url('pengajuanujianproposal/update/'.$dataForm->id_ujianproposal??"") ?>">
                             <?= csrf_field() ?>
                             <!--begin::Input group-->
                             <?php if (session()->getFlashdata('errorForm')) : ?>
@@ -43,10 +43,16 @@
                                 </div>
                             <?php endif; ?>
                             <div class="row">
-                                <div class="col-12 col-md-6">
+                                <div class="col-12 col-md-12">
+                                    <div class="fv-row mb-10">
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Judul Tugas Akhir</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="text" name="id_pengajuanjudul" autocomplete="off" disabled placeholder="Input abstrak" value="<?= $pjudul['acc_judul'] ?>" required />
+                                        <input type="hidden" name="id_pengajuanjudul" value="<?= $pjudul['id_pengajuanjudul']; ?>">
+                                    </div>
                                     <div class="fv-row mb-10">
                                         <label class="form-label required fs-6 fw-bolder text-dark">Abstrak</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="text" name="abstrak" autocomplete="off" placeholder="Input abstrak" value="<?= old('abstrak')?? $dataForm->abstrak??"" ?>" required />
+                                        <textarea class="form-control" name="abstrak" id="" rows="10"><?= old('abstrak')?? $dataForm->abstrak??"" ?></textarea>
+                                        <!-- <input class="form-control form-control-lg form-control-solid" type="text" name="abstrak" autocomplete="off" placeholder="Input abstrak" value="<?= old('abstrak')?? $dataForm->abstrak??"" ?>" required /> -->
                                     </div>
                                     <div class="fv-row mb-10">
                                         <label class="form-label required fs-6 fw-bolder text-dark">Proposal Tugas Akhir</label>
@@ -56,7 +62,7 @@
                                         <div class="col">
                                             <div class="fv-row mb-10">
                                                 <label class="form-label required fs-6 fw-bolder text-dark">Ajuan Tanggal Ujian</label>
-                                                <input class="form-control form-control-lg form-control-solid" type="date" name="ajuan_tgl_ujian" autocomplete="off" placeholder="Input Ajuan Tanggal Ujian Proposal" value="<?= old('ajuan_tgl_ujian')?? $dataForm->ajuan_tgl_ujian??"" ?>" required />
+                                                <input class="form-control form-control-lg form-control-solid" type="datetime-local" name="ajuan_tgl_ujian" autocomplete="off" placeholder="Input Ajuan Tanggal Ujian Proposal" value="<?= old('ajuan_tgl_ujian')?? $dataForm->ajuan_tgl_ujian??"" ?>" required />
                                             </div>
                                         </div>
                                     </div>
@@ -64,9 +70,9 @@
                                
                             
                             <!--begin::Actions-->
-                            <div class="text-center">
+                            <div class="text-end">
                                 <!--begin::Submit button-->
-                                <button type="submit" class="btn btn-lg btn-primary w-100 mb-5">Submit</button>
+                                <button type="submit" class="btn btn-lg btn-primary mb-5">Submit</button>
                                 <!--end::Submit button-->
                             </div>
                             <!--end::Actions-->
