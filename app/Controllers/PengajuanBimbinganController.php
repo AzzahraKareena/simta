@@ -124,6 +124,31 @@ class PengajuanBimbinganController extends ResourceController
         return redirect()->to('pengajuanbimbingan');
     }
 
+    public function updateBimbingan($id)
+    {
+        // Menerima data dari POST request
+        $requestData = $this->request->getJSON();
+
+        // Menyiapkan model
+        $pengajuanBimbinganModel = new PengajuanBimbinganModel();
+
+        // Menyiapkan data yang akan diupdate
+        $dataToUpdate = [
+            'waktu_bimbingan' => $requestData->waktu_bimbingan,
+            'lokasi_bimbingan' => $requestData->lokasi_bimbingan,
+            'hasil_bimbingan' => $requestData->hasil_bimbingan,
+            'jadwal_bimbingan' => $requestData->jadwal_bimbingan,
+            'agenda' => $requestData->agenda,
+            // Tambahkan kolom lainnya sesuai kebutuhan
+        ];
+
+        // Melakukan update data berdasarkan id
+        $pengajuanBimbinganModel->update($id, $dataToUpdate);
+
+        // Response JSON jika diperlukan
+        return $this->response->setJSON(['status' => 'success', 'message' => 'Data updated successfully']);
+    }
+
     public function delete($id = null)
     {
         $pengajuanBimbinganModel = new PengajuanBimbinganModel();

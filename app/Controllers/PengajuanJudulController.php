@@ -55,24 +55,24 @@ class PengajuanJudulController extends ResourceController
     }
     
     public function updateStatus($id)
-{
-    // Get the new status from the form submission
-    $newStatus = $this->request->getPost('status_pj');
+    {
+        // Get the new status from the form submission
+        $newStatus = $this->request->getPost('status_pj');
 
-    // Load the PengajuanJudulModel
-    $pengajuanJudulModel = new PengajuanJudulModel();
+        // Load the PengajuanJudulModel
+        $pengajuanJudulModel = new PengajuanJudulModel();
 
-    // Fetch the pengajuan judul data based on the provided ID
-    $pengajuanJudul = $pengajuanJudulModel->find($id);
+        // Fetch the pengajuan judul data based on the provided ID
+        $pengajuanJudul = $pengajuanJudulModel->find($id);
 
-    if ($pengajuanJudul) {
-        // Update the status_pj field with the new status
-        $pengajuanJudulModel->update($id, ['status_pj' => $newStatus]);
+        if ($pengajuanJudul) {
+            // Update the status_pj field with the new status
+            $pengajuanJudulModel->update($id, ['status_pj' => $newStatus]);
+        }
+
+        // Redirect back to the page where the form was submitted
+        return redirect()->back();
     }
-
-    // Redirect back to the page where the form was submitted
-    return redirect()->back();
-}
 
 
     public function index()
