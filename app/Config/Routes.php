@@ -65,6 +65,7 @@ $routes->group('api/pengajuanjudul', static function ($routes) {
 });
 
 $routes->post('pengajuanjudul/update_status/(:num)', 'PengajuanJudulController::updateStatus/$1');
+$routes->get('pengajuanjudul/ubah-status/(:num)', 'PengajuanJudulController::editStatus/$1');
 $routes->post('update/status/(:num)', 'PengajuanBimbinganController::updateStatus/$1');
 $routes->post('update/tracking/(:num)', 'PengajuanBimbinganController::updateTracking/$1');
 $routes->post('upload/jadwal/(:num)', 'PengajuanUjianProposalController::uploadJadwal/$1');
@@ -93,6 +94,7 @@ $routes->group('pengajuanujianproposal', static function ($routes) {
     $routes->get('edit/(:segment)', 'PengajuanUjianProposalController::edit/$1');
     $routes->post('update/(:segment)', 'PengajuanUjianProposalController::update/$1');
     $routes->get('delete/(:num)', 'PengajuanUjianProposalController::delete/$1');
+    $routes->get('berita-acara', 'PengajuanUjianProposalController::beritaacara');
 });
 
 //MASTER FILE BERKAS

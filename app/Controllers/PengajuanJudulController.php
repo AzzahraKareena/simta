@@ -153,6 +153,17 @@ class PengajuanJudulController extends ResourceController
     //     return view('pengajuanjudul/create', $data);
     // }
 
+    public function editStatus($id)
+    {
+        $pengajuanjudul = new PengajuanJudulModel();
+        $data = [
+            'dataForm' => $pengajuanjudul->find($id),
+            'rekomendasi_dosen' => (new StafModels())->asArray()->findAll()
+        ];
+        // $dataForm = $pengajuanjudul->find($id);
+        return view('pengajuanjudul/acc-dosen', $data);
+    }
+
     public function update($id = null)
     {
         $data = $this->request->getPost();
