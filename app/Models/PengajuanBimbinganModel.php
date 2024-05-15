@@ -21,6 +21,7 @@ class PengajuanBimbinganModel extends Model
         'waktu_bimbingan',
         'jadwal_bimbingan',
         'agenda',
+        'tracking',
         'id_acc_judul'
     ];
 
