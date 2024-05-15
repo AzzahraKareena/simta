@@ -128,4 +128,16 @@ $routes->group('kriteria', static function ($routes) {
 
 });
 
+//INDIKATOR
+$routes->group('indikator', static function ($routes) {
+    $routes->get('/', 'IndikatorController::table');
+    $routes->get('create', 'IndikatorController::create');
+    $routes->post('store', 'IndikatorController::store');
+    $routes->get('edit/(:num)', 'IndikatorController::edit/$1');
+    $routes->post('update/(:num)', 'IndikatorController::update/$1');
+    // $routes->get('delete/(:num)', 'IndikatorController::delete/$1');
+    $routes->post('delete/(:num)', 'IndikatorController::delete/$1');
+
+});
+
 

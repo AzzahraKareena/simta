@@ -7,7 +7,7 @@ use Ramsey\Uuid\Uuid;
 
 class IndikatorModel extends Model
 {
-    protected $table = 'indikator';
+    protected $table = 'simta_indikator';
     protected $primaryKey = 'id_indikator';
     protected $allowedFields = ['id_indikator', 'id_kriteria', 'nama', 'max_nilai'];
 
@@ -20,5 +20,9 @@ class IndikatorModel extends Model
         return $builder->get()->getRow();
     }
 
-   
+    public function withKriteria()
+    {
+        return $this->join('simta_kriteria', 'simta_kriteria.id_kriteria = simta_indikator.id_kriteria');
+    }
+
 }

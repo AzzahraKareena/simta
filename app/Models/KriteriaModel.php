@@ -20,4 +20,9 @@ class KriteriaModel extends Model
         $builder->where('id_kriteria', $id_kriteria);
         return $builder->get()->getRow();
     }
+
+    public function indikators()
+    {
+        return $this->hasMany('App\Models\IndikatorModel', 'id_kriteria', 'id_kriteria');
+    }
 }
