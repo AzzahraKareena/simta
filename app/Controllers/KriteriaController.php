@@ -8,12 +8,22 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class KriteriaController extends BaseController
 {
+    public function table()
+    {
+        $data = (new KriteriaModel())->asArray()->findAll();
+        
+        $operation['data'] = $data;
+        $operation['title'] = 'Kriteria';
+        $operation['sub_title'] = 'Daftar Kriteria';
+        return view("kriteria/index", $operation);
+    }
+
     public function index()
     {
-        $kriteriaModel = new KriteriaModel();
-        $data['kriterias'] = $kriteriaModel->findAll();
+        $data['kriteria'] = (new KriteriaModel())->asArray()->findAll();
         return view('kriteria/index', $data);
     }
+
     
     public function create()
     {
@@ -29,15 +39,17 @@ class KriteriaController extends BaseController
         return redirect()->to('kriteria');
     }
 
-    public function edit($id)
+    public function edit($id = null)
     {
         $kriteriaModel = new KriteriaModel();
+        $dataForm = $kriteriaModel->find($id);
+        $data['dataForm'] = $dataForm;
         $data['kriteria'] = $kriteriaModel->find($id);
         $data['title'] = 'Edit Kriteria';
-        return view('kriteria/edit', $data);
+        return view('kriteria/create', $data);
     }
 
-    public function update($id)
+    public function update($id = null)
     {
         $data = $this->request->getPost();
         $kriteriaModel = new KriteriaModel();
@@ -45,7 +57,7 @@ class KriteriaController extends BaseController
         return redirect()->to('kriteria');
     }
 
-    public function delete($id)
+    public function delete($id = null)
     {
         $kriteriaModel = new KriteriaModel();
         $kriteriaModel->delete($id);

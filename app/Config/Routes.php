@@ -116,5 +116,16 @@ $routes->group('masterstaf', static function ($routes) {
     $routes->get('delete/(:num)', 'MasterStafController::delete/$1');
 });
 
+//KRITERIA
+$routes->group('kriteria', static function ($routes) {
+    $routes->get('/', 'KriteriaController::table');
+    $routes->get('create', 'KriteriaController::create');
+    $routes->post('store', 'KriteriaController::store');
+    $routes->get('edit/(:num)', 'KriteriaController::edit/$1');
+    $routes->post('update/(:num)', 'KriteriaController::update/$1');
+    // $routes->get('delete/(:num)', 'KriteriaController::delete/$1');
+    $routes->post('delete/(:num)', 'KriteriaController::delete/$1');
+
+});
 
 
