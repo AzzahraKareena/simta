@@ -47,10 +47,18 @@ class PengajuanBimbinganController extends ResourceController
         }
         // return $this->response->setJSON($mahasiswa->nama);
 
+        // Ambil data enum dari field status
+        $query = $bimbinganModel->query("SHOW COLUMNS FROM simta_pengajuanbimbingan LIKE 'tracking'");
+        $row = $query->getRow();
+        preg_match("/^enum\(\'(.*)\'\)$/", $row->Type, $matches);
+        $enum_values = explode("','", $matches[1]);
+
+        
         // since i'm not using it as rest api, send it to view
         $operation['data'] = $data;
         $operation['title'] = 'Pengajuan Bimbingan';
         $operation['sub_title'] = 'Daftar Pengajuan Bimbingan Tugas Akhir';
+        $operation['tracking'] = $enum_values;
         return view("pengajuanbimbingan/index", $operation);
         
     }
@@ -93,9 +101,7 @@ class PengajuanBimbinganController extends ResourceController
         }
 
     }
-
-
-
+    
     public function edit($id = null)
     {
         $pengajuanBimbinganModel = new PengajuanBimbinganModel();
@@ -110,9 +116,15 @@ class PengajuanBimbinganController extends ResourceController
     {
         $pengajuanBimbinganModel = new PengajuanBimbinganModel();
         $data = $this->request->getPost('status');
-        // dd($data);
         $pengajuanBimbinganModel->update($id, ['status_ajuan' => $data]);
-        // $model->update($id, ['status' => $status]);
+        return redirect()->to('pengajuanbimbingan');
+    }
+
+    public function updateTracking($id = null)
+    {
+        $pengajuanBimbinganModel = new PengajuanBimbinganModel();
+        $data = $this->request->getPost('tracking');
+        $pengajuanBimbinganModel->update($id, ['tracking' => $data]);
         return redirect()->to('pengajuanbimbingan');
     }
 

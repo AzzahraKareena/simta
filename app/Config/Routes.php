@@ -67,6 +67,7 @@ $routes->group('api/pengajuanjudul', static function ($routes) {
 $routes->post('pengajuanjudul/update_status/(:num)', 'PengajuanJudulController::updateStatus/$1');
 $routes->get('pengajuanjudul/ubah-status/(:num)', 'PengajuanJudulController::editStatus/$1');
 $routes->post('update/status/(:num)', 'PengajuanBimbinganController::updateStatus/$1');
+$routes->post('update/tracking/(:num)', 'PengajuanBimbinganController::updateTracking/$1');
 $routes->post('upload/jadwal/(:num)', 'PengajuanUjianProposalController::uploadJadwal/$1');
 $routes->post('update/bimbingan/(:num)', 'PengajuanBimbinganController::updateBimbingan/$1');
 
@@ -116,5 +117,28 @@ $routes->group('masterstaf', static function ($routes) {
     $routes->get('delete/(:num)', 'MasterStafController::delete/$1');
 });
 
+//KRITERIA
+$routes->group('kriteria', static function ($routes) {
+    $routes->get('/', 'KriteriaController::table');
+    $routes->get('create', 'KriteriaController::create');
+    $routes->post('store', 'KriteriaController::store');
+    $routes->get('edit/(:num)', 'KriteriaController::edit/$1');
+    $routes->post('update/(:num)', 'KriteriaController::update/$1');
+    // $routes->get('delete/(:num)', 'KriteriaController::delete/$1');
+    $routes->post('delete/(:num)', 'KriteriaController::delete/$1');
+
+});
+
+//INDIKATOR
+$routes->group('indikator', static function ($routes) {
+    $routes->get('/', 'IndikatorController::table');
+    $routes->get('create', 'IndikatorController::create');
+    $routes->post('store', 'IndikatorController::store');
+    $routes->get('edit/(:num)', 'IndikatorController::edit/$1');
+    $routes->post('update/(:num)', 'IndikatorController::update/$1');
+    // $routes->get('delete/(:num)', 'IndikatorController::delete/$1');
+    $routes->post('delete/(:num)', 'IndikatorController::delete/$1');
+
+});
 
 
