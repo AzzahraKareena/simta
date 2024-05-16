@@ -93,7 +93,7 @@ $routes->group('pengajuanujianproposal', static function ($routes) {
     $routes->get('edit/(:segment)', 'PengajuanUjianProposalController::edit/$1');
     $routes->post('update/(:segment)', 'PengajuanUjianProposalController::update/$1');
     $routes->get('delete/(:num)', 'PengajuanUjianProposalController::delete/$1');
-    $routes->get('berita-acara', 'PengajuanUjianProposalController::beritaacara');
+    $routes->get('berita-acara/(:num)', 'PengajuanUjianProposalController::beritaacara/$1');
 });
 
 //MASTER FILE BERKAS
