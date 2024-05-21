@@ -48,24 +48,6 @@
                                         <label class="form-label required fs-6 fw-bolder text-dark">Lokasi Bimbingan</label>
                                         <input class="form-control form-control-lg form-control-solid" type="text" name="lokasi_bimbingan" autocomplete="off" placeholder="Input lokasi bimbingan" value="<?= old('lokasi_bimbingan')?? $dataForm->lokasi_bimbingan??"" ?>" required />
                                     </div>
-                                    <!-- <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">Hasil Bimbingan</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="text" name="Hasil Bimbingan" autocomplete="off" placeholder="Input hasil bimbingan" value="<?= old('hasil_bimbingan')?? $dataForm->hasil_bimbingan??"" ?>" required />
-                                    </div> -->
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="fv-row mb-10">
-                                                <label class="form-label required fs-6 fw-bolder text-dark">Waktu bimbingan</label>
-                                                <input class="form-control form-control-lg form-control-solid" type="time" name="waktu_bimbingan" autocomplete="off" placeholder="Input Jadwal Bimbingan Start Date" value="<?= old('waktu_bimbingan') ?? $dataForm->waktu_bimbingan ?? "" ?>" required />
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="fv-row mb-10">
-                                                <label class="form-label required fs-6 fw-bolder text-dark">Jadwal bimbingan</label>
-                                                <input class="form-control form-control-lg form-control-solid" type="date" name="jadwal_bimbingan" autocomplete="off" placeholder="Input Pengajuan Judul End Date" value="<?= old('jadwal_bimbingan')?? $dataForm->jadwal_bimbingan??"" ?>" required />
-                                            </div>
-                                        </div>
-                                    </div>
                                     <!-- <div class="row">
                                         <div class="col">
                                             <div class="fv-row mb-10">
@@ -84,13 +66,42 @@
                                     </div> -->
                                 </div>
                                 <div class="col-12 col-md-6">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="fv-row mb-10">
-                                                <label class="form-label required fs-6 fw-bolder text-dark">Agenda</label>
-                                                <input class="form-control form-control-lg form-control-solid" type="text" name="agenda" autocomplete="off" placeholder="Input Agenda" value="<?= old('agenda')?? $dataForm->agenda??"" ?>" required />
-                                            </div>
-                                        </div>
+                                <div class="fv-row mb-10">
+                                    <label class="form-label required fs-6 fw-bolder text-dark">Judul TA</label>
+                                        <select class="form-select form-select-lg form-select-solid" name="id_accjudul" required>
+                                            <!-- <option value="">Pilih Kriteria</option> -->
+                                            <?php foreach ($data as $kr): ?>
+                                                <option value="<?= $kr['id_accjudul'] ?>"><?= $kr['judul_acc'] ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-4">
+                                    <div class="fv-row mb-10">
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Waktu bimbingan</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="time" name="waktu_bimbingan" autocomplete="off" placeholder="Input Jadwal Bimbingan Start Date" value="<?= old('waktu_bimbingan') ?? $dataForm->waktu_bimbingan ?? "" ?>" required />
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <div class="fv-row mb-10">
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Jadwal bimbingan</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="date" name="jadwal_bimbingan" autocomplete="off" placeholder="Input Pengajuan Judul End Date" value="<?= old('jadwal_bimbingan')?? $dataForm->jadwal_bimbingan??"" ?>" required />
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <div class="fv-row mb-10">
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Agenda</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="text" name="agenda" autocomplete="off" placeholder="Input Agenda" value="<?= old('agenda')?? $dataForm->agenda??"" ?>" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-12">
+                                    <div class="fv-row mb-10">
+                                            <label class="form-label required fs-6 fw-bolder text-dark">Hasil Bimbingan</label>
+                                            <textarea class="form-control form-control-lg form-control-solid" name="hasil_bimbingan" id="description" placeholder="Masukkan Hasil Bimbingan" rows="5" cols="30"></textarea>
                                     </div>
                                 </div>
                             </div>

@@ -31,22 +31,34 @@ class PengajuanJudulModel extends Model
         'acc_deskripsi'
     ];
 
-    // protected $validationRules = [
-    //     'id_mhs' => 'required',
-    //     'nama_judul1' => 'required',
-    //     'deskripsi_sistem1' => 'required',
-    //     'nama_judul2' => 'required',
-    //     'deskripsi_sistem2' => 'required',
-    //     'nama_judul3' => 'required',
-    //     'deskripsi_sistem3' => 'required',
-    //     'catatan' => 'required',
-    //     'status_pj' => 'required',
-    //     'id_timeline' => 'required',
-    //     'id_rekom_dospem1' => 'required',
-    //     'id_rekom_dospem2' => 'required',
-    //     'id_dospem' => 'required',
-    //     'updated_by' => 'required',
-    //     'acc_judul' => 'required',
-    //     'acc_deskripsi' => 'required'
-    // ];
+    public function getDataById($id_pengajuanjudul)
+    {
+        $builder = $this->db->table('simta_pengajuanjudul');
+        $builder->where('id_pengajuanjudul', $id_pengajuanjudul);
+        return $builder->get()->getRow();
+    }
+
+    public function withMhs()
+    {
+        return $this->join('users as mhs', 'mhs.id = simta_pengajuanjudul.id_mhs');
+    }
+
+    public function withDospem1()
+    {
+        return $this->join('users as dospem1', 'dospem1.id = simta_pengajuanjudul.id_rekom_dospem1');
+    }
+
+    public function withDospem2()
+    {
+        return $this->join('users as dospem2', 'dospem2.id = simta_pengajuanjudul.id_rekom_dospem2');
+    }
+
+    public function getPengajuan()
+    {
+        return $this->select('simta_pengajuanjudul.*, mhs.nama as mahasiswa_nama, dospem1.nama as dospem1_nama, dospem2.nama as dospem2_nama')
+                    ->withMhs()
+                    ->withDospem1()
+                    ->withDospem2()
+                    ->findAll();
+    }
 }

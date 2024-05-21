@@ -2,8 +2,9 @@
 
 namespace App\Controllers;
 
-use App\Controllers\BaseController;
+use App\Models\JudulAccModel;
 use App\Models\MahasiswaModel;
+use App\Controllers\BaseController;
 use App\Models\PengajuanBimbinganModel;
 use CodeIgniter\RESTful\ResourceController;
 
@@ -20,49 +21,51 @@ class PengajuanBimbinganController extends ResourceController
     }
 
     public function get_data() {
-        $mahasiswaModel = new MahasiswaModel();
         $bimbinganModel = new PengajuanBimbinganModel();
-
-        // fetch data from bimbingan, then get nama mahasiswa from mahasiswa table where id mhs in bimbingan table
-        $data = $bimbinganModel->asObject()->findAll();
-        // $data2 = $mahasiswaModel->asObject()->findAll();
-
+        $data = $bimbinganModel->getPengajuan();
+        foreach ($data as $key) {
+            $id_mhs = $key['id_mhs'];
+        }
+        $mahasiswaNim = new MahasiswaModel();
+        $mahasiswa = $mahasiswaNim->where('id_user', $id_mhs)->get()->getRow()->nim;
+        $mahasiswaProdi = $mahasiswaNim->where('id_user', $id_mhs)->get()->getRow()->prodi;
+        // dd($mahasiswa);
+    
+        // Fetch data from bimbingan
+        // dd($data);
+        $getData = []; // Inisialisasi sebagai array kosong
         
         foreach ($data as $bimbingan) {
             if (session()->get('role') == 'Mahasiswa') {
                 // Jika rolenya adalah "Mahasiswa", maka hanya data yang sesuai dengan ID mahasiswa yang sedang login yang akan ditampilkan
-                $mahasiswa = $mahasiswaModel->where('id_user', session()->get('id'))->first();
-                if ($mahasiswa) {
-                    $bimbingan->id_mhs = $mahasiswa->id_user;
-                    $bimbingan->nama_mahasiswa = $mahasiswa->nama;
-                    $bimbingan->nim = $mahasiswa->nim;
+                if ($bimbingan->id_mhs == session()->get('user_id')) {
+                    $getData[] = $bimbingan; // Tambahkan ke array
                 }
-            } else {
-                // Jika rolenya bukan "Mahasiswa", maka semua data bimbingan akan ditampilkan
-                $mahasiswa = $mahasiswaModel->first();
-                $bimbingan->id_mhs = $mahasiswa->id_user;
-                $bimbingan->nama_mahasiswa = $mahasiswa->nama;
-                $bimbingan->nim = $mahasiswa->nim;
+            } elseif (session()->get('role') == 'Dosen') {
+                // Jika rolenya adalah "Dosen", maka hanya data yang sesuai dengan ID staf yang sedang login yang akan ditampilkan
+                if ($bimbingan->id_staf == session()->get('user_id')) {
+                    $getData[] = $bimbingan; // Tambahkan ke array
+                }
             }
         }
-        // return $this->response->setJSON($mahasiswa->nama);
-
+    
         // Ambil data enum dari field status
         $query = $bimbinganModel->query("SHOW COLUMNS FROM simta_pengajuanbimbingan LIKE 'tracking'");
         $row = $query->getRow();
         preg_match("/^enum\(\'(.*)\'\)$/", $row->Type, $matches);
         $enum_values = explode("','", $matches[1]);
-
-        
-        // since i'm not using it as rest api, send it to view
+    
+        // Since I'm not using it as a REST API, send it to view
         $operation['data'] = $data;
+        $operation['nim'] = $mahasiswa;
+        $operation['prodi'] = $mahasiswaProdi;
         $operation['title'] = 'Pengajuan Bimbingan';
         $operation['sub_title'] = 'Daftar Pengajuan Bimbingan Tugas Akhir';
         $operation['tracking'] = $enum_values;
+    
         return view("pengajuanbimbingan/index", $operation);
-        
     }
-
+    
     public function index() {
         // return data as json for rest
         $data = (new PengajuanBimbinganModel())->asArray()->findAll();
@@ -71,6 +74,14 @@ class PengajuanBimbinganController extends ResourceController
     
     public function create()
     {
+        $judulModel = new JudulAccModel();
+        $dataJudul = $judulModel->where('dospem_acc',session()->get('user_id'))->getPengajuan();
+        // $getIDlogin = session()->get('user_id');
+
+        // dd($getIDlogin);
+        // dd($dataJudul);
+
+        $operation['data'] = $dataJudul;
         $operation['title'] = 'Pengajuan Bimbingan';
         $operation['sub_title'] = 'Buat Pengajuan Bimbingan Baru';
         return view('pengajuanbimbingan/create', $operation);
@@ -81,10 +92,16 @@ class PengajuanBimbinganController extends ResourceController
         // $data = $this->request->getPost();
         // get data from request per field
         $pengajuanBimbinganModel = new PengajuanBimbinganModel();
+        $judulAcc = new JudulAccModel();
+        $id_mhs = $judulAcc->where('id_accjudul', $this->request->getPost('id_accjudul'))->get()->getRow()->mhs_id;
+        $id_staf = $judulAcc->where('id_accjudul', $this->request->getPost('id_accjudul'))->get()->getRow()->dospem_acc;
+        // dd($id_staf);
 
         $data = [
             // id_mhs get from user session
-            'id_mhs'  => session()->get('user_id'),
+            'id_mhs'  => $id_mhs,
+            'id_staf'  => $id_staf,
+            'id_accjudul' => $this->request->getPost('id_accjudul'),
             'lokasi_bimbingan' => $this->request->getPost('lokasi_bimbingan'),
             'hasil_bimbingan' => $this->request->getPost('hasil_bimbingan'),
             'waktu_bimbingan' => $this->request->getPost('waktu_bimbingan'),

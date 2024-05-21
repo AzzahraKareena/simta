@@ -57,6 +57,7 @@
                                 <!--begin::Table head-->
                                 <thead>
                                     <tr class="fw-bolder text-muted">
+                                        <th class="">Judul TA</th>
                                         <th class="">Lokasi Bimbingan</th>
                                         <th class="">Hasil Bimbingan</th>
                                         <th class="">Status Ajuan</th>
@@ -70,46 +71,45 @@
                                 <!--end::Table head-->
                                 <!--begin::Table body-->
                                 <tbody>
+                                <?php if (!empty($data) && is_array($data)) : ?>
                                     <?php foreach ($data as $vdata): ?>
                                         <tr>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->lokasi_bimbingan ?></span>
-                                                <span class="text-muted fw-bold text-muted d-block fs-7">Lokasi Bimbingan: <?= $vdata->lokasi_bimbingan ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['judul_judul_acc'] ?></span>
                                             </td>
                                             <td>
-                                                <!-- <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata->hasil_bimbingan ?></span> -->
-                                                <span class="text-muted fw-bold text-muted d-block fs-7">Hasil Bimbingan: <?= $vdata->hasil_bimbingan ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['lokasi_bimbingan'] ?></span>
                                             </td>
                                             <td>
-                                                <?php if ($vdata->status_ajuan == 'PENDING') : ?>
-                                                    <div class="badge badge-warning"><?= $vdata->status_ajuan ?></div>
-                                                <?php elseif ($vdata->status_ajuan == 'DITOLAK') : ?>
-                                                    <div class="badge badge-danger"><?= $vdata->status_ajuan ?></div>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata['hasil_bimbingan'] ?></span>
+                                            </td>
+                                            <td>
+                                                <?php if ($vdata['status_ajuan'] == 'PENDING') : ?>
+                                                    <div class="badge badge-warning"><?= $vdata['status_ajuan'] ?></div>
+                                                <?php elseif ($vdata['status_ajuan'] == 'DITOLAK') : ?>
+                                                    <div class="badge badge-danger"><?= $vdata['status_ajuan'] ?></div>
                                                 <?php else : ?>
-                                                    <div class="badge badge-success"><?= $vdata->status_ajuan ?></div>
+                                                    <div class="badge badge-success"><?= $vdata['status_ajuan'] ?></div>
                                                 <?php endif; ?>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata->waktu_bimbingan ?></span>
-                                                <span class="text-muted fw-bold text-muted d-block fs-7">End: <?= $vdata->waktu_bimbingan ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata['waktu_bimbingan'] ?></span>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata->jadwal_bimbingan ?></span>
-                                                <span class="text-muted fw-bold text-muted d-block fs-7">End: <?= $vdata->jadwal_bimbingan ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata['jadwal_bimbingan'] ?></span>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Agenda: <?= $vdata->agenda ?></span>
-                                                <span class="text-muted fw-bold text-muted d-block fs-7">Agenda: <?= $vdata->agenda ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Agenda: <?= $vdata['agenda'] ?></span>
                                             </td>
                                             <td>
                                                 <div class="dropdown">
                                                     <button class="btn btn-sm btn-secondary dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                       <?= $vdata->tracking?>
+                                                       <?= $vdata['tracking']?>
                                                     </button>
                                                     <ul class="dropdown-menu dropdown-menu-dark">
                                                         <?php foreach ($tracking as $track): ?>
                                                             <li>
-                                                                <form class="alert-verifikasi" action="/update/tracking/<?= $vdata->id_pengajuanbimbingan; ?>" method="POST">
+                                                                <form class="alert-verifikasi" action="/update/tracking/<?= $vdata['id_pengajuanbimbingan']; ?>" method="POST">
                                                                     <?= csrf_field() ?>
                                                                     <input type="hidden" value="<?= $track ?>" name="tracking">
                                                                     <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi"><?= $track ?></button>
@@ -121,6 +121,11 @@
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
+                                <?php else : ?>
+                                    <tr>
+                                        <td colspan="5">Tidak ada data pengajuan.</td>
+                                    </tr>
+                                <?php endif; ?>
                                 </tbody>
                                 <!--end::Table body-->
                             </table>
@@ -133,6 +138,7 @@
                                 <!--begin::Table head-->
                                 <thead>
                                     <tr class="fw-bolder text-muted">
+                                        <th class="">Judul TA</th>
                                         <th class="">Nama Mahasiswa</th>
                                         <th class="">NIM</th>
                                         <th class="">Lokasi Bimbingan</th>
@@ -149,15 +155,17 @@
                                 <!--end::Table head-->
                                 <!--begin::Table body-->
                                 <tbody>
+                                <?php if (!empty($data) && is_array($data)) : ?>
                                     <?php foreach ($data as $vdata): ?>
                                         <tr>
-                                            <td class="nilaiId d-none"><?= $vdata->nama_mahasiswa ?></td>
-                                            <td data-id="<?= $vdata->id_pengajuanbimbingan ?>" contenteditable="false" class="nama_mahasiswa"><?= $vdata->nama_mahasiswa ?></td>
-                                            <td data-id="<?= $vdata->id_pengajuanbimbingan ?>" contenteditable="false" class="nim"><?= $vdata->nim ?></td>
-                                            <td data-id="<?= $vdata->id_pengajuanbimbingan ?>" contenteditable="false" class="lokasi_bimbingan"><?= $vdata->lokasi_bimbingan ?></td>
-                                            <td data-id="<?= $vdata->id_pengajuanbimbingan ?>" contenteditable="false" class="hasil_bimbingan"><?= $vdata->hasil_bimbingan ?></td>
+                                            <td class="nilaiId d-none"><?= $vdata['mahasiswa_nama'] ?></td>
+                                            <td class="nama_mahasiswa"><?= $vdata['judul_judul_acc'] ?></td>
+                                            <td data-id="<?= $vdata['id_pengajuanbimbingan'] ?>" contenteditable="false" class="nama_mahasiswa"><?= $vdata['mahasiswa_nama'] ?></td>
+                                            <td data-id="<?= $vdata['id_pengajuanbimbingan'] ?>" contenteditable="false" class="nim"><?= $nim ?></td>
+                                            <td data-id="<?= $vdata['id_pengajuanbimbingan'] ?>" contenteditable="false" class="lokasi_bimbingan"><?= $vdata['lokasi_bimbingan'] ?></td>
+                                            <td data-id="<?= $vdata['id_pengajuanbimbingan'] ?>" contenteditable="false" class="hasil_bimbingan"><?= $vdata['hasil_bimbingan'] ?></td>
                                             <td>
-                                                <?php if ($vdata->status_ajuan == 'PENDING') : ?>
+                                                <?php if ($vdata['status_ajuan'] == 'PENDING') : ?>
                                                     <div class="dropdown">
                                                         <button class="btn btn-sm btn-warning dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             PENDING
@@ -165,7 +173,7 @@
                                                         <ul class="dropdown-menu dropdown-menu-dark">
                                                             <li>
                                                                 <a class="dropdown-item" href="#">
-                                                                    <form class="alert-verifikasi" action="/update/status/<?= $vdata->id_pengajuanbimbingan; ?>" method="POST">
+                                                                    <form class="alert-verifikasi" action="/update/status/<?= $vdata['id_pengajuanbimbingan']; ?>" method="POST">
                                                                     <?= csrf_field() ?>
                                                                     <input type="hidden" value="DITERIMA" name="status">
                                                                     <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">DITERIMA</button>
@@ -174,7 +182,7 @@
                                                             </li>
                                                             <li>
                                                                 <a class="dropdown-item" href="#">
-                                                                    <form class="alert-verifikasi" action="/update/status/<?= $vdata->id_pengajuanbimbingan; ?>" method="POST">
+                                                                    <form class="alert-verifikasi" action="/update/status/<?= $vdata['id_pengajuanbimbingan']; ?>" method="POST">
                                                                     <?= csrf_field() ?>
                                                                     <input type="hidden" value="DITOLAK" name="status">
                                                                     <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">DITOLAK</button>
@@ -183,7 +191,7 @@
                                                             </li>
                                                         </ul>
                                                     </div>
-                                                <?php elseif ($vdata->status_ajuan == 'DITOLAK') : ?>
+                                                <?php elseif ($vdata['status_ajuan'] == 'DITOLAK') : ?>
                                                     <div class="dropdown">
                                                         <button class="btn btn-sm btn-danger dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             DITOLAK
@@ -191,7 +199,7 @@
                                                         <ul class="dropdown-menu dropdown-menu-dark">
                                                             <li>
                                                                 <a class="dropdown-item" href="#">
-                                                                    <form class="alert-verifikasi" action="/update/status/<?= $vdata->id_pengajuanbimbingan; ?>" method="POST">
+                                                                    <form class="alert-verifikasi" action="/update/status/<?= $vdata['id_pengajuanbimbingan']; ?>" method="POST">
                                                                     <?= csrf_field() ?>
                                                                     <input type="hidden" value="DITERIMA" name="status">
                                                                     <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">DITERIMA</button>
@@ -200,7 +208,7 @@
                                                             </li>
                                                             <li>
                                                                 <a class="dropdown-item" href="#">
-                                                                    <form class="alert-verifikasi" action="/update/status/<?= $vdata->id_pengajuanbimbingan; ?>" method="POST">
+                                                                    <form class="alert-verifikasi" action="/update/status/<?= $vdata['id_pengajuanbimbingan']; ?>" method="POST">
                                                                     <?= csrf_field() ?>
                                                                     <input type="hidden" value="PENDING" name="status">
                                                                     <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">PENDING</button>
@@ -209,7 +217,7 @@
                                                             </li>
                                                         </ul>
                                                     </div>
-                                                <?php elseif ($vdata->status_ajuan == 'DITERIMA') : ?>
+                                                <?php elseif ($vdata['status_ajuan'] == 'DITERIMA') : ?>
                                                     <div class="dropdown">
                                                         <button class="btn btn-sm btn-success dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             DITERIMA
@@ -217,7 +225,7 @@
                                                         <ul class="dropdown-menu dropdown-menu-dark">
                                                             <li>
                                                                 <a class="dropdown-item" href="#">
-                                                                    <form class="alert-verifikasi" action="/update/status/<?= $vdata->id_pengajuanbimbingan; ?>" method="POST">
+                                                                    <form class="alert-verifikasi" action="/update/status/<?= $vdata['id_pengajuanbimbingan']; ?>" method="POST">
                                                                     <?= csrf_field() ?>
                                                                     <input type="hidden" value="DITOLAK" name="status">
                                                                     <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">DITOLAK</button>
@@ -226,7 +234,7 @@
                                                             </li>
                                                             <li>
                                                                 <a class="dropdown-item" href="#">
-                                                                    <form class="alert-verifikasi" action="/update/status/<?= $vdata->id_pengajuanbimbingan; ?>" method="POST">
+                                                                    <form class="alert-verifikasi" action="/update/status/<?= $vdata['id_pengajuanbimbingan']; ?>" method="POST">
                                                                     <?= csrf_field() ?>
                                                                     <input type="hidden" value="PENDING" name="status">
                                                                     <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">PENDING</button>
@@ -237,18 +245,18 @@
                                                     </div>
                                                 <?php endif; ?>
                                             </td>
-                                            <td data-id="<?= $vdata->id_pengajuanbimbingan ?>" contenteditable="false" class="waktu_bimbingan"><?= $vdata->waktu_bimbingan ?></td>
-                                            <td data-id="<?= $vdata->id_pengajuanbimbingan ?>" contenteditable="false" class="jadwal_bimbingan"><?= $vdata->jadwal_bimbingan ?></td>
-                                            <td data-id="<?= $vdata->id_pengajuanbimbingan ?>" contenteditable="false" class="agenda"><?= $vdata->agenda ?></td>
+                                            <td data-id="<?= $vdata['id_pengajuanbimbingan'] ?>" contenteditable="false" class="waktu_bimbingan"><?= $vdata['waktu_bimbingan'] ?></td>
+                                            <td data-id="<?= $vdata['id_pengajuanbimbingan'] ?>" contenteditable="false" class="jadwal_bimbingan"><?= $vdata['jadwal_bimbingan'] ?></td>
+                                            <td data-id="<?= $vdata['id_pengajuanbimbingan'] ?>" contenteditable="false" class="agenda"><?= $vdata['agenda'] ?></td>
                                             <td>
                                                 <div class="dropdown">
                                                     <button class="btn btn-sm btn-secondary dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                       <?= $vdata->tracking?>
+                                                       <?= $vdata['tracking']?>
                                                     </button>
                                                     <ul class="dropdown-menu dropdown-menu-dark">
                                                         <?php foreach ($tracking as $track): ?>
                                                             <li>
-                                                                <form class="alert-verifikasi" action="/update/tracking/<?= $vdata->id_pengajuanbimbingan; ?>" method="POST">
+                                                                <form class="alert-verifikasi" action="/update/tracking/<?= $vdata['id_pengajuanbimbingan']; ?>" method="POST">
                                                                     <?= csrf_field() ?>
                                                                     <input type="hidden" value="<?= $track ?>" name="tracking">
                                                                     <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi"><?= $track ?></button>
@@ -260,9 +268,9 @@
                                             </td>
                                             <td>
                                                 <div class="d-flex justify-content-end flex-shrink-0">
-                                                <button id="editButton_<?php echo $vdata->id_pengajuanbimbingan; ?>" onclick="editTable(<?php echo $vdata->id_pengajuanbimbingan; ?>)"  class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1 edit-btn" title="Edit Data">
+                                                <button id="editButton_<?php echo $vdata['id_pengajuanbimbingan']; ?>" onclick="editTable(<?php echo $vdata['id_pengajuanbimbingan']; ?>)"  class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1 edit-btn" title="Edit Data">
                                                     <!-- Icon SVG -->
-                                                    <span id="editIcon_<?php echo $vdata->id_pengajuanbimbingan; ?>" class="svg-icon svg-icon-3">
+                                                    <span id="editIcon_<?php echo $vdata['id_pengajuanbimbingan']; ?>" class="svg-icon svg-icon-3">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                             <path opacity="0.3" d="M21.4 8.35303L19.241 10.511L13.485 4.755L15.643 2.59595C16.0248 2.21423 16.5426 1.99988 17.0825 1.99988C17.6224 1.99988 18.1402 2.21423 18.522 2.59595L21.4 5.474C21.7817 5.85581 21.9962 6.37355 21.9962 6.91345C21.9962 7.45335 21.7817 7.97122 21.4 8.35303ZM3.68699 21.932L9.88699 19.865L4.13099 14.109L2.06399 20.309C1.98815 20.5354 1.97703 20.7787 2.03189 21.0111C2.08674 21.2436 2.2054 21.4561 2.37449 21.6248C2.54359 21.7934 2.75641 21.9115 2.989 21.9658C3.22158 22.0201 3.4647 22.0084 3.69099 21.932H3.68699Z" fill="black" />
                                                             <path d="M5.574 21.3L3.692 21.928C3.46591 22.0032 3.22334 22.0141 2.99144 21.9594C2.75954 21.9046 2.54744 21.7864 2.3789 21.6179C2.21036 21.4495 2.09202 21.2375 2.03711 21.0056C1.9822 20.7737 1.99289 20.5312 2.06799 20.3051L2.696 18.422L5.574 21.3ZM4.13499 14.105L9.891 19.861L19.245 10.507L13.489 4.75098L4.13499 14.105Z" fill="black" />
@@ -270,7 +278,7 @@
                                                     </span>
                                                     <!--end::Svg Icon-->
                                                 </button>
-                                                    <form action="<?= base_url('pengajuanbimbingan/delete/'.$vdata->id_pengajuanbimbingan) ?>">
+                                                    <form action="<?= base_url('pengajuanbimbingan/delete/'.$vdata['id_pengajuanbimbingan']) ?>">
                                                         <button type="submit" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" title="Hapus Data">
                                                             <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
                                                             <span class="svg-icon svg-icon-3">
@@ -287,6 +295,11 @@
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
+                                <?php else : ?>
+                                    <tr>
+                                        <td colspan="5">Tidak ada data pengajuan.</td>
+                                    </tr>
+                                <?php endif; ?>
                                 </tbody>
 
                                 <!--end::Table body-->
