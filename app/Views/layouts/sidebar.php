@@ -161,6 +161,14 @@
                             </a>
                         </div>
                         <div class="menu-item">
+                            <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "judulacc" ? "active" : "" ?>" href="<?= base_url('judulacc')?>">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Judul Acc</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
                             <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "pengajuanbimbingan" ? "active" : "" ?>" href="<?= base_url('pengajuanbimbingan')?>">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>

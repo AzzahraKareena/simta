@@ -14,6 +14,7 @@ class PengajuanUjianProposalController extends BaseController
     {
         $data = (new PengajuanUjianProposalModel())->asArray()->findAll();
         
+        
         $operation['data'] = $data;
         $operation['title'] = 'Pengajuan Ujian Proposal';
         $operation['sub_title'] = 'Daftar Pengajuan Ujian Proposal';

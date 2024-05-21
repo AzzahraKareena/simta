@@ -17,39 +17,53 @@ class MahasiswaModel extends Model
         'id_mhs' => 'required'
     ];
 
-    public function getMahasiswabyUserId()
+    // public function getMahasiswabyUserId()
+    // {
+    //     $user_id = user()->id;
+    //     $builder = $this->db->table('mahasiswa');
+    //     $builder->select('*');
+    //     $builder->join('users','users.id = mahasiswa.id_user');
+    //     $builder->where('id_user', $user_id);
+    //     $query = $builder->get();
+    //     return $query->getResult();  
+    // }
+
+
+    // public function getMahasiswa($id_mhs){
+    //     $builder = $this->db->table('mahasiswa');
+    //     $builder->join('users', 'users.id = mahasiswa.id_user');
+    //     $builder->where('mahasiswa.id_mhs', $id_mhs);
+    //     $query = $builder->get();
+    //     return $query->getRow();
+    // }
+
+    // public function getUniqueKelas(){
+    //     $builder = $this->db->table('mahasiswa');
+    //     $builder->select('kelas');
+    //     $builder->groupBy('kelas');
+    //     $query = $builder->get();
+    //     return $query->getResult();
+    // }
+
+    // public function getAngkatanMahasiswa(){
+    //     $builder = $this->db->table('mahasiswa');
+    //     $builder->select('th_masuk');
+    //     $builder->groupBy('th_masuk');
+    //     $query = $builder->get();
+    //     return $query->getResult();
+    // }
+
+    public function withUser()
     {
-        $user_id = user()->id;
-        $builder = $this->db->table('mahasiswa');
-        $builder->select('*');
-        $builder->join('users','users.id = mahasiswa.id_user');
-        $builder->where('id_user', $user_id);
-        $query = $builder->get();
-        return $query->getResult();  
+        return $this->join('users as mhs', 'mhs.id = mahasiswa.id_user');
     }
 
-
-    public function getMahasiswa($id_mhs){
-        $builder = $this->db->table('mahasiswa');
-        $builder->join('users', 'users.id = mahasiswa.id_user');
-        $builder->where('mahasiswa.id_mhs', $id_mhs);
-        $query = $builder->get();
-        return $query->getRow();
-    }
-
-    public function getUniqueKelas(){
-        $builder = $this->db->table('mahasiswa');
-        $builder->select('kelas');
-        $builder->groupBy('kelas');
-        $query = $builder->get();
-        return $query->getResult();
-    }
-
-    public function getAngkatanMahasiswa(){
-        $builder = $this->db->table('mahasiswa');
-        $builder->select('th_masuk');
-        $builder->groupBy('th_masuk');
-        $query = $builder->get();
-        return $query->getResult();
+    public function getUser()
+    {
+        return $this->select('mahasiswa.*, mhs.id as mahasiswa_id')
+                    ->withMhs()
+                    ->withStaff()
+                    ->withJudul()
+                    ->findAll();
     }
 }

@@ -23,33 +23,25 @@ class PengajuanJudulController extends ResourceController
 
         // $this->request->setHeader('Content-Type', 'application/json');
     }
+    
     public function table()
     {
-        // Load the necessary models
-        $pengajuanJudulModel = new PengajuanJudulModel();
-        $mahasiswaModel = new MahasiswaModel();
-    
-        // Fetch data from the pengajuan_judul table as objects
-        $pengajuanJudulData = $pengajuanJudulModel->asObject()->findAll();
-    
-        // Iterate through each pengajuan judul data
-        foreach ($pengajuanJudulData as $judulData) {
-            // Retrieve the corresponding mahasiswa data based on id_user
-            $mahasiswaData = $mahasiswaModel->where('id_user', $judulData->id_mhs)->first();
-    
-            // If mahasiswa data exists, assign the nama_mahasiswa to the judul data
-            if ($mahasiswaData) {
-                $judulData->nama = $mahasiswaData->nama;
-            } else {
-                // If no matching mahasiswa data found, assign a default value or handle as needed
-                $judulData->nama = 'Unknown';
+
+        $indikatorModel = new PengajuanJudulModel();
+        $operation['pengajuan'] = $indikatorModel->getPengajuan();
+
+         // Cek apakah mahasiswa yang login sudah memiliki data pengajuan
+            $mahasiswaId = session()->get('user_id');
+            // dd($mahasiswaId);
+            $mahasiswaSudahMengajukan = false;
+            foreach ($operation['pengajuan'] as $item) {
+                if ($item['id_mhs'] == $mahasiswaId) {
+                    $mahasiswaSudahMengajukan = true;
+                    break;
+                }
             }
-        }
-    
-        // Prepare the data to be passed to the view
-        $operation['data'] = $pengajuanJudulData;
         $operation['title'] = 'PengajuanJudul';
-    
+        $operation['mahasiswaSudahMengajukan'] = $mahasiswaSudahMengajukan;
         // Load the view with the prepared data
         return view("pengajuanjudul/index", $operation);
     }

@@ -54,6 +54,17 @@ $routes->group('pengajuanjudul', static function ($routes) {
     $routes->get('delete/(:num)', 'PengajuanJudulController::delete/$1');
 });
 
+//JUDUL ACC
+$routes->group('judulacc', static function ($routes) {
+    $routes->get('/', 'JudulAccController::table');
+    // $routes->get('judulacc/', 'JudulAccController::table');
+    $routes->get('create/(:num)', 'JudulAccController::create/$1');
+    $routes->post('store', 'JudulAccController::store');
+    // $routes->get('edit/(:num)', 'JudulAccController::edit/$1');
+    // $routes->post('update/(:num)', 'JudulAccController::update/$1');
+    $routes->post('delete/(:num)', 'JudulAccController::delete/$1');
+});
+
 $routes->group('api/pengajuanjudul', static function ($routes) {
     $routes->get('/', 'PengajuanJudulController::index');
     $routes->get('staff', 'PengajuanJudulController::getStaf');

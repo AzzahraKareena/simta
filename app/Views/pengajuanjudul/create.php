@@ -79,7 +79,7 @@
                                     <select class="form-select form-select-lg form-select-solid" name="id_rekom_dospem1" required>
                                         <option value="">Select rekomendasi dospem</option>
                                         <?php foreach ($rekomendasi_dosen as $rekomendasi): ?>
-                                            <option value="<?= $rekomendasi['nama'] ?>" <?= ($rekomendasi['nama'] == old('id_rekom_dospem1') || (isset($dataForm->id_rekom_dospem1) && $rekomendasi['nama'] == $dataForm->id_rekom_dospem1)) ? 'selected' : '' ?>>
+                                            <option value="<?= $rekomendasi['id_user'] ?>" <?= ($rekomendasi['nama'] == old('id_rekom_dospem1') || (isset($dataForm->id_rekom_dospem1) && $rekomendasi['nama'] == $dataForm->id_rekom_dospem1)) ? 'selected' : '' ?>>
                                                 <?= $rekomendasi['nama'] ?>
                                             </option>
                                         <?php endforeach; ?>
@@ -89,7 +89,7 @@
                                     <select class="form-select form-select-lg form-select-solid" name="id_rekom_dospem2" required>
                                         <option value="">Select rekomendasi dospem</option>
                                         <?php foreach ($rekomendasi_dosen as $rekomendasi): ?>
-                                            <option value="<?= $rekomendasi['nama'] ?>" <?= ($rekomendasi['nama'] == old('id_rekom_dospem2') || (isset($dataForm->id_rekom_dospem2) && $rekomendasi['nama'] == $dataForm->id_rekom_dospem2)) ? 'selected' : '' ?>>
+                                            <option value="<?= $rekomendasi['id_user'] ?>" <?= ($rekomendasi['nama'] == old('id_rekom_dospem2') || (isset($dataForm->id_rekom_dospem2) && $rekomendasi['nama'] == $dataForm->id_rekom_dospem2)) ? 'selected' : '' ?>>
                                                 <?= $rekomendasi['nama'] ?>
                                             </option>
                                         <?php endforeach; ?>

@@ -22,19 +22,30 @@ class PengajuanBimbinganModel extends Model
         'jadwal_bimbingan',
         'agenda',
         'tracking',
-        'id_acc_judul'
+        'id_accjudul'
     ];
 
-    // Jika Anda memiliki aturan validasi, Anda dapat mendefinisikannya di sini
-    // protected $validationRules = [
-    //     'id_mhs' => 'required',
-    //     'id_staf' => 'required',
-    //     'lokasi_bimbingan' => 'required',
-    //     'hasil_bimbingan' => 'required',
-    //     'status_ajuan' => 'required',
-    //     'waktu_bimbingan' => 'required',
-    //     'jadwal_bimbingan' => 'required',
-    //     'agenda' => 'required',
-    //     'id_acc_judul' => 'required'
-    // ];
+    public function withMhs()
+    {
+        return $this->join('users as mhs', 'mhs.id = simta_pengajuanbimbingan.id_mhs');
+    }
+
+    public function withStaff()
+    {
+        return $this->join('users as staff', 'staff.id = simta_pengajuanbimbingan.id_staf');
+    }
+
+    public function withJudul()
+    {
+        return $this->join('simta_acc_judul as judulacc', 'judulacc.id_accjudul = simta_pengajuanbimbingan.id_accjudul');
+    }
+
+    public function getPengajuan()
+    {
+        return $this->select('simta_pengajuanbimbingan.*, mhs.nama as mahasiswa_nama, staff.nama as staff_nama,  judulacc.judul_acc as judul_judul_acc')
+                    ->withMhs()
+                    ->withStaff()
+                    ->withJudul()
+                    ->findAll();
+    }
 }

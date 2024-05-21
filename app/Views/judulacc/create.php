@@ -12,15 +12,15 @@
                     <!--begin::Header-->
                     <div class="card-header border-0 pt-5">
                         <h3 class="card-title align-items-start flex-column">
-                            <span class="card-label fw-bolder fs-3 mb-1">Form Indikator</span>
-                            <span class="text-muted mt-1 fw-bold fs-7">Isi data indikator dengan benar</span>
+                            <span class="card-label fw-bolder fs-3 mb-1">Form Judul Acc</span>
+                            <span class="text-muted mt-1 fw-bold fs-7">Isi data Form Judul Acc</span>
                         </h3>
                     </div>
                     <!--end::Header-->
                     <!--begin::Body-->
                     <div class="card-body py-3">
                         <!--begin::Form-->
-                        <form class="form w-100" method="post" enctype="multipart/form-data" id="form_indikator" action="<?= service('router')->getMatchedRoute()[0] == "indikator/create" ? base_url('indikator/store') : base_url('indikator/update/'.($dataForm['id_indikator'] ?? "")) ?>">
+                        <form class="form w-100" method="post" enctype="multipart/form-data" id="form_indikator" action="/judulacc/store">
                             <?= csrf_field() ?>
                             <!--begin::Input group-->
                             <?php if (session()->getFlashdata('errorForm')) : ?>
@@ -46,23 +46,26 @@
                             <div class="row">
                                 <div class="col-12 col-md-12">
                                     <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">Kriteria</label>
-                                        <select class="form-select form-select-lg form-select-solid" name="id_kriteria" required>
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Nama Mahasiswa</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="text" name="" autocomplete="off" placeholder="<?= $nama_mhs ?>" value="<?= $nama_mhs ?>" required readonly /> 
+                                        <input class="form-control form-control-lg form-control-solid" type="hidden" name="mhs_id" autocomplete="off" placeholder="<?= $id_mhs ?>" value="<?= $id_mhs ?>" required readonly /> 
+                                    </div>
+                                    <div class="fv-row mb-10">
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Judul Tugas Akhir</label>
+                                        <select class="form-select form-select-lg form-select-solid" name="judul_acc" required>
                                             <!-- <option value="">Pilih Kriteria</option> -->
-                                            <?php foreach ($kriteria as $kr): ?>
-                                                <option value="<?= $kr['id_kriteria'] ?>" <?= ($kr['nama_kriteria'] == old('nama_kriteria') || (isset($dataForm['id_kriteria']) && $kr['id_kriteria'] == $dataForm['id_kriteria'])) ? 'selected' : '' ?>>
-                                                    <?= $kr['nama_kriteria'] ?>
-                                                </option>
-                                            <?php endforeach; ?>
+                                                <option value="<?= $judul1?>"><?=$judul1?></option>
+                                                <option value="<?= $judul2?>"><?=$judul2?></option>
+                                                <option value="<?= $judul3?>"><?=$judul3?></option>
                                         </select>
                                     </div>
                                     <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">Nama Indikator</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="text" name="nama" autocomplete="off" placeholder="Input Nama Indikator" value="<?= old('nama')?? $dataForm['nama']??"" ?>" required />
-                                    </div>
-                                    <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">Nilai Maksimum</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="text" name="max_nilai" autocomplete="off" placeholder="Input Nilai Maksimum" value="<?= old('max_nilai')?? $dataForm['max_nilai']??"" ?>" required />
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Dosen Pembimbing</label>
+                                        <select class="form-select form-select-lg form-select-solid" name="dospemId" required>
+                                            <!-- <option value="">Pilih Kriteria</option> -->
+                                                <option value="<?= $dospemId1?>"><?=$dospem1?></option>
+                                                <option value="<?= $dospemId2?>"><?=$dospem2?></option>
+                                        </select>
                                     </div>
                                 </div>
                             
