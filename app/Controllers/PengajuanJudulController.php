@@ -28,18 +28,40 @@ class PengajuanJudulController extends ResourceController
     {
 
         $indikatorModel = new PengajuanJudulModel();
-        $operation['pengajuan'] = $indikatorModel->getPengajuan();
+        $operation = $indikatorModel->getPengajuan();
+
+        // $getLogin = session()->get('user_id');
+        // dd($getLogin);
+        // Fetch data from bimbingan
+        $getData = []; // Inisialisasi sebagai array kosong
+        
+        foreach ($operation as $bimbingan) {
+            if (session()->get('role') == 'Mahasiswa') {
+                // Jika rolenya adalah "Mahasiswa", maka hanya data yang sesuai dengan ID mahasiswa yang sedang login yang akan ditampilkan
+                if ($bimbingan['id_mhs'] == session()->get('user_id')) {
+                    $getData[] = $bimbingan; // Tambahkan ke array
+                }
+            } elseif (session()->get('role') == 'Dosen') {
+                // Jika rolenya adalah "Dosen", maka hanya data yang sesuai dengan ID staf yang sedang login yang akan ditampilkan
+                if ($bimbingan['id_rekom_dospem1'] == session()->get('user_id')) {
+                    $getData[] = $bimbingan; // Tambahkan ke array
+                }elseif ($bimbingan['id_rekom_dospem2'] == session()->get('user_id')) {
+                    $getData[] = $bimbingan; // Tambahkan ke array
+                }
+            }
+        }
 
          // Cek apakah mahasiswa yang login sudah memiliki data pengajuan
             $mahasiswaId = session()->get('user_id');
             // dd($mahasiswaId);
             $mahasiswaSudahMengajukan = false;
-            foreach ($operation['pengajuan'] as $item) {
+            foreach ($operation as $item) {
                 if ($item['id_mhs'] == $mahasiswaId) {
                     $mahasiswaSudahMengajukan = true;
                     break;
                 }
             }
+        $operation['pengajuan'] = $getData;
         $operation['title'] = 'PengajuanJudul';
         $operation['mahasiswaSudahMengajukan'] = $mahasiswaSudahMengajukan;
         // Load the view with the prepared data

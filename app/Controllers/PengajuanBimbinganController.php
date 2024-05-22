@@ -28,22 +28,19 @@ class PengajuanBimbinganController extends ResourceController
         }
         $mahasiswaNim = new MahasiswaModel();
         $mahasiswa = $mahasiswaNim->where('id_user', $id_mhs)->get()->getRow()->nim;
-        $mahasiswaProdi = $mahasiswaNim->where('id_user', $id_mhs)->get()->getRow()->prodi;
-        // dd($mahasiswa);
     
         // Fetch data from bimbingan
-        // dd($data);
         $getData = []; // Inisialisasi sebagai array kosong
         
         foreach ($data as $bimbingan) {
             if (session()->get('role') == 'Mahasiswa') {
                 // Jika rolenya adalah "Mahasiswa", maka hanya data yang sesuai dengan ID mahasiswa yang sedang login yang akan ditampilkan
-                if ($bimbingan->id_mhs == session()->get('user_id')) {
+                if ($bimbingan['id_mhs'] == session()->get('user_id')) {
                     $getData[] = $bimbingan; // Tambahkan ke array
                 }
             } elseif (session()->get('role') == 'Dosen') {
                 // Jika rolenya adalah "Dosen", maka hanya data yang sesuai dengan ID staf yang sedang login yang akan ditampilkan
-                if ($bimbingan->id_staf == session()->get('user_id')) {
+                if ($bimbingan['id_staf'] == session()->get('user_id')) {
                     $getData[] = $bimbingan; // Tambahkan ke array
                 }
             }
@@ -56,9 +53,8 @@ class PengajuanBimbinganController extends ResourceController
         $enum_values = explode("','", $matches[1]);
     
         // Since I'm not using it as a REST API, send it to view
-        $operation['data'] = $data;
+        $operation['data'] = $getData;
         $operation['nim'] = $mahasiswa;
-        $operation['prodi'] = $mahasiswaProdi;
         $operation['title'] = 'Pengajuan Bimbingan';
         $operation['sub_title'] = 'Daftar Pengajuan Bimbingan Tugas Akhir';
         $operation['tracking'] = $enum_values;
@@ -75,11 +71,13 @@ class PengajuanBimbinganController extends ResourceController
     public function create()
     {
         $judulModel = new JudulAccModel();
-        $dataJudul = $judulModel->where('dospem_acc',session()->get('user_id'))->getPengajuan();
-        // $getIDlogin = session()->get('user_id');
+        // dd(session()->get('user_id'));
 
-        // dd($getIDlogin);
-        // dd($dataJudul);
+        if (session()->get('role') == 'Mahasiswa') {
+            $dataJudul = $judulModel->where('mhs_id',session()->get('user_id'))->getPengajuan();
+        } elseif (session()->get('role') == 'Dosen') {
+            $dataJudul = $judulModel->where('dospem_acc',session()->get('user_id'))->getPengajuan();
+        }
 
         $operation['data'] = $dataJudul;
         $operation['title'] = 'Pengajuan Bimbingan';

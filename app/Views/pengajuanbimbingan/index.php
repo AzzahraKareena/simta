@@ -160,8 +160,8 @@
                                         <tr>
                                             <td class="nilaiId d-none"><?= $vdata['mahasiswa_nama'] ?></td>
                                             <td class="nama_mahasiswa"><?= $vdata['judul_judul_acc'] ?></td>
-                                            <td data-id="<?= $vdata['id_pengajuanbimbingan'] ?>" contenteditable="false" class="nama_mahasiswa"><?= $vdata['mahasiswa_nama'] ?></td>
-                                            <td data-id="<?= $vdata['id_pengajuanbimbingan'] ?>" contenteditable="false" class="nim"><?= $nim ?></td>
+                                            <td contenteditable="false" class="nama_mahasiswa"><?= $vdata['mahasiswa_nama'] ?></td>
+                                            <td contenteditable="false" class="nim"><?= $nim ?></td>
                                             <td data-id="<?= $vdata['id_pengajuanbimbingan'] ?>" contenteditable="false" class="lokasi_bimbingan"><?= $vdata['lokasi_bimbingan'] ?></td>
                                             <td data-id="<?= $vdata['id_pengajuanbimbingan'] ?>" contenteditable="false" class="hasil_bimbingan"><?= $vdata['hasil_bimbingan'] ?></td>
                                             <td>

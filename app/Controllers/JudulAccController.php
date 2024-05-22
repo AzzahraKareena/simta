@@ -16,23 +16,23 @@ class JudulAccController extends ResourceController
     
         // Fetch data from bimbingan
         $data = $bimbinganModel->getPengajuan();
-        // $getData = []; // Inisialisasi sebagai array kosong
+        $getData = []; // Inisialisasi sebagai array kosong
         
-        // foreach ($data as $bimbingan) {
-        //     if (session()->get('role') == 'Mahasiswa') {
-        //         // Jika rolenya adalah "Mahasiswa", maka hanya data yang sesuai dengan ID mahasiswa yang sedang login yang akan ditampilkan
-        //         if ($bimbingan->mhs_id == session()->get('id')) {
-        //             $getData[] = $bimbingan; // Tambahkan ke array
-        //         }
-        //     } elseif (session()->get('role') == 'Dosen') {
-        //         // Jika rolenya adalah "Dosen", maka hanya data yang sesuai dengan ID staf yang sedang login yang akan ditampilkan
-        //         if ($bimbingan->dospem_acc == session()->get('id')) {
-        //             $getData[] = $bimbingan; // Tambahkan ke array
-        //         }
-        //     }
-        // }
+        foreach ($data as $bimbingan) {
+            if (session()->get('role') == 'Mahasiswa') {
+                // Jika rolenya adalah "Mahasiswa", maka hanya data yang sesuai dengan ID mahasiswa yang sedang login yang akan ditampilkan
+                if ($bimbingan['mhs_id'] == session()->get('user_id')) {
+                    $getData[] = $bimbingan; // Tambahkan ke array
+                }
+            } elseif (session()->get('role') == 'Dosen') {
+                // Jika rolenya adalah "Dosen", maka hanya data yang sesuai dengan ID staf yang sedang login yang akan ditampilkan
+                if ($bimbingan['dospem_acc'] == session()->get('user_id')) {
+                    $getData[] = $bimbingan; // Tambahkan ke array
+                }
+            }
+        }
     
-        $operation['data'] = $data;
+        $operation['data'] = $getData;
         $operation['title'] = 'Judul Acc';
         $operation['sub_title'] = 'Daftar Judul Acc';
     
