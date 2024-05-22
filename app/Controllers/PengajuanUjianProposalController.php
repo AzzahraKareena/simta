@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\MahasiswaModel;
 use App\Models\PengajuanJudulModel;
 use App\Models\PengajuanUjianProposalModel;
 use TCPDF;
@@ -12,6 +13,7 @@ class PengajuanUjianProposalController extends BaseController
     public function table()
     {
         $data = (new PengajuanUjianProposalModel())->asArray()->findAll();
+        
         
         $operation['data'] = $data;
         $operation['title'] = 'Pengajuan Ujian Proposal';
@@ -139,12 +141,23 @@ class PengajuanUjianProposalController extends BaseController
 
     public function beritaacara($id)
     {
+        helper('my_date_helper');
+
         $imagePath = FCPATH . 'assets/img/logo-uns.jpg';
+        $ujianpropo = (new PengajuanUjianProposalModel())->asObject()->find($id);
+        $indonesian_date = convert_datetime_to_indonesian($ujianpropo->ajuan_tgl_ujian);
+
+        // dd($ujianpropo);
 
         $data = [
             'imagePath' => $imagePath,
-            'pengajuanpropo' => (new PengajuanUjianProposalModel())->find($id)
+            'mahasiswa' => (new MahasiswaModel())->asArray()->where('id_user', $ujianpropo->id_mhs)->first(),
+            'day' => $indonesian_date['day'],
+            'date' => $indonesian_date['date'],
+            'month' => $indonesian_date['month'],
+            'year' => $indonesian_date['year']
         ];
+        // dd($data);
 
         $html = view('pengajuanujianproposal/berita-acara', $data);
 

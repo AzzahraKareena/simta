@@ -7,23 +7,23 @@
 </head>
 <body>
     <p style="text-align: center; font-weight: bold;">BERITA ACARA UJIAN PROPOSAL TUGAS AKHIR <br> D3 TEKNIK INFORMATIKA MADIUN <br> SEKOLAH VOKASI UNS</p>
-    <p>Pada hari ini ........................, Tanggal ........... Bulan ........................... Tahun .......... Telah dilaksanakan Ujian Proposal TA atas Mahasiswa :</p>
+    <p>Pada hari ini <?= $day; ?>, Tanggal <?= $date; ?> Bulan <?= $month; ?> Tahun <?= $year; ?>, Telah dilaksanakan Ujian Proposal TA atas Mahasiswa :</p>
         <table width="100%">
             <tbody>
                 <tr>
-                    <td>Nama Mahasiswa</td>
-                    <td>:</td>
-                    <td></td>
+                    <td width="25%">Nama Mahasiswa</td>
+                    <td width="2%">:</td>
+                    <td width="73%"><?= $mahasiswa['nama'] ?? ''; ?></td>
                 </tr>
                 <tr>
                     <td>NIM</td>
                     <td>:</td>
-                    <td></td>
+                    <td><?= $mahasiswa['nim']; ?></td>
                 </tr>
                 <tr>
                     <td>Jurusan / Program Studi</td>
                     <td>:</td>
-                    <td></td>
+                    <td><?= $mahasiswa['prodi']; ?></td>
                 </tr>
             </tbody>
         </table>
