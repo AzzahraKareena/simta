@@ -62,10 +62,9 @@
                                         <th class="min-w-20px text-center">Proposal TA</th>
                                         <th class="min-w-20px text-center">Ajuan Tanggal Ujian</th>
                                         <th class="min-w-20px text-center">Revisi Proposal</th>
-                                        <th class="min-w-20px text-center">Action</th>
-                                        <!-- <?php if(isset($vdata) && $vdata['jadwal'] !== null): ?>
+                                        <?php if(session()->get('role') == 'Mahasiswa'): ?>
                                             <th class="min-w-20px text-center">Action</th>
-                                        <?php endif; ?> -->
+                                        <?php endif; ?>
                                     </tr>
                                 </thead>
                                 <!--end::Table head-->
@@ -174,7 +173,8 @@
                                             <td>
                                                 <?php if(session()->get('role') == 'Koordinator'): ?>
                                                     <!-- <div class="d-flex justify-content-end flex-shrink-0"> -->
-                                                        <button onclick="openFileUploader(<?php echo $vdata['id_ujianproposal']; ?>)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1 mb-3" title="Upload Jadwal">
+
+                                                        <!-- <button onclick="openFileUploader(<?php echo $vdata['id_ujianproposal']; ?>)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1 mb-3" title="Upload Jadwal">
                                                             <span class="svg-icon svg-icon-3 svg-icon-dark">
                                                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                                                 <title>Upload Jadwal</title>
@@ -187,29 +187,29 @@
                                                                 </g>
                                                             </svg>
                                                             </span>
-                                                        </button>
+                                                        </button> -->
                                                 <?php endif; ?>
                                                 <?php if($vdata['jadwal'] == !NULL): ?>
-                                                        <a href="<?= base_url('pengajuanujianproposal/berita-acara/'. $vdata['id_ujianproposal']) ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Unduh Berkas">
+                                                        <!-- Icon untuk unduh berkas -->
+                                                        <!-- <a href="<?= base_url('pengajuanujianproposal/berita-acara/'. $vdata['id_ujianproposal']) ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Unduh Berkas">
                                                             <span class="svg-icon svg-icon-3">
-                                                                <!-- Icon untuk unduh berkas -->
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download">
                                                                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                                                                     <polyline points="7 10 12 15 17 10"></polyline>
                                                                     <line x1="12" y1="15" x2="12" y2="3"></line>
                                                                 </svg>
                                                             </span>
-                                                        </a>
+                                                        </a> -->
                                                         
-                                                        <a href="<?= base_url('public/assets/jadwalujian/'. $vdata['jadwal']) ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1 mb-3" title="Lihat Pengumuman Seminar Proposal" target="_blank">
+                                                        <!-- Icon untuk lihat pengumuman -->
+                                                        <!-- <a href="<?= base_url('public/assets/jadwalujian/'. $vdata['jadwal']) ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1 mb-3" title="Lihat Pengumuman Seminar Proposal" target="_blank">
                                                             <span class="svg-icon svg-icon-3">
-                                                                <!-- Icon untuk lihat pengumuman -->
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye">
                                                                     <circle cx="12" cy="12" r="3"></circle>
                                                                     <path d="M2 12s5-8 10-8 10 8 10 8-5 8-10 8-10-8-10-8z"></path>
                                                                 </svg>
                                                             </span>
-                                                        </a>
+                                                        </a> -->
                                                 <?php endif; ?>
                                                 <?php if(session()->get('role') == 'Mahasiswa'): ?>
                                                     <?php if($vdata['status_pengajuan'] == 'REVISI'): ?>

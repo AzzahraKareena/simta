@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\JudulAccModel;
 use App\Models\MahasiswaModel;
 use App\Models\PengajuanJudulModel;
 use App\Models\PengajuanUjianProposalModel;
@@ -23,10 +24,13 @@ class PengajuanUjianProposalController extends BaseController
     
     public function create()
     {
-        $id_mhs = session()->get('user_id');
+        // $id_mhs = session()->get('user_id');
+        $judulAcc = new JudulAccModel();
+        $dataJudul = $judulAcc->where('mhs.id',session()->get('user_id'))->getPengajuan();
+        // dd($dataJudul);
         $operation['title'] = 'Pengajuan Ujian Proposal';
         $operation['sub_title'] = 'Buat Pengajuan Ujian Proposal Baru';
-        $operation['pjudul'] = (new PengajuanJudulModel())->where('id_mhs', $id_mhs)->first();
+        $operation['pjudul'] = $dataJudul;
         // dd($operation['pjudul']);
         return view('pengajuanujianproposal/create', ['pjudul' => $operation['pjudul']]);
     }
@@ -39,8 +43,12 @@ class PengajuanUjianProposalController extends BaseController
         $data = $this->request->getPost();
         
         // Tambahkan id_mhs ke data
-        $data['id_mhs'] = $id_mhs;
-        $data['id_pengajuanjudul'] = $this->request->getVar('id_pengajuanjudul');
+        $data['mahasiswa'] = $id_mhs;
+        // $data['judul_acc_id'] = $this->request->getVar('judul_acc_id');
+
+        $judulAcc = new JudulAccModel();
+        $id_dospem = $judulAcc->where('id_accjudul', $this->request->getPost('judul_acc_id'))->get()->getRow()->dospem_acc;
+        $data['id_dospem'] = $id_dospem;
 
         // Mengelola file upload
         $file = $this->request->getFile('proposal_ta');
@@ -52,12 +60,16 @@ class PengajuanUjianProposalController extends BaseController
 
         // Insert ke database
         $data['status'] = $this->request->getPost('status');
+        // $data['judul_acc_id'] = $this->request->getPost('id_accjudul');
 
+        // dd($data);
         $pengajuanUjianProposalModel = new PengajuanUjianProposalModel();
         $pengajuanUjianProposalModel->insert($data);
 
         return redirect()->to('pengajuanujianproposal');
     }
+
+
 
     public function edit($id)
     {
@@ -121,7 +133,10 @@ class PengajuanUjianProposalController extends BaseController
 
             // Simpan detail file ke dalam database
             $proposalModel = new PengajuanUjianProposalModel();
-            $proposalModel->update($proposalId, ['revisi_proposal' => $newFileName]);
+            $proposalModel->update($proposalId, [
+                'revisi_proposal' => $newFileName,
+                'revisi_proposal_date' => date('Y-m-d H:i:s')
+            ]);
 
             // Kirim respon ke client
             return $this->response->setJSON(['status' => 'success', 'message' => 'File berhasil diunggah']);

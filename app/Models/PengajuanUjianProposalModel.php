@@ -11,7 +11,7 @@ class PengajuanUjianProposalModel extends Model
     protected $primaryKey = 'id_ujianproposal';
     protected $allowedFields = [
         'id_ujianproposal',
-        'id_accjudul',
+        'judul_acc_id',
         'mahasiswa',
         'id_dospem',
         'abstrak',
@@ -21,8 +21,6 @@ class PengajuanUjianProposalModel extends Model
         'ajuan_tgl_ujian',
         'status_pengajuan',
         'status_ajuan_revisi',
-        'id_penguji1',
-        'id_penguji2',
         'jadwal'
     ];
 
@@ -50,18 +48,18 @@ class PengajuanUjianProposalModel extends Model
         return $this->join('users as dospem', 'dospem.id = simta_pengajuan_ujian_proposal.id_dospem');
     }
 
-    public function withPenguji1()
-    {
-        return $this->join('users as penguji1', 'penguji1.id = simta_pengajuan_ujian_proposal.id_penguji1');
-    }
-    public function withPenguji2()
-    {
-        return $this->join('users as penguji2', 'penguji2.id = simta_pengajuan_ujian_proposal.id_penguji2');
-    }
+    // public function withPenguji1()
+    // {
+    //     return $this->join('users as penguji1', 'penguji1.id = simta_pengajuan_ujian_proposal.id_penguji1');
+    // }
+    // public function withPenguji2()
+    // {
+    //     return $this->join('users as penguji2', 'penguji2.id = simta_pengajuan_ujian_proposal.id_penguji2');
+    // }
 
     public function withJudul()
     {
-        return $this->join('simta_acc_judul as judulacc', 'judulacc.id_accjudul = simta_pengajuan_ujian_proposal.id_accjudul');
+        return $this->join('simta_acc_judul as judulacc', 'judulacc.id_accjudul = simta_pengajuan_ujian_proposal.judul_acc_id');
     }
 
     public function getPengajuan()
