@@ -108,6 +108,16 @@ $routes->group('pengajuanujianproposal', static function ($routes) {
     $routes->get('berita-acara/(:num)', 'PengajuanUjianProposalController::beritaacara/$1');
 });
 
+//RILIS JADWAL
+$routes->group('rilisjadwal', static function ($routes) {
+    $routes->get('/', 'JadwalUjianPropoController::table');
+    $routes->get('create', 'JadwalUjianPropoController::create');
+    $routes->post('store', 'JadwalUjianPropoController::store');
+    $routes->get('edit/(:segment)', 'JadwalUjianPropoController::edit/$1');
+    $routes->post('update/(:segment)', 'JadwalUjianPropoController::update/$1');
+    $routes->post('delete/(:num)', 'JadwalUjianPropoController::delete/$1');
+});
+
 //MASTER FILE BERKAS
 $routes->group('berkasTA', static function ($routes) {
     $routes->get('/', 'BerkasTAController::table');

@@ -13,22 +13,22 @@
                 <tr>
                     <td width="25%">Nama Mahasiswa</td>
                     <td width="2%">:</td>
-                    <td width="73%"><?= $mahasiswa['nama'] ?? ''; ?></td>
+                    <td width="73%"><?= $jadwal['nama_mhs'] ?? ''; ?></td>
                 </tr>
                 <tr>
                     <td>NIM</td>
                     <td>:</td>
-                    <td><?= $mahasiswa['nim']; ?></td>
+                    <td><?= $jadwal['nim']; ?></td>
                 </tr>
                 <tr>
                     <td>Jurusan / Program Studi</td>
                     <td>:</td>
-                    <td><?= $mahasiswa['prodi']; ?></td>
+                    <td><?= $jadwal['prodi']; ?></td>
                 </tr>
             </tbody>
         </table>
     <p>Yang bersangkutan telah menyusun dan mempertahankan Proposal TA yang diwajibkan padanya dengan Judul :</p>
-    <p>[Judul]</p>
+    <p><b><?= $jadwal['judul']; ?></b></p>
     <div>Dihadapan Tim Penguji yang terdiri dari</div>
     <table width="100%" cellpadding="1">
         <tbody>

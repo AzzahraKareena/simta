@@ -184,6 +184,16 @@
                                 <span class="menu-title">Pengajuan Ujian Proposal</span>
                             </a>
                         </div>
+                        <?php if(session()->get('role') == 'Koordinator'): ?>
+                        <div class="menu-item">
+                            <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "rilisjadwal" ? "active" : "" ?>" href="<?= base_url('rilisjadwal')?>">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Rilis Jadwal Ujian Proposal</span>
+                            </a>
+                        </div>
+                        <?php endif ?>
                     </div>
                 </div>
             </div>

@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\JadwalUjianPropoModel;
 use App\Models\JudulAccModel;
 use App\Models\MahasiswaModel;
 use App\Models\PengajuanJudulModel;
@@ -13,10 +14,20 @@ class PengajuanUjianProposalController extends BaseController
 {
     public function table()
     {
-        $data = (new PengajuanUjianProposalModel())->asArray()->findAll();
-        
-        
+        $data = (new PengajuanUjianProposalModel())->getAllPengajuanWithJadwal();
+        // Cek apakah mahasiswa yang login sudah memiliki data pengajuan
+        $mahasiswaId = session()->get('user_id');
+        // dd($mahasiswaId);
+        $mahasiswaSudahMengajukan = false;
+        foreach ($data as $item) {
+            if ($item['mahasiswa'] == $mahasiswaId && $item['status_pengajuan'] != 'DITOLAK') {
+                $mahasiswaSudahMengajukan = true;
+                break;
+            }
+        }
         $operation['data'] = $data;
+        $operation['mahasiswaSudahMengajukan'] = $mahasiswaSudahMengajukan;
+        // dd($data);
         $operation['title'] = 'Pengajuan Ujian Proposal';
         $operation['sub_title'] = 'Daftar Pengajuan Ujian Proposal';
         return view("pengajuanujianproposal/index", $operation);
@@ -159,24 +170,22 @@ class PengajuanUjianProposalController extends BaseController
         helper('my_date_helper');
 
         $imagePath = FCPATH . 'assets/img/logo-uns.jpg';
-        $ujianpropo = (new PengajuanUjianProposalModel())->asObject()->find($id);
-        $indonesian_date = convert_datetime_to_indonesian($ujianpropo->ajuan_tgl_ujian);
-
-        // dd($ujianpropo);
+        $ujianpropo = (new PengajuanUjianProposalModel())->getPengajuanForBeritaAcara($id);
+        $indonesian_date = convert_datetime_to_indonesian($ujianpropo['tgl_ujian']);
 
         $data = [
             'imagePath' => $imagePath,
-            'mahasiswa' => (new MahasiswaModel())->asArray()->where('id_user', $ujianpropo->id_mhs)->first(),
             'day' => $indonesian_date['day'],
             'date' => $indonesian_date['date'],
             'month' => $indonesian_date['month'],
-            'year' => $indonesian_date['year']
+            'year' => $indonesian_date['year'],
+            'jadwal' => $ujianpropo
         ];
         // dd($data);
 
         $html = view('pengajuanujianproposal/berita-acara', $data);
 
-        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, 'F4', true, 'UTF-8', false);
         // Setel margin
         $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
         $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);

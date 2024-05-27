@@ -40,12 +40,12 @@ class PengajuanUjianProposalModel extends Model
 
     public function withMhs()
     {
-        return $this->join('users as mhs', 'mhs.id = simta_pengajuan_ujian_proposal.mahasiswa');
+        return $this->join('users as mhs', 'mhs.id = simta_pengajuan_ujianproposal.mahasiswa');
     }
 
     public function withDospem()
     {
-        return $this->join('users as dospem', 'dospem.id = simta_pengajuan_ujian_proposal.id_dospem');
+        return $this->join('users as dospem', 'dospem.id = simta_pengajuan_ujianproposal.id_dospem');
     }
 
     // public function withPenguji1()
@@ -72,4 +72,34 @@ class PengajuanUjianProposalModel extends Model
                     ->withJudul()
                     ->findAll();
     }
+
+    public function getMhs() 
+    {
+        return $this->select('mahasiswa.nama as nama_mhs, mahasiswa.nim as nim, simta_acc_judul.judul_acc as judul, simta_pengajuan_ujianproposal.*')
+            ->join('users', 'simta_pengajuan_ujianproposal.mahasiswa=users.id')
+            ->join('mahasiswa', 'users.id=mahasiswa.id_user')
+            ->join('simta_acc_judul', 'simta_pengajuan_ujianproposal.judul_acc_id=simta_acc_judul.id_accjudul')
+            ->where('status_pengajuan', 'PENDING')
+            ->findAll();
+    }
+
+    public function getAllPengajuanWithJadwal()
+    {
+        return $this->select('simta_pengajuan_ujianproposal.*, simta_rilis_jadwal.id_rilis_jadwal as jadwal_id')
+                    ->join('simta_rilis_jadwal', 'simta_pengajuan_ujianproposal.id_ujianproposal = simta_rilis_jadwal.id_pengajuanujianpropo', 'left')
+                    ->findAll();
+    }
+
+    public function getPengajuanForBeritaAcara($id)
+    {
+        return $this->select('mahasiswa.nama as nama_mhs, mahasiswa.nim as nim, mahasiswa.prodi as prodi, u1.nama as penguji1, u2.nama as penguji2, simta_acc_judul.judul_acc as judul, simta_pengajuan_ujianproposal.*, simta_rilis_jadwal.*')
+                    ->join('simta_rilis_jadwal', 'simta_pengajuan_ujianproposal.id_ujianproposal = simta_rilis_jadwal.id_pengajuanujianpropo', 'left')
+                    ->join('users as u1', 'simta_rilis_jadwal.id_penguji1=u1.id')
+                    ->join('users as u2', 'simta_rilis_jadwal.id_penguji2=u2.id')
+                    ->join('users', 'simta_pengajuan_ujianproposal.mahasiswa=users.id')
+                    ->join('mahasiswa', 'users.id=mahasiswa.id_user')
+                    ->join('simta_acc_judul', 'simta_pengajuan_ujianproposal.judul_acc_id=simta_acc_judul.id_accjudul')
+                    ->find($id);
+    }
+
 }

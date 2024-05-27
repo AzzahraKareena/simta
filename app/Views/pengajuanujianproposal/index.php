@@ -33,7 +33,7 @@
                                 <!--end::Search-->
 
                                 <!--begin::Toolbar-->
-                                <?php if(session()->get('role') == 'Mahasiswa'): ?>
+                                <?php if(session()->get('role') == 'Mahasiswa' && !$mahasiswaSudahMengajukan): ?>
                                 <div class="d-flex justify-content-end" data-kt-docs-table-toolbar="base">
                                     <!--begin::Add customer-->
                                     <a href="<?= base_url('pengajuanujianproposal/create')?>" class="btn btn-primary" data-bs-toggle="tooltip" title="Klik tambah data">
@@ -171,52 +171,14 @@
                                                 <?php endif; ?>
                                             </td>
                                             <td>
-                                                <?php if(session()->get('role') == 'Koordinator'): ?>
-                                                    <!-- <div class="d-flex justify-content-end flex-shrink-0"> -->
+                                                <div class="d-flex justify-content-end flex-shrink-0">
+                                                    <?php if(session()->get('role') == 'Koordinator'): ?>
+                                                        <!-- <div class="d-flex justify-content-end flex-shrink-0"> -->
 
-                                                        <!-- <button onclick="openFileUploader(<?php echo $vdata['id_ujianproposal']; ?>)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1 mb-3" title="Upload Jadwal">
-                                                            <span class="svg-icon svg-icon-3 svg-icon-dark">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                                                <title>Upload Jadwal</title>
-                                                                <defs/>
-                                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                                    <rect x="0" y="0" width="24" height="24"/>
-                                                                    <path d="M2,13 C2,12.5 2.5,12 3,12 C3.5,12 4,12.5 4,13 C4,13.3333333 4,15 4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 C2,15 2,13.3333333 2,13 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
-                                                                    <rect fill="#000000" opacity="0.3" x="11" y="2" width="2" height="14" rx="1"/>
-                                                                    <path d="M12.0362375,3.37797611 L7.70710678,7.70710678 C7.31658249,8.09763107 6.68341751,8.09763107 6.29289322,7.70710678 C5.90236893,7.31658249 5.90236893,6.68341751 6.29289322,6.29289322 L11.2928932,1.29289322 C11.6689749,0.916811528 12.2736364,0.900910387 12.6689647,1.25670585 L17.6689647,5.75670585 C18.0794748,6.12616487 18.1127532,6.75845471 17.7432941,7.16896473 C17.3738351,7.57947475 16.7415453,7.61275317 16.3310353,7.24329415 L12.0362375,3.37797611 Z" fill="#000000" fill-rule="nonzero"/>
-                                                                </g>
-                                                            </svg>
-                                                            </span>
-                                                        </button> -->
-                                                <?php endif; ?>
-                                                <?php if($vdata['jadwal'] == !NULL): ?>
-                                                        <!-- Icon untuk unduh berkas -->
-                                                        <!-- <a href="<?= base_url('pengajuanujianproposal/berita-acara/'. $vdata['id_ujianproposal']) ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Unduh Berkas">
-                                                            <span class="svg-icon svg-icon-3">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download">
-                                                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                                                    <polyline points="7 10 12 15 17 10"></polyline>
-                                                                    <line x1="12" y1="15" x2="12" y2="3"></line>
-                                                                </svg>
-                                                            </span>
-                                                        </a> -->
-                                                        
-                                                        <!-- Icon untuk lihat pengumuman -->
-                                                        <!-- <a href="<?= base_url('public/assets/jadwalujian/'. $vdata['jadwal']) ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1 mb-3" title="Lihat Pengumuman Seminar Proposal" target="_blank">
-                                                            <span class="svg-icon svg-icon-3">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye">
-                                                                    <circle cx="12" cy="12" r="3"></circle>
-                                                                    <path d="M2 12s5-8 10-8 10 8 10 8-5 8-10 8-10-8-10-8z"></path>
-                                                                </svg>
-                                                            </span>
-                                                        </a> -->
-                                                <?php endif; ?>
-                                                <?php if(session()->get('role') == 'Mahasiswa'): ?>
-                                                    <?php if($vdata['status_pengajuan'] == 'REVISI'): ?>
-                                                            <button onclick="openFileUploaderRevisi(<?php echo $vdata['id_ujianproposal']; ?>)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Upload Revisi">
+                                                            <!-- <button onclick="openFileUploader(<?php echo $vdata['id_ujianproposal']; ?>)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1 mb-3" title="Upload Jadwal">
                                                                 <span class="svg-icon svg-icon-3 svg-icon-dark">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                                                    <title>Upload Revisi</title>
+                                                                    <title>Upload Jadwal</title>
                                                                     <defs/>
                                                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                                                         <rect x="0" y="0" width="24" height="24"/>
@@ -226,10 +188,28 @@
                                                                     </g>
                                                                 </svg>
                                                                 </span>
-                                                            </button>
-                                                    <!-- </div> -->
+                                                            </button> -->
                                                     <?php endif; ?>
-                                                <?php endif; ?>
+                                                    <?php if (!empty($vdata['jadwal_id'])): ?>
+                                                        <!-- Icon untuk unduh berkas -->
+                                                        <a href="<?= base_url('pengajuanujianproposal/berita-acara/'. $vdata['id_ujianproposal']) ?>" target="_blank" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" title="Unduh Berita Acara">
+                                                            <span class="svg-icon svg-icon-3">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download">
+                                                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                                                </svg>
+                                                            </span>
+                                                        </a>
+                                                    <?php endif; ?>
+                                                    <?php if(session()->get('role') == 'Mahasiswa' && $vdata['status_pengajuan'] == 'REVISI'): ?>
+                                                        <button onclick="openFileUploaderRevisi(<?php echo $vdata['id_ujianproposal']; ?>)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" title="Upload Revisi">
+                                                            <span class="svg-icon svg-icon-3 svg-icon-dark">
+                                                            <svg fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.71,10.79a1,1,0,0,0-.33-.21,1,1,0,0,0-.76,0,1,1,0,0,0-.33.21l-2,2a1,1,0,0,0,1.42,1.42l.29-.3V16.5a1,1,0,0,0,2,0V13.91l.29.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42ZM19,5.5H12.72l-.32-1a3,3,0,0,0-2.84-2H5a3,3,0,0,0-3,3v13a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V8.5A3,3,0,0,0,19,5.5Zm1,13a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V5.5a1,1,0,0,1,1-1H9.56a1,1,0,0,1,.95.68l.54,1.64A1,1,0,0,0,12,7.5h7a1,1,0,0,1,1,1Z"/></svg>
+                                                            </span>
+                                                        </button>
+                                                    <?php endif; ?>
+                                                </div>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
