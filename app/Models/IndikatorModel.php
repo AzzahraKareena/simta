@@ -22,7 +22,14 @@ class IndikatorModel extends Model
 
     public function withKriteria()
     {
-        return $this->join('simta_kriteria', 'simta_kriteria.id_kriteria = simta_indikator.id_kriteria');
+        return $this->join('simta_kriteria as kriteria', 'kriteria.id_kriteria = simta_indikator.id_kriteria');
+    }
+
+    public function getKriteria()
+    {
+        return $this->select('simta_indikator.*, kriteria.nama_kriteria as kriteria_nama_kriteria')
+                    ->withKriteria()
+                    ->findAll();
     }
 
 }
