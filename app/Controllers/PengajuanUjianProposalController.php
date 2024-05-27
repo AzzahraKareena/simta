@@ -166,7 +166,7 @@ class PengajuanUjianProposalController extends BaseController
 
         $data = [
             'imagePath' => $imagePath,
-            'mahasiswa' => (new MahasiswaModel())->asArray()->where('id_user', $ujianpropo->id_mhs)->first(),
+            'mahasiswa' => (new MahasiswaModel())->asArray()->where('id_user', $ujianpropo->mahasiswa)->first(),
             'day' => $indonesian_date['day'],
             'date' => $indonesian_date['date'],
             'month' => $indonesian_date['month'],

@@ -86,6 +86,7 @@ $routes->post('update/status_up/(:num)', 'PengajuanUjianProposalController::upda
 $routes->post('upload/revisi/(:num)', 'PengajuanUjianProposalController::uploadRevisi/$1');
 
 
+
 //PENGAJUAN BIMBINGAN
 $routes->group('pengajuanbimbingan', static function ($routes) {
     $routes->get('/', 'PengajuanBimbinganController::get_data');
@@ -106,6 +107,7 @@ $routes->group('pengajuanujianproposal', static function ($routes) {
     $routes->post('update/(:segment)', 'PengajuanUjianProposalController::update/$1');
     $routes->get('delete/(:num)', 'PengajuanUjianProposalController::delete/$1');
     $routes->get('berita-acara/(:num)', 'PengajuanUjianProposalController::beritaacara/$1');
+    // $routes->get('penilaian-proposal', 'PenilaianProposal::penilaian');
 });
 
 //MASTER FILE BERKAS
@@ -150,6 +152,11 @@ $routes->group('indikator', static function ($routes) {
     // $routes->get('delete/(:num)', 'IndikatorController::delete/$1');
     $routes->post('delete/(:num)', 'IndikatorController::delete/$1');
 
+});
+
+//INDIKATOR
+$routes->group('penilaianproposal', static function ($routes) {
+    $routes->get('pdf', 'PenilaianProposalController::penilaian');
 });
 
 
