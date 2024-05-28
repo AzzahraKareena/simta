@@ -27,8 +27,7 @@
                 </tr>
             </tbody>
         </table>
-    <p>Yang bersangkutan telah menyusun dan mempertahankan Proposal TA yang diwajibkan padanya dengan Judul :</p>
-    <p><b><?= $jadwal['judul']; ?></b></p>
+    <p>Yang bersangkutan telah menyusun dan mempertahankan Proposal TA yang diwajibkan padanya dengan Judul : <br> <b>"<?= $jadwal['judul']; ?>"</b></p>
     <div>Dihadapan Tim Penguji yang terdiri dari</div>
     <table width="100%" cellpadding="1">
         <tbody>
@@ -63,9 +62,42 @@
             </tr>
         </tbody>
     </table>
-    <p>Perbaikan yang harus dilakukan adalah : (jika diperlukan dapat ditulis dilembar terpisah)</p>
+    <div></div>
+    <span>Perbaikan yang harus dilakukan adalah : (jika diperlukan dapat ditulis dilembar terpisah)</span>
     <span>_____________________________________________________________________________________</span>
     <span>_____________________________________________________________________________________</span>
-    <table></table>
+    <span>_____________________________________________________________________________________</span>
+
+        <table width="100%">
+            <tbody>
+                <tr>
+                    <td width="45%">
+                        <span style="display: none;">_______</span><br>
+                        <span>Ketua</span><br><br><br><br>
+                        <hr style="border: none; height: 1px;">
+                        <span>NIP.</span>
+                    </td>
+                    <td width="10%"></td>
+                    <td width="45%">
+                        <span>Madiun, ______________20__</span><br>
+                        <span>Anggota</span><br><br><br><br>
+                        <hr style="border: none; height: 1px;">
+                        <span>NIP.</span><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="30%"></td>
+                    <td width="40%">
+                        <span>Mengetahui,</span><br>
+                        <span>a.n. Kepala Program Studi</span><br>
+                        <span>D3 Teknik Informatika Madiun</span><br><br><br><br>
+                        <span>Fendi Aji Purnomo, S.Si., M.Eng.</span>
+                        <hr style="border: none; height: 1px; width: 200px;">
+                        <span>NIP. 1984092620160901</span>
+                    </td>
+                    <td width="30%"></td>
+                </tr>
+            </tbody>
+        </table>
 </body>
 </html>
