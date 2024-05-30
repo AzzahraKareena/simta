@@ -119,6 +119,7 @@ $routes->group('rilisjadwal', static function ($routes) {
     $routes->get('edit/(:segment)', 'JadwalUjianPropoController::edit/$1');
     $routes->post('update/(:segment)', 'JadwalUjianPropoController::update/$1');
     $routes->post('delete/(:num)', 'JadwalUjianPropoController::delete/$1');
+    $routes->get('berita-acara/(:num)', 'JadwalUjianPropoController::beritaacara/$1');
 });
 
 //MASTER FILE BERKAS
