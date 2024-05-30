@@ -23,11 +23,21 @@ class PengajuanBimbinganController extends ResourceController
     public function get_data() {
         $bimbinganModel = new PengajuanBimbinganModel();
         $data = $bimbinganModel->getPengajuan();
-        foreach ($data as $key) {
-            $id_mhs = $key['id_mhs'];
+
+        $id_mhs = null; // Nilai default jika tidak ada data
+        if (!empty($data)) {
+            foreach ($data as $key) {
+                $id_mhs = $key['id_mhs'];
+            }
         }
-        $mahasiswaNim = new MahasiswaModel();
-        $mahasiswa = $mahasiswaNim->where('id_user', $id_mhs)->get()->getRow()->nim;
+
+        if ($id_mhs !== null) {
+            $mahasiswaNim = new MahasiswaModel();
+            $mahasiswa = $mahasiswaNim->where('id_user', $id_mhs)->get()->getRow()->nim;
+        } else {
+            $mahasiswa = 'Data tidak ditemukan'; // Atau tindakan lain yang sesuai
+        }
+
     
         // Fetch data from bimbingan
         $getData = []; // Inisialisasi sebagai array kosong

@@ -29,10 +29,7 @@ class PengajuanJudulController extends ResourceController
 
         $indikatorModel = new PengajuanJudulModel();
         $operation = $indikatorModel->getPengajuan();
-
-        // $getLogin = session()->get('user_id');
-        // dd($getLogin);
-        // Fetch data from bimbingan
+        
         $getData = []; // Inisialisasi sebagai array kosong
         
         foreach ($operation as $bimbingan) {

@@ -166,7 +166,13 @@ $routes->group('indikator', static function ($routes) {
 
 //INDIKATOR
 $routes->group('penilaianproposal', static function ($routes) {
-    $routes->get('pdf', 'PenilaianProposalController::penilaian');
+    $routes->get('/', 'PenilaianProposalController::table');
+    $routes->get('create/(:num)', 'PenilaianProposalController::create/$1');
+    $routes->post('store', 'PenilaianProposalController::store');
+    $routes->get('edit/(:num)', 'PenilaianProposalController::edit/$1');
+    $routes->get('pdf/(:num)', 'PenilaianProposalController::penilaian');
+    $routes->post('update', 'PenilaianProposalController::update');
+    $routes->post('delete/(:num)', 'PenilaianProposalController::delete/$1');
 });
 
 

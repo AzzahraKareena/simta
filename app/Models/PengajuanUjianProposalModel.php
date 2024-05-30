@@ -24,20 +24,6 @@ class PengajuanUjianProposalModel extends Model
         'jadwal'
     ];
 
-    // Jika Anda memiliki aturan validasi, Anda dapat mendefinisikannya di sini
-    // protected $validationRules = [
-    //     'id_mhs' => 'required',
-    //     'id_dospem' => 'required',
-    //     'abstrak' => 'required',
-    //     'revisi_proposal' => 'required',
-    //     'proposal_ta' => 'required',
-    //     'revisi_proposal_date' => 'required',
-    //     'ajuan_tgl_ujian' => 'required',
-    //     'status_pengajuan' => 'required',
-    //     'id_penguji1' => 'required',
-    //     'id_penguji2' => 'required'
-    // ];
-
     public function withMhs()
     {
         return $this->join('users as mhs', 'mhs.id = simta_pengajuan_ujianproposal.mahasiswa');
@@ -47,15 +33,6 @@ class PengajuanUjianProposalModel extends Model
     {
         return $this->join('users as dospem', 'dospem.id = simta_pengajuan_ujianproposal.id_dospem');
     }
-
-    // public function withPenguji1()
-    // {
-    //     return $this->join('users as penguji1', 'penguji1.id = simta_pengajuan_ujian_proposal.id_penguji1');
-    // }
-    // public function withPenguji2()
-    // {
-    //     return $this->join('users as penguji2', 'penguji2.id = simta_pengajuan_ujian_proposal.id_penguji2');
-    // }
 
     public function withJudul()
     {

@@ -16,6 +16,23 @@ class PengajuanUjianProposalController extends BaseController
     public function table()
     {
         $data = (new PengajuanUjianProposalModel())->getAllPengajuanWithJadwal();
+        $getData = []; // Inisialisasi sebagai array kosong
+        
+        foreach ($data as $ujian) {
+            if (session()->get('role') == 'Dosen') {
+                // Jika rolenya adalah "Mahasiswa", maka hanya data yang sesuai dengan ID mahasiswa yang sedang login yang akan ditampilkan
+                if ($ujian['id_dospem'] == session()->get('user_id')) {
+                    $getData[] = $ujian; // Tambahkan ke array
+                }
+            } elseif (session()->get('role') == 'Mahasiswa') {
+                if ($ujian['mahasiswa'] == session()->get('user_id')) {
+                    $getData[] = $ujian; // Tambahkan ke array
+                }
+            }elseif (session()->get('role') == 'Koordinator') {
+                // Jika rolenya adalah "Dosen", maka hanya data yang sesuai dengan ID staf yang sedang login yang akan ditampilkan
+                    $getData[] = $ujian; // Tambahkan ke array
+            }
+        }
         // Cek apakah mahasiswa yang login sudah memiliki data pengajuan
         $mahasiswaId = session()->get('user_id');
         // dd($mahasiswaId);
@@ -26,7 +43,7 @@ class PengajuanUjianProposalController extends BaseController
                 break;
             }
         }
-        $operation['data'] = $data;
+        $operation['data'] = $getData;
         $operation['mahasiswaSudahMengajukan'] = $mahasiswaSudahMengajukan;
         // dd($data);
         $operation['title'] = 'Pengajuan Ujian Proposal';
