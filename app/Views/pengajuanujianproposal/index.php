@@ -190,8 +190,7 @@
                                                                 </span>
                                                             </button> -->
                                                     <?php endif; ?>
-                                                    <?php if (!empty($vdata['jadwal_id'])): ?>
-                                                        <!-- Icon untuk unduh berkas -->
+                                                    <!-- <?php if (!empty($vdata['jadwal_id'])): ?>
                                                         <a href="<?= base_url('pengajuanujianproposal/berita-acara/'. $vdata['id_ujianproposal']) ?>" target="_blank" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" title="Unduh Berita Acara">
                                                             <span class="svg-icon svg-icon-3">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download">
@@ -201,7 +200,7 @@
                                                                 </svg>
                                                             </span>
                                                         </a>
-                                                    <?php endif; ?>
+                                                    <?php endif; ?> -->
                                                     <?php if(session()->get('role') == 'Mahasiswa' && $vdata['status_pengajuan'] == 'REVISI'): ?>
                                                         <button onclick="openFileUploaderRevisi(<?php echo $vdata['id_ujianproposal']; ?>)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" title="Upload Revisi">
                                                             <span class="svg-icon svg-icon-3 svg-icon-dark">

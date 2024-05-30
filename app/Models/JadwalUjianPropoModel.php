@@ -29,6 +29,17 @@ class JadwalUjianPropoModel extends Model
             ->join('mahasiswa', 'u3.id=mahasiswa.id_user')
             ->join('simta_acc_judul', 'simta_pengajuan_ujianproposal.judul_acc_id=simta_acc_judul.id_accjudul')
             ->findAll();
-            // ->where('status_pengajuan', 'PENDING')
+    }
+
+    public function getBeritaAcara($id) 
+    {
+        return $this->select('mahasiswa.nama as nama_mhs, mahasiswa.nim as nim,  mahasiswa.prodi as prodi, u3.id as id_mhs, u1.nama as penguji1, u2.nama as penguji2, simta_acc_judul.judul_acc as judul, simta_pengajuan_ujianproposal.*, simta_rilis_jadwal.*')
+            ->join('users as u1', 'simta_rilis_jadwal.id_penguji1=u1.id')
+            ->join('users as u2', 'simta_rilis_jadwal.id_penguji2=u2.id')
+            ->join('simta_pengajuan_ujianproposal', 'simta_rilis_jadwal.id_pengajuanujianpropo=simta_pengajuan_ujianproposal.id_ujianproposal')
+            ->join('users as u3', 'simta_pengajuan_ujianproposal.mahasiswa=u3.id')
+            ->join('mahasiswa', 'u3.id=mahasiswa.id_user')
+            ->join('simta_acc_judul', 'simta_pengajuan_ujianproposal.judul_acc_id=simta_acc_judul.id_accjudul')
+            ->find($id);
     }
 }
