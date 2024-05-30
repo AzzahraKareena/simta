@@ -107,6 +107,7 @@ $routes->group('pengajuanujianproposal', static function ($routes) {
     $routes->post('update/(:segment)', 'PengajuanUjianProposalController::update/$1');
     $routes->get('delete/(:num)', 'PengajuanUjianProposalController::delete/$1');
     $routes->get('berita-acara/(:num)', 'PengajuanUjianProposalController::beritaacara/$1');
+    $routes->get('unduh-revisi/(:num)', 'PengajuanUjianProposalController::unduhRevisi/$1');
     // $routes->get('penilaian-proposal', 'PenilaianProposal::penilaian');
 });
 

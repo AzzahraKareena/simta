@@ -154,10 +154,13 @@ class PengajuanUjianProposalController extends BaseController
     {
         $uploadedFile = $this->request->getFile('file');
 
-        // Pastikan file berhasil diunggah
         if ($uploadedFile->isValid() && $uploadedFile->getClientMimeType() === 'application/pdf') {
-            // Pindahkan file yang diunggah ke folder yang diinginkan
+
+            // $time = Carbon::now()->format('Y-m-d_H-i-s');
+            // $newFileName = date('Y-m-d H:i:s') . '_Berkas Revisi.pdf';
+
             $newFileName = $uploadedFile->getName();
+            // $newFileName = 'revisi_proposal_' . $proposalId . '.pdf';
             $uploadedFile->move('public/assets/revisi_ujian/', $newFileName);
 
             // Simpan detail file ke dalam database
@@ -167,13 +170,30 @@ class PengajuanUjianProposalController extends BaseController
                 'revisi_proposal_date' => date('Y-m-d H:i:s')
             ]);
 
-            // Kirim respon ke client
             return $this->response->setJSON(['status' => 'success', 'message' => 'File berhasil diunggah']);
         } else {
             // Jika file tidak valid atau bukan PDF, kirim respon dengan status error
             return $this->response->setStatusCode(400)->setJSON(['status' => 'error', 'message' => 'File tidak valid atau bukan PDF']);
         }
     }
+
+
+    public function unduhRevisi($id)
+    {
+        $fileModel = new PengajuanUjianProposalModel();
+        $file = $fileModel->find($id);
+
+        if ($file) {
+            // Menambahkan path absolut
+            $filePath = FCPATH . 'public/assets/revisi_ujian/' . $file['revisi_proposal'];
+            $fileName = $file['revisi_proposal'];
+
+            return $this->response->download($filePath, null)->setFileName($fileName);
+        } else {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('File not found');
+        }
+    }
+
 
 
     public function delete($id)
