@@ -154,10 +154,13 @@ class PengajuanUjianProposalController extends BaseController
     {
         $uploadedFile = $this->request->getFile('file');
 
-        // Pastikan file berhasil diunggah
         if ($uploadedFile->isValid() && $uploadedFile->getClientMimeType() === 'application/pdf') {
-            // Pindahkan file yang diunggah ke folder yang diinginkan
+
+            // $time = Carbon::now()->format('Y-m-d_H-i-s');
+            // $newFileName = date('Y-m-d H:i:s') . '_Berkas Revisi.pdf';
+
             $newFileName = $uploadedFile->getName();
+            // $newFileName = 'revisi_proposal_' . $proposalId . '.pdf';
             $uploadedFile->move('public/assets/revisi_ujian/', $newFileName);
 
             // Simpan detail file ke dalam database
@@ -167,7 +170,6 @@ class PengajuanUjianProposalController extends BaseController
                 'revisi_proposal_date' => date('Y-m-d H:i:s')
             ]);
 
-            // Kirim respon ke client
             return $this->response->setJSON(['status' => 'success', 'message' => 'File berhasil diunggah']);
         } else {
             // Jika file tidak valid atau bukan PDF, kirim respon dengan status error
@@ -176,57 +178,28 @@ class PengajuanUjianProposalController extends BaseController
     }
 
 
+    public function unduhRevisi($id)
+    {
+        $fileModel = new PengajuanUjianProposalModel();
+        $file = $fileModel->find($id);
+
+        if ($file) {
+            // Menambahkan path absolut
+            $filePath = FCPATH . 'public/assets/revisi_ujian/' . $file['revisi_proposal'];
+            $fileName = $file['revisi_proposal'];
+
+            return $this->response->download($filePath, null)->setFileName($fileName);
+        } else {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('File not found');
+        }
+    }
+
+
+
     public function delete($id)
     {
         $pengajuanUjianProposalModel = new PengajuanUjianProposalModel();
         $pengajuanUjianProposalModel->delete($id);
         return redirect()->to('pengajuanujianproposal');
-    }
-
-    public function beritaacara($id)
-    {
-        helper('my_date_helper');
-
-        $imagePath = FCPATH . 'assets/img/logo-uns.jpg';
-        $ujianpropo = (new PengajuanUjianProposalModel())->getPengajuanForBeritaAcara($id);
-        $indonesian_date = convert_datetime_to_indonesian($ujianpropo['tgl_ujian']);
-
-        $data = [
-            'imagePath' => $imagePath,
-            'day' => $indonesian_date['day'],
-            'date' => $indonesian_date['date'],
-            'month' => $indonesian_date['month'],
-            'year' => $indonesian_date['year'],
-            'jadwal' => $ujianpropo
-        ];
-        // dd($data);
-
-        $html = view('pengajuanujianproposal/berita-acara', $data);
-        $html2 = view('pengajuanujianproposal/berita-acara-2', $data);
-
-        $pdf = new CustomPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, 'F4', true, 'UTF-8', false);
-        // Setel margin
-        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-        $pdf->setPrintHeader(true);
-        $pdf->setPrintFooter(false);
-
-        // Tambahkan halaman baru
-        $pdf->AddPage();
-        $pdf->Ln(25);
-        $pdf->SetFont('times', '', 12);
-        // Tulis konten HTML
-        $pdf->writeHTML($html, true, false, true, false, '');
-
-        $pdf->AddPage();
-        $pdf->Ln(25);
-        $pdf->SetFont('times', '', 12);
-        $pdf->writeHTML($html2, true, false, true, false, '');
-
-        // Atur response untuk menampilkan PDF
-        $this->response->setContentType('application/pdf');
-        $pdf->Output('berita-acara.pdf', 'I');
     }
 }
