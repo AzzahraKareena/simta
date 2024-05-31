@@ -216,16 +216,15 @@ class PenilaianProposalController extends BaseController
 
     public function edit($id = null)
     {
-        $model = new PenilaianProposalDetailModel();
-        $nilai = $model->getDetail($id);
+        $model = (new PenilaianProposalDetailModel())->where('id_penilaian_proposal', $id)->getDetail();
 
-        if (!$nilai) {
+        if (!$model) {
             // Handle case when no data is found, e.g., redirect or show an error
             return redirect()->back()->with('error', 'Data tidak ditemukan');
         }
 
         $groupedData = [];
-        foreach ($nilai as $indi) {
+        foreach ($model as $indi) {
             $id_kriteria = $indi['id_kri'];
             if (!isset($groupedData[$id_kriteria])) {
                 $groupedData[$id_kriteria] = [
@@ -239,11 +238,11 @@ class PenilaianProposalController extends BaseController
         // Extract relevant data for the view
         $data = [
             'mhs' => [
-                'peng_id_mhs' => $nilai[0]['peng_id_mhs'],  // Ensure this key exists in the $nilai array
-                'mhs_nama' => $nilai[0]['mhs_nama'],
-                'nim' => $nilai[0]['nim'],
-                'prodi' => $nilai[0]['prodi'],
-                'judul_judul_acc' => $nilai[0]['judul_judul_acc'],
+                'peng_id_mhs' => $model[0]['peng_id_mhs'],  // Ensure this key exists in the $model array
+                'mhs_nama' => $model[0]['mhs_nama'],
+                'nim' => $model[0]['nim'],
+                'prodi' => $model[0]['prodi'],
+                'judul_judul_acc' => $model[0]['judul_judul_acc'],
                 'nilai' => $groupedData,
             ],
         ];
