@@ -13,8 +13,8 @@ class MasterStafModel extends Model
     protected $allowedFields = [
         'id_masterstaf',
         'nama_staf',
-        'nip',
-        'no_telp',
+        'nip_staf',
+        'no_telpon',
         'alamat_staf',
         'jenis_staf',
     ];

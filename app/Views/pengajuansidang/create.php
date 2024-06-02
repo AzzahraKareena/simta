@@ -11,15 +11,15 @@
                     <!--begin::Header-->
                     <div class="card-header border-0 pt-5">
                         <h3 class="card-title align-items-start flex-column">
-                            <span class="card-label fw-bolder fs-3 mb-1">Form Data Staf</span>
-                            <span class="text-muted mt-1 fw-bold fs-7">Isi data staf dengan benar</span>
+                            <span class="card-label fw-bolder fs-3 mb-1">Form Pengajuan Sidang Tugas Akhir</span>
+                            <span class="text-muted mt-1 fw-bold fs-7">Isi data pengajuan sidang dengan benar</span>
                         </h3>
                     </div>
                     <!--end::Header-->
                     <!--begin::Body-->
                     <div class="card-body py-3">
                         <!--begin::Form-->
-                        <form class="form w-100" method="post" id="form_masterstaf" action="<?= service('router')->getMatchedRoute()[0] == "masterstaf/create" ? base_url('masterstaf/store') : base_url('masterstaf/update/'.$dataForm->id_masterstaf??"") ?>">
+                        <form class="form w-100" method="post" id="form_pengajuansidang" action="<?= service('router')->getMatchedRoute()[0] == "pengajuansidang/create" ? base_url('pengajuansidang/store') : base_url('pengajuansidang/update/'.$dataForm->id_sidang??"") ?>">
                             <?= csrf_field() ?>
                             <!--begin::Input group-->
                             <?php if (session()->getFlashdata('errorForm')) : ?>
@@ -34,7 +34,7 @@
                                         </span>
                                         <!--end::Svg Icon-->
                                         <div class="d-flex flex-column">
-                                            <h4 class="mb-1 text-danger">This is an alert</h4>
+                                            <h4 class="mb-1 text-danger">Peringatan</h4>
                                             <span>
                                                 <?= session()->getFlashdata('errorForm') ?>
                                             </span>
@@ -45,25 +45,44 @@
                             <div class="row">
                                 <div class="col-12 col-md-6">
                                     <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">Nama</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="text" name="nama_staf" autocomplete="off" placeholder="Input nama_staf" value="<?= old('nama_staf')?? $dataForm->nama_staf??"" ?>" required />
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Abstrak</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="text" name="abstrak" autocomplete="off" placeholder="Input abstrak" value="<?= old('abstrak')?? $dataForm->abstrak??"" ?>" required />
                                     </div>
                                     <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">NIP</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="number" name="nip_staf" autocomplete="off" placeholder="Input nip" value="<?= old('nip_staf')?? $dataForm->nip??"" ?>" required />
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Revisi Laporan</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="file" name="revisi_laporan" accept=".pdf" required />
                                     </div>
                                     <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">No.Telpon</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="number" name="no_telpon" autocomplete="off" placeholder="Input no_telpon" value="<?= old('no_telpon')?? $dataForm->no_telpon??"" ?>" required />
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Laporan Tugas Akhir</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="file" name="laporan_ta" accept=".pdf" required />
                                     </div>
                                     <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">Alamat</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="text" name="alamat_staf" autocomplete="off" placeholder="Input alamat_staf" value="<?= old('alamat_staf')?? $dataForm->alamat_staf??"" ?>" required />
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Transkrip Nilai</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="file" name="transkrip_nilai" accept=".pdf" required />
                                     </div>
                                     <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">Jenis</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="text" name="jenis_staf" autocomplete="off" placeholder="Input jenis_staf" value="<?= old('jenis_staf')?? $dataForm->jenis_staf??"" ?>" required />
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Berita Acara KMM</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="file" name="beritaacara_kmm" accept=".pdf" required />
                                     </div>
+                                    <div class="fv-row mb-10">
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Surat Rekomendasi</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="file" name="surat_rekomendasi" accept=".pdf" required />
+                                    </div>
+                                    <div class="fv-row mb-10">
+                                        <label class="form-label required fs-6 fw-bolder text-dark">KRS</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="file" name="krs" accept=".pdf" required />
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="fv-row mb-10">
+                                                <label class="form-label required fs-6 fw-bolder text-dark">Ajuan Tanggal Ujian</label>
+                                                <input class="form-control form-control-lg form-control-solid" type="date" name="ajuan_tgl_ujian" autocomplete="off" placeholder="Input Ajuan Tanggal Ujian Proposal" value="<?= old('ajuan_tgl_ujian')?? $dataForm->ajuan_tgl_ujian??"" ?>" required />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                            
                             <!--begin::Actions-->
                             <div class="text-center">
                                 <!--begin::Submit button-->
@@ -87,7 +106,7 @@
 <?= $this->section('js_custom') ?>
     <script>
         KTUtil.onDOMContentLoaded(function() {
-            FormValidation.formValidation(document.getElementById('form_masterstaf'), {
+            FormValidation.formValidation(document.getElementById('form_pengajuansidang'), {
                 plugins: {
                     declarative: new FormValidation.plugins.Declarative({
                         html5Input: true,

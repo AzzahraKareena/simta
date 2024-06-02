@@ -9,7 +9,7 @@ var KTDatatablesServerSide = function () {
 
     // Private functions
     var initDatatable = function () {
-        dt = $("#dt_masterstaf").DataTable();
+        dt = $("#dt_pengajuanseminarhasil").DataTable();
         table = dt.$;
     }
 

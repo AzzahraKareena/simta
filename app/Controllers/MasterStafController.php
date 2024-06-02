@@ -35,8 +35,8 @@ class MasterStafController extends BaseController
 
     public function edit($id)
     {
-        $masterstaf = new MasterStafModel(); // Anda menggunakan nama variabel $timeline di sini, ganti dengan $masterstaf
-        $dataForm = $masterstaf->find($id); // Gunakan variabel $masterstaf yang benar
+        $masterstaf = new MasterStafModel();
+        $dataForm = $masterstaf->find($id);
         $operation['dataForm'] = $dataForm;
         $operation['title'] = 'Data Master Staf';
         $operation['sub_title'] = '';

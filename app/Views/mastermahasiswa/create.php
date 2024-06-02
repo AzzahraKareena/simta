@@ -11,15 +11,15 @@
                     <!--begin::Header-->
                     <div class="card-header border-0 pt-5">
                         <h3 class="card-title align-items-start flex-column">
-                            <span class="card-label fw-bolder fs-3 mb-1">Form Data Staf</span>
-                            <span class="text-muted mt-1 fw-bold fs-7">Isi data staf dengan benar</span>
+                            <span class="card-label fw-bolder fs-3 mb-1">Form Data Mahasiswa</span>
+                            <span class="text-muted mt-1 fw-bold fs-7">Isi data mahasiswa dengan benar</span>
                         </h3>
                     </div>
                     <!--end::Header-->
                     <!--begin::Body-->
                     <div class="card-body py-3">
                         <!--begin::Form-->
-                        <form class="form w-100" method="post" id="form_masterstaf" action="<?= service('router')->getMatchedRoute()[0] == "masterstaf/create" ? base_url('masterstaf/store') : base_url('masterstaf/update/'.$dataForm->id_masterstaf??"") ?>">
+                        <form class="form w-100" method="post" id="form_mastermahasiswa" action="<?= service('router')->getMatchedRoute()[0] == "mastermahasiswa/create" ? base_url('mastermahasiswa/store') : base_url('mastermahasiswa/update/'.$dataForm->id_master_mahasiswa??"") ?>">
                             <?= csrf_field() ?>
                             <!--begin::Input group-->
                             <?php if (session()->getFlashdata('errorForm')) : ?>
@@ -45,25 +45,43 @@
                             <div class="row">
                                 <div class="col-12 col-md-6">
                                     <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">Nama</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="text" name="nama_staf" autocomplete="off" placeholder="Input nama_staf" value="<?= old('nama_staf')?? $dataForm->nama_staf??"" ?>" required />
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Nama Mahasiswa</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="text" name="nama_mahasiswa" autocomplete="off" placeholder="Input nama mahasiswa" value="<?= old('nama_mahasiswa')?? $dataForm->nama_mahasiswa??"" ?>" required />
                                     </div>
                                     <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">NIP</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="number" name="nip_staf" autocomplete="off" placeholder="Input nip" value="<?= old('nip_staf')?? $dataForm->nip??"" ?>" required />
+                                        <label class="form-label required fs-6 fw-bolder text-dark">NIM</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="text" name="nim" autocomplete="off" placeholder="Input NIM" value="<?= old('nim')?? $dataForm->nim??"" ?>" required />
                                     </div>
                                     <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">No.Telpon</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="number" name="no_telpon" autocomplete="off" placeholder="Input no_telpon" value="<?= old('no_telpon')?? $dataForm->no_telpon??"" ?>" required />
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Prodi</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="text" name="prodi" autocomplete="off" placeholder="Input prodi" value="<?= old('prodi')?? $dataForm->prodi??"" ?>" required />
                                     </div>
                                     <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">Alamat</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="text" name="alamat_staf" autocomplete="off" placeholder="Input alamat_staf" value="<?= old('alamat_staf')?? $dataForm->alamat_staf??"" ?>" required />
+                                        <label class="form-label required fs-6 fw-bolder text-dark">No. Telpon</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="number" name="nomor_telp" autocomplete="off" placeholder="Input nomor telpon" value="<?= old('nomor_telp')?? $dataForm->nomor_telp??"" ?>" required />
                                     </div>
                                     <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">Jenis</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="text" name="jenis_staf" autocomplete="off" placeholder="Input jenis_staf" value="<?= old('jenis_staf')?? $dataForm->jenis_staf??"" ?>" required />
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Tahun Masuk</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="number" name="tahun_masuk" autocomplete="off" placeholder="Input tahun masuk" value="<?= old('tahun_masuk')?? $dataForm->tahun_masuk??"" ?>" required />
                                     </div>
+                                    <div class="fv-row mb-10">
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Tahun Lulus</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="number" name="tahun_lulus" autocomplete="off" placeholder="Input tahun lulus" value="<?= old('tahun_lulus')?? $dataForm->tahun_lulus??"" ?>" required />
+                                    </div>
+                                    <div class="fv-row mb-10">
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Kelas</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="text" name="kelas" autocomplete="off" placeholder="Input kelas" value="<?= old('kelas')?? $dataForm->kelas??"" ?>" required />
+                                    </div>
+                                    <div class="fv-row mb-10">
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Status</label>
+                                        <select class="form-select form-select-solid" name="status" required>
+                                            <option value="">Pilih Status</option>
+                                            <option value="Aktif" <?= old('status') == 'Aktif' || (isset($dataForm->status) && $dataForm->status == 'Aktif') ? 'selected' : '' ?>>Aktif</option>
+                                            <option value="Tidak Aktif" <?= old('status') == 'Tidak Aktif' || (isset($dataForm->status) && $dataForm->status == 'Tidak Aktif') ? 'selected' : '' ?>>Tidak Aktif</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                             <!--begin::Actions-->
                             <div class="text-center">
                                 <!--begin::Submit button-->
@@ -87,7 +105,7 @@
 <?= $this->section('js_custom') ?>
     <script>
         KTUtil.onDOMContentLoaded(function() {
-            FormValidation.formValidation(document.getElementById('form_masterstaf'), {
+            FormValidation.formValidation(document.getElementById('form_mastermahasiswa'), {
                 plugins: {
                     declarative: new FormValidation.plugins.Declarative({
                         html5Input: true,

@@ -138,8 +138,18 @@ $routes->group('masterstaf', static function ($routes) {
     $routes->get('create', 'MasterStafController::create');
     $routes->post('store', 'MasterStafController::store');
     $routes->get('edit/(:num)', 'MasterStafController::edit/$1');
-    $routes->post('update/(:num)', 'MasterStafController::update/$1');
-    $routes->get('delete/(:num)', 'MasterStafController::delete/$1');
+    $routes->post('update/(:segment)', 'MasterStafController::update/$1');
+    $routes->post('delete/(:segment)', 'MasterStafController::delete/$1');
+});
+
+//DATA MASTER MAHASISWA
+$routes->group('mastermahasiswa', static function ($routes) {
+    $routes->get('/', 'MasterMahasiswaController::table');
+    $routes->get('create', 'MasterMahasiswaController::create');
+    $routes->post('store', 'MasterMahasiswaController::store');
+    $routes->get('edit/(:num)', 'MasterMahasiswaController::edit/$1');
+    $routes->post('update/(:segment)', 'MasterMahasiswaController::update/$1');
+    $routes->post('delete/(:segment)', 'MasterMahasiswaController::delete/$1');
 });
 
 //KRITERIA
@@ -176,5 +186,25 @@ $routes->group('penilaianproposal', static function ($routes) {
     $routes->post('update', 'PenilaianProposalController::update');
     $routes->post('delete/(:num)', 'PenilaianProposalController::delete/$1');
 });
+
+//PENGAJUAN SEMINAR HASIL
+$routes->group('pengajuanseminarhasil', static function ($routes) {
+    $routes->get('/', 'PengajuanSeminarHasilController::table');
+    $routes->get('create', 'PengajuanSeminarHasilController::create');
+    $routes->post('store', 'PengajuanSeminarHasilController::store');
+    $routes->get('edit/(:segment)', 'PengajuanSeminarHasilController::edit/$1');
+    $routes->post('update/(:segment)', 'PengajuanSeminarHasilController::update/$1');
+    $routes->get('delete/(:num)', 'PengajuanSeminarHasilController::delete/$1');
+}); 
+
+//PENGAJUAN SIDANG
+$routes->group('pengajuansidang', static function ($routes) {
+    $routes->get('/', 'PengajuanSidangController::table');
+    $routes->get('create', 'PengajuanSidangController::create');
+    $routes->post('store', 'PengajuanSidangController::store');
+    $routes->get('edit/(:segment)', 'PengajuanSidangController::edit/$1');
+    $routes->post('update/(:segment)', 'PengajuanSidangController::update/$1');
+    $routes->get('delete/(:num)', 'PengajuanSidangController::delete/$1');
+});  
 
 

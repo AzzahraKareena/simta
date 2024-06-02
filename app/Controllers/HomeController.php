@@ -10,7 +10,7 @@ class HomeController extends BaseController
     public function index()
     {
         $operation['title'] = 'Home';
-        $operation['sub_title'] = 'Places for your business';
+        $operation['sub_title'] = 'Sistem Informasi Manajemen Tugas Akhir';
         return view("dashboard/index", $operation);
     }
     // public function dashboard()
