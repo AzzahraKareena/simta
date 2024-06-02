@@ -114,6 +114,7 @@ class JadwalUjianPropoController extends BaseController
 
         $html = view('rilisjadwal/berita-acara', $data);
         $html2 = view('rilisjadwal/berita-acara-2', $data);
+        $html3 = view('rilisjadwal/berita-acara-3', $data);
 
         $pdf = new CustomPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, 'F4', true, 'UTF-8', false);
         // Setel margin
@@ -135,6 +136,11 @@ class JadwalUjianPropoController extends BaseController
         $pdf->Ln(25);
         $pdf->SetFont('times', '', 12);
         $pdf->writeHTML($html2, true, false, true, false, '');
+
+        $pdf->AddPage();
+        $pdf->Ln(25);
+        $pdf->SetFont('times', '', 12);
+        $pdf->writeHTML($html3, true, false, true, false, '');
 
         // Atur response untuk menampilkan PDF
         $this->response->setContentType('application/pdf');

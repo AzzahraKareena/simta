@@ -77,9 +77,9 @@
                     <td width="50%">
                         <span>Madiun, <?= $date; ?> <?= $month; ?> <?= $year; ?></span><br>
                         <span>Menyatakan telah direvisi *)</span><br>
-                        <span>Penguji 1</span><br><br><br><br>
-                        <span>Nama : <?= $jadwal['penguji1']; ?></span><br>
-                        <span>NIP. <?= $jadwal['nip_penguji1']; ?></span>
+                        <span>Penguji 2</span><br><br><br><br>
+                        <span>Nama : <?= $jadwal['penguji2']; ?></span><br>
+                        <span>NIP. <?= $jadwal['nip_penguji2']; ?></span>
                     </td>
                 </tr>
             </tbody>
