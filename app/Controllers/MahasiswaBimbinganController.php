@@ -9,58 +9,6 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class MahasiswaBimbinganController extends BaseController
 {
-    // public function table()
-    // {
-    //     $model = new MahasiswaBimbinganModel();
-    //     $data = $model->getUser();
-    //     // $data = (new MahasiswaBimbinganModel())->asArray()->findAll();
-    //     // dd($data);
-
-    //     error_log(print_r($data, true));
-
-    //     $operation['data'] = $data;
-    //     $operation['title'] = 'Mahasiswa Bimbingan';
-    //     $operation['sub_title'] = 'Daftar Mahasiswa Bimbingan Tugas Akhir';
-        
-    //     return view("mahasiswabimbingan/index", $operation);
-    // }
-
-    // public function get_data()
-    // {
-    //     $mahasiswaModel = new MahasiswaBimbinganModel();
-    //     $data = $mahasiswaModel->getUser();
-
-    //     $id_mhs = null;
-    //     if (!empty($data)) {
-    //         foreach ($data as $key) {
-    //             $id_mhs = $key['id_mhs'];
-    //         }
-    //     }
-
-    //     if ($id_mhs !== null) {
-    //         $mahasiswaNim = new MahasiswaModel();
-    //         $mahasiswa = $mahasiswaNim->where('id_user', $id_mhs)->get()->getRow()->th_masuk;
-    //     } else {
-    //         $mahasiswa = 'Data tidak ditemukan';
-    //     }
-
-    //     $getData = [];
-        
-    //     foreach ($data as $bimbingan) {
-    //         if (session()->get('role') == 'Dosen') {
-    //             if ($bimbingan['id_staf'] == session()->get('user_id')) {
-    //                 $getData[] = $bimbingan;
-    //             }
-    //         }
-    //     }
-    
-    //     $operation['data'] = $getData;
-    //     $operation['th_masuk'] = $mahasiswa;
-    //     $operation['title'] = 'Mahasiswa Bimbingan';
-    //     $operation['sub_title'] = 'Daftar Mahasiswa Bimbingan Tugas Akhir';
-        
-    //     return view("mahasiswabimbingan/index", $operation);
-    // }
 
     public function table()
     {

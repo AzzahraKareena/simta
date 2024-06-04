@@ -10,16 +10,13 @@ class MahasiswaBimbinganModel extends Model
     protected $primaryKey       = 'id_mahasiswa_bimbingan';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
-    protected $allowedFields    = ['id_mahasiswa_bimbingan', 'mahasiswa_id', 'judul_acc_id', 'tracking', 'dospem_id'];
+    protected $allowedFields    = ['judul_acc_id', 'tracking']; // Remove 'id_mahasiswa_bimbingan'
     
+    // Remove the validation rule for 'id_mahasiswa_bimbingan'
     protected $validationRules = [
-        'id_mahasiswa_bimbingan' => 'required'
+        'judul_acc_id' => 'required',
+        'tracking' => 'required'
     ];
-
-    // public function withMhs()
-    // {
-    //     return $this->join('mahasiswa as mhs', 'mhs.id_mhs = simta_mahasiswa_bimbingan.mahasiswa_id');
-    // }
 
     public function withJudul()
     {
@@ -29,18 +26,13 @@ class MahasiswaBimbinganModel extends Model
                     ->join('mahasiswa as mh', 'mhs.id = mh.id_user');
     }
 
-    // public function withDospem()
-    // {
-    //     return $this->join('simta_acc_judul as dospem', 'dospem.id_accjudul = simta_mahasiswa_bimbingan.dospem_id')
-    //                 ->join('users as staf', 'staf.id = dospem.dospem_acc');
-    // }
-
     public function getUser()
     {
         return $this->select('simta_mahasiswa_bimbingan.*, mh.nama as mahasiswa_nama, mh.th_lulus as angkatan, judulacc.judul_acc as judul_acc, staf.nama as dospem_nama')
-                    // ->withMhs()
                     ->withJudul()
-                    // ->withDospem()
                     ->findAll();
     }
 }
+
+
+
