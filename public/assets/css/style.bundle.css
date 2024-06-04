@@ -46914,6 +46914,60 @@ code:not([class*=language-]) {
   background-color: #EFF2F5;
 }
 
+/* tambahan warna */
+
+.badge-dark-blue1 {
+  color: #ffffff;
+  background-color: #003c5e;
+}
+
+.badge-dark-blue2 {
+  color: #ffffff;
+  background-color: #004c76;
+}
+
+.badge-dark-blue3 {
+  color: #ffffff;
+  background-color: #005e8f;
+}
+
+.badge-dark-blue4 {
+  color: #ffffff;
+  background-color: #005f94;
+}
+.badge-dark-blue5 {
+  color: #ffffff;
+  background-color: #006dab;
+}
+.badge-dark-blue6 {
+  color: #ffffff;
+  background-color: #0077b5;
+}
+.badge-dark-blue7 {
+  color: #ffffff;
+  background-color: #0095E8;
+}
+.badge-dark-blue8 {
+  color: #ffffff;
+  background-color: #0098DA;
+}
+.badge-dark-blue9 {
+  color: #ffffff;
+  background-color: #009ef6;
+}
+.badge-dark-blue10 {
+  color: #ffffff;
+  background-color: #009EF7;
+}
+.badge-dark-blue11 {
+  color: #ffffff;
+  background-color: #00A3FF;
+}
+.badge-dark-blue12 {
+  color: #ffffff;
+  background-color: #00B2FF;
+}
+
 .indicator-progress {
   display: none;
 }

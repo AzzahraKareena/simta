@@ -35,7 +35,7 @@ class PengajuanSidangController extends BaseController
     public function edit($id)
     {
         $pengajuanSidang = new PengajuanSidangModel();
-        $dataForm = $PengajuanSidangModel->find($id);
+        $dataForm = $pengajuanSidang->find($id);
         $operation['dataForm'] = $dataForm;
         $operation['title'] = 'Pengajuan Sidang';
         $operation['sub_title'] = 'Edit Pengajuan Sidang';

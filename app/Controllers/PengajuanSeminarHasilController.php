@@ -36,7 +36,7 @@ class PengajuanSeminarHasilController extends BaseController
     public function edit($id)
     {
         $pengajuanSeminarHasil = new PengajuanSeminarHasilModel();
-        $dataForm = $timeline->find($id);
+        $dataForm = $pengajuanSeminarHasil->find($id);
         $operation['dataForm'] = $dataForm;
         $operation['title'] = 'Timeline';
         $operation['sub_title'] = 'Setting timeline setiap periode Tugas Akhir';

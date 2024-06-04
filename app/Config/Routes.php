@@ -207,4 +207,14 @@ $routes->group('pengajuansidang', static function ($routes) {
     $routes->get('delete/(:num)', 'PengajuanSidangController::delete/$1');
 });  
 
+//MAHASISWA BIMBINGAN
+$routes->group('mahasiswabimbingan', static function ($routes) {
+    $routes->get('/', 'MahasiswaBimbinganController::table');
+    $routes->get('create', 'MahasiswaBimbinganController::create');
+    $routes->post('store', 'MahasiswaBimbinganController::store');
+    $routes->get('edit/(:segment)', 'MahasiswaBimbinganController::edit/$1');
+    $routes->post('update/(:segment)', 'MahasiswaBimbinganController::update/$1');
+    $routes->get('delete/(:num)', 'MahasiswaBimbinganController::delete/$1');
+});  
+
 

@@ -102,7 +102,7 @@
                 </div>
                 <?php endif; ?>
 
-                 <?php if(session()->get('role') == 'Mahasiswa'): ?>
+                <?php if(session()->get('role') == 'Mahasiswa'): ?>
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                     <span class="menu-link">
                         <span class="menu-icon">
@@ -129,7 +129,7 @@
                             </a>
                         </div>
                     </div>
-                     <div class="menu-item">
+                    <div class="menu-item">
                             <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "pengajuanjudul" ? "active" : "" ?>" href="<?= base_url('pengajuanjudul')?>">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
@@ -229,6 +229,14 @@
                                     <span class="bullet bullet-dot"></span>
                                 </span>
                                 <span class="menu-title">Data Users</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "mahasiswabimbingan" ? "active" : "" ?>" href="<?= base_url('mahasiswabimbingan')?>">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Data mahasiswa bimbingan</span>
                             </a>
                         </div>
                         <div class="menu-item">
