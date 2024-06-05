@@ -153,7 +153,7 @@
                                                         <?php endif; ?>
                                                     <?php endif; ?>
 
-                                                <?php elseif(session()->get('role') !== 'Dosen'): ?>
+                                                <?php elseif(session()->get('role') == 'Mahasiswa'): ?>
                                                     <!-- Button code here -->
                                                     <?php if (!empty($vdata) && isset($vdata['status_pengajuan'])) : ?>
                                                         <?php if ($vdata['status_pengajuan'] == 'PENDING') : ?>
@@ -188,6 +188,7 @@
                                                                 </span>
                                                             </button> -->
                                                     <?php endif; ?>
+
                                                     <!-- <?php if (!empty($vdata['jadwal_id'])): ?>
                                                         <a href="<?= base_url('pengajuanujianproposal/berita-acara/'. $vdata['id_ujianproposal']) ?>" target="_blank" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" title="Unduh Berita Acara">
                                                             <span class="svg-icon svg-icon-3">
@@ -199,6 +200,7 @@
                                                             </span>
                                                         </a>
                                                     <?php endif; ?> -->
+
                                                     <?php if(session()->get('role') == 'Mahasiswa' && $vdata['status_pengajuan'] == 'REVISI'): ?>
                                                         <button onclick="openFileUploaderRevisi(<?php echo $vdata['id_ujianproposal']; ?>)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" title="Upload Revisi">
                                                             <span class="svg-icon svg-icon-3 svg-icon-dark">
@@ -206,6 +208,7 @@
                                                             </span>
                                                         </button>
                                                     <?php endif; ?>
+                                                    
                                                     <?php if ($vdata['revisi_proposal'] != null) : ?>
                                                     <!-- Icon untuk unduh berkas -->
                                                         <a href="<?= base_url('pengajuanujianproposal/unduh-revisi/'. $vdata['id_ujianproposal']) ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Unduh Revisi">

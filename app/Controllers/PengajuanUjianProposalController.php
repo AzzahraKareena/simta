@@ -200,17 +200,7 @@ class PengajuanUjianProposalController extends BaseController
         $operation['sub_title'] = 'Edit Pengajuan Ujian Proposal';
         return view('pengajuanujianproposal/create', $operation);
     }
-
-    public function updateStatus($id = null)
-    {
-        $pengajuanUjianProposalModel = new PengajuanUjianProposalModel();
-        $data = $this->request->getPost('status');
-        // dd($data);
-        $pengajuanUjianProposalModel->update($id, ['status_pengajuan' => $data]);
-        // $model->update($id, ['status' => $status]);
-        return redirect()->to('pengajuanujianproposal');
-    }
-
+    
     public function update($id)
     {
         $data = $this->request->getPost();
@@ -218,7 +208,43 @@ class PengajuanUjianProposalController extends BaseController
         $pengajuanUjianProposalModel->update($id, $data);
         return redirect()->to('pengajuanujianproposal');
     }
+    
 
+    // public function updateStatus($id = null)
+    // {
+    //     $pengajuanUjianProposalModel = new PengajuanUjianProposalModel();
+    //     $data = $this->request->getPost('status');
+    //     // dd($data);
+    //     $pengajuanUjianProposalModel->update($id, ['status_pengajuan' => $data]);
+    //     // $model->update($id, ['status' => $status]);
+    //     return redirect()->to('pengajuanujianproposal');
+    // }
+
+    public function updateStatus($id = null)
+    {
+        $pengajuanUjianProposalModel = new PengajuanUjianProposalModel();
+        $mahasiswaBimbinganModel = new MahasiswaBimbinganModel();
+
+        // Ambil status dari post data
+        $status = $this->request->getPost('status');
+
+        // Update status_pengajuan di tabel pengajuan_ujian_proposal
+        $pengajuanUjianProposalModel->update($id, ['status_pengajuan' => $status]);
+
+        // Jika status adalah REVISI, update tracking di tabel simta_mahasiswa_bimbingan
+        if ($status === 'REVISI') {
+            // Dapatkan data judul_acc_id dari tabel pengajuan_ujian_proposal
+            $pengajuan = $pengajuanUjianProposalModel->find($id);
+            if ($pengajuan) {
+                $judul_acc_id = $pengajuan['judul_acc_id'];
+                $mahasiswaBimbinganModel->updateTrackingByJudulAccId($judul_acc_id, 'Revisi Ujian Proposal');
+            }
+        }
+
+        return redirect()->to('pengajuanujianproposal');
+    }
+
+    
     public function uploadJadwal($proposalId)
     {
         $uploadedFile = $this->request->getFile('file');
