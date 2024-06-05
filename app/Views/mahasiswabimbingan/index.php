@@ -86,19 +86,19 @@
                                                             <div class="badge badge-dark-blue11"><?= $vdata['tracking'] ?></div>
                                                         <?php elseif ($vdata['tracking'] == 'Revisi Ujian Proposal') : ?>
                                                             <div class="badge badge-dark-blue10"><?= $vdata['tracking'] ?></div>
-                                                        <?php elseif ($vdata['tracking'] == 'Seminar Hasil') : ?>
+                                                        <?php elseif ($vdata['tracking'] == 'Pengumpulan Revisi') : ?>
                                                             <div class="badge badge-dark-blue9"><?= $vdata['tracking'] ?></div>
-                                                        <?php elseif ($vdata['tracking'] == 'Sidang Tugas Akhir') : ?>
+                                                        <?php elseif ($vdata['tracking'] == 'Pengajuan Bimbingan Seminar Hasil') : ?>
                                                             <div class="badge badge-dark-blue8"><?= $vdata['tracking'] ?></div>
-                                                        <?php elseif ($vdata['tracking'] == 'Revisi Sidang') : ?>
+                                                        <?php elseif ($vdata['tracking'] == 'Pengajuan Seminar Hasil') : ?>
                                                             <div class="badge badge-dark-blue7"><?= $vdata['tracking'] ?></div>
-                                                        <?php elseif ($vdata['tracking'] == 'Pengajuan Seminar Proposal') : ?>
+                                                        <?php elseif ($vdata['tracking'] == 'Revisi Seminar Hasil') : ?>
                                                             <div class="badge badge-dark-blue6"><?= $vdata['tracking'] ?></div>
-                                                        <?php elseif ($vdata['tracking'] == 'Seminar Proposal') : ?>
+                                                        <?php elseif ($vdata['tracking'] == 'Pengajuan Bimbingan Sidang') : ?>
                                                             <div class="badge badge-dark-blue5"><?= $vdata['tracking'] ?></div>
-                                                        <?php elseif ($vdata['tracking'] == 'Pengajuan Sidang Akhir') : ?>
+                                                        <?php elseif ($vdata['tracking'] == 'Pengajuan Sidang') : ?>
                                                             <div class="badge badge-dark-blue4"><?= $vdata['tracking'] ?></div>
-                                                        <?php elseif ($vdata['tracking'] == 'Revisi Sidang Akhir') : ?>
+                                                        <?php elseif ($vdata['tracking'] == 'Revisi Sidang') : ?>
                                                             <div class="badge badge-dark-blue3"><?= $vdata['tracking'] ?></div>
                                                         <?php elseif ($vdata['tracking'] == 'Unggah Syarat Kelulusan') : ?>
                                                             <div class="badge badge-dark-blue2"><?= $vdata['tracking'] ?></div>

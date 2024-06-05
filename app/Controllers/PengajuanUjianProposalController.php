@@ -267,25 +267,66 @@ class PengajuanUjianProposalController extends BaseController
         }
     }
 
-    public function uploadRevisi($proposalId)
+    // public function uploadRevisi($proposalId, $id = null)
+    // {
+    //     $pengajuanUjianProposalModel = new PengajuanUjianProposalModel();
+    //     $mahasiswaBimbinganModel = new MahasiswaBimbinganModel();
+
+    //     $uploadedFile = $this->request->getFile('file');
+
+    //     if ($uploadedFile->isValid() && $uploadedFile->getClientMimeType() === 'application/pdf') {
+
+    //         // $time = Carbon::now()->format('Y-m-d_H-i-s');
+    //         // $newFileName = date('Y-m-d H:i:s') . '_Berkas Revisi.pdf';
+
+    //         $newFileName = $uploadedFile->getName();
+    //         // $newFileName = 'revisi_proposal_' . $proposalId . '.pdf';
+    //         $uploadedFile->move('public/assets/revisi_ujian/', $newFileName);
+
+    //         // Simpan detail file ke dalam database
+    //         $proposalModel = new PengajuanUjianProposalModel();
+    //         $proposalModel->update($proposalId, [
+    //             'revisi_proposal' => $newFileName,
+    //             'revisi_proposal_date' => date('Y-m-d H:i:s')
+    //         ]);
+
+    //         $pengajuan = $pengajuanUjianProposalModel->find($id);
+    //         // dd($pengajuan);
+    //         if ($pengajuan) {
+    //             $judul_acc_id = $pengajuan['judul_acc_id'];
+    //             $mahasiswaBimbinganModel->updateTrackingByJudulAccId($judul_acc_id, 'Pengumpulan Revisi');
+    //         }
+
+    //         return $this->response->setJSON(['status' => 'success', 'message' => 'File berhasil diunggah']);
+    //     } else {
+    //         // Jika file tidak valid atau bukan PDF, kirim respon dengan status error
+    //         return $this->response->setStatusCode(400)->setJSON(['status' => 'error', 'message' => 'File tidak valid atau bukan PDF']);
+    //     }
+    // }
+
+    public function uploadRevisi($proposalId, $id = null)
     {
+        $pengajuanUjianProposalModel = new PengajuanUjianProposalModel();
+        $mahasiswaBimbinganModel = new MahasiswaBimbinganModel();
+
         $uploadedFile = $this->request->getFile('file');
 
         if ($uploadedFile->isValid() && $uploadedFile->getClientMimeType() === 'application/pdf') {
-
-            // $time = Carbon::now()->format('Y-m-d_H-i-s');
-            // $newFileName = date('Y-m-d H:i:s') . '_Berkas Revisi.pdf';
-
             $newFileName = $uploadedFile->getName();
-            // $newFileName = 'revisi_proposal_' . $proposalId . '.pdf';
             $uploadedFile->move('public/assets/revisi_ujian/', $newFileName);
 
             // Simpan detail file ke dalam database
-            $proposalModel = new PengajuanUjianProposalModel();
-            $proposalModel->update($proposalId, [
+            $pengajuanUjianProposalModel->update($proposalId, [
                 'revisi_proposal' => $newFileName,
                 'revisi_proposal_date' => date('Y-m-d H:i:s')
             ]);
+
+            // Dapatkan data pengajuan berdasarkan ID
+            $pengajuan = $pengajuanUjianProposalModel->find($proposalId);
+            if ($pengajuan) {
+                $judul_acc_id = $pengajuan['judul_acc_id'];
+                $mahasiswaBimbinganModel->updateTrackingByJudulAccId($judul_acc_id, 'Pengumpulan Revisi');
+            }
 
             return $this->response->setJSON(['status' => 'success', 'message' => 'File berhasil diunggah']);
         } else {
@@ -293,6 +334,7 @@ class PengajuanUjianProposalController extends BaseController
             return $this->response->setStatusCode(400)->setJSON(['status' => 'error', 'message' => 'File tidak valid atau bukan PDF']);
         }
     }
+
 
 
     public function unduhRevisi($id)
