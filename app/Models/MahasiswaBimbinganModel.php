@@ -32,6 +32,12 @@ class MahasiswaBimbinganModel extends Model
                     ->withJudul()
                     ->findAll();
     }
+
+    public function updateTrackingByJudulAccId($judulAccId, $newTracking)
+    {
+        return $this->where('judul_acc_id', $judulAccId)->set(['tracking' => $newTracking])->update();
+    }
+
 }
 
 
