@@ -81,7 +81,7 @@
                                         </div>
                                     </div>
                                 </div>
-                               
+                                <input type="hidden" name="status_pengajuan" value="PENDING">
                             
                             <!--begin::Actions-->
                             <div class="text-center">

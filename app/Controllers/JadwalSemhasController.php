@@ -7,18 +7,19 @@ use App\Models\StafModels;
 use App\Libraries\CustomPDF;
 use App\Models\JudulAccModel;
 use App\Models\MahasiswaModel;
+use App\Models\JadwalSemhasModel;
 use App\Controllers\BaseController;
 use App\Models\PengajuanJudulModel;
 use App\Models\JadwalUjianPropoModel;
-use App\Models\PengajuanUjianProposalModel;
+use App\Models\PengajuanSeminarHasilModel;
 
-class JadwalUjianPropoController extends BaseController
+class JadwalSemhasController extends BaseController
 {
     public function table()
     {
         // dd(session()->get('user_id'));
-        $data = (new JadwalUjianPropoModel())->getJadwal();
-        $getData = []; 
+        $data = (new JadwalSemhasModel())->getJadwal();
+        $getData = []; // Inisialisasi sebagai array kosong
         
         foreach ($data as $jadwal) {
             if (session()->get('role') == 'Dosen') {
@@ -36,60 +37,59 @@ class JadwalUjianPropoController extends BaseController
             }
         }
         $operation['data'] = $getData;
-        $operation['title'] = 'Rilis Jadwal Ujian Proposal';
-        $operation['sub_title'] = 'Daftar Jadwal Ujian Proposal';
+        $operation['title'] = 'Rilis Jadwal Seminar Hasil';
+        $operation['sub_title'] = 'Daftar Jadwal Seminar Hasil';
         // dd($operation['data']);
-        return view("rilisjadwal/index", ['data' => $operation['data']]);
+        return view("rilisjadwalsemhas/index", ['data' => $operation['data']]);
     }
     
     public function create()
     {
         // $id_mhs = session()->get('user_id');
-        $pengajuanUjianPropo = new PengajuanUjianProposalModel();
-        $dataPengajuanUjian = $pengajuanUjianPropo->getMhs();
-        // dd($dataPengajuanUjian);
+        $pengajuanSeminar = new PengajuanSeminarHasilModel();
+        $dataPengajuan = $pengajuanSeminar->getMhs();
         $operation['title'] = 'Pengajuan Ujian Proposal';
         $operation['sub_title'] = 'Buat Pengajuan Ujian Proposal Baru';
-        $operation['pengajuan'] = $dataPengajuanUjian;
-        $operation['dosen'] = (new StafModels())->asArray()->findAll();
-        // dd($operation['pjudul']);
-        return view('rilisjadwal/create', ['pengajuan' => $operation['pengajuan'], 'dosen' => $operation['dosen']]);
+        $operation['pengajuan'] = $dataPengajuan;
+        $operation['dosen'] = (new StafModels())->where('jenis', 'Dosen')->asArray()->findAll();
+        // dd($operation['pengajuan']);
+        return view('rilisjadwalsemhas/create', ['pengajuan' => $operation['pengajuan'], 'dosen' => $operation['dosen']]);
     }
 
     public function store()
     {
         $data = $this->request->getPost();
         // dd($data);
-        $jadwalModel = new JadwalUjianPropoModel();
+        $jadwalModel = new JadwalSemhasModel();
         $jadwalModel->save($data);
-        return redirect()->to('rilisjadwal');
+        return redirect()->to('rilisjadwalsemhas');
     }
 
 
     public function edit($id)
     {
-        $jadwalModel = new JadwalUjianPropoModel();
+        $jadwalModel = new JadwalSemhasModel();
         $dataForm = $jadwalModel->find($id);
         $operation['dataForm'] = $dataForm;
-        $operation['title'] = 'Rilis Jadwal Ujian Proposal';
-        $operation['sub_title'] = 'Edit Jadwal Ujian Proposal';
+        $operation['title'] = 'Rilis Jadwal Seminar Hasil';
+        $operation['sub_title'] = 'Edit Jadwal Seminar Hasil';
         $operation['dosen'] = (new StafModels())->asArray()->findAll();
-        return view('rilisjadwal/create', $operation);
+        return view('rilisjadwalsemhas/create', $operation);
     }
 
     public function update($id)
     {
         $data = $this->request->getPost();
-        $jadwalModel = new JadwalUjianPropoModel();
+        $jadwalModel = new JadwalSemhasModel();
         $jadwalModel->update($id, $data);
-        return redirect()->to('rilisjadwal');
+        return redirect()->to('rilisjadwalsemhas');
     }
 
     public function delete($id)
     {
-        $jadwalModel = new JadwalUjianPropoModel();
+        $jadwalModel = new JadwalSemhasModel();
         $jadwalModel->delete($id);
-        return redirect()->to('rilisjadwal');
+        return redirect()->to('rilisjadwalsemhas');
     }
 
     public function beritaacara($id)
@@ -97,7 +97,7 @@ class JadwalUjianPropoController extends BaseController
         helper('my_date_helper');
 
         $imagePath = FCPATH . 'assets/img/logo-uns.jpg';
-        $jadwal = (new JadwalUjianPropoModel())->getBeritaAcara($id);
+        $jadwal = (new JadwalSemhasModel())->getBeritaAcara($id);
         $indonesian_date = convert_datetime_to_indonesian($jadwal['tgl_ujian']);
 
         $data = [
@@ -107,7 +107,7 @@ class JadwalUjianPropoController extends BaseController
             'month' => $indonesian_date['month'],
             'year' => $indonesian_date['year'],
             'jadwal' => $jadwal,
-            'tahapUjian' => 'Ujian Proposal'
+            'tahapUjian' => 'Seminar Hasil'
         ];
         // dd($data);
 
@@ -142,6 +142,35 @@ class JadwalUjianPropoController extends BaseController
         $pdf->writeHTML($html3, true, false, true, false, '');
 
         // Atur response untuk menampilkan PDF
+        $this->response->setContentType('application/pdf');
+        $pdf->Output('berita-acara.pdf', 'I');
+    }
+
+    public function persetujuan($id)
+    {
+        $imagePath = FCPATH . 'assets/img/logo-uns.jpg';
+        $dataSeminar = (new JadwalSemhasModel())->getPersetujuan($id);
+
+        $data = [
+            'imagePath' => $imagePath,
+            'semhas' => $dataSeminar,
+        ];
+
+        $html = view('rilisjadwalsemhas/lembar-persetujuan', $data);
+
+        $pdf = new CustomPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, 'F4', true, 'UTF-8', false);
+        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setPrintHeader(true);
+        $pdf->setPrintFooter(false);
+
+        $pdf->AddPage();
+        $pdf->Ln(25);
+        $pdf->SetFont('times', '', 12);
+        $pdf->writeHTML($html, true, false, true, false, '');
+
         $this->response->setContentType('application/pdf');
         $pdf->Output('berita-acara.pdf', 'I');
     }

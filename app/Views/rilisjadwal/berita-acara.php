@@ -6,8 +6,8 @@
     <title>Berita Acara</title>
 </head>
 <body>
-    <p style="text-align: center; font-weight: bold;">BERITA ACARA UJIAN PROPOSAL TUGAS AKHIR <br> D3 TEKNIK INFORMATIKA MADIUN <br> SEKOLAH VOKASI UNS</p>
-    <p>Pada hari ini <?= $day; ?>, Tanggal <?= $date; ?> Bulan <?= $month; ?> Tahun <?= $year; ?>, Telah dilaksanakan Ujian Proposal TA atas Mahasiswa :</p>
+    <p style="text-align: center; font-weight: bold;">BERITA ACARA <?= strtoupper($tahapUjian) ?> TUGAS AKHIR <br> D3 TEKNIK INFORMATIKA MADIUN <br> SEKOLAH VOKASI UNS</p>
+    <p>Pada hari ini <?= $day; ?>, Tanggal <?= $date; ?> Bulan <?= $month; ?> Tahun <?= $year; ?>, Telah dilaksanakan <?= $tahapUjian; ?> TA atas Mahasiswa :</p>
         <table width="100%">
             <tbody>
                 <tr>

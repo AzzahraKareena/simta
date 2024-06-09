@@ -35,6 +35,7 @@
                                 <!--begin::Toolbar-->
                                 <div class="d-flex justify-content-end" data-kt-docs-table-toolbar="base">
                                     <!--begin::Add customer-->
+                                    <?php if (session()->get('role') == 'Mahasiswa'): ?>
                                     <a href="<?= base_url('pengajuanseminarhasil/create')?>" class="btn btn-primary" data-bs-toggle="tooltip" title="Klik tambah data">
                                         <span class="svg-icon svg-icon-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -44,6 +45,7 @@
                                         </span>
                                         Tambah Data
                                     </a>
+                                    <?php endif ?>
                                     <!--end::Add customer-->
                                 </div>
                                 <!--end::Toolbar-->
@@ -82,10 +84,9 @@
                                                 <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['ajuan_tgl_ujian'] ?></span>
                                             </td>
                                             <td>
-                                                <div class="d-flex justify-content-end flex-shrink-0">
+                                                <!-- <div class="d-flex justify-content-end flex-shrink-0">
                                                     <a href="<?= base_url('assets/berkas/Berita Acara.pdf') ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Unduh Berkas">
                                                         <span class="svg-icon svg-icon-3">
-                                                            <!-- Icon untuk unduh berkas -->
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download">
                                                                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                                                                 <polyline points="7 10 12 15 17 10"></polyline>
@@ -95,14 +96,13 @@
                                                     </a>
                                                     <a href="<?= base_url('assets/rilisjadwal/Jadwal Seminar Proposal Hari I.pdf') ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Lihat Pengumuman Seminar Hasil">
                                                         <span class="svg-icon svg-icon-3">
-                                                            <!-- Icon untuk lihat pengumuman -->
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye">
                                                                 <circle cx="12" cy="12" r="3"></circle>
                                                                 <path d="M2 12s5-8 10-8 10 8 10 8-5 8-10 8-10-8-10-8z"></path>
                                                             </svg>
                                                         </span>
                                                     </a>
-                                                 </div>
+                                                 </div> -->
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

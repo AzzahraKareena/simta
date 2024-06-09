@@ -7,18 +7,20 @@ use App\Models\StafModels;
 use App\Libraries\CustomPDF;
 use App\Models\JudulAccModel;
 use App\Models\MahasiswaModel;
+use App\Models\JadwalSemhasModel;
+use App\Models\JadwalSidangModel;
 use App\Controllers\BaseController;
 use App\Models\PengajuanJudulModel;
+use App\Models\PengajuanSidangModel;
 use App\Models\JadwalUjianPropoModel;
-use App\Models\PengajuanUjianProposalModel;
+use App\Models\PengajuanSeminarHasilModel;
 
-class JadwalUjianPropoController extends BaseController
+class JadwalSidangController extends BaseController
 {
     public function table()
     {
-        // dd(session()->get('user_id'));
-        $data = (new JadwalUjianPropoModel())->getJadwal();
-        $getData = []; 
+        $data = (new JadwalSidangModel())->getJadwal();
+        $getData = []; // Inisialisasi sebagai array kosong
         
         foreach ($data as $jadwal) {
             if (session()->get('role') == 'Dosen') {
@@ -36,60 +38,58 @@ class JadwalUjianPropoController extends BaseController
             }
         }
         $operation['data'] = $getData;
-        $operation['title'] = 'Rilis Jadwal Ujian Proposal';
-        $operation['sub_title'] = 'Daftar Jadwal Ujian Proposal';
+        $operation['title'] = 'Rilis Jadwal Sidang TA';
+        $operation['sub_title'] = 'Daftar Jadwal Sidang TA';
         // dd($operation['data']);
-        return view("rilisjadwal/index", ['data' => $operation['data']]);
+        return view("rilisjadwalsidang/index", ['data' => $operation['data']]);
     }
     
     public function create()
     {
-        // $id_mhs = session()->get('user_id');
-        $pengajuanUjianPropo = new PengajuanUjianProposalModel();
-        $dataPengajuanUjian = $pengajuanUjianPropo->getMhs();
-        // dd($dataPengajuanUjian);
-        $operation['title'] = 'Pengajuan Ujian Proposal';
-        $operation['sub_title'] = 'Buat Pengajuan Ujian Proposal Baru';
-        $operation['pengajuan'] = $dataPengajuanUjian;
-        $operation['dosen'] = (new StafModels())->asArray()->findAll();
-        // dd($operation['pjudul']);
-        return view('rilisjadwal/create', ['pengajuan' => $operation['pengajuan'], 'dosen' => $operation['dosen']]);
+        $pengajuanSidang = new PengajuanSidangModel();
+        $dataPengajuan = $pengajuanSidang->getMhs();
+        $operation['title'] = 'Pengajuan Sidang TA';
+        $operation['sub_title'] = 'Buat Pengajuan Sidang TA Baru';
+        $operation['pengajuan'] = $dataPengajuan;
+        $operation['dosen'] = (new StafModels())->where('jenis', 'Dosen')->asArray()->findAll();
+        // dd($operation['pengajuan']);
+        return view('rilisjadwalsidang/create', ['pengajuan' => $operation['pengajuan'], 'dosen' => $operation['dosen']]);
     }
 
     public function store()
     {
         $data = $this->request->getPost();
         // dd($data);
-        $jadwalModel = new JadwalUjianPropoModel();
+        $jadwalModel = new JadwalSidangModel();
         $jadwalModel->save($data);
-        return redirect()->to('rilisjadwal');
+        return redirect()->to('rilisjadwalsidang');
     }
 
 
     public function edit($id)
     {
-        $jadwalModel = new JadwalUjianPropoModel();
+        $jadwalModel = new JadwalSidangModel();
         $dataForm = $jadwalModel->find($id);
         $operation['dataForm'] = $dataForm;
-        $operation['title'] = 'Rilis Jadwal Ujian Proposal';
-        $operation['sub_title'] = 'Edit Jadwal Ujian Proposal';
+        $operation['title'] = 'Rilis Jadwal Sidang TA';
+        $operation['sub_title'] = 'Edit Jadwal Sidang TA';
         $operation['dosen'] = (new StafModels())->asArray()->findAll();
-        return view('rilisjadwal/create', $operation);
+        return view('rilisjadwalsidang/create', $operation);
     }
 
     public function update($id)
     {
         $data = $this->request->getPost();
-        $jadwalModel = new JadwalUjianPropoModel();
+        $jadwalModel = new JadwalSidangModel();
         $jadwalModel->update($id, $data);
-        return redirect()->to('rilisjadwal');
+        return redirect()->to('rilisjadwalsidang');
     }
 
     public function delete($id)
     {
-        $jadwalModel = new JadwalUjianPropoModel();
+        $jadwalModel = new JadwalSidangModel();
         $jadwalModel->delete($id);
-        return redirect()->to('rilisjadwal');
+        return redirect()->to('rilisjadwalsidang');
     }
 
     public function beritaacara($id)
@@ -97,7 +97,7 @@ class JadwalUjianPropoController extends BaseController
         helper('my_date_helper');
 
         $imagePath = FCPATH . 'assets/img/logo-uns.jpg';
-        $jadwal = (new JadwalUjianPropoModel())->getBeritaAcara($id);
+        $jadwal = (new JadwalSidangModel())->getBeritaAcara($id);
         $indonesian_date = convert_datetime_to_indonesian($jadwal['tgl_ujian']);
 
         $data = [
@@ -107,7 +107,7 @@ class JadwalUjianPropoController extends BaseController
             'month' => $indonesian_date['month'],
             'year' => $indonesian_date['year'],
             'jadwal' => $jadwal,
-            'tahapUjian' => 'Ujian Proposal'
+            'tahapUjian' => 'Sidang'
         ];
         // dd($data);
 

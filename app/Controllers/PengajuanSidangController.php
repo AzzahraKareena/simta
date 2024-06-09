@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\JudulAccModel;
 use App\Controllers\BaseController;
 use App\Models\PengajuanSidangModel;
 
@@ -26,7 +27,14 @@ class PengajuanSidangController extends BaseController
 
     public function store()
     {
+        $id_mhs = session()->get('user_id');
         $data = $this->request->getPost();
+        $data['id_mhs'] = $id_mhs;
+
+        $judulAccModel = new JudulAccModel();
+        $id_accjudul = $judulAccModel->where('mhs_id', $id_mhs)->get()->getRow()->id_accjudul;
+        $data['id_accjudul'] = $id_accjudul;
+        
         $pengajuanSidang = new PengajuanSidangModel();
         $pengajuanSidang->insert($data);
         return redirect()->to('pengajuansidang');

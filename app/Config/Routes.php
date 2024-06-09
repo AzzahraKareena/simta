@@ -122,6 +122,29 @@ $routes->group('rilisjadwal', static function ($routes) {
     $routes->get('berita-acara/(:num)', 'JadwalUjianPropoController::beritaacara/$1');
 });
 
+//RILIS JADWAL SEMINAR HASIL
+$routes->group('rilisjadwalsemhas', static function ($routes) {
+    $routes->get('/', 'JadwalSemhasController::table');
+    $routes->get('create', 'JadwalSemhasController::create');
+    $routes->post('store', 'JadwalSemhasController::store');
+    $routes->get('edit/(:segment)', 'JadwalSemhasController::edit/$1');
+    $routes->post('update/(:segment)', 'JadwalSemhasController::update/$1');
+    $routes->post('delete/(:num)', 'JadwalSemhasController::delete/$1');
+    $routes->get('berita-acara/(:num)', 'JadwalSemhasController::beritaacara/$1');
+    $routes->get('lembar-persetujuan/(:num)', 'JadwalSemhasController::persetujuan/$1');
+});
+
+//RILIS JADWAL SIDANG
+$routes->group('rilisjadwalsidang', static function ($routes) {
+    $routes->get('/', 'JadwalSidangController::table');
+    $routes->get('create', 'JadwalSidangController::create');
+    $routes->post('store', 'JadwalSidangController::store');
+    $routes->get('edit/(:segment)', 'JadwalSidangController::edit/$1');
+    $routes->post('update/(:segment)', 'JadwalSidangController::update/$1');
+    $routes->post('delete/(:num)', 'JadwalSidangController::delete/$1');
+    $routes->get('berita-acara/(:num)', 'JadwalSidangController::beritaacara/$1');
+});
+
 //MASTER FILE BERKAS
 $routes->group('berkasTA', static function ($routes) {
     $routes->get('/', 'BerkasTAController::table');
