@@ -3,14 +3,14 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\MasterStafModel;
+use App\Models\StafModels;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class MasterStafController extends BaseController
+class StafController extends BaseController
 {
     public function table()
     {
-        $data = (new MasterStafModel())->asArray()->findAll();
+        $data = (new StafModels())->asArray()->findAll();
         
         $operation['data'] = $data;
         $operation['title'] = 'Data Master Staf';
@@ -28,14 +28,14 @@ class MasterStafController extends BaseController
     public function store()
     {
         $data = $this->request->getPost();
-        $timeline = new MasterStafModel();
-        $timeline->save($data);
+        $staf = new StafModel();
+        $staf->save($data);
         return redirect()->to('masterstaf');
     }
 
     public function edit($id)
     {
-        $masterstaf = new MasterStafModel();
+        $staf = new StafModel();
         $dataForm = $masterstaf->find($id);
         $operation['dataForm'] = $dataForm;
         $operation['title'] = 'Data Master Staf';
@@ -46,15 +46,15 @@ class MasterStafController extends BaseController
     public function update($id)
     {
         $data = $this->request->getPost();
-        $masterstaf = new MasterStafModel();
-        $masterstaf->update($id, $data);
+        $staf = new StafModel();
+        $staf->update($id, $data);
         return redirect()->to('masterstaf');
     }
 
     public function delete($id)
     {
-        $masterstaf = new MasterStafModel();
-        $masterstaf->delete($id);
+        $staf = new StafModel();
+        $staf->delete($id);
         return redirect()->to('masterstaf');
     }
 }

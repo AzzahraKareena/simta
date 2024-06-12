@@ -3,24 +3,24 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\MasterMahasiswaModel;
+use App\Models\MahasiswaModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class MasterMahasiswaController extends BaseController
+class MahasiswaController extends BaseController
 {
     public function table()
     {
-        $data = (new MasterMahasiswaModel())->asArray()->findAll();
+        $data = (new MahasiswaModel())->asArray()->findAll();
         
         $operation['data'] = $data;
-        $operation['title'] = 'Data Master Mahasiswa';
+        $operation['title'] = 'Data Master Staf';
         $operation['sub_title'] = '';
         return view("mastermahasiswa/index", $operation);
     }
     
     public function create()
     {
-        $operation['title'] = 'Data Master Mahasiswa';
+        $operation['title'] = 'Data Master Staf';
         $operation['sub_title'] = '';
         return view('mastermahasiswa/create', $operation);
     }
@@ -28,17 +28,17 @@ class MasterMahasiswaController extends BaseController
     public function store()
     {
         $data = $this->request->getPost();
-        $mastermahasiswa = new MasterMahasiswaModel();
-        $mastermahasiswa->save($data);
+        $mahasiswa = new MahasiswaModel();
+        $mahasiswa->save($data);
         return redirect()->to('mastermahasiswa');
     }
 
     public function edit($id)
     {
-        $mastermahasiswa = new MasterMahasiswaModel();
+        $mahasiswa = new MahasiswaModel();
         $dataForm = $mastermahasiswa->find($id);
         $operation['dataForm'] = $dataForm;
-        $operation['title'] = 'Data Master Mahasiswa';
+        $operation['title'] = 'Data Master Staf';
         $operation['sub_title'] = '';
         return view('mastermahasiswa/create', $operation);
     }
@@ -46,15 +46,15 @@ class MasterMahasiswaController extends BaseController
     public function update($id)
     {
         $data = $this->request->getPost();
-        $mastermahasiswa = new MasterMahasiswaModel();
-        $mastermahasiswa->update($id, $data);
+        $mahasiswa = new MahasiswaModel();
+        $mahasiswa->update($id, $data);
         return redirect()->to('mastermahasiswa');
     }
 
     public function delete($id)
     {
-        $mastermahasiswa = new MasterMahasiswaModel();
-        $mastermahasiswa->delete($id);
+        $mahasiswa = new MahasiswaModel();
+        $mahasiswa->delete($id);
         return redirect()->to('mastermahasiswa');
     }
 }

@@ -157,22 +157,22 @@ $routes->group('berkasTA', static function ($routes) {
 
 //DATA MASTER STAF
 $routes->group('masterstaf', static function ($routes) {
-    $routes->get('/', 'MasterStafController::table');
-    $routes->get('create', 'MasterStafController::create');
-    $routes->post('store', 'MasterStafController::store');
-    $routes->get('edit/(:num)', 'MasterStafController::edit/$1');
-    $routes->post('update/(:segment)', 'MasterStafController::update/$1');
-    $routes->post('delete/(:segment)', 'MasterStafController::delete/$1');
+    $routes->get('/', 'StafController::table');
+    $routes->get('create', 'StafController::create');
+    $routes->post('store', 'StafController::store');
+    $routes->get('edit/(:num)', 'StafController::edit/$1');
+    $routes->post('update/(:segment)', 'StafController::update/$1');
+    $routes->post('delete/(:segment)', 'StafController::delete/$1');
 });
 
 //DATA MASTER MAHASISWA
 $routes->group('mastermahasiswa', static function ($routes) {
-    $routes->get('/', 'MasterMahasiswaController::table');
-    $routes->get('create', 'MasterMahasiswaController::create');
-    $routes->post('store', 'MasterMahasiswaController::store');
-    $routes->get('edit/(:num)', 'MasterMahasiswaController::edit/$1');
-    $routes->post('update/(:segment)', 'MasterMahasiswaController::update/$1');
-    $routes->post('delete/(:segment)', 'MasterMahasiswaController::delete/$1');
+    $routes->get('/', 'MahasiswaController::table');
+    $routes->get('create', 'MahasiswaController::create');
+    $routes->post('store', 'MahasiswaController::store');
+    $routes->get('edit/(:num)', 'MahasiswaController::edit/$1');
+    $routes->post('update/(:segment)', 'MahasiswaController::update/$1');
+    $routes->post('delete/(:segment)', 'MahasiswaController::delete/$1');
 });
 
 //KRITERIA
@@ -239,5 +239,18 @@ $routes->group('mahasiswabimbingan', static function ($routes) {
     $routes->post('update/(:segment)', 'MahasiswaBimbinganController::update/$1');
     $routes->get('delete/(:num)', 'MahasiswaBimbinganController::delete/$1');
 });  
+
+//UNGGAH SYARAT KELULUSAN
+$routes->group('syaratkelulusan', static function ($routes) {
+    $routes->get('/', 'SyaratKelulusanController::get_data');
+    $routes->get('create', 'SyaratKelulusanController::create');
+    $routes->post('store', 'SyaratKelulusanController::store');
+    $routes->get('edit/(:segment)', 'SyaratKelulusanController::edit/$1');
+    $routes->post('update/(:num)', 'SyaratKelulusanController::update/$1');
+    // $routes->post('update/status/(:num)', 'PengajuanBimbinganController::updateStatus/$1');
+    $routes->get('delete/(:num)', 'SyaratKelulusanController::delete/$1');
+    $routes->get('data', 'SyaratKelulusanController::get_data');
+    $routes->post('updateValidationStatus/(:num)', 'SyaratKelulusanController::updateValidationStatus/$1');
+    });
 
 

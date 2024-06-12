@@ -98,6 +98,22 @@
                                 <span class="menu-title">Data Mahasiswa</span>
                             </a>
                         </div>
+                        <div class="menu-item">
+                            <a class="menu-link <?= explode('indikator', service('router')->getMatchedRoute()[0])[0] == "indikator" ? "active" : "" ?>" href="<?= base_url('indikator')?>">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Data Indikator Penilaian</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link <?= explode('kriteria', service('router')->getMatchedRoute()[0])[0] == "kriteria" ? "active" : "" ?>" href="<?= base_url('kriteria')?>">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Data Kriteria Penilaian</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <?php endif; ?>
@@ -118,6 +134,16 @@
                         <span class="menu-title">Menu</span>
                         <span class="menu-arrow"></span>
                     </span>
+                    <div class="menu-sub menu-sub-accordion menu-active-bg">
+                        <div class="menu-item">
+                            <a class="menu-link <?= explode('timeline', service('router')->getMatchedRoute()[0])[0] == "timeline" ? "active" : "" ?>" href="<?= base_url('timeline')?>">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Data Timeline</span>
+                            </a>
+                        </div>
+                    </div>
                     <?php if(session()->get('role') != 'Admin'): ?>
                         <div class="menu-sub menu-sub-accordion menu-active-bg">
                             <div class="menu-item">
