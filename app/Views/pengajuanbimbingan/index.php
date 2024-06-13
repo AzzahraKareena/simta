@@ -64,7 +64,7 @@
                                         <th class="">Waktu bimbingan</th>
                                         <th class="">Jadwal Bimbingan</th>
                                         <th class="">Agenda</th>
-                                        <th class="">Tracking</th> 
+                                        <!-- <th class="">Tracking</th>  -->
                                         
                                     </tr>
                                 </thead>
@@ -101,7 +101,7 @@
                                             <td>
                                                 <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Agenda: <?= $vdata['agenda'] ?></span>
                                             </td>
-                                            <td>
+                                            <!-- <td>
                                                 <div class="dropdown">
                                                     <button class="btn btn-sm btn-secondary dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                        <?= $vdata['tracking']?>
@@ -118,7 +118,7 @@
                                                         <?php endforeach; ?>
                                                     </ul>
                                                 </div>
-                                            </td>
+                                            </td> -->
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php else : ?>
@@ -147,7 +147,7 @@
                                         <th class="">Waktu Bimbingan</th>
                                         <th class="">Jadwal Bimbingan</th>
                                         <th class="">Agenda</th> 
-                                        <th class="">Tracking</th> 
+                                        <!-- <th class="">Tracking</th>  -->
                                         <th class="min-w-20px text-end">#</th>
                                         <!-- <th class="min-w-20px text-end">#</th> -->
                                     </tr>
@@ -249,7 +249,7 @@
                                             <td data-id="<?= $vdata['id_pengajuanbimbingan'] ?>" contenteditable="false" class="jadwal_bimbingan"><?= $vdata['jadwal_bimbingan'] ?></td>
                                             <td data-id="<?= $vdata['id_pengajuanbimbingan'] ?>" contenteditable="false" class="agenda"><?= $vdata['agenda'] ?></td>
                                             <td>
-                                                <div class="dropdown">
+                                                <!-- <div class="dropdown">
                                                     <button class="btn btn-sm btn-secondary dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                        <?= $vdata['tracking']?>
                                                     </button>
@@ -264,7 +264,7 @@
                                                             </li>
                                                         <?php endforeach; ?>
                                                     </ul>
-                                                </div>
+                                                </div> -->
                                             </td>
                                             <td>
                                                 <div class="d-flex justify-content-end flex-shrink-0">

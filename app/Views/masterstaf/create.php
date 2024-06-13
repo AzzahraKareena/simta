@@ -19,7 +19,7 @@
                     <!--begin::Body-->
                     <div class="card-body py-3">
                         <!--begin::Form-->
-                        <form class="form w-100" method="post" id="form_masterstaf" action="<?= service('router')->getMatchedRoute()[0] == "masterstaf/create" ? base_url('masterstaf/store') : base_url('masterstaf/update/'.$dataForm->id_masterstaf??"") ?>">
+                        <form class="form w-100" method="post" id="form_masterstaf" action="<?= service('router')->getMatchedRoute()[0] == "masterstaf/create" ? base_url('masterstaf/store') : base_url('masterstaf/update/'.$dataForm->id_staf??"") ?>">
                             <?= csrf_field() ?>
                             <!--begin::Input group-->
                             <?php if (session()->getFlashdata('errorForm')) : ?>
@@ -46,23 +46,23 @@
                                 <div class="col-12 col-md-6">
                                     <div class="fv-row mb-10">
                                         <label class="form-label required fs-6 fw-bolder text-dark">Nama</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="text" name="nama_staf" autocomplete="off" placeholder="Input nama_staf" value="<?= old('nama_staf')?? $dataForm->nama_staf??"" ?>" required />
+                                        <input class="form-control form-control-lg form-control-solid" type="text" name="nama" autocomplete="off" placeholder="Input nama" value="<?= old('nama')?? $dataForm->nama??"" ?>" required />
                                     </div>
                                     <div class="fv-row mb-10">
                                         <label class="form-label required fs-6 fw-bolder text-dark">NIP</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="number" name="nip_staf" autocomplete="off" placeholder="Input nip" value="<?= old('nip_staf')?? $dataForm->nip??"" ?>" required />
+                                        <input class="form-control form-control-lg form-control-solid" type="number" name="nip" autocomplete="off" placeholder="Input nip" value="<?= old('nip')?? $dataForm->nip??"" ?>" required />
                                     </div>
                                     <div class="fv-row mb-10">
                                         <label class="form-label required fs-6 fw-bolder text-dark">No.Telpon</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="number" name="no_telpon" autocomplete="off" placeholder="Input no_telpon" value="<?= old('no_telpon')?? $dataForm->no_telpon??"" ?>" required />
+                                        <input class="form-control form-control-lg form-control-solid" type="number" name="no_telp" autocomplete="off" placeholder="Input no_telp" value="<?= old('no_telp')?? $dataForm->no_telp??"" ?>" required />
                                     </div>
                                     <div class="fv-row mb-10">
                                         <label class="form-label required fs-6 fw-bolder text-dark">Alamat</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="text" name="alamat_staf" autocomplete="off" placeholder="Input alamat_staf" value="<?= old('alamat_staf')?? $dataForm->alamat_staf??"" ?>" required />
+                                        <input class="form-control form-control-lg form-control-solid" type="text" name="alamat" autocomplete="off" placeholder="Input alamat" value="<?= old('alamat')?? $dataForm->alamat??"" ?>" required />
                                     </div>
                                     <div class="fv-row mb-10">
                                         <label class="form-label required fs-6 fw-bolder text-dark">Jenis</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="text" name="jenis_staf" autocomplete="off" placeholder="Input jenis_staf" value="<?= old('jenis_staf')?? $dataForm->jenis_staf??"" ?>" required />
+                                        <input class="form-control form-control-lg form-control-solid" type="text" name="jenis" autocomplete="off" placeholder="Input jenis" value="<?= old('jenis')?? $dataForm->jenis??"" ?>" required />
                                     </div>
                             <!--begin::Actions-->
                             <div class="text-center">

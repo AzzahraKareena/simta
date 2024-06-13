@@ -64,6 +64,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <input type="hidden" name="status_pengajuan" value="PENDING">
                                 </div>
                             </div>  
                             <!--begin::Actions-->

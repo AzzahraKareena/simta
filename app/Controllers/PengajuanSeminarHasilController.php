@@ -2,9 +2,10 @@
 
 namespace App\Controllers;
 
+use App\Models\JudulAccModel;
 use App\Controllers\BaseController;
-use App\Models\PengajuanSeminarHasilModel;
 use CodeIgniter\HTTP\ResponseInterface;
+use App\Models\PengajuanSeminarHasilModel;
 
 class PengajuanSeminarHasilController extends BaseController
 {
@@ -27,7 +28,15 @@ class PengajuanSeminarHasilController extends BaseController
 
     public function store()
     {
+        $id_mhs = session()->get('user_id');
         $data = $this->request->getPost();
+        $data['id_mhs'] = $id_mhs;
+
+        $judulAccModel = new JudulAccModel();
+        $id_accjudul = $judulAccModel->where('mhs_id', $id_mhs)->get()->getRow()->id_accjudul;
+        $data['id_accjudul'] = $id_accjudul;
+        // $id_dospem = $judulAccModel->where('id_accjudul', $this->request->getPost('judul_acc_id'))->get()->getRow()->dospem_acc;
+        // $data['id_dospem'] = $id_dospem;
         $pengajuanSeminarHasil = new PengajuanSeminarHasilModel();
         $pengajuanSeminarHasil->save($data);
         return redirect()->to('pengajuanseminarhasil');
@@ -36,7 +45,7 @@ class PengajuanSeminarHasilController extends BaseController
     public function edit($id)
     {
         $pengajuanSeminarHasil = new PengajuanSeminarHasilModel();
-        $dataForm = $timeline->find($id);
+        $dataForm = $pengajuanSeminarHasil->find($id);
         $operation['dataForm'] = $dataForm;
         $operation['title'] = 'Timeline';
         $operation['sub_title'] = 'Setting timeline setiap periode Tugas Akhir';

@@ -106,11 +106,10 @@
                                     <?php endforeach ?>
                                 </tbody>
                             </table>
-        
                             <!--begin::Actions-->
                             <div class="text-end">
                                 <!--begin::Submit button-->
-                                <button type="submit" class="btn btn-lg btn-primary mb-5">Submit</button>
+                                <button type="button" class="btn btn-lg btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#confirmationModal">Submit</button>
                                 <!--end::Submit button-->
                             </div>
                             <!--end::Actions-->
@@ -125,24 +124,57 @@
         </div>
         <!--end::Row-->
     </div>
+
+    <!-- Bootstrap Confirmation Modal -->
+    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmationModalLabel">Konfirmasi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Apakah nilai yang anda masukkan benar?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+                    <button type="button" class="btn btn-primary" id="confirmSubmit">Ya</button>
+                </div>
+            </div>
+        </div>
+    </div>
 <?= $this->endSection() ?>
 
 <?= $this->section('js_custom') ?>
     <script>
-        KTUtil.onDOMContentLoaded(function() {
-            FormValidation.formValidation(document.getElementById('form_users'), {
-                plugins: {
-                    declarative: new FormValidation.plugins.Declarative({
-                        html5Input: true,
-                    }),
-                    submitButton: new FormValidation.plugins.SubmitButton(),
-                    trigger: new FormValidation.plugins.Trigger(),
-                    bootstrap: new FormValidation.plugins.Bootstrap5({
-                        rowSelector: '.fv-row'
-                    }),
-                    defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
-                },
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.getElementById('form_pengajuanjudul');
+            const submitButton = document.getElementById('confirmSubmit');
+
+            submitButton.addEventListener('click', function() {
+                form.submit();
+            });
+
+            KTUtil.onDOMContentLoaded(function() {
+                FormValidation.formValidation(form, {
+                    plugins: {
+                        declarative: new FormValidation.plugins.Declarative({
+                            html5Input: true,
+                        }),
+                        submitButton: new FormValidation.plugins.SubmitButton(),
+                        trigger: new FormValidation.plugins.Trigger(),
+                        bootstrap: new FormValidation.plugins.Bootstrap5({
+                            rowSelector: '.fv-row'
+                        }),
+                        defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
+                    },
+                });
             });
         });
     </script>
 <?= $this->endSection() ?>
+
+
+<!-- Add these in your head section -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>

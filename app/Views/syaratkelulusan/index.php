@@ -11,8 +11,8 @@
                     <!--begin::Header-->
                     <div class="card-header border-0 pt-5">
                         <h3 class="card-title align-items-start flex-column">
-                            <span class="card-label fw-bolder fs-3 mb-1">Data Pengajuan Sidang</span>
-                            <span class="text-muted mt-1 fw-bold fs-7">List data sidang tersedia</span>
+                            <span class="card-label fw-bolder fs-3 mb-1">Data Syarat Kelulusan</span>
+                          
                         </h3>
                     </div>
                     <!--end::Header-->
@@ -35,8 +35,7 @@
                                 <!--begin::Toolbar-->
                                 <div class="d-flex justify-content-end" data-kt-docs-table-toolbar="base">
                                     <!--begin::Add customer-->
-                                    <?php if(session()->get('role') == 'Mahasiswa'): ?>
-                                    <a href="<?= base_url('pengajuansidang/create')?>" class="btn btn-primary" data-bs-toggle="tooltip" title="Klik tambah data">
+                                    <a href="<?= base_url('syaratkelulusan/create')?>" class="btn btn-primary" data-bs-toggle="tooltip" title="Klik tambah data">
                                         <span class="svg-icon svg-icon-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                 <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black"></rect>
@@ -45,29 +44,28 @@
                                         </span>
                                         Tambah Data
                                     </a>
-                                    <?php endif; ?>
                                     <!--end::Add customer-->
                                 </div>
                                 <!--end::Toolbar-->
                             </div>
                             <!--end::Wrapper-->
                         <!--begin::Table container-->
-                        
+                        <?php if(session()->get('role') == 'Mahasiswa'): ?>
                         <div class="table-responsive">
                             <!--begin::Table-->
-                            <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4" id="dt_pengajuansidang">
+                            <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4" id="dt_syaratkelulusan">
                                 <!--begin::Table head-->
                                 <thead>
                                     <tr class="fw-bolder text-muted">
-                                        <th class="">Abstrak</th>
-                                        <th class="">Revisi Laporan</th>
-                                        <th class="">Laporan Tugas Akhir</th>
-                                        <th class="">Transkrip Nilai</th>
-                                        <th class="">Berita Acara KMM</th>
-                                        <th class="">Surat Rekomendasi</th>
-                                        <th class="">KRS</th>
-                                        <th class="">Ajuan Tanggal Ujian</th>
-                                        <th class="min-w-20px text-end">#</th>
+                                        <th class="">Poster</th>
+                                        <th class="">Lembar Pengesahan</th>
+                                        <th class="">Lembar Persetujuan</th>
+                                        <th class="">Bukti Pelunasan UKT</th>
+                                        <th class="">Surat Bebas Lab</th>
+                                        <th class="">Aplikasi TA</th>
+                                        <th class="">Laporan TA (PDF)</th>
+                                        <th class="">KTP</th>
+                                        <th class="">Status Syarat</th>
                                     </tr>
                                 </thead>
                                 <!--end::Table head-->
@@ -76,58 +74,113 @@
                                     <?php foreach ($data as $vdata): ?>
                                         <tr>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['abstrak'] ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->poster?></span>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['revisi_laporan'] ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->lembar_pengesahan ?></span>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['laporan_ta'] ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->lembar_persetujuan ?></span>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['transkrip_nilai'] ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->bukti_pelunasan_ukt?></span>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['beritaacara_kmm'] ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->surat_bebas_lab?></span>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['surat_rekomendasi'] ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->aplikasi_ta?></span>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['krs'] ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->laporan_ta_pdf?></span>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['ajuan_tgl_ujian'] ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->ktp?></span>
                                             </td>
                                             <td>
-                                                <!-- <div class="d-flex justify-content-end flex-shrink-0">
-                                                    <a href="<?= base_url('assets/berkas/Berita Acara.pdf') ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Unduh Berkas">
-                                                        <span class="svg-icon svg-icon-3">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download">
-                                                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                                                <polyline points="7 10 12 15 17 10"></polyline>
-                                                                <line x1="12" y1="15" x2="12" y2="3"></line>
-                                                            </svg>
-                                                        </span>
-                                                    </a>
-                                                    <a href="<?= base_url('assets/rilisjadwal/Jadwal Seminar Proposal Hari I.pdf') ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Lihat Pengumuman Seminar Hasil">
-                                                        <span class="svg-icon svg-icon-3">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye">
-                                                                <circle cx="12" cy="12" r="3"></circle>
-                                                                <path d="M2 12s5-8 10-8 10 8 10 8-5 8-10 8-10-8-10-8z"></path>
-                                                            </svg>
-                                                        </span>
-                                                    </a>
-                                                 </div> -->
+                                                <?php if ($vdata->status_syarat == 'Sedang Diproses') : ?>
+                                                    <div class="badge badge-warning"><?= $vdata->status_syarat ?></div>
+                                                <?php elseif ($vdata->status_syarat == 'Validasi') : ?>
+                                                    <div class="badge badge-success"><?= $vdata->status_syarat ?></div>
+                                                <?php else : ?>
+                                                    <div class="badge badge-success"><?= $vdata->status_syarat ?></div>
+                                                <?php endif; ?>
                                             </td>
+                                            
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
+                                <!--end::Table body-->
+                            </table>
+                            <!--end::Table-->
+                        </div>
+                        <?php elseif(session()->get('role') == 'Admin'): ?>
+                            <div class="table-responsive">
+                            <!--begin::Table-->
+                            <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4" id="dt_syaratkelulusan">
+                                <!--begin::Table head-->
+                                <thead>
+                                    <tr class="fw-bolder text-muted">
+                                        <th class="">Poster</th>
+                                        <th class="">Lembar Pengesahan</th>
+                                        <th class="">Lembar Persetujuan</th>
+                                        <th class="">Bukti Pelunasan UKT</th>
+                                        <th class="">Surat Bebas Lab</th>
+                                        <th class="">Aplikasi TA</th>
+                                        <th class="">Laporan TA (PDF)</th>
+                                        <th class="">KTP</th>
+                                        <th class="">Status Syarat</th>
+                                        <!-- <th class="min-w-20px text-end">#</th> -->
+                                    </tr>
+                                </thead>
+                                <!--end::Table head-->
+                                <!--begin::Table body-->
+                                <tbody>
+                                    <?php foreach ($data as $vdata): ?>
+                                        <tr>
+                                            <td>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->poster?></span>
+                                            </td>
+                                            <td>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->lembar_pengesahan ?></span>
+                                            </td>
+                                            <td>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->lembar_persetujuan ?></span>
+                                            </td>
+                                            <td>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->bukti_pelunasan_ukt?></span>
+                                            </td>
+                                            <td>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->surat_bebas_lab?></span>
+                                            </td>
+                                            <td>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->aplikasi_ta?></span>
+                                            </td>
+                                            <td>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->laporan_ta_pdf?></span>
+                                            </td>
+                                            <td>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->ktp?></span>
+                                            </td>
+                                            <td>
+                                            <select name="status" id="status_validasi" onchange="updateValidationStatus(<?= $vdata->id_syarat_kelulusan ?>, this.value)">
+                                                <option value="Sedang Diproses" <?= ($vdata->status_syarat == 'Sedang Diproses') ? 'selected' : '' ?> class="btn-warning">Sedang Diproses</option>
+                                                <option value="Validasi" <?= ($vdata->status_syarat == 'Validasi') ? 'selected' : '' ?> class="btn-success">Validasi</option>
+                                            </select>
+
+                                         
+                                            </td>
+
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                               
 
                                 <!--end::Table body-->
                             </table>
                             <!--end::Table-->
                         </div>
+                        <?php endif; ?>
                         <!--end::Table container-->
                     </div>
                     <!--begin::Body-->
@@ -275,8 +328,84 @@
         <!--end::Modal - New Product-->
         <!--end::Modals-->
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('td[contenteditable=true]').on('blur', function() {
+                var cell = $(this);
+                var column = cell.index();
+                var rowId = cell.closest('tr').find('.nilaiId').text();
+                var value = cell.text();
+                
+                // Prepare data to send
+                var data = {
+                    column: column,
+                    value: value,
+                    rowId: rowId
+                };
+
+                // Send data to server
+                $.ajax({
+                    url: 'pengajuanbimbingan/update/' + rowId,
+                    type: 'POST',
+                    data: data,
+                    success: function(response) {
+                        console.log('Data updated successfully:', response);
+                        // You can provide feedback to the user here if needed
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error updating data:', error);
+                        // Handle errors here
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+    function updateValidationStatus(id, status) {
+        $.ajax({
+            url: '<?= base_url('syaratkelulusan/updateValidationStatus/') ?>' + id,
+            type: 'POST',
+            data: {
+                status: status
+            },
+            success: function(response) {
+                // Handle success response
+                alert('Status validasi berhasil diperbarui.');
+            },
+            error: function(xhr, status, error) {
+                // Handle error response
+                console.error(xhr.responseText);
+            }
+        });
+    }
+</script>
 <?= $this->endSection() ?>
 
 <?= $this->section('js_custom') ?>
-    <?= view('pengajuansidang/javascript') ?>
+    <?= view('syaratkelulusan/javascript') ?>
 <?= $this->endSection() ?>
+
+// ajax to fetch data
+<!-- <script>
+    $(document).ready(function() {
+        $('#dt_pengajuanbimbingan').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": "<?= base_url('syaratkelulusan/get_data') ?>",
+                "type": "POST"
+            },
+            "columns": [
+                { "data": "lokasi_bimbingan" },
+                { "data": "hasil_bimbingan" },
+                { "data": "status_ajuan" },
+                { "data": "waktu_bimbingan" },
+                { "data": "jadwal_bimbingan" },
+                { "data": "agenda" },
+            ]
+        });
+    }); -->
+
+    

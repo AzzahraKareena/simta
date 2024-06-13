@@ -11,126 +11,118 @@
                     <!--begin::Header-->
                     <div class="card-header border-0 pt-5">
                         <h3 class="card-title align-items-start flex-column">
-                            <span class="card-label fw-bolder fs-3 mb-1">Data Pengajuan Sidang</span>
-                            <span class="text-muted mt-1 fw-bold fs-7">List data sidang tersedia</span>
+                            <span class="card-label fw-bolder fs-3 mb-1">Data Mahasiswa yang Dibimbing</span>
+                            <span class="text-muted mt-1 fw-bold fs-7">List data yang tersedia</span>
                         </h3>
                     </div>
                     <!--end::Header-->
-                    <!--begin::Body-->
                     <div class="card-body py-3">
                         <!--begin::Wrapper-->
-                            <div class="d-flex flex-stack mb-5">
-                                <!--begin::Search-->
-                                <div class="d-flex align-items-center position-relative my-1">
-                                    <span class="svg-icon svg-icon-1 position-absolute ms-6">
+                        <div class="d-flex flex-stack mb-5">
+                            <!--begin::Search-->
+                            <div class="d-flex align-items-center position-relative my-1">
+                                <span class="svg-icon svg-icon-1 position-absolute ms-6">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="black"></rect>
+                                        <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="black"></path>
+                                    </svg>
+                                </span>
+                                <input type="text" data-kt-docs-table-filter="search" class="form-control form-control-solid w-250px ps-15" placeholder="Search Data"/>
+                            </div>
+                            <!--end::Search-->
+
+                            <!--begin::Toolbar-->
+                            <div class="d-flex justify-content-end" data-kt-docs-table-toolbar="base">
+                                <!--begin::Add customer-->
+                                <a href="<?= base_url('pengajuanbimbingan/create')?>" class="btn btn-primary" data-bs-toggle="tooltip" title="Klik tambah data">
+                                    <span class="svg-icon svg-icon-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="black"></rect>
-                                            <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="black"></path>
+                                            <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black"></rect>
+                                            <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black"></rect>
                                         </svg>
                                     </span>
-                                    <input type="text" data-kt-docs-table-filter="search" class="form-control form-control-solid w-250px ps-15" placeholder="Search Data"/>
-                                </div>
-                                <!--end::Search-->
-
-                                <!--begin::Toolbar-->
-                                <div class="d-flex justify-content-end" data-kt-docs-table-toolbar="base">
-                                    <!--begin::Add customer-->
-                                    <?php if(session()->get('role') == 'Mahasiswa'): ?>
-                                    <a href="<?= base_url('pengajuansidang/create')?>" class="btn btn-primary" data-bs-toggle="tooltip" title="Klik tambah data">
-                                        <span class="svg-icon svg-icon-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black"></rect>
-                                                <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black"></rect>
-                                            </svg>
-                                        </span>
-                                        Tambah Data
-                                    </a>
-                                    <?php endif; ?>
-                                    <!--end::Add customer-->
-                                </div>
-                                <!--end::Toolbar-->
+                                    Tambah Data
+                                </a>
+                                <!--end::Add customer-->
                             </div>
-                            <!--end::Wrapper-->
-                        <!--begin::Table container-->
-                        
+                            <!--end::Toolbar-->
+                        </div>
+                        <!--end::Wrapper-->
                         <div class="table-responsive">
                             <!--begin::Table-->
-                            <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4" id="dt_pengajuansidang">
+                            <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4" id="dt_pengajuanbimbingan">
                                 <!--begin::Table head-->
                                 <thead>
                                     <tr class="fw-bolder text-muted">
-                                        <th class="">Abstrak</th>
-                                        <th class="">Revisi Laporan</th>
-                                        <th class="">Laporan Tugas Akhir</th>
-                                        <th class="">Transkrip Nilai</th>
-                                        <th class="">Berita Acara KMM</th>
-                                        <th class="">Surat Rekomendasi</th>
-                                        <th class="">KRS</th>
-                                        <th class="">Ajuan Tanggal Ujian</th>
-                                        <th class="min-w-20px text-end">#</th>
+                                        <th class="">Nama Mahasiswa</th>
+                                        <th class="">Angkatan</th>
+                                        <th class="">Judul Tugas Akhir</th>
+                                        <th class="">Tracking</th>
+                                        <th class="">Dospem</th>
                                     </tr>
                                 </thead>
                                 <!--end::Table head-->
                                 <!--begin::Table body-->
                                 <tbody>
-                                    <?php foreach ($data as $vdata): ?>
+                                    <?php if (!empty($data) && is_array($data)) : ?>
+                                        <?php foreach ($data as $vdata): ?>
+                                            <tr>
+                                                <td>
+                                                    <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['mahasiswa_nama'] ?></span>
+                                                </td>
+                                                <td>
+                                                    <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['angkatan'] ?></span>
+                                                </td>
+                                                <td>
+                                                    <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['judul_acc'] ?></span>
+                                                </td>
+                                                <td>
+                                                    <?php if (!empty($vdata) && isset($vdata['tracking'])) : ?>
+                                                        <?php if ($vdata['tracking'] == 'Pengajuan Judul') : ?>
+                                                            <div class="badge badge-warning"><?= $vdata['tracking'] ?></div>
+                                                        <?php elseif ($vdata['tracking'] == 'Judul Acc') : ?>
+                                                            <div class="badge badge-dark-blue12"><?= $vdata['tracking'] ?></div>
+                                                        <?php elseif ($vdata['tracking'] == 'Pengajuan Bimbingan Ujian Proposal') : ?>
+                                                            <div class="badge badge-dark-blue11"><?= $vdata['tracking'] ?></div>
+                                                        <?php elseif ($vdata['tracking'] == 'Pengajuan Ujian Proposal') : ?>
+                                                            <div class="badge badge-dark-blue10"><?= $vdata['tracking'] ?></div>
+                                                        <?php elseif ($vdata['tracking'] == 'Revisi Ujian Proposal') : ?>
+                                                            <div class="badge badge-dark-blue9"><?= $vdata['tracking'] ?></div>
+                                                        <?php elseif ($vdata['tracking'] == 'Pengumpulan Revisi') : ?>
+                                                            <div class="badge badge-dark-blue8"><?= $vdata['tracking'] ?></div>
+                                                        <?php elseif ($vdata['tracking'] == 'Pengajuan Bimbingan Seminar Hasil') : ?>
+                                                            <div class="badge badge-dark-blue7"><?= $vdata['tracking'] ?></div>
+                                                        <?php elseif ($vdata['tracking'] == 'Pengajuan Seminar Hasil') : ?>
+                                                            <div class="badge badge-dark-blue6"><?= $vdata['tracking'] ?></div>
+                                                        <?php elseif ($vdata['tracking'] == 'Revisi Seminar Hasil') : ?>
+                                                            <div class="badge badge-dark-blue5"><?= $vdata['tracking'] ?></div>
+                                                        <?php elseif ($vdata['tracking'] == 'Pengajuan Bimbingan Sidang') : ?>
+                                                            <div class="badge badge-dark-blue4"><?= $vdata['tracking'] ?></div>
+                                                        <?php elseif ($vdata['tracking'] == 'Pengajuan Sidang') : ?>
+                                                            <div class="badge badge-dark-blue3"><?= $vdata['tracking'] ?></div>
+                                                        <?php elseif ($vdata['tracking'] == 'Revisi Sidang') : ?>
+                                                            <div class="badge badge-dark-blue2"><?= $vdata['tracking'] ?></div>
+                                                        <?php elseif ($vdata['tracking'] == 'Unggah Syarat Kelulusan') : ?>
+                                                            <div class="badge badge-dark-blue1"><?= $vdata['tracking'] ?></div>
+                                                        <?php endif; ?>
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td>
+                                                    <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['dospem_nama'] ?></span>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else : ?>
                                         <tr>
-                                            <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['abstrak'] ?></span>
-                                            </td>
-                                            <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['revisi_laporan'] ?></span>
-                                            </td>
-                                            <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['laporan_ta'] ?></span>
-                                            </td>
-                                            <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['transkrip_nilai'] ?></span>
-                                            </td>
-                                            <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['beritaacara_kmm'] ?></span>
-                                            </td>
-                                            <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['surat_rekomendasi'] ?></span>
-                                            </td>
-                                            <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['krs'] ?></span>
-                                            </td>
-                                            <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['ajuan_tgl_ujian'] ?></span>
-                                            </td>
-                                            <td>
-                                                <!-- <div class="d-flex justify-content-end flex-shrink-0">
-                                                    <a href="<?= base_url('assets/berkas/Berita Acara.pdf') ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Unduh Berkas">
-                                                        <span class="svg-icon svg-icon-3">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download">
-                                                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                                                <polyline points="7 10 12 15 17 10"></polyline>
-                                                                <line x1="12" y1="15" x2="12" y2="3"></line>
-                                                            </svg>
-                                                        </span>
-                                                    </a>
-                                                    <a href="<?= base_url('assets/rilisjadwal/Jadwal Seminar Proposal Hari I.pdf') ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Lihat Pengumuman Seminar Hasil">
-                                                        <span class="svg-icon svg-icon-3">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye">
-                                                                <circle cx="12" cy="12" r="3"></circle>
-                                                                <path d="M2 12s5-8 10-8 10 8 10 8-5 8-10 8-10-8-10-8z"></path>
-                                                            </svg>
-                                                        </span>
-                                                    </a>
-                                                 </div> -->
-                                            </td>
+                                            <td colspan="6">Tidak ada data mahasiswa yang dibimbing.</td>
                                         </tr>
-                                    <?php endforeach; ?>
+                                    <?php endif; ?>
                                 </tbody>
-
                                 <!--end::Table body-->
                             </table>
                             <!--end::Table-->
                         </div>
-                        <!--end::Table container-->
                     </div>
-                    <!--begin::Body-->
                 </div>
                 <!--end::Tables Widget 9-->
             </div>
@@ -275,8 +267,51 @@
         <!--end::Modal - New Product-->
         <!--end::Modals-->
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+    function editTable(id) {
+        var cells = document.querySelectorAll('td[data-id="' + id + '"]');
+        cells.forEach(function(cell) {
+            cell.setAttribute('contenteditable', 'true');
+        });
+        
+        // Mengubah ikon tombol dari Edit menjadi Check
+        var editIcon = document.getElementById('editIcon_' + id);
+        editIcon.innerHTML = '<!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo8/dist/../src/media/svg/icons/Navigation/Check.svg--><button id="saveChanges'+ id +'" onclick="saveChanges('+ id +')"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1"><title>Submit</title><defs/><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><polygon points="0 0 24 0 24 24 0 24"/><path d="M6.26193932,17.6476484 C5.90425297,18.0684559 5.27315905,18.1196257 4.85235158,17.7619393 C4.43154411,17.404253 4.38037434,16.773159 4.73806068,16.3523516 L13.2380607,6.35235158 C13.6013618,5.92493855 14.2451015,5.87991302 14.6643638,6.25259068 L19.1643638,10.2525907 C19.5771466,10.6195087 19.6143273,11.2515811 19.2474093,11.6643638 C18.8804913,12.0771466 18.2484189,12.1143273 17.8356362,11.7474093 L14.0997854,8.42665306 L6.26193932,17.6476484 Z" fill="#000000" fill-rule="nonzero" transform="translate(11.999995, 12.000002) rotate(-180.000000) translate(-11.999995, -12.000002) "/></g></svg></button><!--end::Svg Icon-->';
+    }
+
+    function saveChanges(id) {
+    console.log("Changes saved for id:", id);
+    var cells = document.querySelectorAll('td[data-id="' + id + '"]');
+    var data = {};
+    cells.forEach(function(cell) {
+        data[cell.classList[0]] = cell.innerText;
+        cell.setAttribute('contenteditable', 'false');
+    });
+
+    // Mengirim data menggunakan AJAX
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "update/bimbingan/" + id, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log("Data berhasil disimpan");
+            // Mengubah ikon tombol dari Check menjadi Edit setelah berhasil disimpan
+            var editIcon = document.getElementById('editIcon_' + id);
+            editIcon.innerHTML = '<!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo8/dist/../src/media/svg/icons/Navigation/Edit.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1"><title>Edit</title><defs/><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><polygon points="0 0 24 0 24 24 0 24"/><path d="M10.25,19.1614792 L10.25,20 L3,20 L3,12.75 L3.6767915,12.0732085 L10.25,5.5 L11.0606602,6.31066017 C11.2454599,6.49545992 11.3738866,6.74145715 11.4289322,7.00867322 L11.5,7.20710678 L11.5,9 L15,9 L15,10 L11.5,10 L11.5,19 L10.25,19 L10.25,19.1614792 Z M20.8535534,4.85355339 C21.0488155,5.04881554 21.0488155,5.36526891 20.8535534,5.56053107 L19.439,6.975 L17.025,4.561 L18.439,3.14644661 C18.6342621,2.95118446 18.9507155,2.95118446 19.1464466,3.14644661 L20.8535534,4.85355339 Z M16.5606602,8.14644661 L19.1464466,10.7322331 C19.3417087,10.9274953 19.3417087,11.2439487 19.1464466,11.4392108 L18.439,12.1464466 L17.878,11.5854466 L20.121,9.34244661 L20.682,9.90444661 C20.857357,10.0798042 21.1246605,10.0798042 21.3,9.90444661 C21.475337,9.72910961 21.475337,9.46180614 21.3,9.28644661 L16.5606602,4.54710678 C16.365398,4.35184462 16.0489446,4.35184462 15.8536824,4.54710678 L14.1464466,6.25434262 L16.391,8.499 L16.5606602,8.66866017 C16.7559214,8.86392133 17.0723748,8.86392133 17.2676062,8.66866017 C17.4628683,8.47339801 17.4628683,8.1569446 17.2676062,7.96168245 L16.5606602,8.14644661 Z" fill="#000000" fill-rule="nonzero" transform="translate(12.000000, 12.000000) rotate(-135.000000) translate(-12.000000, -12.000000) "/></g></svg><!--end::Svg Icon-->';
+        }
+    };
+    xhr.send(JSON.stringify(data));
+
+    //Reload halaman setelah file berhasil diunggah
+    location.reload();
+}
+
+    </script>
+
 <?= $this->endSection() ?>
 
 <?= $this->section('js_custom') ?>
-    <?= view('pengajuansidang/javascript') ?>
+    <?= view('pengajuanbimbingan/javascript') ?>
 <?= $this->endSection() ?>

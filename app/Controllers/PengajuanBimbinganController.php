@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Models\JudulAccModel;
 use App\Models\MahasiswaModel;
 use App\Controllers\BaseController;
+use App\Models\PenilaianProposalModel;
+use App\Models\MahasiswaBimbinganModel;
 use App\Models\PengajuanBimbinganModel;
 use CodeIgniter\RESTful\ResourceController;
 
@@ -95,37 +97,91 @@ class PengajuanBimbinganController extends ResourceController
         return view('pengajuanbimbingan/create', $operation);
     }
 
+    // public function store()
+    // {
+    //     // $data = $this->request->getPost();
+    //     // get data from request per field
+    //     $pengajuanBimbinganModel = new PengajuanBimbinganModel();
+    //     $judulAcc = new JudulAccModel();
+    //     $id_mhs = $judulAcc->where('id_accjudul', $this->request->getPost('id_accjudul'))->get()->getRow()->mhs_id;
+    //     $id_staf = $judulAcc->where('id_accjudul', $this->request->getPost('id_accjudul'))->get()->getRow()->dospem_acc;
+    //     // dd($id_staf);
+
+    //     $data = [
+    //         // id_mhs get from user session
+    //         'id_mhs'  => $id_mhs,
+    //         'id_staf'  => $id_staf,
+    //         'id_accjudul' => $this->request->getPost('id_accjudul'),
+    //         'lokasi_bimbingan' => $this->request->getPost('lokasi_bimbingan'),
+    //         'hasil_bimbingan' => $this->request->getPost('hasil_bimbingan'),
+    //         'waktu_bimbingan' => $this->request->getPost('waktu_bimbingan'),
+    //         'jadwal_bimbingan' => $this->request->getPost('jadwal_bimbingan'),
+    //         'agenda' => $this->request->getPost('agenda'),
+    //     ];
+    //     // dd($data);
+    //     $insert = $pengajuanBimbinganModel->insert($data);
+
+    //     if ($insert) {
+    //         return redirect()->to('pengajuanbimbingan');
+    //     } else {
+    //         return $this->response->setJSON(['status' => 'error', 'message' => 'Data gagal disimpan']);
+    //     }
+
+    // }
+
     public function store()
     {
-        // $data = $this->request->getPost();
-        // get data from request per field
         $pengajuanBimbinganModel = new PengajuanBimbinganModel();
-        $judulAcc = new JudulAccModel();
-        $id_mhs = $judulAcc->where('id_accjudul', $this->request->getPost('id_accjudul'))->get()->getRow()->mhs_id;
-        $id_staf = $judulAcc->where('id_accjudul', $this->request->getPost('id_accjudul'))->get()->getRow()->dospem_acc;
-        // dd($id_staf);
+        $judulAccModel = new JudulAccModel();
+        $mahasiswaBimbinganModel = new MahasiswaBimbinganModel();
+        $penilaianProposalModel = new PenilaianProposalModel();
+        // $penilaianSeminarHasilModel = new PenilaianSeminarHasilModel();
+        // $penilaianSidangModel = new PenilaianSidangModel();
 
+        // Ambil id_mhs dan id_staf berdasarkan id_accjudul
+        $id_accjudul = $this->request->getPost('id_accjudul');
+        $judulAcc = $judulAccModel->where('id_accjudul', $id_accjudul)->first();
+        $id_mhs = $judulAcc['mhs_id'];
+        $id_staf = $judulAcc['dospem_acc'];
+
+        // Data dari request
         $data = [
-            // id_mhs get from user session
             'id_mhs'  => $id_mhs,
             'id_staf'  => $id_staf,
-            'id_accjudul' => $this->request->getPost('id_accjudul'),
+            'id_accjudul' => $id_accjudul,
             'lokasi_bimbingan' => $this->request->getPost('lokasi_bimbingan'),
             'hasil_bimbingan' => $this->request->getPost('hasil_bimbingan'),
             'waktu_bimbingan' => $this->request->getPost('waktu_bimbingan'),
             'jadwal_bimbingan' => $this->request->getPost('jadwal_bimbingan'),
             'agenda' => $this->request->getPost('agenda'),
         ];
-        // dd($data);
+
+        // Insert data ke tabel pengajuan_bimbingan
         $insert = $pengajuanBimbinganModel->insert($data);
 
         if ($insert) {
+            // Tentukan tracking berdasarkan keberadaan id_mhs di tabel penilaian
+            $tracking = 'Pengajuan Bimbingan Ujian Proposal';
+
+            if ($penilaianProposalModel->where('id_mhs', $id_mhs)->countAllResults() > 0) {
+                $tracking = 'Pengajuan Bimbingan Seminar Hasil';
+            }
+
+            // Belum aktif karena fitur penilaian untuk SEMHAS BELUM ADA NANTI KALO UDAH TINGGAL DIBUKA KOMENANNYA
+            
+            // if ($penilaianSeminarHasilModel->where('id_mhs', $id_mhs)->countAllResults() > 0) {
+            //     $tracking = 'Pengajuan Bimbingan Sidang';
+            // }
+
+            // Update tracking di tabel mahasiswa_bimbingan
+            $mahasiswaBimbinganModel->where('judul_acc_id', $id_accjudul)->set(['tracking' => $tracking])->update();
+
             return redirect()->to('pengajuanbimbingan');
         } else {
             return $this->response->setJSON(['status' => 'error', 'message' => 'Data gagal disimpan']);
         }
-
     }
+
     
     public function edit($id = null)
     {

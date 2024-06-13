@@ -11,15 +11,15 @@
                     <!--begin::Header-->
                     <div class="card-header border-0 pt-5">
                         <h3 class="card-title align-items-start flex-column">
-                            <span class="card-label fw-bolder fs-3 mb-1">Form Data Mahasiswa</span>
-                            <span class="text-muted mt-1 fw-bold fs-7">Isi data mahasiswa dengan benar</span>
+                            <span class="card-label fw-bolder fs-3 mb-1">Form Syarat Kelulusan</span>
+                            <!-- <span class="text-muted mt-1 fw-bold fs-7">Isi data pengajuan ujian proposal dengan benar</span> -->
                         </h3>
                     </div>
                     <!--end::Header-->
                     <!--begin::Body-->
                     <div class="card-body py-3">
                         <!--begin::Form-->
-                        <form class="form w-100" method="post" id="form_mastermahasiswa" action="<?= service('router')->getMatchedRoute()[0] == "mastermahasiswa/create" ? base_url('mastermahasiswa/store') : base_url('mastermahasiswa/update/'.$dataForm->id_mhs??"") ?>">
+                        <form class="form w-100" method="post" id="form_syaratkelulusan" action="<?= service('router')->getMatchedRoute()[0] == "syaratkelulusan/create" ? base_url('syaratkelulusan/store') : base_url('syaratkelulusan/update/'.$dataForm->id_syarat_kelulusan??"") ?>">
                             <?= csrf_field() ?>
                             <!--begin::Input group-->
                             <?php if (session()->getFlashdata('errorForm')) : ?>
@@ -34,7 +34,7 @@
                                         </span>
                                         <!--end::Svg Icon-->
                                         <div class="d-flex flex-column">
-                                            <h4 class="mb-1 text-danger">This is an alert</h4>
+                                            <h4 class="mb-1 text-danger">Peringatan</h4>
                                             <span>
                                                 <?= session()->getFlashdata('errorForm') ?>
                                             </span>
@@ -45,43 +45,39 @@
                             <div class="row">
                                 <div class="col-12 col-md-6">
                                     <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">Nama Mahasiswa</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="text" name="nama" autocomplete="off" placeholder="Input nama mahasiswa" value="<?= old('nama')?? $dataForm->nama??"" ?>" required />
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Poster</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="file" name="poster" accept=".jpg" required />
                                     </div>
                                     <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">NIM</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="text" name="nim" autocomplete="off" placeholder="Input NIM" value="<?= old('nim')?? $dataForm->nim??"" ?>" required />
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Lembar Pengesahan</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="file" name="lembar_pengesahan" accept=".pdf" required />
                                     </div>
                                     <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">Prodi</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="text" name="prodi" autocomplete="off" placeholder="Input prodi" value="<?= old('prodi')?? $dataForm->prodi??"" ?>" required />
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Lembar Persetujuan</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="file" name="lembar_persetujuan" accept=".pdf" required />
                                     </div>
                                     <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">No. Telpon</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="number" name="no_telp" autocomplete="off" placeholder="Input nomor telpon" value="<?= old('no_telp')?? $dataForm->no_telp??"" ?>" required />
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Bukti Pelunasan UKT</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="file" name="bukti_pelunasan_ukt" accept=".pdf" required />
                                     </div>
                                     <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">Tahun Masuk</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="number" name="th_masuk" autocomplete="off" placeholder="Input tahun masuk" value="<?= old('th_masuk')?? $dataForm->th_masuk??"" ?>" required />
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Surat Bebas Lab</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="file" name="surat_bebas_lab" accept=".pdf" required />
                                     </div>
                                     <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">Tahun Lulus</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="number" name="th_lulus" autocomplete="off" placeholder="Input tahun lulus" value="<?= old('th_lulus')?? $dataForm->th_lulus??"" ?>" required />
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Aplikasi TA</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="file" name="aplikasi_ta" accept=".rar" required />
                                     </div>
                                     <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">Kelas</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="text" name="kelas" autocomplete="off" placeholder="Input kelas" value="<?= old('kelas')?? $dataForm->kelas??"" ?>" required />
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Laporan TA</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="file" name="laporan_ta_pdf" accept=".pdf" required />
                                     </div>
                                     <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">Status</label>
-                                        <select class="form-select form-select-solid" name="status" required>
-                                            <option value="">Pilih Status</option>
-                                            <option value="Aktif" <?= old('status') == 'Aktif' || (isset($dataForm->status) && $dataForm->status == 'Aktif') ? 'selected' : '' ?>>Aktif</option>
-                                            <option value="Tidak Aktif" <?= old('status') == 'Tidak Aktif' || (isset($dataForm->status) && $dataForm->status == 'Tidak Aktif') ? 'selected' : '' ?>>Tidak Aktif</option>
-                                        </select>
+                                        <label class="form-label required fs-6 fw-bolder text-dark">KTP</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="file" name="ktp" accept=".pdf" required />
+                                    </div>
                                     </div>
                                 </div>
-                            </div>
                             <!--begin::Actions-->
                             <div class="text-center">
                                 <!--begin::Submit button-->
@@ -105,7 +101,7 @@
 <?= $this->section('js_custom') ?>
     <script>
         KTUtil.onDOMContentLoaded(function() {
-            FormValidation.formValidation(document.getElementById('form_mastermahasiswa'), {
+            FormValidation.formValidation(document.getElementById('form_syaratkelulusan'), {
                 plugins: {
                     declarative: new FormValidation.plugins.Declarative({
                         html5Input: true,
