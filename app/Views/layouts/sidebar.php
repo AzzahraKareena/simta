@@ -271,6 +271,8 @@
                                 <span class="menu-title">Rilis Jadwal Ujian Proposal</span>
                             </a>
                         </div>
+                        <?php endif; ?>
+                        <?php if (session()->get('role') == 'Dosen' || session()->get('role') == 'Admin'): ?>
                         <div class="menu-item">
                             <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "penilaianproposal" ? "active" : "" ?>" href="<?= base_url('penilaianproposal')?>">
                                 <span class="menu-bullet">
@@ -329,15 +331,6 @@
                                 </span>
                                 <span class="menu-title">Rilis Jadwal Ujian Proposal</span>
                             </a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "penilaianproposal" ? "active" : "" ?>" href="<?= base_url('penilaianproposal')?>">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Penilaian Ujian Proposal</span>
-                            </a>
-                        </div>
                         <?php endif; ?>
                 
                     </div>

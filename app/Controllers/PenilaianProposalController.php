@@ -115,7 +115,7 @@ class PenilaianProposalController extends BaseController
                 if ($nilai['id_staf'] == session()->get('user_id')) {
                     $getData[] = $nilai; // Tambahkan ke array
                 }
-            } elseif (session()->get('role') == 'Koordinator') {
+            } elseif (session()->get('role') == 'Admin') {
                 // Jika rolenya adalah "Dosen", maka hanya data yang sesuai dengan ID staf yang sedang login yang akan ditampilkan
                     $getData[] = $nilai; // Tambahkan ke array
             }
