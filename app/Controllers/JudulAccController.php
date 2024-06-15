@@ -13,6 +13,7 @@ class JudulAccController extends ResourceController
 {
 
     public function table() {
+        // dd(session()->get('role'));
         $bimbinganModel = new JudulAccModel();
     
         // Fetch data from bimbingan

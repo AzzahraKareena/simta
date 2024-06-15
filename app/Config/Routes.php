@@ -199,13 +199,13 @@ $routes->group('indikator', static function ($routes) {
 
 });
 
-//INDIKATOR
+//PENILAIAN PROPOSAL
 $routes->group('penilaianproposal', static function ($routes) {
     $routes->get('/', 'PenilaianProposalController::table');
     $routes->get('create/(:num)', 'PenilaianProposalController::create/$1');
     $routes->post('store', 'PenilaianProposalController::store');
     $routes->get('edit/(:num)', 'PenilaianProposalController::edit/$1');
-    $routes->get('pdf/(:num)', 'PenilaianProposalController::penilaian');
+    $routes->get('pdf/(:num)', 'PenilaianProposalController::penilaian/$1');
     $routes->post('update', 'PenilaianProposalController::update');
     $routes->post('delete/(:num)', 'PenilaianProposalController::delete/$1');
 });
@@ -251,6 +251,74 @@ $routes->group('syaratkelulusan', static function ($routes) {
     $routes->get('delete/(:num)', 'SyaratKelulusanController::delete/$1');
     $routes->get('data', 'SyaratKelulusanController::get_data');
     $routes->post('updateValidationStatus/(:num)', 'SyaratKelulusanController::updateValidationStatus/$1');
-    });
+});
+
+//KRITERIA SEMHAS
+$routes->group('kriteria_semhas', static function ($routes) {
+    $routes->get('/', 'KriteriaSemhasController::table');
+    $routes->get('create', 'KriteriaSemhasController::create');
+    $routes->post('store', 'KriteriaSemhasController::store');
+    $routes->get('edit/(:num)', 'KriteriaSemhasController::edit/$1');
+    $routes->post('update/(:num)', 'KriteriaSemhasController::update/$1');
+    // $routes->get('delete/(:num)', 'KriteriaSemhasController::delete/$1');
+    $routes->post('delete/(:num)', 'KriteriaSemhasController::delete/$1');
+
+});
+
+//INDIKATOR SEMHAS
+$routes->group('indikator_semhas', static function ($routes) {
+    $routes->get('/', 'IndikatorSemhasController::table');
+    $routes->get('create', 'IndikatorSemhasController::create');
+    $routes->post('store', 'IndikatorSemhasController::store');
+    $routes->get('edit/(:num)', 'IndikatorSemhasController::edit/$1');
+    $routes->post('update/(:num)', 'IndikatorSemhasController::update/$1');
+    // $routes->get('delete/(:num)', 'IndikatorSemhasController::delete/$1');
+    $routes->post('delete/(:num)', 'IndikatorSemhasController::delete/$1');
+});
+
+//PENILAIAN SEMHAS
+$routes->group('penilaiansemhas', static function ($routes) {
+    $routes->get('/', 'PenilaianSemhasController::table');
+    $routes->get('create/(:num)', 'PenilaianSemhasController::create/$1');
+    $routes->post('store', 'PenilaianSemhasController::store');
+    $routes->get('edit/(:num)', 'PenilaianSemhasController::edit/$1');
+    $routes->get('pdf/(:num)', 'PenilaianSemhasController::penilaian/$1');
+    $routes->post('update', 'PenilaianSemhasController::update');
+    $routes->post('delete/(:num)', 'PenilaianSemhasController::delete/$1');
+});
+
+//KRITERIA SIDANG
+$routes->group('kriteria_sidang', static function ($routes) {
+    $routes->get('/', 'KriteriaSidangController::table');
+    $routes->get('create', 'KriteriaSidangController::create');
+    $routes->post('store', 'KriteriaSidangController::store');
+    $routes->get('edit/(:num)', 'KriteriaSidangController::edit/$1');
+    $routes->post('update/(:num)', 'KriteriaSidangController::update/$1');
+    // $routes->get('delete/(:num)', 'KriteriaSidangController::delete/$1');
+    $routes->post('delete/(:num)', 'KriteriaSidangController::delete/$1');
+
+});
+
+//INDIKATOR SIDANG
+$routes->group('indikator_sidang', static function ($routes) {
+    $routes->get('/', 'IndikatorSidangController::table');
+    $routes->get('create', 'IndikatorSidangController::create');
+    $routes->post('store', 'IndikatorSidangController::store');
+    $routes->get('edit/(:num)', 'IndikatorSidangController::edit/$1');
+    $routes->post('update/(:num)', 'IndikatorSidangController::update/$1');
+    // $routes->get('delete/(:num)', 'IndikatorSidangController::delete/$1');
+    $routes->post('delete/(:num)', 'IndikatorSidangController::delete/$1');
+});
+
+//PENILAIAN SIDANG
+$routes->group('penilaiansidang', static function ($routes) {
+    $routes->get('/', 'PenilaianSidangController::table');
+    $routes->get('create/(:num)', 'PenilaianSidangController::create/$1');
+    $routes->post('store', 'PenilaianSidangController::store');
+    $routes->get('edit/(:num)', 'PenilaianSidangController::edit/$1');
+    $routes->get('pdf/(:num)', 'PenilaianSidangController::penilaian/$1');
+    $routes->post('update', 'PenilaianSidangController::update');
+    $routes->post('delete/(:num)', 'PenilaianSidangController::delete/$1');
+});
 
 

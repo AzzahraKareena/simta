@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Penilaian Proposal</title>
+    <title>Penilaian Seminar Hasil</title>
 </head>
 <body>
     <table width="100%" celllpadding="5">
