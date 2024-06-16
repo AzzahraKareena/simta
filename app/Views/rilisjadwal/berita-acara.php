@@ -35,10 +35,12 @@
                 <td width="3%">1</td>
                 <td width="97%"><?= $jadwal['penguji1']; ?> Sebagai Ketua Penguji</td>
             </tr>
+            <?php if($jadwal['id_penguji2'] != null) : ?>
             <tr>
                 <td width="3%">2</td>
                 <td width="97%"><?= $jadwal['penguji2']; ?> Sebagai Anggota</td>
             </tr>
+            <?php endif; ?>
         </tbody>
     </table>
     <div>Dengan hasil</div>
@@ -69,6 +71,7 @@
     <span>_____________________________________________________________________________________</span>
     <table width="100%">
         <tbody>
+            <?php if($jadwal['id_penguji2'] != null) : ?>
             <tr>
                 <td width="45%">
                     <span style="display: none;">_______</span><br>
@@ -98,6 +101,26 @@
                 </td>
                 <td width="30%"></td>
             </tr>
+            <?php else: ?>
+                <tr>
+                    <td width="45%">
+                        <span>Mengetahui,</span><br>
+                        <span>a.n. Kepala Program Studi</span><br>
+                        <span>D3 Teknik Informatika Madiun</span><br><br><br><br>
+                        <span>Fendi Aji Purnomo, S.Si., M.Eng.</span>
+                        <hr style="border: none; height: 1px; width: 200px;">
+                        <span>NIP. 1984092620160901</span>
+                    </td>
+                    <td width="10%"></td>
+                    <td width="45%">
+                        <span>Madiun, <?= $date; ?> <?= $month; ?> <?= $year; ?></span><br>
+                        <span>Ketua</span><br><br><br><br>
+                        <span><?= $jadwal['penguji1']; ?></span>
+                        <hr style="border: none; height: 1px;">
+                        <span>NIP. <?= $jadwal['nip_penguji1']; ?></span><br>
+                    </td>
+                </tr>
+            <?php endif; ?>
         </tbody>
     </table>
 </body>

@@ -75,7 +75,7 @@
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
-                                    <div class="fv-row mb-10">
+                                    <!-- <div class="fv-row mb-10">
                                         <label class="form-label required fs-6 fw-bolder text-dark">Penguji 2</label>
                                         <select class="form-select form-select-lg form-select-solid" name="id_penguji2" required>
                                             <option value="">Pilih Dosen Penguji 2</option>
@@ -85,7 +85,7 @@
                                                 </option>
                                             <?php endforeach; ?>
                                         </select>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             <div class="text-end">

@@ -85,7 +85,7 @@ $routes->post('update/bimbingan/(:num)', 'PengajuanBimbinganController::updateBi
 $routes->post('update/status_up/(:num)', 'PengajuanUjianProposalController::updateStatus/$1');
 $routes->post('upload/revisi/(:num)', 'PengajuanUjianProposalController::uploadRevisi/$1');
 
-
+$routes->get('rekapitulasi-nilai', 'RekapitulasiController::index');
 
 //PENGAJUAN BIMBINGAN
 $routes->group('pengajuanbimbingan', static function ($routes) {

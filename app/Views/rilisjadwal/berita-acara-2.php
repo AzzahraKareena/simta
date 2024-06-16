@@ -28,7 +28,11 @@
                 <tr>
                     <td>Penguji</td>
                     <td>:</td>
-                    <td><?= $jadwal['penguji1']; ?>, <?= $jadwal['penguji2']; ?></td>
+                    <td><?= $jadwal['penguji1']; ?>
+                        <?php if($jadwal['id_penguji2'] != null) : ?>
+                            , <?= $jadwal['penguji2']; ?>
+                        <?php endif; ?>
+                    </td>
                 </tr>
             </tbody>
         </table>

@@ -68,9 +68,9 @@
                                     <!--end::Avatar-->
                                     <!--begin::Username-->
                                     <div class="d-flex flex-column">
-                                        <div class="fw-bolder d-flex align-items-center fs-5">Max Smith
-                                        <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">Pro</span></div>
-                                        <a href="#" class="fw-bold text-muted text-hover-primary fs-7">max@kt.com</a>
+                                        <div class="fw-bolder d-flex align-items-center fs-5"><?= session()->get('nama') ?>
+                                        <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2"><?= session()->get('role') ?></span></div>
+                                        <a href="#" class="fw-bold text-muted text-hover-primary fs-7"><?= session()->get('email') ?></a>
                                     </div>
                                     <!--end::Username-->
                                 </div>
