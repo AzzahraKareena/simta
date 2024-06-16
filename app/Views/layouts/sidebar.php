@@ -146,6 +146,14 @@
                                 <span class="menu-title">Data Indikator Penilaian Sidang</span>
                             </a>
                         </div>
+                        <div class="menu-item">
+                            <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "rekapnilai" ? "active" : "" ?>" href="<?= base_url('rekapnilai')?>">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Rekapitulasi Penilaian Akhir</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <?php endif; ?>
