@@ -64,7 +64,6 @@
                                         <th class="">Tanggal Ujian</th>
                                         <th class="">Waktu</th>
                                         <th class="">Penguji 1</th>
-                                        <th class="">Penguji 2</th>
                                         <th class="text-center">#</th>
                                         <!-- <th class="min-w-20px text-end">#</th> -->
                                     </tr>
@@ -79,7 +78,6 @@
                                             <td><?= $item['tgl_ujian'] ?></td>
                                             <td><?= $item['jam_start'] ?> - <?= $item['jam_end']; ?></td>
                                             <td><?= $item['penguji1'] ?></td>
-                                            <td><?= $item['penguji2'] ?></td>
                                             <td>
                                                 <div class="d-flex justify-content-end flex-shrink-0">
                                                     <a href="<?= base_url('rilisjadwalsemhas/berita-acara/'. $item['id_rilis_jadwal_semhas']) ?>" target="_blank" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" title="Unduh Berita Acara">

@@ -11,8 +11,8 @@
                     <!--begin::Header-->
                     <div class="card-header border-0 pt-5">
                         <h3 class="card-title align-items-start flex-column">
-                            <span class="card-label fw-bolder fs-3 mb-1">Data Pengajuan Seminar Hasil</span>
-                            <span class="text-muted mt-1 fw-bold fs-7">List data seminar hasil tersedia</span>
+                            <span class="card-label fw-bolder fs-3 mb-1">Data Hasil Rekapitulasi Nilai</span>
+                            <span class="text-muted mt-1 fw-bold fs-7">List data hasil rekapitulasi nilai</span>
                         </h3>
                     </div>
                     <!--end::Header-->
@@ -33,10 +33,9 @@
                                 <!--end::Search-->
 
                                 <!--begin::Toolbar-->
+                                <!-- <?php if(session()->get('role') == 'Dosen'): ?>
                                 <div class="d-flex justify-content-end" data-kt-docs-table-toolbar="base">
-                                    <!--begin::Add customer-->
-                                    <?php if(session()->get('role') == 'Mahasiswa' && !$mahasiswaSudahMengajukan): ?>
-                                    <a href="<?= base_url('pengajuanseminarhasil/create')?>" class="btn btn-primary" data-bs-toggle="tooltip" title="Klik tambah data">
+                                    <a href="<?= base_url('rilisjadwalsemhas/create')?>" class="btn btn-primary" data-bs-toggle="tooltip" title="Klik tambah data">
                                         <span class="svg-icon svg-icon-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                 <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black"></rect>
@@ -45,70 +44,44 @@
                                         </span>
                                         Tambah Data
                                     </a>
-                                    <?php endif ?>
-                                    <!--end::Add customer-->
                                 </div>
+                                <?php endif; ?> -->
                                 <!--end::Toolbar-->
                             </div>
                             <!--end::Wrapper-->
                         <!--begin::Table container-->
-                        
                         <div class="table-responsive">
                             <!--begin::Table-->
-                            <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4" id="dt_pengajuanseminarhasil">
-                                <!--begin::Table head-->
+                            <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4" id="dt_pengajuanjudul">
+                                <!-- Table header -->
                                 <thead>
                                     <tr class="fw-bolder text-muted">
-                                        <th class="">Abstrak</th>
-                                        <th class="">Revisi Laporan</th>
-                                        <th class="">Laporan Tugas Akhir</th>
-                                        <th class="">Ajuan Tanggal Ujian</th>
-                                        <th class="min-w-20px text-end">#</th>
+                                        <th class="">Nama Mahasiswa</th>
+                                        <th class="">NIM</th>
+                                        <th class="">Nilai Ujian Proposal (10%)</th>
+                                        <th class="">Nilai Seminar Hasil (30%)</th>
+                                        <th class="">Nilai Sidang (60%)</th>
+                                        <th class="">Nilai Akhir</th>
+                                        <th class="text-center">#</th>
+                                        <!-- <th class="min-w-20px text-end">#</th> -->
                                     </tr>
                                 </thead>
-                                <!--end::Table head-->
-                                <!--begin::Table body-->
+                                <!-- Table body -->
                                 <tbody>
-                                    <?php foreach ($data as $vdata): ?>
+                                    <?php foreach ($data as $item) : ?>
                                         <tr>
+                                            <td><?= $item['mahasiswa']->nama ?></td>
+                                            <td><?= $item['mahasiswa']->nim ?></td>
+                                            <td class="text-center"><?= $item['nilaiProposal'] ?></td>
+                                            <td class="text-center"><?= $item['nilaiSeminar'] ?></td>
+                                            <td class="text-center"><?= $item['nilaiSidang'] ?></td>
+                                            <td class="text-center"><?= $item['nilaiAkhir'] ?></td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['abstrak'] ?></span>
-                                            </td>
-                                            <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['revisi_laporan'] ?></span>
-                                            </td>
-                                            <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['laporan_ta'] ?></span>
-                                            </td>
-                                            <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['ajuan_tgl_ujian'] ?></span>
-                                            </td>
-                                            <td>
-                                                <!-- <div class="d-flex justify-content-end flex-shrink-0">
-                                                    <a href="<?= base_url('assets/berkas/Berita Acara.pdf') ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Unduh Berkas">
-                                                        <span class="svg-icon svg-icon-3">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download">
-                                                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                                                <polyline points="7 10 12 15 17 10"></polyline>
-                                                                <line x1="12" y1="15" x2="12" y2="3"></line>
-                                                            </svg>
-                                                        </span>
-                                                    </a>
-                                                    <a href="<?= base_url('assets/rilisjadwal/Jadwal Seminar Proposal Hari I.pdf') ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Lihat Pengumuman Seminar Hasil">
-                                                        <span class="svg-icon svg-icon-3">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye">
-                                                                <circle cx="12" cy="12" r="3"></circle>
-                                                                <path d="M2 12s5-8 10-8 10 8 10 8-5 8-10 8-10-8-10-8z"></path>
-                                                            </svg>
-                                                        </span>
-                                                    </a>
-                                                 </div> -->
+                                                
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
-
-                                <!--end::Table body-->
                             </table>
                             <!--end::Table-->
                         </div>
@@ -262,5 +235,5 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('js_custom') ?>
-    <?= view('pengajuanseminarhasil/javascript') ?>
+    <?= view('pengajuanujianproposal/javascript') ?>
 <?= $this->endSection() ?>

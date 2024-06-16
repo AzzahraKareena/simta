@@ -47,6 +47,8 @@ class Auth extends Controller
             'user_id' => $user['id'],
             'email' => $user['email'],
             'role' => $user['role'],
+            'nama' => $user['nama'],
+            'logged_in' => true,
             // Tambahkan informasi lain yang diperlukan
         ]);
 
