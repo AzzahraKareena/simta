@@ -50,19 +50,6 @@
                     </a>
                 </div>
                 <?php if(session()->get('logged_in') == true) : ?>
-                    <div class="menu-item">
-                        <div class="menu-content pt-8 pb-2">
-                            <span class="menu-section text-muted text-uppercase fs-8 ls-1">Crafted</span>
-                        </div>
-                        <div class="menu-item">
-                            <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "rekapnilai" ? "active" : "" ?>" href="<?= base_url('rekapnilai')?>">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Rekapitulasi Penilaian Akhir</span>
-                            </a>
-                        </div>
-                    </div>
 
                     <?php if(session()->get('role') == 'Admin'): ?>
                     <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
@@ -309,15 +296,26 @@
                                         </a>
                                     </div>
                                 <?php endif; ?>
-                                <?php if(session()->get('role') == 'Mahasiswa'): ?>
-                                <div class="menu-item">
-                                    <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "syaratkelulusan" ? "active" : "" ?>" href="<?= base_url('syaratkelulusan')?>">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                                        <span class="menu-title">Unggah Syarat Kelulusan</span>
-                                    </a>
-                                </div>
+                                <?php
+                                $session = session();
+                                $role = $session->get('role');
+                                $id_mhs = $session->get('user_id'); // Asumsi id_mhs disimpan di session
+
+                                $db = \Config\Database::connect();
+                                $builder = $db->table('simta_penilaian_sidang');
+                                $builder->where('id_mhs', $id_mhs);
+                                $count = $builder->countAllResults();
+                                ?>
+
+                                <?php if($role == 'Mahasiswa' && $count > 0): ?>
+                                    <div class="menu-item">
+                                        <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "syaratkelulusan" ? "active" : "" ?>" href="<?= base_url('syaratkelulusan')?>">
+                                            <span class="menu-bullet">
+                                                <span class="bullet bullet-dot"></span>
+                                            </span>
+                                            <span class="menu-title">Unggah Syarat Kelulusan</span>
+                                        </a>
+                                    </div>
                                 <?php endif; ?>
                             <?php endif; ?>
                             <?php if(session()->get('role') == 'Admin'): ?>
