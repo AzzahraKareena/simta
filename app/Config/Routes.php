@@ -321,9 +321,4 @@ $routes->group('penilaiansidang', static function ($routes) {
     $routes->post('delete/(:num)', 'PenilaianSidangController::delete/$1');
 });
 
-//PENILAIAN SIDANG
-$routes->group('rekapnilai', static function ($routes) {
-    $routes->get('/', 'RekapNilaiController::table');
-});
-
 
