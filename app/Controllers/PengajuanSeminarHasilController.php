@@ -6,6 +6,7 @@ use App\Models\JudulAccModel;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\PengajuanSeminarHasilModel;
+use App\Models\MahasiswaBimbinganModel;
 
 class PengajuanSeminarHasilController extends BaseController
 {
@@ -64,7 +65,16 @@ class PengajuanSeminarHasilController extends BaseController
         $data['id_dospem'] = $id_dospem;
         // $data['id_dospem'] = $id_dospem;
         $pengajuanSeminarHasil = new PengajuanSeminarHasilModel();
-        $pengajuanSeminarHasil->save($data);
+        $insert = $pengajuanSeminarHasil->save($data);
+        if ($insert) {
+            $judulAcc = $judulAccModel->where('id_accjudul', $id_accjudul)->get()->getRow();
+            if ($judulAcc) {
+                $mahasiswaBimbinganModel = new MahasiswaBimbinganModel();
+                $mahasiswaBimbinganModel->updateTrackingByJudulAccId($id_accjudul, 'Pengajuan Seminar Hasil');
+            } else {
+                echo "Record with id_accjudul: $id_accjudul not found";
+            }
+        }
         return redirect()->to('pengajuanseminarhasil');
     }
 

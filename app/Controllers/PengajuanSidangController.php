@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\JudulAccModel;
 use App\Controllers\BaseController;
 use App\Models\PengajuanSidangModel;
+use App\Models\MahasiswaBimbinganModel;
 
 class PengajuanSidangController extends BaseController
 {
@@ -64,7 +65,16 @@ class PengajuanSidangController extends BaseController
         $data['id_dospem'] = $id_dospem;
         
         $pengajuanSidang = new PengajuanSidangModel();
-        $pengajuanSidang->insert($data);
+        $insert = $pengajuanSidang->insert($data);
+        if ($insert) {
+            $judulAcc = $judulAccModel->where('id_accjudul', $id_accjudul)->get()->getRow();
+            if ($judulAcc) {
+                $mahasiswaBimbinganModel = new MahasiswaBimbinganModel();
+                $mahasiswaBimbinganModel->updateTrackingByJudulAccId($id_accjudul, 'Pengajuan Sidang');
+            } else {
+                echo "Record with id_accjudul: $id_accjudul not found";
+            }
+        }
         return redirect()->to('pengajuansidang');
     }
 

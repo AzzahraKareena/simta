@@ -3,8 +3,10 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\JudulAccModel;
 use App\Models\MahasiswaModel;
-use App\Models\SyaratKelulusanModel;
+use App\Models\SyaratKelulusanModel; 
+use App\Models\MahasiswaBimbinganModel; 
 use CodeIgniter\RESTful\ResourceController;
 
 class SyaratKelulusanController extends ResourceController
@@ -53,6 +55,8 @@ class SyaratKelulusanController extends ResourceController
         // $data = $this->request->getPost();
         // get data from request per field
         $syaratKelulusanModel = new SyaratKelulusanModel();
+        $judulAcc = (new JudulAccModel())->where('mhs_id', session()->get('user_id'))->get()->getRow('id_accjudul');
+        // dd($judulAcc);
 
         $data = [
             // id_mhs get from user session
@@ -63,13 +67,23 @@ class SyaratKelulusanController extends ResourceController
             'bukti_pelunasan_ukt' => $this->request->getPost('bukti_pelunasan_ukt'),
             'surat_bebas_lab' => $this->request->getPost('surat_bebas_lab'),
             'aplikasi_ta' => $this->request->getPost('aplikasi_ta'),
-            'laporan_ta_word' => $this->request->getPost('laporan_ta_word'),
+            // 'laporan_ta_word' => $this->request->getPost('laporan_ta_word'),
             'laporan_ta_pdf' => $this->request->getPost('laporan_ta_pdf'),
             'ktp' => $this->request->getPost('ktp'),
 
         ];
         // dd($data);
+        
         $insert = $syaratKelulusanModel->insert($data);
+        // dd($insert);
+        if ($insert) {
+            if ($judulAcc) {
+                $mahasiswaBimbinganModel = new MahasiswaBimbinganModel();
+                $mahasiswaBimbinganModel->updateTrackingByJudulAccId($judulAcc, 'Unggah Syarat Kelulusan');
+            } else {
+                echo "Record with id_accjudul: $judulAcc not found";
+            }
+        }
 
         if ($insert) {
             return redirect()->to('syaratkelulusan');
