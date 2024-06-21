@@ -163,59 +163,59 @@
                             <span class="menu-arrow"></span>
                         </span>
                         <div class="menu-sub menu-sub-accordion menu-active-bg">
-                            <?php if(session()->get('role') != 'Admin'): ?>
+                            <div class="menu-item">
+                                <a class="menu-link <?= explode('timeline', service('router')->getMatchedRoute()[0])[0] == "timeline" ? "active" : "" ?>" href="<?= base_url('timeline')?>">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Data Timeline</span>
+                                </a>
+                            </div>
+                            <?php if(session()->get('role') == 'Dosen'): ?>
                                 <div class="menu-item">
-                                    <a class="menu-link <?= explode('timeline', service('router')->getMatchedRoute()[0])[0] == "timeline" ? "active" : "" ?>" href="<?= base_url('timeline')?>">
+                                    <a class="menu-link <?= explode('users', service('router')->getMatchedRoute()[0])[0] == "users" ? "active" : "" ?>" href="<?= base_url('users')?>">
                                         <span class="menu-bullet">
                                             <span class="bullet bullet-dot"></span>
                                         </span>
-                                        <span class="menu-title">Data Timeline</span>
+                                        <span class="menu-title">Data Users</span>
                                     </a>
                                 </div>
-                                <?php if(session()->get('role') == 'Dosen'): ?>
-                                    <div class="menu-item">
-                                        <a class="menu-link <?= explode('users', service('router')->getMatchedRoute()[0])[0] == "users" ? "active" : "" ?>" href="<?= base_url('users')?>">
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
-                                            </span>
-                                            <span class="menu-title">Data Users</span>
-                                        </a>
-                                    </div>
-                                    <div class="menu-item">
-                                        <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "mahasiswabimbingan" ? "active" : "" ?>" href="<?= base_url('mahasiswabimbingan')?>">
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
-                                            </span>
-                                            <span class="menu-title">Data mahasiswa bimbingan</span>
-                                        </a>
-                                    </div>
-                                <?php endif; ?>
-                                <?php if(session()->get('role') != 'Koordinator'): ?>
-                                    <div class="menu-item">
-                                        <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "pengajuanjudul" ? "active" : "" ?>" href="<?= base_url('pengajuanjudul')?>">
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
-                                            </span>
-                                            <span class="menu-title">Pengajuan Judul</span>
-                                        </a>
-                                    </div>
-                                    <div class="menu-item">
-                                        <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "judulacc" ? "active" : "" ?>" href="<?= base_url('judulacc')?>">
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
-                                            </span>
-                                            <span class="menu-title">Judul Acc</span>
-                                        </a>
-                                    </div>
-                                    <div class="menu-item">
-                                        <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "pengajuanbimbingan" ? "active" : "" ?>" href="<?= base_url('pengajuanbimbingan')?>">
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
-                                            </span>
-                                            <span class="menu-title">Pengajuan Bimbingan</span>
-                                        </a>
-                                    </div>
-                                <?php endif; ?>
+                                <div class="menu-item">
+                                    <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "mahasiswabimbingan" ? "active" : "" ?>" href="<?= base_url('mahasiswabimbingan')?>">
+                                        <span class="menu-bullet">
+                                            <span class="bullet bullet-dot"></span>
+                                        </span>
+                                        <span class="menu-title">Data mahasiswa bimbingan</span>
+                                    </a>
+                                </div>
+                            <?php endif; ?>
+                            <?php if(session()->get('role') == 'Mahasiswa' || session()->get('role') == 'Dosen'): ?>
+                                <div class="menu-item">
+                                    <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "pengajuanjudul" ? "active" : "" ?>" href="<?= base_url('pengajuanjudul')?>">
+                                        <span class="menu-bullet">
+                                            <span class="bullet bullet-dot"></span>
+                                        </span>
+                                        <span class="menu-title">Pengajuan Judul</span>
+                                    </a>
+                                </div>
+                                <div class="menu-item">
+                                    <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "judulacc" ? "active" : "" ?>" href="<?= base_url('judulacc')?>">
+                                        <span class="menu-bullet">
+                                            <span class="bullet bullet-dot"></span>
+                                        </span>
+                                        <span class="menu-title">Judul Acc</span>
+                                    </a>
+                                </div>
+                                <div class="menu-item">
+                                    <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "pengajuanbimbingan" ? "active" : "" ?>" href="<?= base_url('pengajuanbimbingan')?>">
+                                        <span class="menu-bullet">
+                                            <span class="bullet bullet-dot"></span>
+                                        </span>
+                                        <span class="menu-title">Pengajuan Bimbingan</span>
+                                    </a>
+                                </div>
+                            <?php endif; ?>
+                            <?php if(session()->get('role') != 'Admin'): ?>
                                 <div class="menu-item">
                                     <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "pengajuanujianproposal" ? "active" : "" ?>" href="<?= base_url('pengajuanujianproposal')?>">
                                         <span class="menu-bullet">
@@ -232,44 +232,46 @@
                                         <span class="menu-title">Rilis Jadwal Ujian Proposal</span>
                                     </a>
                                 </div>
-                                <?php if(session()->get('role') != 'Mahasiswa'): ?>
-                                    <div class="menu-item">
-                                        <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "penilaianproposal" ? "active" : "" ?>" href="<?= base_url('penilaianproposal')?>">
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
-                                            </span>
-                                            <span class="menu-title">Penilaian Ujian Proposal</span>
-                                        </a>
-                                    </div>
-                                <?php endif; ?>
-                                <?php if(session()->get('role') != 'Koordinator'): ?>
-                                    <div class="menu-item">
-                                        <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "pengajuanseminarhasil" ? "active" : "" ?>" href="<?= base_url('pengajuanseminarhasil')?>">
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
-                                            </span>
-                                            <span class="menu-title">Seminar Hasil</span>
-                                        </a>
-                                    </div>
-                                    <div class="menu-item">
-                                        <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "rilisjadwalsemhas" ? "active" : "" ?>" href="<?= base_url('rilisjadwalsemhas')?>">
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
-                                            </span>
-                                            <span class="menu-title">Rilis Jadwal Seminar Hasil</span>
-                                        </a>
-                                    </div>
-                                <?php endif; ?>
-                                <?php if(session()->get('role') != 'Mahasiswa'): ?>
-                                    <div class="menu-item">
-                                        <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "penilaiansemhas" ? "active" : "" ?>" href="<?= base_url('penilaiansemhas')?>">
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
-                                            </span>
-                                            <span class="menu-title">Penilaian Seminar Hasil</span>
-                                        </a>
-                                    </div>
-                                <?php endif; ?>
+                            <?php endif; ?>
+                            <?php if(session()->get('role') == 'Dosen' || session()->get('role') == 'Koordinator'): ?>
+                                <div class="menu-item">
+                                    <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "penilaianproposal" ? "active" : "" ?>" href="<?= base_url('penilaianproposal')?>">
+                                        <span class="menu-bullet">
+                                            <span class="bullet bullet-dot"></span>
+                                        </span>
+                                        <span class="menu-title">Penilaian Ujian Proposal</span>
+                                    </a>
+                                </div>
+                            <?php endif; ?>
+                            <?php if(session()->get('role') == 'Mahasiswa' || session()->get('role') == 'Dosen'): ?>
+                                <div class="menu-item">
+                                    <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "pengajuanseminarhasil" ? "active" : "" ?>" href="<?= base_url('pengajuanseminarhasil')?>">
+                                        <span class="menu-bullet">
+                                            <span class="bullet bullet-dot"></span>
+                                        </span>
+                                        <span class="menu-title">Seminar Hasil</span>
+                                    </a>
+                                </div>
+                                <div class="menu-item">
+                                    <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "rilisjadwalsemhas" ? "active" : "" ?>" href="<?= base_url('rilisjadwalsemhas')?>">
+                                        <span class="menu-bullet">
+                                            <span class="bullet bullet-dot"></span>
+                                        </span>
+                                        <span class="menu-title">Rilis Jadwal Seminar Hasil</span>
+                                    </a>
+                                </div>
+                            <?php endif; ?>
+                            <?php if(session()->get('role') == 'Dosen' || session()->get('role') == 'Koordinator'): ?>
+                                <div class="menu-item">
+                                    <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "penilaiansemhas" ? "active" : "" ?>" href="<?= base_url('penilaiansemhas')?>">
+                                        <span class="menu-bullet">
+                                            <span class="bullet bullet-dot"></span>
+                                        </span>
+                                        <span class="menu-title">Penilaian Seminar Hasil</span>
+                                    </a>
+                                </div>
+                            <?php endif; ?>
+                            <?php if(session()->get('role') != 'Admin'): ?>
                                 <div class="menu-item">
                                     <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "pengajuansidang" ? "active" : "" ?>" href="<?= base_url('pengajuansidang')?>">
                                         <span class="menu-bullet">
@@ -286,37 +288,47 @@
                                         <span class="menu-title">Rilis Jadwal Sidang TA</span>
                                     </a>
                                 </div>
-                                <?php if(session()->get('role') != 'Mahasiswa'): ?>
-                                    <div class="menu-item">
-                                        <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "penilaiansidang" ? "active" : "" ?>" href="<?= base_url('penilaiansidang')?>">
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
-                                            </span>
-                                            <span class="menu-title">Penilaian Sidang Akhir</span>
-                                        </a>
-                                    </div>
-                                <?php endif; ?>
-                                <?php
-                                $session = session();
-                                $role = $session->get('role');
-                                $id_mhs = $session->get('user_id'); // Asumsi id_mhs disimpan di session
+                            <?php endif; ?>
+                            <?php if(session()->get('role') == 'Mahasiswa' || session()->get('role') == 'Admin'): ?>
+                                <div class="menu-item">
+                                    <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "mengelolasurat" ? "active" : "" ?>" href="<?= base_url('mengelolasurat')?>">
+                                        <span class="menu-bullet">
+                                            <span class="bullet bullet-dot"></span>
+                                        </span>
+                                        <span class="menu-title">Unduh Surat Undangan</span>
+                                    </a>
+                                </div>
+                            <?php endif; ?>
+                            <?php if(session()->get('role') == 'Dosen' || session()->get('role') == 'Koordinator'): ?>
+                                <div class="menu-item">
+                                    <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "penilaiansidang" ? "active" : "" ?>" href="<?= base_url('penilaiansidang')?>">
+                                        <span class="menu-bullet">
+                                            <span class="bullet bullet-dot"></span>
+                                        </span>
+                                        <span class="menu-title">Penilaian Sidang Akhir</span>
+                                    </a>
+                                </div>
+                            <?php endif; ?>
+                            <?php
+                            $session = session();
+                            $role = $session->get('role');
+                            $id_mhs = $session->get('user_id'); // Asumsi id_mhs disimpan di session
 
-                                $db = \Config\Database::connect();
-                                $builder = $db->table('simta_penilaian_sidang');
-                                $builder->where('id_mhs', $id_mhs);
-                                $count = $builder->countAllResults();
-                                ?>
+                            $db = \Config\Database::connect();
+                            $builder = $db->table('simta_penilaian_sidang');
+                            $builder->where('id_mhs', $id_mhs);
+                            $count = $builder->countAllResults();
+                            ?>
 
-                                <?php if($role == 'Mahasiswa' && $count > 0): ?>
-                                    <div class="menu-item">
-                                        <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "syaratkelulusan" ? "active" : "" ?>" href="<?= base_url('syaratkelulusan')?>">
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
-                                            </span>
-                                            <span class="menu-title">Unggah Syarat Kelulusan</span>
-                                        </a>
-                                    </div>
-                                <?php endif; ?>
+                            <?php if($role == 'Mahasiswa' && $count > 0): ?>
+                                <div class="menu-item">
+                                    <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "syaratkelulusan" ? "active" : "" ?>" href="<?= base_url('syaratkelulusan')?>">
+                                        <span class="menu-bullet">
+                                            <span class="bullet bullet-dot"></span>
+                                        </span>
+                                        <span class="menu-title">Unggah Syarat Kelulusan</span>
+                                    </a>
+                                </div>
                             <?php endif; ?>
                             <?php if(session()->get('role') == 'Admin'): ?>
                                 <div class="menu-item">
