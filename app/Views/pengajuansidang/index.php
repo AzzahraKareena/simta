@@ -67,6 +67,7 @@
                                         <th class="">Surat Rekomendasi</th>
                                         <th class="">KRS</th>
                                         <th class="">Ajuan Tanggal Ujian</th>
+                                        <th class="min-w-20px text-center">Revisi Proposal</th>
                                         <th class="min-w-20px text-end">#</th>
                                     </tr>
                                 </thead>
@@ -98,6 +99,142 @@
                                             </td>
                                             <td>
                                                 <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['ajuan_tgl_ujian'] ?></span>
+                                            </td>
+                                            <td>
+                                                <?php if(session()->get('role') == 'Dosen'): ?>
+                                                    <?php if (!empty($vdata) && isset($vdata['status_pengajuan'])) : ?>
+                                                        <?php if ($vdata['status_pengajuan'] == 'PENDING') : ?>
+                                                            <div class="dropdown">
+                                                                <button class="btn btn-sm btn-warning dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    PENDING
+                                                                </button>
+                                                                <ul class="dropdown-menu dropdown-menu-dark">
+                                                                    <li>
+                                                                        <a class="dropdown-item" href="#">
+                                                                            <form class="alert-verifikasi" action="/update/status_up/sidang/<?= $vdata['id_sidang']; ?>" method="POST">
+                                                                                <?= csrf_field() ?>
+                                                                                <input type="hidden" value="DITERIMA" name="status">
+                                                                                <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">DITERIMA</button>
+                                                                            </form>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="dropdown-item" href="#">
+                                                                            <form class="alert-verifikasi" action="/update/status_up/sidang/<?= $vdata['id_sidang']; ?>" method="POST">
+                                                                                <?= csrf_field() ?>
+                                                                                <input type="hidden" value="REVISI" name="status">
+                                                                                <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">REVISI</button>
+                                                                            </form>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="dropdown-item" href="#">
+                                                                            <form class="alert-verifikasi" action="/update/status_up/sidang/<?= $vdata['id_sidang']; ?>" method="POST">
+                                                                                <?= csrf_field() ?>
+                                                                                <input type="hidden" value="DITOLAK" name="status">
+                                                                                <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">DITOLAK</button>
+                                                                            </form>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        <?php elseif ($vdata['status_pengajuan'] == 'REVISI') : ?>
+                                                            <div class="dropdown">
+                                                                <button class="btn btn-sm btn-info dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    REVISI
+                                                                </button>
+                                                                <ul class="dropdown-menu dropdown-menu-dark">
+                                                                    <li>
+                                                                        <a class="dropdown-item" href="#">
+                                                                            <form class="alert-verifikasi" action="/update/status_up/sidang/<?= $vdata['id_sidang']; ?>" method="POST">
+                                                                                <?= csrf_field() ?>
+                                                                                <input type="hidden" value="DITERIMA" name="status">
+                                                                                <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">DITERIMA</button>
+                                                                            </form>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="dropdown-item" href="#">
+                                                                            <form class="alert-verifikasi" action="/update/status_up/sidang/<?= $vdata['id_sidang']; ?>" method="POST">
+                                                                                <?= csrf_field() ?>
+                                                                                <input type="hidden" value="DITOLAK" name="status">
+                                                                                <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">DITOLAK</button>
+                                                                            </form>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        <?php elseif ($vdata['status_pengajuan'] == 'DITOLAK') : ?>
+                                                        <div class="dropdown">
+                                                            <button class="btn btn-sm btn-danger dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                DITOLAK
+                                                            </button>
+                                                            <ul class="dropdown-menu dropdown-menu-dark">
+                                                                <li>
+                                                                    <a class="dropdown-item" href="#">
+                                                                        <form class="alert-verifikasi" action="/update/status_up/sidang/<?= $vdata['id_sidang']; ?>" method="POST">
+                                                                            <?= csrf_field() ?>
+                                                                            <input type="hidden" value="DITERIMA" name="status">
+                                                                            <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">DITERIMA</button>
+                                                                        </form>
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="dropdown-item" href="#">
+                                                                        <form class="alert-verifikasi" action="/update/status_up/sidang/<?= $vdata['id_sidang']; ?>" method="POST">
+                                                                            <?= csrf_field() ?>
+                                                                            <input type="hidden" value="REVISI" name="status">
+                                                                            <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">REVISI</button>
+                                                                        </form>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <?php elseif ($vdata['status_pengajuan'] == 'DITERIMA') : ?>
+                                                            <div class="badge badge-success"><?= $vdata['status_pengajuan'] ?></div>
+                                                        <?php endif; ?>
+                                                    <?php endif; ?>
+
+                                                    <?php elseif(session()->get('role') == 'Mahasiswa'): ?>
+                                                        <!-- Button code here -->
+                                                        <?php if (!empty($vdata) && isset($vdata['status_pengajuan'])) : ?>
+                                                            <?php if ($vdata['status_pengajuan'] == 'PENDING') : ?>
+                                                                <div class="badge badge-warning"><?= $vdata['status_pengajuan'] ?></div>
+                                                            <?php elseif ($vdata['status_pengajuan'] == 'DITOLAK') : ?>
+                                                                <div class="badge badge-danger"><?= $vdata['status_pengajuan'] ?></div>
+                                                            <?php elseif ($vdata['status_pengajuan'] == 'DITERIMA') : ?>
+                                                                <div class="badge badge-success"><?= $vdata['status_pengajuan'] ?></div>
+                                                            <?php elseif ($vdata['status_pengajuan'] == 'REVISI') : ?>
+                                                                <div class="badge badge-info"><?= $vdata['status_pengajuan'] ?></div>
+                                                            <?php endif; ?>
+                                                        <?php endif; ?>
+                                                    <?php endif; ?>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex justify-content-end flex-shrink-0">
+                                                    <?php if(session()->get('role') == 'Mahasiswa' && $vdata['status_pengajuan'] == 'REVISI'): ?>
+                                                        <button onclick="openFileUploaderLaporan(<?php echo $vdata['id_sidang']; ?>)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" title="Upload Revisi">
+                                                            <span class="svg-icon svg-icon-muted svg-icon-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path opacity="0.3" d="M10 4H21C21.6 4 22 4.4 22 5V7H10V4Z" fill="currentColor"/>
+                                                            <path d="M10.4 3.60001L12 6H21C21.6 6 22 6.4 22 7V19C22 19.6 21.6 20 21 20H3C2.4 20 2 19.6 2 19V4C2 3.4 2.4 3 3 3H9.20001C9.70001 3 10.2 3.20001 10.4 3.60001ZM12 16.8C11 16.8 10.2 16.4 9.5 15.8C8.8 15.1 8.5 14.3 8.5 13.3C8.5 12.8 8.59999 12.3 8.79999 11.9L10 13.1V10.1C10 9.50001 9.6 9.10001 9 9.10001H6L7.29999 10.4C6.79999 11.3 6.5 12.2 6.5 13.3C6.5 14.8 7.10001 16.2 8.10001 17.2C9.10001 18.2 10.5 18.8 12 18.8C12.6 18.8 13 18.3 13 17.8C13 17.2 12.6 16.8 12 16.8ZM16.7 16.2C17.2 15.3 17.5 14.4 17.5 13.3C17.5 11.8 16.9 10.4 15.9 9.39999C14.9 8.39999 13.5 7.79999 12 7.79999C11.4 7.79999 11 8.19999 11 8.79999C11 9.39999 11.4 9.79999 12 9.79999C12.9 9.79999 13.8 10.2 14.5 10.8C15.2 11.5 15.5 12.3 15.5 13.3C15.5 13.8 15.4 14.3 15.2 14.7L14 13.5V16.5C14 17.1 14.4 17.5 15 17.5H18L16.7 16.2Z" fill="currentColor"/>
+                                                            <path opacity="0.3" d="M12 16.8C11 16.8 10.2 16.4 9.5 15.8C8.8 15.1 8.5 14.3 8.5 13.3C8.5 12.8 8.59999 12.3 8.79999 11.9L7.29999 10.4C6.79999 11.3 6.5 12.2 6.5 13.3C6.5 14.8 7.10001 16.2 8.10001 17.2C9.10001 18.2 10.5 18.8 12 18.8C12.6 18.8 13 18.3 13 17.8C13 17.2 12.6 16.8 12 16.8Z" fill="currentColor"/>
+                                                            <path opacity="0.3" d="M15.5 13.3C15.5 13.8 15.4 14.3 15.2 14.7L16.7 16.2C17.2 15.3 17.5 14.4 17.5 13.3C17.5 11.8 16.9 10.4 15.9 9.39999C14.9 8.39999 13.5 7.79999 12 7.79999C11.4 7.79999 11 8.19999 11 8.79999C11 9.39999 11.4 9.79999 12 9.79999C12.9 9.79999 13.8 10.2 14.5 10.8C15.1 11.5 15.5 12.4 15.5 13.3Z" fill="currentColor"/>
+                                                            </svg>
+                                                            </span>
+                                                        </button>
+                                                    <?php endif; ?>
+                                                    
+                                                    <?php if ($vdata['revisi_laporan'] != null) : ?>
+                                                    <!-- Icon untuk unduh berkas -->
+                                                        <a href="<?= base_url('pengajuansidang/unduh-revisi/'. $vdata['id_sidang']) ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Unduh Revisi">
+                                                            <span class="svg-icon svg-icon-muted svg-icon-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path opacity="0.3" d="M10 4H21C21.6 4 22 4.4 22 5V7H10V4Z" fill="currentColor"/>
+                                                            <path d="M9.2 3H3C2.4 3 2 3.4 2 4V19C2 19.6 2.4 20 3 20H21C21.6 20 22 19.6 22 19V7C22 6.4 21.6 6 21 6H12L10.4 3.60001C10.2 3.20001 9.7 3 9.2 3Z" fill="currentColor"/>
+                                                            </svg>
+                                                            </span>
+                                                        </a>
+                                                    <?php endif; ?>
+                                                </div>
                                             </td>
                                             <td>
                                                 <!-- <div class="d-flex justify-content-end flex-shrink-0">
@@ -275,6 +412,52 @@
         <!--end::Modal - New Product-->
         <!--end::Modals-->
     </div>
+    <script>
+        function openFileUploaderLaporan(sidangID) {
+    
+            var fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = 'application/pdf'; // Set hanya menerima file PDF
+
+            fileInput.onchange = function(e) {
+                var file = e.target.files[0];
+                
+                if (!file || file.type !== 'application/pdf') {
+                    alert('Mohon pilih file PDF.');
+                    return;
+                }
+
+                var formData = new FormData();
+                formData.append('file', file);
+
+                var route = 'upload/revisi/sidang/' + sidangID;
+                console.log('Upload route:', route); // Debugging log
+
+                fetch(route, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Gagal mengunggah file');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    console.log('Respon dari server:', data);
+
+                    //Reload halaman setelah file berhasil diunggah
+                    location.reload();
+                })
+                .catch(error => {
+                    console.error('Terjadi kesalahan:', error);
+                });
+            };
+
+            fileInput.click();
+        }
+
+    </script>
 <?= $this->endSection() ?>
 
 <?= $this->section('js_custom') ?>

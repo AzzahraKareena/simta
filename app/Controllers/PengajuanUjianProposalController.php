@@ -325,7 +325,7 @@ class PengajuanUjianProposalController extends BaseController
             $pengajuan = $pengajuanUjianProposalModel->find($proposalId);
             if ($pengajuan) {
                 $judul_acc_id = $pengajuan['judul_acc_id'];
-                $mahasiswaBimbinganModel->updateTrackingByJudulAccId($judul_acc_id, 'Pengumpulan Revisi');
+                $mahasiswaBimbinganModel->updateTrackingByJudulAccId($judul_acc_id, 'Pengumpulan Revisi Ujian Proposal');
             }
 
             return $this->response->setJSON(['status' => 'success', 'message' => 'File berhasil diunggah']);

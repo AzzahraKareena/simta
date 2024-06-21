@@ -147,7 +147,31 @@
                                                                 </ul>
                                                             </div>
                                                         <?php elseif ($vdata['status_pengajuan'] == 'DITOLAK') : ?>
-                                                            <div class="badge badge-danger"><?= $vdata['status_pengajuan'] ?></div>
+                                                            <div class="dropdown">
+                                                                <button class="btn btn-sm btn-danger dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    DITOLAK
+                                                                </button>
+                                                                <ul class="dropdown-menu dropdown-menu-dark">
+                                                                    <li>
+                                                                        <a class="dropdown-item" href="#">
+                                                                            <form class="alert-verifikasi" action="/update/status_up/<?= $vdata['id_ujianproposal']; ?>" method="POST">
+                                                                                <?= csrf_field() ?>
+                                                                                <input type="hidden" value="DITERIMA" name="status">
+                                                                                <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">DITERIMA</button>
+                                                                            </form>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="dropdown-item" href="#">
+                                                                            <form class="alert-verifikasi" action="/update/status_up/<?= $vdata['id_ujianproposal']; ?>" method="POST">
+                                                                                <?= csrf_field() ?>
+                                                                                <input type="hidden" value="REVISI" name="status">
+                                                                                <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">REVISI</button>
+                                                                            </form>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
                                                         <?php elseif ($vdata['status_pengajuan'] == 'DITERIMA') : ?>
                                                             <div class="badge badge-success"><?= $vdata['status_pengajuan'] ?></div>
                                                         <?php endif; ?>

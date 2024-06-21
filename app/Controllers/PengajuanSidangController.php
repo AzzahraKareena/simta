@@ -102,4 +102,75 @@ class PengajuanSidangController extends BaseController
         $pengajuanSidang->delete($id);
         return redirect()->to('pengajuansidang');
     }
+
+    public function updateStatus($id = null)
+    {
+        $pengajuanUjianProposalModel = new PengajuanSidangModel();
+        $mahasiswaBimbinganModel = new MahasiswaBimbinganModel();
+
+        // Ambil status dari post data
+        $status = $this->request->getPost('status');
+
+        // Update status_pengajuan di tabel pengajuan_ujian_proposal
+        $pengajuanUjianProposalModel->update($id, ['status_pengajuan' => $status]);
+
+        // Jika status adalah REVISI, update tracking di tabel simta_mahasiswa_bimbingan
+        if ($status === 'REVISI') {
+            // Dapatkan data judul_acc_id dari tabel pengajuan_ujian_proposal
+            $pengajuan = $pengajuanUjianProposalModel->find($id);
+            if ($pengajuan) {
+                $judul_acc_id = $pengajuan['id_accjudul'];
+                $mahasiswaBimbinganModel->updateTrackingByJudulAccId($judul_acc_id, 'Revisi Sidang');
+            }
+        }
+
+        return redirect()->to('pengajuansidang');
+    }
+
+    public function uploadRevisi($sidangId, $id = null)
+    {
+        $pengajuanUjianProposalModel = new PengajuanSidangModel();
+        $mahasiswaBimbinganModel = new MahasiswaBimbinganModel();
+
+        $uploadedFile = $this->request->getFile('file');
+
+        if ($uploadedFile->isValid() && $uploadedFile->getClientMimeType() === 'application/pdf') {
+            $newFileName = $uploadedFile->getName();
+            $uploadedFile->move('public/assets/revisi_sidang/', $newFileName);
+
+            // Simpan detail file ke dalam database
+            $pengajuanUjianProposalModel->update($sidangId, [
+                'revisi_laporan' => $newFileName,
+                'revisi_laporan_date' => date('Y-m-d H:i:s')
+            ]);
+
+            // Dapatkan data pengajuan berdasarkan ID
+            $pengajuan = $pengajuanUjianProposalModel->find($sidangId);
+            if ($pengajuan) {
+                $judul_acc_id = $pengajuan['id_accjudul'];
+                $mahasiswaBimbinganModel->updateTrackingByJudulAccId($judul_acc_id, 'Pengumpulan Revisi Sidang Akhir');
+            }
+
+            return $this->response->setJSON(['status' => 'success', 'message' => 'File berhasil diunggah']);
+        } else {
+            // Jika file tidak valid atau bukan PDF, kirim respon dengan status error
+            return $this->response->setStatusCode(400)->setJSON(['status' => 'error', 'message' => 'File tidak valid atau bukan PDF']);
+        }
+    }
+
+    public function unduhRevisi($id)
+    {
+        $fileModel = new PengajuanSidangModel();
+        $file = $fileModel->find($id);
+
+        if ($file) {
+            // Menambahkan path absolut
+            $filePath = FCPATH . 'public/assets/revisi_sidang/' . $file['revisi_laporan'];
+            $fileName = $file['revisi_laporan'];
+
+            return $this->response->download($filePath, null)->setFileName($fileName);
+        } else {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('File not found');
+        }
+    }
 }

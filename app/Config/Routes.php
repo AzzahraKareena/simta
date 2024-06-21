@@ -84,6 +84,10 @@ $routes->post('update/bimbingan/(:num)', 'PengajuanBimbinganController::updateBi
 
 $routes->post('update/status_up/(:num)', 'PengajuanUjianProposalController::updateStatus/$1');
 $routes->post('upload/revisi/(:num)', 'PengajuanUjianProposalController::uploadRevisi/$1');
+$routes->post('update/status_up/semhas/(:num)', 'PengajuanSeminarHasilController::updateStatus/$1');
+$routes->post('upload/revisi/semhas/(:num)', 'PengajuanSeminarHasilController::uploadRevisi/$1');
+$routes->post('update/status_up/sidang/(:num)', 'PengajuanSidangController::updateStatus/$1');
+$routes->post('upload/revisi/sidang/(:num)', 'PengajuanSidangController::uploadRevisi/$1');
 
 $routes->get('rekapitulasi-nilai', 'RekapitulasiController::index');
 
@@ -218,6 +222,7 @@ $routes->group('pengajuanseminarhasil', static function ($routes) {
     $routes->get('edit/(:segment)', 'PengajuanSeminarHasilController::edit/$1');
     $routes->post('update/(:segment)', 'PengajuanSeminarHasilController::update/$1');
     $routes->get('delete/(:num)', 'PengajuanSeminarHasilController::delete/$1');
+    $routes->get('unduh-revisi/(:num)', 'PengajuanSeminarHasilController::unduhRevisi/$1');
 }); 
 
 //PENGAJUAN SIDANG
@@ -228,6 +233,7 @@ $routes->group('pengajuansidang', static function ($routes) {
     $routes->get('edit/(:segment)', 'PengajuanSidangController::edit/$1');
     $routes->post('update/(:segment)', 'PengajuanSidangController::update/$1');
     $routes->get('delete/(:num)', 'PengajuanSidangController::delete/$1');
+    $routes->get('unduh-revisi/(:num)', 'PengajuanSidangController::unduhRevisi/$1');
 });  
 
 //MAHASISWA BIMBINGAN

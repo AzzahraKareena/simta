@@ -14,6 +14,7 @@ class MahasiswaBimbinganController extends BaseController
     {
         $model = new MahasiswaBimbinganModel();
         $data = $model->getUser();
+        // dd($data);
         
         // Debugging data
         error_log(print_r($data, true));
@@ -29,6 +30,7 @@ class MahasiswaBimbinganController extends BaseController
     {
         $mahasiswaModel = new MahasiswaBimbinganModel();
         $data = $mahasiswaModel->getUser();
+        // dd($data);
 
         $id_mhs = null;
         if (!empty($data)) {
