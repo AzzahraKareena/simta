@@ -88,9 +88,24 @@
                                                 <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['abstrak'] ?></span>
                                                 <span class="text-muted fw-bold text-muted d-block fs-7">Abstrak: <?=$vdata['abstrak']?></span>
                                             </td>
+                                            <!-- <td>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['proposal_ta'] ?></span>
+                                            </td> -->
+                                            <?php if(session()->get('role') !== 'Mahasiswa'): ?>
+                                            <td>
+                                                <?php if (!empty($vdata['proposal_ta'])): ?>
+                                                    <div>
+                                                        <a href="<?= base_url('public/assets/proposal/' . $vdata['proposal_ta']) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['proposal_ta'] ?></span>
+                                                        </a>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </td>
+                                            <?php else: ?>
                                             <td>
                                                 <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['proposal_ta'] ?></span>
                                             </td>
+                                            <?php endif; ?>
                                             <td>
                                                 <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata['ajuan_tgl_ujian'] ?></span>
                                                 <span class="text-muted fw-bold text-muted d-block fs-7">End: <?=$vdata['ajuan_tgl_ujian']?></span>

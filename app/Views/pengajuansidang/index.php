@@ -91,12 +91,41 @@
                                             <?php endif; ?>
                                                 <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['abstrak'] ?></span>
                                             </td>
+                                            <!-- <td>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['revisi_laporan'] ?></span>
+                                            </td> -->
+                                            <!-- <td>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['laporan_ta'] ?></span>
+                                            </td> -->
+
+                                            <?php if(session()->get('role') !== 'Mahasiswa'): ?>
+                                            <td>
+                                                <?php if (!empty($vdata['revisi_laporan'])): ?>
+                                                    <div>
+                                                        <a href="<?= base_url('public/assets/revisi_sidang/' . $vdata['revisi_laporan']) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['revisi_laporan'] ?></span>
+                                                        </a>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td>
+                                                <?php if (!empty($vdata['laporan_ta'])): ?>
+                                                    <div>
+                                                        <a href="<?= base_url('public/assets/proposal/' . $vdata['laporan_ta']) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['laporan_ta'] ?></span>
+                                                        </a>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </td>
+                                            <?php else: ?>
                                             <td>
                                                 <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['revisi_laporan'] ?></span>
                                             </td>
                                             <td>
                                                 <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['laporan_ta'] ?></span>
                                             </td>
+                                            <?php endif; ?>
+
                                             <td>
                                                 <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['transkrip_nilai'] ?></span>
                                             </td>
