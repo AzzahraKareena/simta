@@ -60,11 +60,16 @@
                                         </select>
                                     </div>
                                     <div class="fv-row mb-10">
+                                        <label class="form-label fs-6 fw-bolder text-dark">Keterangan</label>
+                                        <input class="form-control form-control-lg form-control-solid" type="text" name="keterangan">
+                                    </div>
+                                    <div class="fv-row mb-10">
                                         <label class="form-label required fs-6 fw-bolder text-dark">Dosen Pembimbing</label>
                                         <select class="form-select form-select-lg form-select-solid" name="dospemId" required>
                                             <!-- <option value="">Pilih Kriteria</option> -->
-                                                <option value="<?= $dospemId1?>"><?=$dospem1?></option>
-                                                <option value="<?= $dospemId2?>"><?=$dospem2?></option>
+                                            <?php foreach ($users as $dosen): ?>
+                                                <option value="<?= $dosen['id']?>"><?=$dosen['nama']?></option>
+                                            <?php endforeach ?>
                                         </select>
                                     </div>
                                 </div>

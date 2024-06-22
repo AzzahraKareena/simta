@@ -171,7 +171,7 @@
                                     <span class="menu-title">Data Timeline</span>
                                 </a>
                             </div>
-                            <?php if(session()->get('role') == 'Dosen'): ?>
+                            <?php if(session()->get('role') == 'Dosen' || session()->get('unsername') == 'masbahah'): ?>
                                 <div class="menu-item">
                                     <a class="menu-link <?= explode('users', service('router')->getMatchedRoute()[0])[0] == "users" ? "active" : "" ?>" href="<?= base_url('users')?>">
                                         <span class="menu-bullet">
@@ -189,7 +189,7 @@
                                     </a>
                                 </div>
                             <?php endif; ?>
-                            <?php if(session()->get('role') == 'Mahasiswa' || session()->get('role') == 'Dosen'): ?>
+                            <?php if(session()->get('role') == 'Mahasiswa' || session()->get('role') == 'Dosen' || session()->get('nama') == 'masbahah aprilio'): ?>
                                 <div class="menu-item">
                                     <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "pengajuanjudul" ? "active" : "" ?>" href="<?= base_url('pengajuanjudul')?>">
                                         <span class="menu-bullet">
@@ -233,7 +233,7 @@
                                     </a>
                                 </div>
                             <?php endif; ?>
-                            <?php if(session()->get('role') == 'Dosen' || session()->get('role') == 'Koordinator'): ?>
+                            <?php if(session()->get('role') == 'Dosen' || session()->get('role') == 'Koordinator' || session()->get('nama') == 'masbahah aprilio'): ?>
                                 <div class="menu-item">
                                     <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "penilaianproposal" ? "active" : "" ?>" href="<?= base_url('penilaianproposal')?>">
                                         <span class="menu-bullet">
@@ -243,7 +243,7 @@
                                     </a>
                                 </div>
                             <?php endif; ?>
-                            <?php if(session()->get('role') == 'Mahasiswa' || session()->get('role') == 'Dosen'): ?>
+                            <?php if(session()->get('role') == 'Mahasiswa' || session()->get('role') == 'Dosen' || session()->get('nama') == 'masbahah aprilio'): ?>
                                 <div class="menu-item">
                                     <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "pengajuanseminarhasil" ? "active" : "" ?>" href="<?= base_url('pengajuanseminarhasil')?>">
                                         <span class="menu-bullet">
@@ -261,7 +261,7 @@
                                     </a>
                                 </div>
                             <?php endif; ?>
-                            <?php if(session()->get('role') == 'Dosen' || session()->get('role') == 'Koordinator'): ?>
+                            <?php if(session()->get('role') == 'Dosen' || session()->get('role') == 'Koordinator' || session()->get('nama') == 'masbahah aprilio'): ?>
                                 <div class="menu-item">
                                     <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "penilaiansemhas" ? "active" : "" ?>" href="<?= base_url('penilaiansemhas')?>">
                                         <span class="menu-bullet">
@@ -299,7 +299,7 @@
                                     </a>
                                 </div>
                             <?php endif; ?>
-                            <?php if(session()->get('role') == 'Dosen' || session()->get('role') == 'Koordinator'): ?>
+                            <?php if(session()->get('role') == 'Dosen' || session()->get('role') == 'Koordinator' || session()->get('nama') == 'masbahah aprilio'): ?>
                                 <div class="menu-item">
                                     <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "penilaiansidang" ? "active" : "" ?>" href="<?= base_url('penilaiansidang')?>">
                                         <span class="menu-bullet">

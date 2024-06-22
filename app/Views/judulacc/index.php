@@ -59,6 +59,7 @@
                                         <th class="min-w-20px text-center">Judul Acc</th>
                                         <th class="min-w-20px text-center">Nama Mahasiswa</th>
                                         <th class="min-w-20px text-center">Nama Dospem</th>
+                                        <th class="min-w-20px text-center">Keterangan</th>
                                         <th class="min-w-20px text-end">Action</th>
                                     </tr>
                                 </thead>
@@ -75,6 +76,9 @@
                                             </td>
                                             <td>
                                                 <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['dospem_nama'] ?></span>
+                                            </td>
+                                            <td>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['keterangan'] ?></span>
                                             </td>
                                             <td>
                                                 <div class="d-flex justify-content-end flex-shrink-0">

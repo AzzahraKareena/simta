@@ -14,6 +14,7 @@ class JudulAccModel extends Model
         'judul_acc',
         'dospem_acc',
         'mhs_id',
+        'keterangan',
     ];
 
     public function withMhs()

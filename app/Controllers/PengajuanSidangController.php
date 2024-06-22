@@ -11,7 +11,7 @@ class PengajuanSidangController extends BaseController
 {
     public function table()
     {
-        $data = (new PengajuanSidangModel())->asArray()->findAll();
+        $data = (new PengajuanSidangModel())->getMhs();
 
         $getData = [];
         

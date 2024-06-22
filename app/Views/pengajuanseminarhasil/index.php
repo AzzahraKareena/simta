@@ -59,6 +59,10 @@
                                 <!--begin::Table head-->
                                 <thead>
                                     <tr class="fw-bolder text-muted">
+                                        <?php if(session()->get('role') != 'Mahasiswa'): ?>
+                                            <th class="min-w-20px text-center">Mahasiswa</th>
+                                            <th class="min-w-20px text-center">Judul TA</th>
+                                        <?php endif; ?>
                                         <th class="">Abstrak</th>
                                         <th class="">Revisi Laporan</th>
                                         <th class="">Laporan Tugas Akhir</th>
@@ -72,6 +76,14 @@
                                 <tbody>
                                     <?php foreach ($data as $vdata): ?>
                                         <tr>
+                                            <?php if(session()->get('role') != 'Mahasiswa'): ?>
+                                                <td>
+                                                    <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['nama_mhs'] ?></span>
+                                                </td>
+                                                <td>
+                                                    <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['judul'] ?></span>
+                                                </td>
+                                            <?php endif; ?>
                                             <td>
                                                 <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['abstrak'] ?></span>
                                             </td>

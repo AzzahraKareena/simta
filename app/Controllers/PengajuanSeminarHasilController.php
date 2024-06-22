@@ -12,8 +12,7 @@ class PengajuanSeminarHasilController extends BaseController
 {
     public function table()
     {
-        $data = (new PengajuanSeminarHasilModel())->asArray()->findAll();
-
+        $data = (new PengajuanSeminarHasilModel())->getMhs();
         $getData = []; 
         foreach ($data as $ujian) {
             if (session()->get('role') == 'Dosen') {

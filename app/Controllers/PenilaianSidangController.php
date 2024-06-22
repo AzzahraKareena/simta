@@ -91,7 +91,7 @@ class PenilaianSidangController extends BaseController
     public function table()
     {
         $data = (new PenilaianSidangModel())->getKriteria();
-        // dd($data);
+        // dd(session()->get());
 
         $id_mhs = null; // Nilai default jika tidak ada data
         if (!empty($data)) {
