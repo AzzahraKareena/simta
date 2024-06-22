@@ -24,15 +24,27 @@
                             <?= csrf_field() ?>
                             <div class="row">
                                 <div class="col-12 col-md-12">
+                                    <!-- <div class="fv-row mb-10">
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Judul Tugas Akhir</label>
+                                        <?php if (!empty($pjudul)): ?>
+                                            <?php foreach ($pjudul as $judul): ?>
+                                                <input class="form-control form-control-lg form-control-solid" type="text" name="judul_acc_id" autocomplete="off" placeholder="Input abstrak" value="<?= $judul['judul_acc'] ?>" required />
+                                                <input type="hidden" name="judul_acc_id" value="<?= $judul['id_accjudul']; ?>">
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <input class="form-control form-control-lg form-control-solid" type="text" name="judul_acc_title" autocomplete="off" placeholder="Input abstrak" value="" required />
+                                            <input type="hidden" name="judul_acc_id" value="">
+                                        <?php endif; ?>
+                                    </div> -->
                                     <div class="fv-row mb-10">
                                         <label class="form-label required fs-6 fw-bolder text-dark">Judul Tugas Akhir</label>
                                         <?php if (!empty($pjudul)): ?>
                                             <?php foreach ($pjudul as $judul): ?>
-                                                <input class="form-control form-control-lg form-control-solid" type="text" name="judul_acc_id" autocomplete="off" disabled placeholder="Input abstrak" value="<?= $judul['judul_acc'] ?>" required />
+                                                <input class="form-control form-control-lg form-control-solid" type="text" name="judul_acc_title" autocomplete="off" placeholder="Input judul" value="<?= $judul['judul_acc'] ?>" required />
                                                 <input type="hidden" name="judul_acc_id" value="<?= $judul['id_accjudul']; ?>">
                                             <?php endforeach; ?>
                                         <?php else: ?>
-                                            <input class="form-control form-control-lg form-control-solid" type="text" name="judul_acc_title" autocomplete="off" disabled placeholder="Input abstrak" value="" required />
+                                            <input class="form-control form-control-lg form-control-solid" type="text" name="judul_acc_title" autocomplete="off" placeholder="Input judul" value="" required />
                                             <input type="hidden" name="judul_acc_id" value="">
                                         <?php endif; ?>
                                     </div>

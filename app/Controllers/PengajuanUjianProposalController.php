@@ -74,46 +74,13 @@ class PengajuanUjianProposalController extends BaseController
         
     //     // Tambahkan id_mhs ke data
     //     $data['mahasiswa'] = $id_mhs;
-    //     // $data['judul_acc_id'] = $this->request->getVar('judul_acc_id');
-
-    //     $judulAcc = new JudulAccModel();
-    //     $id_dospem = $judulAcc->where('id_accjudul', $this->request->getPost('judul_acc_id'))->get()->getRow()->dospem_acc;
-    //     $data['id_dospem'] = $id_dospem;
-
-    //     // Mengelola file upload
-    //     $file = $this->request->getFile('proposal_ta');
-    //     if ($file->isValid() && !$file->hasMoved()) {
-    //         $newName = $file->getName();
-    //         $file->move('public/assets/proposal/', $newName);
-    //         $data['proposal_ta'] = $newName;
-    //     }
-
-    //     // Insert ke database
-    //     $data['status'] = $this->request->getPost('status');
-    //     // $data['judul_acc_id'] = $this->request->getPost('id_accjudul');
-
-    //     // dd($data);
-    //     $pengajuanUjianProposalModel = new PengajuanUjianProposalModel();
-    //     $pengajuanUjianProposalModel->insert($data);
-
-    //     return redirect()->to('pengajuanujianproposal');
-    // }
-
-    // public function store()
-    // {
-    //     $id_mhs = session()->get('user_id');
-
-    //     // Ambil data post
-    //     $data = $this->request->getPost();
-        
-    //     // Tambahkan id_mhs ke data
-    //     $data['mahasiswa'] = $id_mhs;
-    //     // $data['judul_acc_id'] = $this->request->getVar('judul_acc_id');
 
     //     $judulAccModel = new JudulAccModel();
     //     $id_dospem = $judulAccModel->where('id_accjudul', $this->request->getPost('judul_acc_id'))->get()->getRow()->dospem_acc;
     //     $data['id_dospem'] = $id_dospem;
 
+    //     $judulAccModel->where('id_accjudul', $this->request->getPost('judul_acc_id'))->get()->getRow()->judul_acc->update();
+    //     // $data['baru'] = $baru;
     //     // Mengelola file upload
     //     $file = $this->request->getFile('proposal_ta');
     //     if ($file->isValid() && !$file->hasMoved()) {
@@ -122,27 +89,19 @@ class PengajuanUjianProposalController extends BaseController
     //         $data['proposal_ta'] = $newName;
     //     }
 
+    //     dd($data);
     //     // Insert ke database
-
-    //     // dd($data);
     //     $pengajuanUjianProposalModel = new PengajuanUjianProposalModel();
     //     $pengajuanUjianProposalModel->insert($data);
 
-    //     // $id_accjudul = $this->request->getPost('judul_acc_id');
-    //     // $tracking = new MahasiswaBimbinganModel();
-    //     // // dd($id_accjudul);
-    //     // $tracking->update($id_accjudul, ['tracking' => 'Pengajuan Ujian Proposal']);
-
     //     $id_accjudul = $this->request->getPost('judul_acc_id');
 
-    //     // Check if id_accjudul is not empty
     //     if (!empty($id_accjudul)) {
-    //         // Verify record exists
     //         $judulAcc = $judulAccModel->where('id_accjudul', $id_accjudul)->get()->getRow();
     //         if ($judulAcc) {
-    //             $judulAccModel->update(['id_accjudul' => $id_accjudul], ['tracking' => 'Pengajuan Ujian Proposal']);
+    //             $mahasiswaBimbinganModel = new MahasiswaBimbinganModel();
+    //             $mahasiswaBimbinganModel->updateTrackingByJudulAccId($id_accjudul, 'Pengajuan Ujian Proposal');
     //         } else {
-    //             // Handle case where record not found (optional: flash message)
     //             echo "Record with id_accjudul: $id_accjudul not found";
     //         }
     //     }
@@ -161,7 +120,10 @@ class PengajuanUjianProposalController extends BaseController
         $data['mahasiswa'] = $id_mhs;
 
         $judulAccModel = new JudulAccModel();
-        $id_dospem = $judulAccModel->where('id_accjudul', $this->request->getPost('judul_acc_id'))->get()->getRow()->dospem_acc;
+        $judulAccId = $this->request->getPost('judul_acc_id');
+
+        // Dapatkan id_dospem dari judul_acc_id
+        $id_dospem = $judulAccModel->where('id_accjudul', $judulAccId)->get()->getRow()->dospem_acc;
         $data['id_dospem'] = $id_dospem;
 
         // Mengelola file upload
@@ -176,20 +138,26 @@ class PengajuanUjianProposalController extends BaseController
         $pengajuanUjianProposalModel = new PengajuanUjianProposalModel();
         $pengajuanUjianProposalModel->insert($data);
 
-        $id_accjudul = $this->request->getPost('judul_acc_id');
+        // Update nama judul di judul_acc jika ada perubahan
+        $judulBaru = $this->request->getPost('judul_acc_title');
+        if ($judulBaru) {
+            $judulAccModel->update($judulAccId, ['judul_acc' => $judulBaru]);
+        }
 
-        if (!empty($id_accjudul)) {
-            $judulAcc = $judulAccModel->where('id_accjudul', $id_accjudul)->get()->getRow();
+        // Update tracking
+        if (!empty($judulAccId)) {
+            $judulAcc = $judulAccModel->where('id_accjudul', $judulAccId)->get()->getRow();
             if ($judulAcc) {
                 $mahasiswaBimbinganModel = new MahasiswaBimbinganModel();
-                $mahasiswaBimbinganModel->updateTrackingByJudulAccId($id_accjudul, 'Pengajuan Ujian Proposal');
+                $mahasiswaBimbinganModel->updateTrackingByJudulAccId($judulAccId, 'Pengajuan Ujian Proposal');
             } else {
-                echo "Record with id_accjudul: $id_accjudul not found";
+                echo "Record with id_accjudul: $judulAccId not found";
             }
         }
         
         return redirect()->to('pengajuanujianproposal');
     }
+
 
     public function edit($id)
     {
