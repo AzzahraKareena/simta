@@ -33,7 +33,7 @@
                                 <!--end::Search-->
 
                                 <!--begin::Toolbar-->
-                                <?php if(session()->get('role') == 'Koordinator'): ?>
+                                <?php if(session()->get('role') == 'Koordinator'  || session()->get('nama') == 'masbahah aprilio'): ?>
                                 <div class="d-flex justify-content-end" data-kt-docs-table-toolbar="base">
                                     <!--begin::Add customer-->
                                     <a href="<?= base_url('rilisjadwalsidang/create')?>" class="btn btn-primary" data-bs-toggle="tooltip" title="Klik tambah data">
@@ -101,7 +101,7 @@
                                                             </span>
                                                         </a>
                                                     <?php endif ?>
-                                                    <?php if(session()->get('role') == 'Koordinator'): ?>
+                                                    <?php if(session()->get('role') == 'Koordinator'  || session()->get('nama') == 'masbahah aprilio'): ?>
                                                         <a href="<?= base_url('rilisjadwalsidang/edit/'.$item['id_rilis_jadwal_sidang']) ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Edit Data">
                                                             <span class="svg-icon svg-icon-3">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">

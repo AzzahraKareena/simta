@@ -7,6 +7,7 @@ use App\Models\MahasiswaModel;
 use App\Controllers\BaseController;
 use App\Models\PengajuanJudulModel;
 use App\Models\MahasiswaBimbinganModel;
+use App\Models\UsersModel;
 use CodeIgniter\RESTful\ResourceController;
 
 class JudulAccController extends ResourceController
@@ -54,6 +55,7 @@ class JudulAccController extends ResourceController
         $data = $judulModel->getPengajuan();
         $pengajuan = new PengajuanJudulModel();
         $data_pengajuan = $pengajuan->where('id_pengajuanjudul', $id)->getPengajuan();
+        $users = (new UsersModel())->where('role', 'dosen')->get()->getResultArray();
 
         foreach ($data_pengajuan as $data) {
            $id_mhs = $data['id_mhs'];
@@ -61,10 +63,6 @@ class JudulAccController extends ResourceController
            $judul1 = $data['nama_judul1'];
            $judul2 = $data['nama_judul2'];
            $judul3 = $data['nama_judul3'];
-           $dospem1 = $data['dospem1_nama'];
-           $dospem2 = $data['dospem2_nama'];
-           $dospemId1 = $data['id_rekom_dospem1'];
-           $dospemId2 = $data['id_rekom_dospem2'];
         }
         // dd($dospemId1);
         $operation['data'] = $data;
@@ -73,10 +71,7 @@ class JudulAccController extends ResourceController
         $operation['judul1'] = $judul1;
         $operation['judul2'] = $judul2;
         $operation['judul3'] = $judul3;
-        $operation['dospem1'] = $dospem1;
-        $operation['dospem2'] = $dospem2;
-        $operation['dospemId1'] = $dospemId1;
-        $operation['dospemId2'] = $dospemId2;
+        $operation['users'] = $users;
         $operation['title'] = 'Create Judul Acc';
         $operation['sub_title'] = 'Daftar Judul penilaian';
         return view('judulacc/create', $operation);
@@ -180,6 +175,7 @@ class JudulAccController extends ResourceController
             'mhs_id' => $this->request->getPost('mhs_id'),
             'dospem_acc' => $this->request->getPost('dospemId'),
             'judul_acc' => $this->request->getPost('judul_acc'),
+            'keterangan' => $this->request->getPost('keterangan'),
         ];
 
         $insert = $JudulAccModel->insert($data);

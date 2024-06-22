@@ -36,12 +36,12 @@ class PengajuanUjianProposalModel extends Model
 
     public function withJudul()
     {
-        return $this->join('simta_acc_judul as judulacc', 'judulacc.id_accjudul = simta_pengajuan_ujian_proposal.judul_acc_id');
+        return $this->join('simta_acc_judul as judulacc', 'judulacc.id_accjudul = simta_pengajuan_ujianproposal.judul_acc_id');
     }
 
     public function getPengajuan()
     {
-        return $this->select('simta_pengajuanbimbingan.*, mhs.nama as mahasiswa_nama, dospem.nama as dospem_nama,  judulacc.judul_acc as judul_judul_acc')
+        return $this->select('simta_pengajuanbimbingan.*, mhs.nama as mahasiswa_nama, dospem.nama as dospem_nama,  judulacc.judul_acc as judul')
                     ->withMhs()
                     ->withDospem()
                     ->withPenguji1()
@@ -62,8 +62,10 @@ class PengajuanUjianProposalModel extends Model
 
     public function getAllPengajuanWithJadwal()
     {
-        return $this->select('simta_pengajuan_ujianproposal.*, simta_rilis_jadwal.id_rilis_jadwal as jadwal_id')
+        return $this->select('simta_pengajuan_ujianproposal.*, mhs.nama as nama_mhs, judulacc.judul_acc as judul, simta_rilis_jadwal.id_rilis_jadwal as jadwal_id')
                     ->join('simta_rilis_jadwal', 'simta_pengajuan_ujianproposal.id_ujianproposal = simta_rilis_jadwal.id_pengajuanujianpropo', 'left')
+                    ->withMhs()
+                    ->withJudul()
                     ->findAll();
     }
 

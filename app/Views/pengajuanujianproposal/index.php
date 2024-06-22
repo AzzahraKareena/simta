@@ -58,6 +58,10 @@
                                 <!--begin::Table head-->
                                 <thead>
                                     <tr class="fw-bolder text-muted">
+                                        <?php if(session()->get('role') != 'Mahasiswa'): ?>
+                                            <th class="min-w-20px text-center">Mahasiswa</th>
+                                            <th class="min-w-20px text-center">Judul TA</th>
+                                        <?php endif; ?>
                                         <th class="min-w-20px text-center">Abstrak</th>
                                         <th class="min-w-20px text-center">Proposal TA</th>
                                         <th class="min-w-20px text-center">Ajuan Tanggal Ujian</th>
@@ -70,13 +74,22 @@
                                 <tbody>
                                     <?php foreach ($data as $vdata): ?>
                                         <tr>
+                                            <?php if(session()->get('role') != 'Mahasiswa'): ?>
+                                                <td>
+                                                    <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['nama_mhs'] ?></span>
+                                                    <span class="text-muted fw-bold text-muted d-block fs-7">Mahasiswa: <?=$vdata['nama_mhs']?></span>
+                                                </td>
+                                                <td>
+                                                    <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['judul'] ?></span>
+                                                    <span class="text-muted fw-bold text-muted d-block fs-7">Judul: <?=$vdata['judul']?></span>
+                                                </td>
+                                            <?php endif; ?>
                                             <td>
                                                 <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['abstrak'] ?></span>
                                                 <span class="text-muted fw-bold text-muted d-block fs-7">Abstrak: <?=$vdata['abstrak']?></span>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata['proposal_ta'] ?></span>
-                                                <span class="text-muted fw-bold text-muted d-block fs-7">Proposal TA: <?=$vdata['proposal_ta']?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['proposal_ta'] ?></span>
                                             </td>
                                             <td>
                                                 <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata['ajuan_tgl_ujian'] ?></span>
@@ -194,7 +207,7 @@
                                             </td>
                                             <td>
                                                 <div class="d-flex justify-content-end flex-shrink-0">
-                                                    <?php if(session()->get('role') == 'Koordinator'): ?>
+                                                    <?php if(session()->get('role') == 'Koordinator'  || session()->get('nama') == 'masbahah aprilio'): ?>
                                                         <!-- <div class="d-flex justify-content-end flex-shrink-0"> -->
 
                                                             <!-- <button onclick="openFileUploader(<?php echo $vdata['id_ujianproposal']; ?>)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1 mb-3" title="Upload Jadwal">

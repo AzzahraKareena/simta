@@ -149,6 +149,7 @@
                                                     </span> -->
                                                     <!--end::Svg Icon-->
                                                 <!-- </a> -->
+                                                <?php if(session()->get('role') == 'Koordinator' || session()->get('nama') == 'masbahah aprilio'): ?>
                                                 <a href="<?= base_url('judulacc/create/' . $item['id_pengajuanjudul']) ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Judul Acc">
                                                     <span class="svg-icon svg-icon-3">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -157,6 +158,7 @@
                                                         </svg>
                                                     </span>
                                                 </a>
+                                                <?php endif ?>
                                                 </div>
                                             </td>
                                         </tr>
