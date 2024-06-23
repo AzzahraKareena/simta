@@ -2,17 +2,19 @@
 
 namespace App\Controllers;
 
+use App\Models\StafModels;
+use App\Libraries\CustomPDF;
 use App\Models\JudulAccModel;
 use App\Controllers\BaseController;
+use App\Models\MahasiswaBimbinganModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\PengajuanSeminarHasilModel;
-use App\Models\MahasiswaBimbinganModel;
 
 class PengajuanSeminarHasilController extends BaseController
 {
     public function table()
     {
-        $data = (new PengajuanSeminarHasilModel())->getMhs();
+        $data = (new PengajuanSeminarHasilModel())->getAllPengajuanWithJadwal();
         $getData = []; 
         foreach ($data as $ujian) {
             if (session()->get('role') == 'Dosen') {
@@ -171,5 +173,47 @@ class PengajuanSeminarHasilController extends BaseController
         } else {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('File not found');
         }
+    }
+
+    public function createJadwal($id)
+    {
+        // $id_mhs = session()->get('user_id');
+        $pengajuanSeminar = new PengajuanSeminarHasilModel();
+        $dataPengajuan = $pengajuanSeminar->getMhs($id);
+        $operation['title'] = 'Pengajuan Ujian Proposal';
+        $operation['sub_title'] = 'Buat Pengajuan Ujian Proposal Baru';
+        $operation['pengajuan'] = $dataPengajuan;
+        $operation['dosen'] = (new StafModels())->where('jenis', 'Dosen')->asArray()->findAll();
+        // dd($operation['pengajuan']);
+        return view('rilisjadwalsemhas/create', ['pengajuan' => $operation['pengajuan'], 'dosen' => $operation['dosen']]);
+    }
+
+    public function rekomendasi($id)
+    {
+        $imagePath = FCPATH . 'assets/img/logo-uns.jpg';
+        $dataRekomendasi = (new PengajuanSeminarHasilModel())->getMhs($id);
+
+        $data = [
+            'imagePath' => $imagePath,
+            'rekom' => $dataRekomendasi,
+        ];
+
+        $html = view('pengajuanseminarhasil/rekomendasi', $data);
+
+        $pdf = new CustomPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, 'F4', true, 'UTF-8', false);
+        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setPrintHeader(true);
+        $pdf->setPrintFooter(false);
+
+        $pdf->AddPage();
+        $pdf->Ln(25);
+        $pdf->SetFont('times', '', 12);
+        $pdf->writeHTML($html, true, false, true, false, '');
+
+        $this->response->setContentType('application/pdf');
+        $pdf->Output('rekomendasi.pdf', 'I');
     }
 }

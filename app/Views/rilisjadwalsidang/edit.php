@@ -11,8 +11,8 @@
                     <!--begin::Header-->
                     <div class="card-header border-0 pt-5">
                         <h3 class="card-title align-items-start flex-column">
-                            <span class="card-label fw-bolder fs-3 mb-1">Form Rilis Jadwal Ujian Proposal</span>
-                            <span class="text-muted mt-1 fw-bold fs-7">Isi data jadwal ujian proposal dengan benar</span>
+                            <span class="card-label fw-bolder fs-3 mb-1">Form Rilis Jadwal Sidang TA</span>
+                            <span class="text-muted mt-1 fw-bold fs-7">Isi data jadwal sidang TA dengan benar</span>
                         </h3>
                     </div>
                     <!--end::Header-->
@@ -20,58 +20,54 @@
                     <div class="card-body py-3">
                         <!--begin::Form-->
 
-                        <form class="form w-100" method="post" enctype="multipart/form-data" id="form_rilis_jadwal" action="/rilisjadwal/store">
+                        <form class="form w-100" method="post" enctype="multipart/form-data" id="form_rilis_jadwal" action="<?= base_url('rilisjadwalsidang/update/'.$dataForm['id_rilis_jadwal_sidang']) ?>">
                             <?= csrf_field() ?>
                             <div class="row">
                                 <div class="col-12 col-md-12">
-                                    <input type="hidden" name="id_pengajuanujianpropo" id="id_pengajuanujianpropo" value="<?= $pengajuan['id_ujianproposal']; ?>">
-                                    <div class="fv-row mb-10 row">
-                                        <div class="col-md-6">
-                                            <label class="form-label required fs-6 fw-bolder text-dark">Nama</label>
-                                            <input type="text" class="form-control form-control-lg form-control-solid" value="<?= $pengajuan['nama_mhs']; ?>" name="nama" id="nama" disabled>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="form-label required fs-6 fw-bolder text-dark">NIM</label>
-                                            <input type="text" class="form-control form-control-lg form-control-solid" value="<?= $pengajuan['nim']; ?>" name="nim" id="nim" disabled>
-                                        </div>
-                                    </div>
-                                    <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">Judul Tugas Akhir</label>
-                                        <input type="text" class="form-control form-control-lg form-control-solid" value="<?= $pengajuan['judul']; ?>" disabled>
-                                    </div>
                                     <div class="fv-row mb-10">
                                         <label class="form-label required fs-6 fw-bolder text-dark">Ruangan</label>
-                                        <input type="text" class="form-control form-control-lg form-control-solid" name="ruangan" id="ruangan" value="<?= old('ruangan')?>">
+                                        <input type="text" class="form-control form-control-lg form-control-solid" name="ruangan" id="ruangan" value="<?= old('ruangan') ?? $dataForm['ruangan'] ?? '' ?>">
                                     </div>
                                     <div class="fv-row mb-10">
                                         <label class="form-label required fs-6 fw-bolder text-dark">Tanggal</label>
-                                        <input type="date" class="form-control form-control-lg form-control-solid" name="tgl_ujian" id="tgl_ujian" value="<?= old('tgl_ujian') ?>">
+                                        <input type="date" class="form-control form-control-lg form-control-solid" name="tgl_ujian" id="tgl_ujian" value="<?= old('tgl_ujian') ?? $dataForm['tgl_ujian'] ?? '' ?>">
                                     </div>
                                     <div class="fv-row mb-10">
                                         <label class="form-label required fs-6 fw-bolder text-dark">Jam Mulai</label>
-                                        <input type="time" class="form-control form-control-lg form-control-solid" name="jam_start" id="jam_start" value="<?= old('jam_start') ?>">
+                                        <input type="time" class="form-control form-control-lg form-control-solid" name="jam_start" id="jam_start" value="<?= old('jam_start') ?? $dataForm['jam_start'] ?? '' ?>">
                                     </div>
                                     <div class="fv-row mb-10">
                                         <label class="form-label required fs-6 fw-bolder text-dark">Jam Berakhir</label>
-                                        <input type="time" class="form-control form-control-lg form-control-solid" name="jam_end" id="jam_end" value="<?= old('jam_end') ?>">
+                                        <input type="time" class="form-control form-control-lg form-control-solid" name="jam_end" id="jam_end" value="<?= old('jam_end') ?? $dataForm['jam_end'] ?? '' ?>">
                                     </div>
                                     <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">Penguji 1</label>
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Ketua Penguji</label>
                                         <select class="form-select form-select-lg form-select-solid" name="id_penguji1" required>
-                                            <option value="">Pilih Dosen Penguji 1</option>
+                                            <option value="">Pilih Ketua Penguji</option>
                                             <?php foreach ($dosen as $penguji): ?>
-                                                <option value="<?= $penguji['id_user'] ?>" <?= $penguji['id_user'] == old('id_penguji1') ? 'selected' : '' ?>>
+                                                <option value="<?= $penguji['id_user'] ?>" <?= ($penguji['id_user'] == old('id_penguji1') || (isset($dataForm['id_penguji1']) && $penguji['id_user'] == $dataForm['id_penguji1'])) ? 'selected' : '' ?>>
                                                     <?= $penguji['nama'] ?>
                                                 </option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
                                     <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">Penguji 2</label>
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Sekretaris Penguji</label>
                                         <select class="form-select form-select-lg form-select-solid" name="id_penguji2" required>
-                                            <option value="">Pilih Dosen Penguji 2</option>
+                                            <option value="">Pilih Sekretaris Penguji</option>
                                             <?php foreach ($dosen as $penguji): ?>
-                                                <option value="<?= $penguji['id_user'] ?>" <?= $penguji['id_user'] == old('id_penguji2') ? 'selected' : '' ?>>
+                                                <option value="<?= $penguji['id_user'] ?>" <?= ($penguji['id_user'] == old('id_penguji2') || (isset($dataForm['id_penguji2']) && $penguji['id_user'] == $dataForm['id_penguji2'])) ? 'selected' : '' ?>>
+                                                    <?= $penguji['nama'] ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div class="fv-row mb-10">
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Anggota Penguji</label>
+                                        <select class="form-select form-select-lg form-select-solid" name="id_penguji3" required>
+                                            <option value="">Pilih Anggota Penguji</option>
+                                            <?php foreach ($dosen as $penguji): ?>
+                                                <option value="<?= $penguji['id_user'] ?>" <?= ($penguji['id_user'] == old('id_penguji3') || (isset($dataForm['id_penguji3']) && $penguji['id_user'] == $dataForm['id_penguji3'])) ? 'selected' : '' ?>>
                                                     <?= $penguji['nama'] ?>
                                                 </option>
                                             <?php endforeach; ?>

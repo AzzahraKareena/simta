@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\StafModels;
 use App\Models\JudulAccModel;
 use App\Controllers\BaseController;
 use App\Models\PengajuanSidangModel;
@@ -11,7 +12,7 @@ class PengajuanSidangController extends BaseController
 {
     public function table()
     {
-        $data = (new PengajuanSidangModel())->getMhs();
+        $data = (new PengajuanSidangModel())->getAllPengajuanWithJadwal();
 
         $getData = [];
         
@@ -172,5 +173,17 @@ class PengajuanSidangController extends BaseController
         } else {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('File not found');
         }
+    }
+
+    public function createJadwal($id)
+    {
+        $pengajuanSidang = new PengajuanSidangModel();
+        $dataPengajuan = $pengajuanSidang->getMhs($id);
+        $operation['title'] = 'Pengajuan Sidang TA';
+        $operation['sub_title'] = 'Buat Pengajuan Sidang TA Baru';
+        $operation['pengajuan'] = $dataPengajuan;
+        $operation['dosen'] = (new StafModels())->where('jenis', 'Dosen')->asArray()->findAll();
+        // dd($operation['pengajuan']);
+        return view('rilisjadwalsidang/create', ['pengajuan' => $operation['pengajuan'], 'dosen' => $operation['dosen']]);
     }
 }

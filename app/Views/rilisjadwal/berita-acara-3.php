@@ -28,7 +28,7 @@
                 <tr>
                     <td>Penguji</td>
                     <td>:</td>
-                    <td><?= $jadwal['penguji1']; ?>, <?= $jadwal['penguji2']; ?></td>
+                    <td><?= $jadwal['penguji2']; ?></td>
                 </tr>
             </tbody>
         </table>

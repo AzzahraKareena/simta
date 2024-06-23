@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use TCPDF;
+use App\Models\StafModels;
 use App\Libraries\CustomPDF;
 use App\Models\JudulAccModel;
 use App\Models\MahasiswaModel;
@@ -64,50 +65,6 @@ class PengajuanUjianProposalController extends BaseController
         // dd($operation['pjudul']);
         return view('pengajuanujianproposal/create', ['pjudul' => $operation['pjudul']]);
     }
-
-    // public function store()
-    // {
-    //     $id_mhs = session()->get('user_id');
-
-    //     // Ambil data post
-    //     $data = $this->request->getPost();
-        
-    //     // Tambahkan id_mhs ke data
-    //     $data['mahasiswa'] = $id_mhs;
-
-    //     $judulAccModel = new JudulAccModel();
-    //     $id_dospem = $judulAccModel->where('id_accjudul', $this->request->getPost('judul_acc_id'))->get()->getRow()->dospem_acc;
-    //     $data['id_dospem'] = $id_dospem;
-
-    //     $judulAccModel->where('id_accjudul', $this->request->getPost('judul_acc_id'))->get()->getRow()->judul_acc->update();
-    //     // $data['baru'] = $baru;
-    //     // Mengelola file upload
-    //     $file = $this->request->getFile('proposal_ta');
-    //     if ($file->isValid() && !$file->hasMoved()) {
-    //         $newName = $file->getName();
-    //         $file->move('public/assets/proposal/', $newName);
-    //         $data['proposal_ta'] = $newName;
-    //     }
-
-    //     dd($data);
-    //     // Insert ke database
-    //     $pengajuanUjianProposalModel = new PengajuanUjianProposalModel();
-    //     $pengajuanUjianProposalModel->insert($data);
-
-    //     $id_accjudul = $this->request->getPost('judul_acc_id');
-
-    //     if (!empty($id_accjudul)) {
-    //         $judulAcc = $judulAccModel->where('id_accjudul', $id_accjudul)->get()->getRow();
-    //         if ($judulAcc) {
-    //             $mahasiswaBimbinganModel = new MahasiswaBimbinganModel();
-    //             $mahasiswaBimbinganModel->updateTrackingByJudulAccId($id_accjudul, 'Pengajuan Ujian Proposal');
-    //         } else {
-    //             echo "Record with id_accjudul: $id_accjudul not found";
-    //         }
-    //     }
-        
-    //     return redirect()->to('pengajuanujianproposal');
-    // }
 
     public function store()
     {
@@ -176,17 +133,6 @@ class PengajuanUjianProposalController extends BaseController
         $pengajuanUjianProposalModel->update($id, $data);
         return redirect()->to('pengajuanujianproposal');
     }
-    
-
-    // public function updateStatus($id = null)
-    // {
-    //     $pengajuanUjianProposalModel = new PengajuanUjianProposalModel();
-    //     $data = $this->request->getPost('status');
-    //     // dd($data);
-    //     $pengajuanUjianProposalModel->update($id, ['status_pengajuan' => $data]);
-    //     // $model->update($id, ['status' => $status]);
-    //     return redirect()->to('pengajuanujianproposal');
-    // }
 
     public function updateStatus($id = null)
     {
@@ -211,7 +157,6 @@ class PengajuanUjianProposalController extends BaseController
 
         return redirect()->to('pengajuanujianproposal');
     }
-
     
     public function uploadJadwal($proposalId)
     {
@@ -234,43 +179,6 @@ class PengajuanUjianProposalController extends BaseController
             return $this->response->setStatusCode(400)->setJSON(['status' => 'error', 'message' => 'File tidak valid atau bukan PDF']);
         }
     }
-
-    // public function uploadRevisi($proposalId, $id = null)
-    // {
-    //     $pengajuanUjianProposalModel = new PengajuanUjianProposalModel();
-    //     $mahasiswaBimbinganModel = new MahasiswaBimbinganModel();
-
-    //     $uploadedFile = $this->request->getFile('file');
-
-    //     if ($uploadedFile->isValid() && $uploadedFile->getClientMimeType() === 'application/pdf') {
-
-    //         // $time = Carbon::now()->format('Y-m-d_H-i-s');
-    //         // $newFileName = date('Y-m-d H:i:s') . '_Berkas Revisi.pdf';
-
-    //         $newFileName = $uploadedFile->getName();
-    //         // $newFileName = 'revisi_proposal_' . $proposalId . '.pdf';
-    //         $uploadedFile->move('public/assets/revisi_ujian/', $newFileName);
-
-    //         // Simpan detail file ke dalam database
-    //         $proposalModel = new PengajuanUjianProposalModel();
-    //         $proposalModel->update($proposalId, [
-    //             'revisi_proposal' => $newFileName,
-    //             'revisi_proposal_date' => date('Y-m-d H:i:s')
-    //         ]);
-
-    //         $pengajuan = $pengajuanUjianProposalModel->find($id);
-    //         // dd($pengajuan);
-    //         if ($pengajuan) {
-    //             $judul_acc_id = $pengajuan['judul_acc_id'];
-    //             $mahasiswaBimbinganModel->updateTrackingByJudulAccId($judul_acc_id, 'Pengumpulan Revisi');
-    //         }
-
-    //         return $this->response->setJSON(['status' => 'success', 'message' => 'File berhasil diunggah']);
-    //     } else {
-    //         // Jika file tidak valid atau bukan PDF, kirim respon dengan status error
-    //         return $this->response->setStatusCode(400)->setJSON(['status' => 'error', 'message' => 'File tidak valid atau bukan PDF']);
-    //     }
-    // }
 
     public function uploadRevisi($proposalId, $id = null)
     {
@@ -303,8 +211,6 @@ class PengajuanUjianProposalController extends BaseController
         }
     }
 
-
-
     public function unduhRevisi($id)
     {
         $fileModel = new PengajuanUjianProposalModel();
@@ -321,12 +227,22 @@ class PengajuanUjianProposalController extends BaseController
         }
     }
 
-
-
     public function delete($id)
     {
         $pengajuanUjianProposalModel = new PengajuanUjianProposalModel();
         $pengajuanUjianProposalModel->delete($id);
         return redirect()->to('pengajuanujianproposal');
+    }
+
+    public function createJadwal($id)
+    {
+        $pengajuanUjianPropo = new PengajuanUjianProposalModel();
+        $dataPengajuanUjian = $pengajuanUjianPropo->getMhs($id);
+        $operation['title'] = 'Jadwal Ujian Proposal';
+        $operation['sub_title'] = 'Buat Jadwal Ujian Proposal Baru';
+        $operation['pengajuan'] = $dataPengajuanUjian;
+        $operation['dosen'] = (new StafModels())->asArray()->findAll();
+
+        return view('rilisjadwal/create', $operation);
     }
 }

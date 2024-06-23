@@ -241,17 +241,14 @@
                                                             </button> -->
                                                     <?php endif; ?>
 
-                                                    <!-- <?php if (!empty($vdata['jadwal_id'])): ?>
-                                                        <a href="<?= base_url('pengajuanujianproposal/berita-acara/'. $vdata['id_ujianproposal']) ?>" target="_blank" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" title="Unduh Berita Acara">
-                                                            <span class="svg-icon svg-icon-3">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download">
-                                                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                                                    <polyline points="7 10 12 15 17 10"></polyline>
-                                                                    <line x1="12" y1="15" x2="12" y2="3"></line>
-                                                                </svg>
-                                                            </span>
+                                                    <?php if (empty($vdata['jadwal_id']) && session()->get('role') == 'Koordinator'): ?>
+                                                        <a href="<?= base_url('pengajuanujianproposal/create-jadwal/'. $vdata['id_ujianproposal']) ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" title="Buat Rilis Jadwal">
+                                                            <span class="svg-icon svg-icon-muted svg-icon-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="currentColor"/>
+                                                            <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="currentColor"/>
+                                                            </svg></span>
                                                         </a>
-                                                    <?php endif; ?> -->
+                                                    <?php endif; ?>
 
                                                     <?php if(session()->get('role') == 'Mahasiswa' && $vdata['status_pengajuan'] == 'REVISI'): ?>
                                                         <button onclick="openFileUploaderRevisi(<?php echo $vdata['id_ujianproposal']; ?>)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" title="Upload Revisi">

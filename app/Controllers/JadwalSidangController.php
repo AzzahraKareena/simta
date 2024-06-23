@@ -33,8 +33,8 @@ class JadwalSidangController extends BaseController
                 if ($jadwal['id_mhs'] == session()->get('user_id')) {
                     $getData[] = $jadwal;
                 }
-            }elseif (session()->get('role') == 'Koordinator') {
-                    $getData[] = $jadwal;
+            }else {
+                $getData[] = $jadwal;
             }
         }
         $operation['data'] = $getData;
@@ -42,18 +42,6 @@ class JadwalSidangController extends BaseController
         $operation['sub_title'] = 'Daftar Jadwal Sidang TA';
         // dd($operation['data']);
         return view("rilisjadwalsidang/index", ['data' => $operation['data']]);
-    }
-    
-    public function create()
-    {
-        $pengajuanSidang = new PengajuanSidangModel();
-        $dataPengajuan = $pengajuanSidang->getMhs();
-        $operation['title'] = 'Pengajuan Sidang TA';
-        $operation['sub_title'] = 'Buat Pengajuan Sidang TA Baru';
-        $operation['pengajuan'] = $dataPengajuan;
-        $operation['dosen'] = (new StafModels())->where('jenis', 'Dosen')->asArray()->findAll();
-        // dd($operation['pengajuan']);
-        return view('rilisjadwalsidang/create', ['pengajuan' => $operation['pengajuan'], 'dosen' => $operation['dosen']]);
     }
 
     public function store()
@@ -74,7 +62,7 @@ class JadwalSidangController extends BaseController
         $operation['title'] = 'Rilis Jadwal Sidang TA';
         $operation['sub_title'] = 'Edit Jadwal Sidang TA';
         $operation['dosen'] = (new StafModels())->asArray()->findAll();
-        return view('rilisjadwalsidang/create', $operation);
+        return view('rilisjadwalsidang/edit', $operation);
     }
 
     public function update($id)
@@ -90,6 +78,40 @@ class JadwalSidangController extends BaseController
         $jadwalModel = new JadwalSidangModel();
         $jadwalModel->delete($id);
         return redirect()->to('rilisjadwalsidang');
+    }
+
+    public function uploadSuratUndangan($jadwalSidangId)
+    {
+        $uploadedFile = $this->request->getFile('file');
+
+        if ($uploadedFile->isValid() && $uploadedFile->getClientMimeType() === 'application/pdf') {
+            $namaFile = date('Ymdhis') . '_' . $uploadedFile->getName();
+            $uploadedFile->move('public/assets/surat-undangan/', $namaFile);
+
+            $suratUndanganModel = new JadwalSidangModel();
+            $suratUndanganModel->update($jadwalSidangId, ['surat_undangan' => $namaFile]);
+
+            return $this->response->setJSON(['status' => 'success', 'message' => 'File berhasil diunggah']);
+        } else {
+            return $this->response->setStatusCode(400)->setJSON(['status' => 'error', 'message' => 'File tidak valid atau bukan PDF']);
+        }
+    }
+
+    public function uploadSuratTugas($jadwalSidangId)
+    {
+        $uploadedFile = $this->request->getFile('file');
+
+        if ($uploadedFile->isValid() && $uploadedFile->getClientMimeType() === 'application/pdf') {
+            $namaFile = date('Ymdhis') . '_' . $uploadedFile->getName();
+            $uploadedFile->move('public/assets/surat-tugas/', $namaFile);
+
+            $suratTugasModel = new JadwalSidangModel();
+            $suratTugasModel->update($jadwalSidangId, ['surat_tugas' => $namaFile]);
+
+            return $this->response->setJSON(['status' => 'success', 'message' => 'File berhasil diunggah']);
+        } else {
+            return $this->response->setStatusCode(400)->setJSON(['status' => 'error', 'message' => 'File tidak valid atau bukan PDF']);
+        }
     }
 
     public function beritaacara($id)
@@ -114,6 +136,7 @@ class JadwalSidangController extends BaseController
         $html = view('rilisjadwal/berita-acara', $data);
         $html2 = view('rilisjadwal/berita-acara-2', $data);
         $html3 = view('rilisjadwal/berita-acara-3', $data);
+        $html4 = view('rilisjadwal/berita-acara-4', $data);
 
         $pdf = new CustomPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, 'F4', true, 'UTF-8', false);
         // Setel margin
@@ -140,6 +163,11 @@ class JadwalSidangController extends BaseController
         $pdf->Ln(25);
         $pdf->SetFont('times', '', 12);
         $pdf->writeHTML($html3, true, false, true, false, '');
+
+        $pdf->AddPage();
+        $pdf->Ln(25);
+        $pdf->SetFont('times', '', 12);
+        $pdf->writeHTML($html4, true, false, true, false, '');
 
         // Atur response untuk menampilkan PDF
         $this->response->setContentType('application/pdf');

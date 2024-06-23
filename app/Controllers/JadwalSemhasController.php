@@ -44,18 +44,18 @@ class JadwalSemhasController extends BaseController
         return view("rilisjadwalsemhas/index", ['data' => $operation['data']]);
     }
     
-    public function create()
-    {
-        // $id_mhs = session()->get('user_id');
-        $pengajuanSeminar = new PengajuanSeminarHasilModel();
-        $dataPengajuan = $pengajuanSeminar->getMhs();
-        $operation['title'] = 'Pengajuan Ujian Proposal';
-        $operation['sub_title'] = 'Buat Pengajuan Ujian Proposal Baru';
-        $operation['pengajuan'] = $dataPengajuan;
-        $operation['dosen'] = (new StafModels())->where('jenis', 'Dosen')->asArray()->findAll();
-        // dd($operation['pengajuan']);
-        return view('rilisjadwalsemhas/create', ['pengajuan' => $operation['pengajuan'], 'dosen' => $operation['dosen']]);
-    }
+    // public function create()
+    // {
+    //     // $id_mhs = session()->get('user_id');
+    //     $pengajuanSeminar = new PengajuanSeminarHasilModel();
+    //     $dataPengajuan = $pengajuanSeminar->getMhs();
+    //     $operation['title'] = 'Pengajuan Ujian Proposal';
+    //     $operation['sub_title'] = 'Buat Pengajuan Ujian Proposal Baru';
+    //     $operation['pengajuan'] = $dataPengajuan;
+    //     $operation['dosen'] = (new StafModels())->where('jenis', 'Dosen')->asArray()->findAll();
+    //     // dd($operation['pengajuan']);
+    //     return view('rilisjadwalsemhas/create', ['pengajuan' => $operation['pengajuan'], 'dosen' => $operation['dosen']]);
+    // }
 
     public function store()
     {
@@ -75,7 +75,7 @@ class JadwalSemhasController extends BaseController
         $operation['title'] = 'Rilis Jadwal Seminar Hasil';
         $operation['sub_title'] = 'Edit Jadwal Seminar Hasil';
         $operation['dosen'] = (new StafModels())->asArray()->findAll();
-        return view('rilisjadwalsemhas/create', $operation);
+        return view('rilisjadwalsemhas/edit', $operation);
     }
 
     public function update($id)

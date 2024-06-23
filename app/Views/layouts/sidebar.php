@@ -280,15 +280,15 @@
                                         <span class="menu-title">Sidang Tugas Akhir</span>
                                     </a>
                                 </div>
-                                <div class="menu-item">
-                                    <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "rilisjadwalsidang" ? "active" : "" ?>" href="<?= base_url('rilisjadwalsidang')?>">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                                        <span class="menu-title">Rilis Jadwal Sidang TA</span>
-                                    </a>
-                                </div>
                             <?php endif; ?>
+                            <div class="menu-item">
+                                <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "rilisjadwalsidang" ? "active" : "" ?>" href="<?= base_url('rilisjadwalsidang')?>">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Rilis Jadwal Sidang TA</span>
+                                </a>
+                            </div>
                             <?php if(session()->get('role') == 'Mahasiswa' || session()->get('role') == 'Admin'): ?>
                                 <div class="menu-item">
                                     <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "mengelolasurat" ? "active" : "" ?>" href="<?= base_url('mengelolasurat')?>">

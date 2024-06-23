@@ -31,23 +31,6 @@
                                     <input type="text" data-kt-docs-table-filter="search" class="form-control form-control-solid w-250px ps-15" placeholder="Search Data"/>
                                 </div>
                                 <!--end::Search-->
-
-                                <!--begin::Toolbar-->
-                                <?php if(session()->get('role') == 'Koordinator'  || session()->get('nama') == 'masbahah aprilio'): ?>
-                                <div class="d-flex justify-content-end" data-kt-docs-table-toolbar="base">
-                                    <!--begin::Add customer-->
-                                    <a href="<?= base_url('rilisjadwalsidang/create')?>" class="btn btn-primary" data-bs-toggle="tooltip" title="Klik tambah data">
-                                        <span class="svg-icon svg-icon-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black"></rect>
-                                                <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black"></rect>
-                                            </svg>
-                                        </span>
-                                        Tambah Data
-                                    </a>
-                                    <!--end::Add customer-->
-                                </div>
-                                <?php endif; ?>
                                 <!--end::Toolbar-->
                             </div>
                             <!--end::Wrapper-->
@@ -65,6 +48,10 @@
                                         <th class="">Waktu</th>
                                         <th class="">Penguji 1</th>
                                         <th class="">Penguji 2</th>
+                                        <?php if(session()->get('role') == 'Admin' || session()->get('role') == 'Mahasiswa') : ?>
+                                        <th class="text-center">Surat Undangan</th>
+                                        <th class="text-center">Surat Tugas</th>
+                                        <?php endif; ?>
                                         <th class="text-center">#</th>
                                         <!-- <th class="min-w-20px text-end">#</th> -->
                                     </tr>
@@ -80,6 +67,42 @@
                                             <td><?= $item['jam_start'] ?> - <?= $item['jam_end']; ?></td>
                                             <td><?= $item['penguji1'] ?></td>
                                             <td><?= $item['penguji2'] ?></td>
+                                            <?php if(session()->get('role') == 'Admin' || session()->get('role') == 'Mahasiswa') : ?>
+                                            <td class="text-center">
+                                                <?php if($item['surat_undangan'] == null && session()->get('role') == 'Admin') : ?>
+                                                    <button onclick="uploadSuratUndangan(<?php echo $item['id_rilis_jadwal_sidang']; ?>)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" title="Upload Surat Undangan">
+                                                        <span class="svg-icon svg-icon-muted svg-icon-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path opacity="0.3" d="M11 13H7C6.4 13 6 12.6 6 12C6 11.4 6.4 11 7 11H11V13ZM17 11H13V13H17C17.6 13 18 12.6 18 12C18 11.4 17.6 11 17 11Z" fill="currentColor"/>
+                                                        <path d="M22 12C22 17.5 17.5 22 12 22C6.5 22 2 17.5 2 12C2 6.5 6.5 2 12 2C17.5 2 22 6.5 22 12ZM17 11H13V7C13 6.4 12.6 6 12 6C11.4 6 11 6.4 11 7V11H7C6.4 11 6 11.4 6 12C6 12.6 6.4 13 7 13H11V17C11 17.6 11.4 18 12 18C12.6 18 13 17.6 13 17V13H17C17.6 13 18 12.6 18 12C18 11.4 17.6 11 17 11Z" fill="currentColor"/>
+                                                        </svg>
+                                                        </span>
+                                                    </button>
+                                                <?php elseif($item['surat_undangan'] == null && session()->get('role') != 'Admin') : ?>
+                                                    -
+                                                <?php else : ?>
+                                                    <a href="<?= base_url('public/assets/surat-undangan/'. $item['surat_undangan']) ?>" target="_blank" class="btn btn-sm btn-info">
+                                                        download
+                                                    </a>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td class="text-center">
+                                                <?php if($item['surat_tugas'] == null && session()->get('role') == 'Admin') : ?>
+                                                    <button onclick="uploadSuratTugas(<?php echo $item['id_rilis_jadwal_sidang']; ?>)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" title="Upload Surat Tugas">
+                                                        <span class="svg-icon svg-icon-muted svg-icon-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path opacity="0.3" d="M11 13H7C6.4 13 6 12.6 6 12C6 11.4 6.4 11 7 11H11V13ZM17 11H13V13H17C17.6 13 18 12.6 18 12C18 11.4 17.6 11 17 11Z" fill="currentColor"/>
+                                                        <path d="M22 12C22 17.5 17.5 22 12 22C6.5 22 2 17.5 2 12C2 6.5 6.5 2 12 2C17.5 2 22 6.5 22 12ZM17 11H13V7C13 6.4 12.6 6 12 6C11.4 6 11 6.4 11 7V11H7C6.4 11 6 11.4 6 12C6 12.6 6.4 13 7 13H11V17C11 17.6 11.4 18 12 18C12.6 18 13 17.6 13 17V13H17C17.6 13 18 12.6 18 12C18 11.4 17.6 11 17 11Z" fill="currentColor"/>
+                                                        </svg>
+                                                        </span>
+                                                    </button>
+                                                <?php elseif($item['surat_tugas'] == null && session()->get('role') != 'Admin') : ?>
+                                                    -
+                                                <?php else : ?>
+                                                    <a href="<?= base_url('public/assets/surat-tugas/'. $item['surat_tugas']) ?>" target="_blank" class="btn btn-sm btn-info">
+                                                        download
+                                                    </a>
+                                                <?php endif; ?>
+                                            </td>
+                                            <?php endif; ?>
                                             <td>
                                                 <div class="d-flex justify-content-end flex-shrink-0">
                                                     <a href="<?= base_url('rilisjadwalsidang/berita-acara/'. $item['id_rilis_jadwal_sidang']) ?>" target="_blank" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" title="Unduh Berita Acara">
@@ -109,7 +132,6 @@
                                                                     <path d="M5.574 21.3L3.692 21.928C3.46591 22.0032 3.22334 22.0141 2.99144 21.9594C2.75954 21.9046 2.54744 21.7864 2.3789 21.6179C2.21036 21.4495 2.09202 21.2375 2.03711 21.0056C1.9822 20.7737 1.99289 20.5312 2.06799 20.3051L2.696 18.422L5.574 21.3ZM4.13499 14.105L9.891 19.861L19.245 10.507L13.489 4.75098L4.13499 14.105Z" fill="black" />
                                                                 </svg>
                                                             </span>
-                                                            
                                                         </a>
                                                         <form action="<?= base_url('rilisjadwalsidang/delete/'.$item['id_rilis_jadwal_sidang']) ?>" method="POST">
                                                             <button type="submit" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" title="Hapus Data">
@@ -278,6 +300,96 @@
         <!--end::Modal - New Product-->
         <!--end::Modals-->
     </div>
+
+    <script>
+        function uploadSuratUndangan(jadwalsidangID) {
+    
+            var fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = 'application/pdf'; // Set hanya menerima file PDF
+
+            fileInput.onchange = function(e) {
+                var file = e.target.files[0];
+                
+                if (!file || file.type !== 'application/pdf') {
+                    alert('Mohon pilih file PDF.');
+                    return;
+                }
+
+                var formData = new FormData();
+                formData.append('file', file);
+
+                var route = 'upload/surat-undangan/' + jadwalsidangID;
+                console.log('Upload route:', route); // Debugging log
+
+                fetch(route, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Gagal mengunggah file');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    console.log('Respon dari server:', data);
+
+                    //Reload halaman setelah file berhasil diunggah
+                    location.reload();
+                })
+                .catch(error => {
+                    console.error('Terjadi kesalahan:', error);
+                });
+            };
+
+            fileInput.click();
+        }
+
+        function uploadSuratTugas(jadwalsidangID) {
+            var fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = 'application/pdf'; // Set hanya menerima file PDF
+
+            fileInput.onchange = function(e) {
+                var file = e.target.files[0];
+                
+                if (!file || file.type !== 'application/pdf') {
+                    alert('Mohon pilih file PDF.');
+                    return;
+                }
+
+                var formData = new FormData();
+                formData.append('file', file);
+
+                var route = 'upload/surat-tugas/' + jadwalsidangID;
+                console.log('Upload route:', route); // Debugging log
+
+                fetch(route, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Gagal mengunggah file');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    console.log('Respon dari server:', data);
+
+                    //Reload halaman setelah file berhasil diunggah
+                    location.reload();
+                })
+                .catch(error => {
+                    console.error('Terjadi kesalahan:', error);
+                });
+            };
+
+            fileInput.click();
+        }
+
+    </script>
 <?= $this->endSection() ?>
 
 <?= $this->section('js_custom') ?>

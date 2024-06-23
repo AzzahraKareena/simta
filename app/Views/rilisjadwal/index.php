@@ -31,24 +31,6 @@
                                     <input type="text" data-kt-docs-table-filter="search" class="form-control form-control-solid w-250px ps-15" placeholder="Search Data"/>
                                 </div>
                                 <!--end::Search-->
-
-                                <!--begin::Toolbar-->
-                                <?php if(session()->get('role') == 'Koordinator'  || session()->get('nama') == 'masbahah aprilio'): ?>
-                                <div class="d-flex justify-content-end" data-kt-docs-table-toolbar="base">
-                                    <!--begin::Add customer-->
-                                    <a href="<?= base_url('rilisjadwal/create')?>" class="btn btn-primary" data-bs-toggle="tooltip" title="Klik tambah data">
-                                        <span class="svg-icon svg-icon-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black"></rect>
-                                                <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black"></rect>
-                                            </svg>
-                                        </span>
-                                        Tambah Data
-                                    </a>
-                                    <!--end::Add customer-->
-                                </div>
-                                <?php endif; ?>
-                                <!--end::Toolbar-->
                             </div>
                             <!--end::Wrapper-->
                         <!--begin::Table container-->

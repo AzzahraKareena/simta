@@ -42,11 +42,10 @@ class JadwalUjianPropoController extends BaseController
         return view("rilisjadwal/index", ['data' => $operation['data']]);
     }
     
-    public function create()
+    public function create($id)
     {
-        // $id_mhs = session()->get('user_id');
         $pengajuanUjianPropo = new PengajuanUjianProposalModel();
-        $dataPengajuanUjian = $pengajuanUjianPropo->getMhs();
+        $dataPengajuanUjian = $pengajuanUjianPropo->getMhs($id);
         // dd($dataPengajuanUjian);
         $operation['title'] = 'Pengajuan Ujian Proposal';
         $operation['sub_title'] = 'Buat Pengajuan Ujian Proposal Baru';
@@ -65,7 +64,6 @@ class JadwalUjianPropoController extends BaseController
         return redirect()->to('rilisjadwal');
     }
 
-
     public function edit($id)
     {
         $jadwalModel = new JadwalUjianPropoModel();
@@ -74,7 +72,7 @@ class JadwalUjianPropoController extends BaseController
         $operation['title'] = 'Rilis Jadwal Ujian Proposal';
         $operation['sub_title'] = 'Edit Jadwal Ujian Proposal';
         $operation['dosen'] = (new StafModels())->asArray()->findAll();
-        return view('rilisjadwal/create', $operation);
+        return view('rilisjadwal/edit', $operation);
     }
 
     public function update($id)

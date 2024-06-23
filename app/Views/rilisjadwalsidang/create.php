@@ -20,34 +20,25 @@
                     <div class="card-body py-3">
                         <!--begin::Form-->
 
-                        <form class="form w-100" method="post" enctype="multipart/form-data" id="form_rilis_jadwal" action="<?= service('router')->getMatchedRoute()[0] == "rilisjadwalsidang/create" ? base_url('rilisjadwalsidang/store') : base_url('rilisjadwalsidang/update/'.$dataForm['id_rilis_jadwal_sidang']??"") ?>">
+                        <form class="form w-100" method="post" enctype="multipart/form-data" id="form_rilis_jadwal" action="/rilisjadwalsidang/store">
                             <?= csrf_field() ?>
                             <div class="row">
                                 <div class="col-12 col-md-12">
-                                    <?php if(service('router')->getMatchedRoute()[0] == "rilisjadwalsidang/create") : ?>
-                                        <div class="fv-row mb-10">
+                                    <input type="hidden" name="id_pengajuansidang" id="id_pengajuansidang" value="<?= $pengajuan['id_sidang']; ?>">
+                                    <div class="fv-row mb-10 row">
+                                        <div class="col-md-6">
+                                            <label class="form-label required fs-6 fw-bolder text-dark">Nama</label>
+                                            <input type="text" class="form-control form-control-lg form-control-solid" name="nama" value="<?= $pengajuan['nama_mhs']; ?>" id="nama" disabled>
+                                        </div>
+                                        <div class="col-md-6">
                                             <label class="form-label required fs-6 fw-bolder text-dark">NIM</label>
-                                            <select class="form-select form-select-lg form-select-solid" name="nim" id="nim" required>
-                                                <option value="">Pilih NIM Mahasiswa</option>
-                                                <?php foreach ($pengajuan as $pengaju): ?>
-                                                    <option value="<?= $pengaju['nim'] ?>" <?= ($pengaju['nim'] == old('nim') || (isset($dataForm->nim) && $pengaju['nim'] == $dataForm->nim)) ? 'selected' : '' ?>>
-                                                        <?= $pengaju['nim'] ?>
-                                                    </option>
-                                                <?php endforeach; ?>
-                                            </select>
+                                            <input type="text" class="form-control form-control-lg form-control-solid" value="<?= $pengajuan['nim']; ?>" name="judul" id="judul" disabled>
                                         </div>
-                                        <input type="hidden" name="id_pengajuansidang" id="id_pengajuansidang" value="">
-                                        <div class="fv-row mb-10 row">
-                                            <div class="col-md-6">
-                                                <label class="form-label required fs-6 fw-bolder text-dark">Nama</label>
-                                                <input type="text" class="form-control form-control-lg form-control-solid" name="nama" id="nama" disabled>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label class="form-label required fs-6 fw-bolder text-dark">Judul Tugas Akhir</label>
-                                                <input type="text" class="form-control form-control-lg form-control-solid" name="judul" id="judul" disabled>
-                                            </div>
-                                        </div>
-                                    <?php endif; ?>
+                                    </div>
+                                    <div class="fv-row mb-10">
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Judul Tugas Akhir</label>
+                                        <input type="text" class="form-control form-control-lg form-control-solid" disabled value="<?= $pengajuan['judul']; ?>">
+                                    </div>
                                     <div class="fv-row mb-10">
                                         <label class="form-label required fs-6 fw-bolder text-dark">Ruangan</label>
                                         <input type="text" class="form-control form-control-lg form-control-solid" name="ruangan" id="ruangan" value="<?= old('ruangan') ?? $dataForm['ruangan'] ?? '' ?>">
@@ -65,9 +56,9 @@
                                         <input type="time" class="form-control form-control-lg form-control-solid" name="jam_end" id="jam_end" value="<?= old('jam_end') ?? $dataForm['jam_end'] ?? '' ?>">
                                     </div>
                                     <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">Penguji 1</label>
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Ketua Penguji</label>
                                         <select class="form-select form-select-lg form-select-solid" name="id_penguji1" required>
-                                            <option value="">Pilih Dosen Penguji 1</option>
+                                            <option value="">Pilih Ketua Penguji</option>
                                             <?php foreach ($dosen as $penguji): ?>
                                                 <option value="<?= $penguji['id_user'] ?>" <?= ($penguji['id_user'] == old('id_penguji1') || (isset($dataForm['id_penguji1']) && $penguji['id_user'] == $dataForm['id_penguji1'])) ? 'selected' : '' ?>>
                                                     <?= $penguji['nama'] ?>
@@ -76,11 +67,22 @@
                                         </select>
                                     </div>
                                     <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">Penguji 2</label>
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Sekretaris Penguji</label>
                                         <select class="form-select form-select-lg form-select-solid" name="id_penguji2" required>
-                                            <option value="">Pilih Dosen Penguji 2</option>
+                                            <option value="">Pilih Sekretaris Penguji</option>
                                             <?php foreach ($dosen as $penguji): ?>
                                                 <option value="<?= $penguji['id_user'] ?>" <?= ($penguji['id_user'] == old('id_penguji2') || (isset($dataForm['id_penguji2']) && $penguji['id_user'] == $dataForm['id_penguji2'])) ? 'selected' : '' ?>>
+                                                    <?= $penguji['nama'] ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div class="fv-row mb-10">
+                                        <label class="form-label required fs-6 fw-bolder text-dark">Anggota Penguji</label>
+                                        <select class="form-select form-select-lg form-select-solid" name="id_penguji3" required>
+                                            <option value="">Pilih</option>
+                                            <?php foreach ($dosen as $penguji): ?>
+                                                <option value="<?= $penguji['id_user'] ?>" <?= ($penguji['id_user'] == old('id_penguji3') || (isset($dataForm['id_penguji3']) && $penguji['id_user'] == $dataForm['id_penguji3'])) ? 'selected' : '' ?>>
                                                     <?= $penguji['nama'] ?>
                                                 </option>
                                             <?php endforeach; ?>
@@ -123,44 +125,5 @@
             });
         });
     </script>
-    <?php if(service('router')->getMatchedRoute()[0] == "rilisjadwalsidang/create"): ?>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                // Membuat objek JSON dari data PHP
-                var dataMahasiswa = <?= json_encode(array_reduce($pengajuan, function($result, $pengaju) {
-                    $result[$pengaju['nim']] = [
-                        'nama' => $pengaju['nama_mhs'],
-                        'judul' => $pengaju['judul'],
-                        'id_pengajuansidang' => $pengaju['id_sidang']
-                    ];
-                    return $result;
-                }, [])); ?>;
-
-                // Event listener untuk dropdown NIM
-                document.getElementById('nim').addEventListener('change', function() {
-                    var nim = this.value;
-                    var namaInput = document.getElementById('nama');
-                    var judulInput = document.getElementById('judul');
-                    var IdUjianInput = document.getElementById('id_pengajuansidang');
-                    
-                    if (dataMahasiswa[nim]) {
-                        namaInput.value = dataMahasiswa[nim].nama;
-                        judulInput.value = dataMahasiswa[nim].judul;
-                        IdUjianInput.value = dataMahasiswa[nim].id_pengajuansidang;
-                    } else {
-                        namaInput.value = '';
-                        judulInput.value = '';
-                        IdUjianInput.value = '';
-                    }
-                });
-
-                // Mengisi nama dan judul secara otomatis jika NIM sudah dipilih sebelumnya
-                var nim = document.getElementById('nim').value;
-                if (nim) {
-                    document.getElementById('nim').dispatchEvent(new Event('change'));
-                }
-            });
-        </script>
-    <?php endif; ?>
 
 <?= $this->endSection() ?>

@@ -24,13 +24,47 @@ class PengajuanSeminarHasilModel extends Model
         'id_penguji2'
     ];
 
-    public function getMhs() 
+    // public function getMhs() 
+    // {
+    //     return $this->select('simta_pengajuan_seminarhasil.*, mahasiswa.nama as nama_mhs, mahasiswa.nim as nim, simta_acc_judul.judul_acc as judul, simta_acc_judul.dospem_acc as dospem')
+    //         ->join('users', 'simta_pengajuan_seminarhasil.id_mhs = users.id')
+    //         ->join('mahasiswa', 'users.id = mahasiswa.id_user')
+    //         ->join('simta_acc_judul', 'simta_pengajuan_seminarhasil.id_accjudul = simta_acc_judul.id_accjudul')
+    //         ->findAll();
+    // }
+
+    public function withMhs()
     {
-        return $this->select('simta_pengajuan_seminarhasil.*, mahasiswa.nama as nama_mhs, mahasiswa.nim as nim, simta_acc_judul.judul_acc as judul, simta_acc_judul.dospem_acc as dospem')
-            ->join('users', 'simta_pengajuan_seminarhasil.id_mhs = users.id')
-            ->join('mahasiswa', 'users.id = mahasiswa.id_user')
-            ->join('simta_acc_judul', 'simta_pengajuan_seminarhasil.id_accjudul = simta_acc_judul.id_accjudul')
-            ->findAll();
+        return $this->join('users as mhs', 'mhs.id = simta_pengajuan_seminarhasil.id_mhs');
     }
-    
+
+    public function withJudul()
+    {
+        return $this->join('simta_acc_judul as judulacc', 'judulacc.id_accjudul = simta_pengajuan_seminarhasil.id_accjudul');
+    }
+
+    public function getMhs($id = null) 
+    {
+        $query = $this->select('simta_pengajuan_seminarhasil.*, mahasiswa.nama as nama_mhs, mahasiswa.nim as nim, simta_acc_judul.judul_acc as judul, simta_acc_judul.dospem_acc as dospem, dosen.nama as nama_pembimbing, s1.nip as nip_pembimbing')
+                ->join('users', 'simta_pengajuan_seminarhasil.id_mhs = users.id')
+                ->join('mahasiswa', 'users.id = mahasiswa.id_user')
+                ->join('users as dosen', 'simta_pengajuan_seminarhasil.id_dospem=dosen.id')
+                ->join('staf as s1', 'dosen.id=s1.id_user')
+                ->join('simta_acc_judul', 'simta_pengajuan_seminarhasil.id_accjudul = simta_acc_judul.id_accjudul');
+
+        if ($id !== null) {
+            $query->where('simta_pengajuan_seminarhasil.id_seminarhasil', $id);
+        }
+
+        return $query->first();
+    }
+
+    public function getAllPengajuanWithJadwal()
+    {
+        return $this->select('simta_pengajuan_seminarhasil.*, mhs.nama as nama_mhs, judulacc.judul_acc as judul, simta_rilis_jadwal_semhas.id_rilis_jadwal_semhas as jadwal_id')
+                    ->join('simta_rilis_jadwal_semhas', 'simta_pengajuan_seminarhasil.id_seminarhasil = simta_rilis_jadwal_semhas.id_pengajuansemhas', 'left')
+                    ->withMhs()
+                    ->withJudul()
+                    ->findAll();
+    }
 }

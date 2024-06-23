@@ -88,8 +88,11 @@ $routes->post('update/status_up/semhas/(:num)', 'PengajuanSeminarHasilController
 $routes->post('upload/revisi/semhas/(:num)', 'PengajuanSeminarHasilController::uploadRevisi/$1');
 $routes->post('update/status_up/sidang/(:num)', 'PengajuanSidangController::updateStatus/$1');
 $routes->post('upload/revisi/sidang/(:num)', 'PengajuanSidangController::uploadRevisi/$1');
+$routes->post('upload/surat-undangan/(:num)', 'JadwalSidangController::uploadSuratUndangan/$1');
+$routes->post('upload/surat-tugas/(:num)', 'JadwalSidangController::uploadSuratTugas/$1');
 
 $routes->get('rekapitulasi-nilai', 'RekapitulasiController::index');
+$routes->get('rekapitulasi-nilai/cetak/(:num)', 'RekapitulasiController::cetak/$1');
 
 //PENGAJUAN BIMBINGAN
 $routes->group('pengajuanbimbingan', static function ($routes) {
@@ -112,13 +115,14 @@ $routes->group('pengajuanujianproposal', static function ($routes) {
     $routes->get('delete/(:num)', 'PengajuanUjianProposalController::delete/$1');
     $routes->get('berita-acara/(:num)', 'PengajuanUjianProposalController::beritaacara/$1');
     $routes->get('unduh-revisi/(:num)', 'PengajuanUjianProposalController::unduhRevisi/$1');
+    $routes->get('create-jadwal/(:num)', 'PengajuanUjianProposalController::createJadwal/$1');
     // $routes->get('penilaian-proposal', 'PenilaianProposal::penilaian');
 });
 
 //RILIS JADWAL
 $routes->group('rilisjadwal', static function ($routes) {
     $routes->get('/', 'JadwalUjianPropoController::table');
-    $routes->get('create', 'JadwalUjianPropoController::create');
+    // $routes->get('create/(:num)', 'JadwalUjianPropoController::create/$1');
     $routes->post('store', 'JadwalUjianPropoController::store');
     $routes->get('edit/(:segment)', 'JadwalUjianPropoController::edit/$1');
     $routes->post('update/(:segment)', 'JadwalUjianPropoController::update/$1');
@@ -129,7 +133,7 @@ $routes->group('rilisjadwal', static function ($routes) {
 //RILIS JADWAL SEMINAR HASIL
 $routes->group('rilisjadwalsemhas', static function ($routes) {
     $routes->get('/', 'JadwalSemhasController::table');
-    $routes->get('create', 'JadwalSemhasController::create');
+    // $routes->get('create', 'JadwalSemhasController::create');
     $routes->post('store', 'JadwalSemhasController::store');
     $routes->get('edit/(:segment)', 'JadwalSemhasController::edit/$1');
     $routes->post('update/(:segment)', 'JadwalSemhasController::update/$1');
@@ -141,7 +145,7 @@ $routes->group('rilisjadwalsemhas', static function ($routes) {
 //RILIS JADWAL SIDANG
 $routes->group('rilisjadwalsidang', static function ($routes) {
     $routes->get('/', 'JadwalSidangController::table');
-    $routes->get('create', 'JadwalSidangController::create');
+    // $routes->get('create', 'JadwalSidangController::create');
     $routes->post('store', 'JadwalSidangController::store');
     $routes->get('edit/(:segment)', 'JadwalSidangController::edit/$1');
     $routes->post('update/(:segment)', 'JadwalSidangController::update/$1');
@@ -223,6 +227,8 @@ $routes->group('pengajuanseminarhasil', static function ($routes) {
     $routes->post('update/(:segment)', 'PengajuanSeminarHasilController::update/$1');
     $routes->get('delete/(:num)', 'PengajuanSeminarHasilController::delete/$1');
     $routes->get('unduh-revisi/(:num)', 'PengajuanSeminarHasilController::unduhRevisi/$1');
+    $routes->get('create-jadwal/(:num)', 'PengajuanSeminarHasilController::createJadwal/$1');
+    $routes->get('rekomendasi/(:num)', 'PengajuanSeminarHasilController::rekomendasi/$1');
 }); 
 
 //PENGAJUAN SIDANG
@@ -234,6 +240,7 @@ $routes->group('pengajuansidang', static function ($routes) {
     $routes->post('update/(:segment)', 'PengajuanSidangController::update/$1');
     $routes->get('delete/(:num)', 'PengajuanSidangController::delete/$1');
     $routes->get('unduh-revisi/(:num)', 'PengajuanSidangController::unduhRevisi/$1');
+    $routes->get('create-jadwal/(:num)', 'PengajuanSidangController::createJadwal/$1');
 });  
 
 //MAHASISWA BIMBINGAN

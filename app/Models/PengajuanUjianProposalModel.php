@@ -50,15 +50,20 @@ class PengajuanUjianProposalModel extends Model
                     ->findAll();
     }
 
-    public function getMhs() 
+    public function getMhs($id = null) 
     {
-        return $this->select('mahasiswa.nama as nama_mhs, mahasiswa.nim as nim, simta_acc_judul.judul_acc as judul, simta_pengajuan_ujianproposal.*')
+        $query = $this->select('mahasiswa.nama as nama_mhs, mahasiswa.nim as nim, simta_acc_judul.judul_acc as judul, simta_pengajuan_ujianproposal.*')
             ->join('users', 'simta_pengajuan_ujianproposal.mahasiswa=users.id')
             ->join('mahasiswa', 'users.id=mahasiswa.id_user')
-            ->join('simta_acc_judul', 'simta_pengajuan_ujianproposal.judul_acc_id=simta_acc_judul.id_accjudul')
-            ->where('status_pengajuan', 'PENDING')
-            ->findAll();
+            ->join('simta_acc_judul', 'simta_pengajuan_ujianproposal.judul_acc_id=simta_acc_judul.id_accjudul');
+
+        if ($id !== null) {
+            $query->where('simta_pengajuan_ujianproposal.id_ujianproposal', $id);
+        }
+
+        return $query->first();
     }
+
 
     public function getAllPengajuanWithJadwal()
     {
