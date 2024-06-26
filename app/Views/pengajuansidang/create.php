@@ -48,10 +48,10 @@
                                         <label class="form-label required fs-6 fw-bolder text-dark">Abstrak</label>
                                         <input class="form-control form-control-lg form-control-solid" type="text" name="abstrak" autocomplete="off" placeholder="Input abstrak" value="<?= old('abstrak')?? $dataForm->abstrak??"" ?>" required />
                                     </div>
-                                    <div class="fv-row mb-10">
+                                    <!-- <div class="fv-row mb-10">
                                         <label class="form-label required fs-6 fw-bolder text-dark">Revisi Laporan</label>
                                         <input class="form-control form-control-lg form-control-solid" type="file" name="revisi_laporan" accept=".pdf" required />
-                                    </div>
+                                    </div> -->
                                     <div class="fv-row mb-10">
                                         <label class="form-label required fs-6 fw-bolder text-dark">Laporan Tugas Akhir</label>
                                         <input class="form-control form-control-lg form-control-solid" type="file" name="laporan_ta" accept=".pdf" required />

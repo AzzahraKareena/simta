@@ -13,7 +13,7 @@ class MahasiswaController extends BaseController
         $data = (new MahasiswaModel())->asArray()->findAll();
         
         $operation['data'] = $data;
-        $operation['title'] = 'Data Master Staf';
+        $operation['title'] = 'Data Master Mahasiswa';
         $operation['sub_title'] = '';
         return view("mastermahasiswa/index", $operation);
     }

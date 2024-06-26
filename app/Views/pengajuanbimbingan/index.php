@@ -59,7 +59,7 @@
                                     <tr class="fw-bolder text-muted">
                                         <th class="">Judul TA</th>
                                         <th class="">Lokasi Bimbingan</th>
-                                        <th class="">Hasil Bimbingan</th>
+                                        <!-- <th class="">Hasil Bimbingan</th> -->
                                         <th class="">Status Ajuan</th>
                                         <th class="">Waktu bimbingan</th>
                                         <th class="">Jadwal Bimbingan</th>
@@ -80,9 +80,7 @@
                                             <td>
                                                 <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['lokasi_bimbingan'] ?></span>
                                             </td>
-                                            <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata['hasil_bimbingan'] ?></span>
-                                            </td>
+                                            
                                             <td>
                                                 <?php if ($vdata['status_ajuan'] == 'PENDING') : ?>
                                                     <div class="badge badge-warning"><?= $vdata['status_ajuan'] ?></div>
@@ -93,13 +91,13 @@
                                                 <?php endif; ?>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata['waktu_bimbingan'] ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"> <?= $vdata['waktu_bimbingan'] ?></span>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata['jadwal_bimbingan'] ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['jadwal_bimbingan'] ?></span>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Agenda: <?= $vdata['agenda'] ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['agenda'] ?></span>
                                             </td>
                                             <!-- <td>
                                                 <div class="dropdown">
@@ -142,8 +140,8 @@
                                         <th class="">Nama Mahasiswa</th>
                                         <th class="">NIM</th>
                                         <th class="">Lokasi Bimbingan</th>
-                                        <th class="">Hasil Bimbingan</th>
-                                        <th class="">Status Ajuan</th>
+                                        <!-- <th class="">Hasil Bimbingan</th> -->
+                                        <!-- <th class="">Status Ajuan</th> -->
                                         <th class="">Waktu Bimbingan</th>
                                         <th class="">Jadwal Bimbingan</th>
                                         <th class="">Agenda</th> 
@@ -163,7 +161,6 @@
                                             <td contenteditable="false" class="nama_mahasiswa"><?= $vdata['mahasiswa_nama'] ?></td>
                                             <td contenteditable="false" class="nim"><?= $nim ?></td>
                                             <td data-id="<?= $vdata['id_pengajuanbimbingan'] ?>" contenteditable="false" class="lokasi_bimbingan"><?= $vdata['lokasi_bimbingan'] ?></td>
-                                            <td data-id="<?= $vdata['id_pengajuanbimbingan'] ?>" contenteditable="false" class="hasil_bimbingan"><?= $vdata['hasil_bimbingan'] ?></td>
                                             <td>
                                                 <?php if ($vdata['status_ajuan'] == 'PENDING') : ?>
                                                     <div class="dropdown">

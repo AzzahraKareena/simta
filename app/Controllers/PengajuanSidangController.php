@@ -17,7 +17,9 @@ class PengajuanSidangController extends BaseController
         $getData = [];
         
         foreach ($data as $ujian) {
-            if (session()->get('role') == 'Dosen') {
+            if (session()->get('role') == 'Koordinator' || session()->get('nama') == 'Masbahah ') {
+                    $getData[] = $ujian; 
+            }elseif (session()->get('role') == 'Dosen') {
                 if ($ujian['id_dospem'] == session()->get('user_id')) {
                     $getData[] = $ujian; 
                 }

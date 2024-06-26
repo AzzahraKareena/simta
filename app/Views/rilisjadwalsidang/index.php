@@ -48,6 +48,7 @@
                                         <th class="">Waktu</th>
                                         <th class="">Penguji 1</th>
                                         <th class="">Penguji 2</th>
+                                        <th class="">Penguji 3</th>
                                         <?php if(session()->get('role') == 'Admin' || session()->get('role') == 'Mahasiswa') : ?>
                                         <th class="text-center">Surat Undangan</th>
                                         <th class="text-center">Surat Tugas</th>
@@ -67,6 +68,7 @@
                                             <td><?= $item['jam_start'] ?> - <?= $item['jam_end']; ?></td>
                                             <td><?= $item['penguji1'] ?></td>
                                             <td><?= $item['penguji2'] ?></td>
+                                            <td><?= $item['penguji3'] ?></td>
                                             <?php if(session()->get('role') == 'Admin' || session()->get('role') == 'Mahasiswa') : ?>
                                             <td class="text-center">
                                                 <?php if($item['surat_undangan'] == null && session()->get('role') == 'Admin') : ?>
@@ -124,7 +126,7 @@
                                                             </span>
                                                         </a>
                                                     <?php endif ?>
-                                                    <?php if(session()->get('role') == 'Koordinator'  || session()->get('nama') == 'masbahah aprilio'): ?>
+                                                    <?php if(session()->get('role') == 'Koordinator'  || session()->get('nama') == 'Masbahah '): ?>
                                                         <a href="<?= base_url('rilisjadwalsidang/edit/'.$item['id_rilis_jadwal_sidang']) ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Edit Data">
                                                             <span class="svg-icon svg-icon-3">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">

@@ -24,9 +24,10 @@ class JadwalSidangModel extends Model
 
     public function getJadwal() 
     {
-        return $this->select('mahasiswa.id_user as id_user, mahasiswa.nama as nama_mhs, mahasiswa.nim as nim,  mahasiswa.prodi as prodi, u3.id as id_mhs, u1.nama as penguji1, u2.nama as penguji2, simta_acc_judul.judul_acc as judul, simta_rilis_jadwal_sidang.*')
+        return $this->select('mahasiswa.id_user as id_user, mahasiswa.nama as nama_mhs, mahasiswa.nim as nim,  mahasiswa.prodi as prodi, u3.id as id_mhs, u1.nama as penguji1, u2.nama as penguji2, u4.nama as penguji3, simta_acc_judul.judul_acc as judul, simta_rilis_jadwal_sidang.*')
             ->join('users as u1', 'simta_rilis_jadwal_sidang.id_penguji1=u1.id')
             ->join('users as u2', 'simta_rilis_jadwal_sidang.id_penguji2=u2.id')
+            ->join('users as u4', 'simta_rilis_jadwal_sidang.id_penguji3=u4.id')
             ->join('simta_pengajuan_sidang', 'simta_rilis_jadwal_sidang.id_pengajuansidang=simta_pengajuan_sidang.id_sidang')
             ->join('users as u3', 'simta_pengajuan_sidang.id_mhs=u3.id')
             ->join('mahasiswa', 'u3.id=mahasiswa.id_user')

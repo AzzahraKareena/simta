@@ -97,14 +97,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-12 col-md-12">
-                                    <div class="fv-row mb-10">
-                                            <label class="form-label required fs-6 fw-bolder text-dark">Hasil Bimbingan</label>
-                                            <textarea class="form-control form-control-lg form-control-solid" name="hasil_bimbingan" id="description" placeholder="Masukkan Hasil Bimbingan" rows="5" cols="30"></textarea>
-                                    </div>
-                                </div>
-                            </div>
+                            
                             
                             <!--begin::Actions-->
                             <div class="text-center">

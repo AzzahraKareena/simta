@@ -253,7 +253,7 @@
                                             </td>
                                             <td>
                                                 <div class="d-flex justify-content-end flex-shrink-0">
-                                                    <?php if (empty($vdata['jadwal_id']) && session()->get('role') == 'Koordinator'): ?>
+                                                    <?php if (empty($vdata['jadwal_id']) && (session()->get('role') == 'Koordinator' || session()->get('nama') == 'Masbahah '  )): ?>
                                                         <a href="<?= base_url('pengajuansidang/create-jadwal/'. $vdata['id_sidang']) ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" title="Buat Rilis Jadwal">
                                                             <span class="svg-icon svg-icon-muted svg-icon-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                             <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="currentColor"/>

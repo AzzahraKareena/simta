@@ -44,7 +44,7 @@
                                         <th class="">NIM</th>
                                         <th class="">Judul TA</th>
                                         <th class="">Dospem</th>
-                                        <?php if(session()->get('role') == 'Koordinator' || session()->get('nama') == 'masbahah aprilio'): ?>
+                                        <?php if(session()->get('role') == 'Koordinator' || session()->get('nama') == 'Masbahah '): ?>
                                         <th class="">Penguji</th>
                                         <?php endif ?>
                                         <th class="">Tanggal Ujian</th>
@@ -63,7 +63,7 @@
                                             <td><?= $nim ?></td>
                                             <td><?= $item['judul_judul_acc'] ?></td>
                                             <td><?= $item['dospem_nama'] ?></td>
-                                            <?php if(session()->get('role') == 'Koordinator' || session()->get('nama') == 'masbahah aprilio'): ?>
+                                            <?php if(session()->get('role') == 'Koordinator' || session()->get('nama') == 'Masbahah '): ?>
                                             <td><?= $item['staff_nama'] ?></td>
                                             <?php endif ?>
                                             <td><?= $item['jadwal'] ?></td>
