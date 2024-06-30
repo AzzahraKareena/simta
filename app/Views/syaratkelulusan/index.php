@@ -73,28 +73,81 @@
                                     <?php foreach ($data as $vdata): ?>
                                         <tr>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->poster?></span>
+                                                <?php if (!empty($vdata->poster)): ?>
+                                                    <div>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->poster) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->poster ?></span>
+                                                        </a>
+                                                    </div>
+                                                <?php endif; ?>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->lembar_pengesahan ?></span>
+                                                <?php if (!empty($vdata->lembar_pengesahan)): ?>
+                                                    <div>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->lembar_pengesahan) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->lembar_pengesahan ?></span>
+                                                        </a>
+                                                    </div>
+                                                <?php endif; ?>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->lembar_persetujuan ?></span>
+                                            <?php if (!empty($vdata->lembar_persetujuan)): ?>
+                                                    <div>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->lembar_persetujuan) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->lembar_persetujuan ?></span>
+                                                        </a>
+                                                    </div>
+                                                <?php endif; ?>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->bukti_pelunasan_ukt?></span>
+                                                <?php if (!empty($vdata->bukti_pelunasan_ukt)): ?>
+                                                    <div>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->bukti_pelunasan_ukt) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->bukti_pelunasan_ukt ?></span>
+                                                        </a>
+                                                    </div>
+                                                <?php endif; ?>
+                                                <!-- <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->bukti_pelunasan_ukt ?></span> -->
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->surat_bebas_lab?></span>
+                                                <?php if (!empty($vdata->surat_bebas_lab)): ?>
+                                                    <div>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->surat_bebas_lab) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->surat_bebas_lab ?></span>
+                                                        </a>
+                                                    </div>
+                                                <?php endif; ?>
+                                                <!-- <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->surat_bebas_lab ?></span> -->
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->aplikasi_ta?></span>
+                                                <?php if (!empty($vdata->aplikasi_ta)): ?>
+                                                    <div>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->aplikasi_ta) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->aplikasi_ta ?></span>
+                                                        </a>
+                                                    </div>
+                                                <?php endif; ?>
+                                                <!-- <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->aplikasi_ta ?></span> -->
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->laporan_ta_pdf?></span>
+                                                <?php if (!empty($vdata->laporan_ta_pdf)): ?>
+                                                    <div>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->laporan_ta_pdf) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->laporan_ta_pdf ?></span>
+                                                        </a>
+                                                    </div>
+                                                <?php endif; ?>
+                                                <!-- <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->laporan_ta_pdf ?></span> -->
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->ktp?></span>
+                                                <?php if (!empty($vdata->ktp)): ?>
+                                                    <div>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->ktp) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->ktp ?></span>
+                                                        </a>
+                                                    </div>
+                                                <?php endif; ?>
+                                                <!-- <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->ktp ?></span> -->
                                             </td>
                                             <td>
                                                 <?php if ($vdata->status_syarat == 'Sedang Diproses') : ?>
@@ -129,7 +182,6 @@
                                         <th class="">Laporan TA (PDF)</th>
                                         <th class="">KTP</th>
                                         <th class="">Status Syarat</th>
-                                        <!-- <th class="min-w-20px text-end">#</th> -->
                                     </tr>
                                 </thead>
                                 <!--end::Table head-->
@@ -138,43 +190,94 @@
                                     <?php foreach ($data as $vdata): ?>
                                         <tr>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->poster?></span>
+                                                <?php if (!empty($vdata->poster)): ?>
+                                                    <div>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->poster) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->poster ?></span>
+                                                        </a>
+                                                    </div>
+                                                <?php endif; ?>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->lembar_pengesahan ?></span>
+                                                <?php if (!empty($vdata->lembar_pengesahan)): ?>
+                                                    <div>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->lembar_pengesahan) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->lembar_pengesahan ?></span>
+                                                        </a>
+                                                    </div>
+                                                <?php endif; ?>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->lembar_persetujuan ?></span>
+                                            <?php if (!empty($vdata->lembar_persetujuan)): ?>
+                                                    <div>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->lembar_persetujuan) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->lembar_persetujuan ?></span>
+                                                        </a>
+                                                    </div>
+                                                <?php endif; ?>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->bukti_pelunasan_ukt ?></span>
+                                                <?php if (!empty($vdata->bukti_pelunasan_ukt)): ?>
+                                                    <div>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->bukti_pelunasan_ukt) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->bukti_pelunasan_ukt ?></span>
+                                                        </a>
+                                                    </div>
+                                                <?php endif; ?>
+                                                <!-- <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->bukti_pelunasan_ukt ?></span> -->
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->surat_bebas_lab ?></span>
+                                                <?php if (!empty($vdata->surat_bebas_lab)): ?>
+                                                    <div>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->surat_bebas_lab) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->surat_bebas_lab ?></span>
+                                                        </a>
+                                                    </div>
+                                                <?php endif; ?>
+                                                <!-- <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->surat_bebas_lab ?></span> -->
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->aplikasi_ta ?></span>
+                                                <?php if (!empty($vdata->aplikasi_ta)): ?>
+                                                    <div>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->aplikasi_ta) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->aplikasi_ta ?></span>
+                                                        </a>
+                                                    </div>
+                                                <?php endif; ?>
+                                                <!-- <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->aplikasi_ta ?></span> -->
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->laporan_ta_pdf ?></span>
+                                                <?php if (!empty($vdata->laporan_ta_pdf)): ?>
+                                                    <div>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->laporan_ta_pdf) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->laporan_ta_pdf ?></span>
+                                                        </a>
+                                                    </div>
+                                                <?php endif; ?>
+                                                <!-- <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->laporan_ta_pdf ?></span> -->
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->ktp ?></span>
+                                                <?php if (!empty($vdata->ktp)): ?>
+                                                    <div>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->ktp) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->ktp ?></span>
+                                                        </a>
+                                                    </div>
+                                                <?php endif; ?>
+                                                <!-- <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->ktp ?></span> -->
                                             </td>
                                             <td>
-                                            <select name="status" id="status_validasi" onchange="updateValidationStatus(<?= $vdata->id_syarat_kelulusan ?>, this.value)">
-                                                <option value="Sedang Diproses" <?= ($vdata->status_syarat == 'Sedang Diproses') ? 'selected' : '' ?> class="btn-warning">Sedang Diproses</option>
-                                                <option value="Validasi" <?= ($vdata->status_syarat == 'Validasi') ? 'selected' : '' ?> class="btn-success">Validasi</option>
-                                            </select>
+                                                <select name="status" id="status_validasi" onchange="updateValidationStatus(<?= $vdata->id_syarat_kelulusan ?>, this.value)">
+                                                    <option value="Sedang Diproses" <?= ($vdata->status_syarat == 'Sedang Diproses') ? 'selected' : '' ?> class="btn-warning">Sedang Diproses</option>
+                                                    <option value="Validasi" <?= ($vdata->status_syarat == 'Validasi') ? 'selected' : '' ?> class="btn-success">Validasi</option>
+                                                </select>
                                             </td>
-
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
-                               
-
                                 <!--end::Table body-->
                             </table>
+
                             <!--end::Table-->
                         </div>
                         <?php endif; ?>
