@@ -12,7 +12,6 @@
                     <div class="card-header border-0 pt-5">
                         <h3 class="card-title align-items-start flex-column">
                             <span class="card-label fw-bolder fs-3 mb-1">Data Syarat Kelulusan</span>
-                          
                         </h3>
                     </div>
                     <!--end::Header-->
@@ -148,27 +147,25 @@
                                                 <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->lembar_persetujuan ?></span>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->bukti_pelunasan_ukt?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->bukti_pelunasan_ukt ?></span>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->surat_bebas_lab?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->surat_bebas_lab ?></span>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->aplikasi_ta?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->aplikasi_ta ?></span>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->laporan_ta_pdf?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->laporan_ta_pdf ?></span>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->ktp?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->ktp ?></span>
                                             </td>
                                             <td>
                                             <select name="status" id="status_validasi" onchange="updateValidationStatus(<?= $vdata->id_syarat_kelulusan ?>, this.value)">
                                                 <option value="Sedang Diproses" <?= ($vdata->status_syarat == 'Sedang Diproses') ? 'selected' : '' ?> class="btn-warning">Sedang Diproses</option>
                                                 <option value="Validasi" <?= ($vdata->status_syarat == 'Validasi') ? 'selected' : '' ?> class="btn-success">Validasi</option>
                                             </select>
-
-                                         
                                             </td>
 
                                         </tr>

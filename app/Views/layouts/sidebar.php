@@ -322,7 +322,7 @@
                             $count = $builder->countAllResults();
                             ?>
 
-                            <?php if($role == 'Mahasiswa' && $count > 0): ?>
+                            <!-- <?php if($role == 'Mahasiswa' && $count > 0): ?>
                                 <div class="menu-item">
                                     <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "syaratkelulusan" ? "active" : "" ?>" href="<?= base_url('syaratkelulusan')?>">
                                         <span class="menu-bullet">
@@ -331,7 +331,7 @@
                                         <span class="menu-title">Unggah Syarat Kelulusan</span>
                                     </a>
                                 </div>
-                            <?php endif; ?>
+                            <?php endif; ?> -->
                             <?php if(session()->get('role') == 'Admin'): ?>
                                 <div class="menu-item">
                                     <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "rekapitulasi-nilai" ? "active" : "" ?>" href="<?= base_url('rekapitulasi-nilai')?>">
