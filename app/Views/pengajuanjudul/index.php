@@ -95,7 +95,7 @@
                                 <?php endif; ?>
                                 </tbody>
                             </table>
-                            <?php elseif(session()->get('role') == 'Dosen'): ?>
+                            <?php elseif(session()->get('nama') == 'masbahah aprilio' || session()->get('role') == 'Admin'): ?>
                                 <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4" id="dt_pengajuanjudul">
                                 <thead>
                                     <tr class="fw-bolder text-center align-middle text-muted">

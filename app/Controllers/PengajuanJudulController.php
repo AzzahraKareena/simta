@@ -29,7 +29,7 @@ class PengajuanJudulController extends ResourceController
 
         $indikatorModel = new PengajuanJudulModel();
         $operation = $indikatorModel->getPengajuan();
-        
+        // dd($operation);        
         $getData = []; // Inisialisasi sebagai array kosong
         
         foreach ($operation as $bimbingan) {
@@ -38,15 +38,11 @@ class PengajuanJudulController extends ResourceController
                 if ($bimbingan['id_mhs'] == session()->get('user_id')) {
                     $getData[] = $bimbingan; // Tambahkan ke array
                 }
-            } elseif (session()->get('role') == 'Dosen') {
-                // Jika rolenya adalah "Dosen", maka hanya data yang sesuai dengan ID staf yang sedang login yang akan ditampilkan
-                if ($bimbingan['id_rekom_dospem1'] == session()->get('user_id')) {
-                    $getData[] = $bimbingan; // Tambahkan ke array
-                }elseif ($bimbingan['id_rekom_dospem2'] == session()->get('user_id')) {
-                    $getData[] = $bimbingan; // Tambahkan ke array
-                }
+            } elseif (session()->get('nama') == 'masbahah aprilio' || session()->get('role') == 'Admin'){
+                $getData[] = $bimbingan;
             }
         }
+        // dd($getData);
 
          // Cek apakah mahasiswa yang login sudah memiliki data pengajuan
             $mahasiswaId = session()->get('user_id');

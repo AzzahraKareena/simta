@@ -189,7 +189,7 @@
                                     </a>
                                 </div>
                             <?php endif; ?>
-                            <?php if(session()->get('role') == 'Mahasiswa' || session()->get('role') == 'Dosen' || session()->get('nama') == 'masbahah aprilio'): ?>
+                            <?php if(session()->get('role') == 'Mahasiswa' || session()->get('nama') == 'Masbahah ' || session()->get('role') == 'Koordinator'): ?>
                                 <div class="menu-item">
                                     <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "pengajuanjudul" ? "active" : "" ?>" href="<?= base_url('pengajuanjudul')?>">
                                         <span class="menu-bullet">
@@ -206,6 +206,8 @@
                                         <span class="menu-title">Judul Acc</span>
                                     </a>
                                 </div>
+                            <?php endif; ?>
+                            <?php if(session()->get('role') == 'Mahasiswa' || session()->get('role') == 'Dosen'): ?>
                                 <div class="menu-item">
                                     <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "pengajuanbimbingan" ? "active" : "" ?>" href="<?= base_url('pengajuanbimbingan')?>">
                                         <span class="menu-bullet">
