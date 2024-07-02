@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 // use App\Controllers\BaseController;
 use App\Models\PengajuanJudulModel;
+use CodeIgniter\I18n\Time;
 use App\Models\MahasiswaModel;
 use App\Models\StafModels;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -104,10 +105,6 @@ class PengajuanJudulController extends ResourceController
 
     public function store()
     {
-        // $data = $this->request->getPost();
-        // $pengajuanJudulModel = new PengajuanJudulModel();
-        // $pengajuanJudulModel->save($data);
-        // return redirect()->to('pengajuanjudul');
 
         $data = [
             // 'id_pengajuanjudul' => $this->request->getVar('id_pengajuanjudul'),
@@ -125,39 +122,17 @@ class PengajuanJudulController extends ResourceController
         // dd($data);
         $insert = $this->model->insert($data);
         
+
         if($insert){
+            $thn_lulus = Time::now()->getYear();
+            $MahasiswaModel = (New MahasiswaModel());
+            $MahasiswaModel->where('id_user', session()->get('user_id'))->set('th_lulus', $thn_lulus)->update();
             return redirect()->to('pengajuanjudul');
         } else {
             return $this->fail($this->model->errors());
         }
 
-        // if ($insert) {
-        //     return $this->respondCreated($data, 'Resource deleted successfully.');
-        // } else {
-        //     return $this->failNotFound('Resource not found.');
-        // }
-
-        // if ($insert) {
-        //     $this->response([
-        //         'status' => true,
-        //         'data' => $data
-        //     ], RestController::HTTP_CREATED);
-        // } else {
-        //     $this->response([
-        //         'status' => false,
-        //         'message' => 'Data tidak ditemukan'
-        //     ], RestController::HTTP_NOT_FOUND);
-        // }
     }
-
-    // public function edit($id)
-    // {
-    //     $pengajuanjudul = new PengajuanJudulModel();
-    //     $data['pengajuanJudul'] = $pengajuanjudul->find($id);
-    //     $data['dataForm'] = $dataForm;
-    //     $data['title'] = 'Edit Pengajuan Judul';
-    //     return view('pengajuanjudul/create', $data);
-    // }
 
     public function editStatus($id)
     {

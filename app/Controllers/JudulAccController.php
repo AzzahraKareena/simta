@@ -6,6 +6,7 @@ use App\Models\JudulAccModel;
 use App\Models\MahasiswaModel;
 use App\Controllers\BaseController;
 use App\Models\PengajuanJudulModel;
+use CodeIgniter\I18n\Time;
 use App\Models\MahasiswaBimbinganModel;
 use App\Models\UsersModel;
 use CodeIgniter\RESTful\ResourceController;
@@ -77,94 +78,6 @@ class JudulAccController extends ResourceController
         return view('judulacc/create', $operation);
     }
 
-    // public function store()
-    // {
-    //     $JudulAccModel = new JudulAccModel();
-
-    //     $data = [
-    //         // id_mhs get from user session
-    //         'mhs_id'  => $this->request->getPost('mhs_id'),
-    //         'dospem_acc' => $this->request->getPost('dospemId'),
-    //         'judul_acc' => $this->request->getPost('judul_acc'),
-    //     ];
-    //     // dd($data);
-    //     $insert = $JudulAccModel->insert($data);
-
-    //     if ($insert) {
-    //         return redirect()->to('judulacc');
-    //     } else {
-    //         return $this->response->setJSON(['status' => 'error', 'message' => 'Data gagal disimpan']);
-    //     }
-
-    // }
-
-    // public function store()
-    // {
-    //     $JudulAccModel = new JudulAccModel();
-    //     $tracking = new MahasiswaBimbinganModel();
-
-    //     $data = [
-    //         // id_mhs get from user session
-    //         'mhs_id' => $this->request->getPost('mhs_id'),
-    //         'dospem_acc' => $this->request->getPost('dospemId'),
-    //         'judul_acc' => $this->request->getPost('judul_acc'),
-    //     ];
-
-    //     // dd($data);
-    //     $insert = $JudulAccModel->insert($data);
-
-    //     if ($insert) {
-    //         // Mendapatkan id yang baru dibuat
-    //         $judulaccId = $JudulAccModel->insertID('id_accjudul');
-
-    //         // Menyiapkan data untuk tabel mahasiswabimbingan
-    //         $mahasiswaBimbinganData = [
-    //             // 'mahasiswa_id' => $data['mhs_id'],
-    //             // 'dospem_id' => $data['dospem_acc'],
-    //             'judul_acc_id' => $judulaccId,
-    //             'tracking' => 'Judul Acc',
-    //         ];
-            
-    //         // dd($mahasiswaBimbinganData);
-    //         // Insert data ke tabel mahasiswabimbingan
-    //         $tracking->insert($mahasiswaBimbinganData);
-    //         // dd($tracking->error());
-
-    //         return redirect()->to('judulacc');
-    //     } else {
-    //         return $this->response->setJSON(['status' => 'error', 'message' => 'Data gagal disimpan']);
-    //     }
-    // }
-
-    // public function store()
-    // {
-    //     $JudulAccModel = new JudulAccModel();
-    //     $tracking = new MahasiswaBimbinganModel();
-
-    //     $data = [
-    //         'mhs_id' => $this->request->getPost('mhs_id'),
-    //         'dospem_acc' => $this->request->getPost('dospemId'),
-    //         'judul_acc' => $this->request->getPost('judul_acc'),
-    //     ];
-
-    //     $insert = $JudulAccModel->insert($data);
-
-    //     if ($insert) {
-    //         $judulaccId = $JudulAccModel->insertID();
-
-    //         $mahasiswaBimbinganData = [
-    //             'judul_acc_id' => $judulaccId,
-    //             'tracking' => 'Judul Acc',
-    //         ];
-
-    //         // dd($mahasiswaBimbinganData);
-    //         $tracking->insert($mahasiswaBimbinganData);
-
-    //         return redirect()->to('judulacc');
-    //     } else {
-    //         return $this->response->setJSON(['status' => 'error', 'message' => 'Data gagal disimpan']);
-    //     }
-    // }
 
     public function store()
     {
@@ -189,6 +102,9 @@ class JudulAccController extends ResourceController
             ];
 
             if ($tracking->insert($mahasiswaBimbinganData)) {
+                $thn_lulus = Time::now()->getYear();
+                $MahasiswaModel = (New MahasiswaModel());
+                $MahasiswaModel->where('id_user', $this->request->getPost('mhs_id'))->set('th_lulus', $thn_lulus)->update();
                 return redirect()->to('judulacc');
             } else {
                 dd($tracking->errors()); // Untuk debug
