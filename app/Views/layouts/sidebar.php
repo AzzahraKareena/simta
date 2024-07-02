@@ -235,7 +235,7 @@
                                     </a>
                                 </div>
                             <?php endif; ?>
-                            <?php if(session()->get('role') == 'Dosen' || session()->get('role') == 'Koordinator' || session()->get('nama') == 'masbahah aprilio'): ?>
+                            <?php if(session()->get('role') == 'Dosen' || session()->get('role') == 'Koordinator' || session()->get('nama') == 'Masbahah '): ?>
                                 <div class="menu-item">
                                     <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "penilaianproposal" ? "active" : "" ?>" href="<?= base_url('penilaianproposal')?>">
                                         <span class="menu-bullet">
@@ -245,7 +245,7 @@
                                     </a>
                                 </div>
                             <?php endif; ?>
-                            <?php if(session()->get('role') == 'Mahasiswa' || session()->get('role') == 'Dosen' || session()->get('nama') == 'masbahah aprilio'): ?>
+                            <?php if(session()->get('role') == 'Mahasiswa' || session()->get('role') == 'Dosen' || session()->get('nama') == 'Masbahah '): ?>
                                 <div class="menu-item">
                                     <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "pengajuanseminarhasil" ? "active" : "" ?>" href="<?= base_url('pengajuanseminarhasil')?>">
                                         <span class="menu-bullet">
@@ -263,7 +263,7 @@
                                     </a>
                                 </div>
                             <?php endif; ?>
-                            <?php if(session()->get('role') == 'Dosen' || session()->get('role') == 'Koordinator' || session()->get('nama') == 'masbahah aprilio'): ?>
+                            <?php if(session()->get('role') == 'Dosen' || session()->get('role') == 'Koordinator' || session()->get('nama') == 'Masbahah '): ?>
                                 <div class="menu-item">
                                     <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "penilaiansemhas" ? "active" : "" ?>" href="<?= base_url('penilaiansemhas')?>">
                                         <span class="menu-bullet">
@@ -293,15 +293,15 @@
                             </div>
                             <?php if(session()->get('role') == 'Mahasiswa' || session()->get('role') == 'Admin'): ?>
                                 <div class="menu-item">
-                                    <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "mengelolasurat" ? "active" : "" ?>" href="<?= base_url('mengelolasurat')?>">
+                                    <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "syaratkelulusan" ? "active" : "" ?>" href="<?= base_url('syaratkelulusan')?>">
                                         <span class="menu-bullet">
                                             <span class="bullet bullet-dot"></span>
                                         </span>
-                                        <span class="menu-title">Unduh Surat Undangan</span>
+                                        <span class="menu-title">Unggah Syarat Kelulusan</span>
                                     </a>
                                 </div>
                             <?php endif; ?>
-                            <?php if(session()->get('role') == 'Dosen' || session()->get('role') == 'Koordinator' || session()->get('nama') == 'masbahah aprilio'): ?>
+                            <?php if(session()->get('role') == 'Dosen' || session()->get('role') == 'Koordinator' || session()->get('nama') == 'Masbahah '): ?>
                                 <div class="menu-item">
                                     <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "penilaiansidang" ? "active" : "" ?>" href="<?= base_url('penilaiansidang')?>">
                                         <span class="menu-bullet">
@@ -322,7 +322,7 @@
                             $count = $builder->countAllResults();
                             ?>
 
-                            <?php if($role == 'Mahasiswa' && $count > 0): ?>
+                            <!-- <?php if($role == 'Mahasiswa' && $count > 0): ?>
                                 <div class="menu-item">
                                     <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "syaratkelulusan" ? "active" : "" ?>" href="<?= base_url('syaratkelulusan')?>">
                                         <span class="menu-bullet">
@@ -331,7 +331,7 @@
                                         <span class="menu-title">Unggah Syarat Kelulusan</span>
                                     </a>
                                 </div>
-                            <?php endif; ?>
+                            <?php endif; ?> -->
                             <?php if(session()->get('role') == 'Admin'): ?>
                                 <div class="menu-item">
                                     <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "rekapitulasi-nilai" ? "active" : "" ?>" href="<?= base_url('rekapitulasi-nilai')?>">
@@ -353,6 +353,3 @@
     <!--end::Aside menu-->
 </div>
 <!--end::Aside-->
-
-
-

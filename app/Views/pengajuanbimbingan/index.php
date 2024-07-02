@@ -59,7 +59,7 @@
                                     <tr class="fw-bolder text-muted">
                                         <th class="">Judul TA</th>
                                         <th class="">Lokasi Bimbingan</th>
-                                        <th class="">Hasil Bimbingan</th>
+                                        <!-- <th class="">Hasil Bimbingan</th> -->
                                         <th class="">Status Ajuan</th>
                                         <th class="">Waktu bimbingan</th>
                                         <th class="">Jadwal Bimbingan</th>
@@ -80,9 +80,7 @@
                                             <td>
                                                 <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['lokasi_bimbingan'] ?></span>
                                             </td>
-                                            <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata['hasil_bimbingan'] ?></span>
-                                            </td>
+                                            
                                             <td>
                                                 <?php if ($vdata['status_ajuan'] == 'PENDING') : ?>
                                                     <div class="badge badge-warning"><?= $vdata['status_ajuan'] ?></div>
@@ -93,13 +91,13 @@
                                                 <?php endif; ?>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata['waktu_bimbingan'] ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"> <?= $vdata['waktu_bimbingan'] ?></span>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata['jadwal_bimbingan'] ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['jadwal_bimbingan'] ?></span>
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Agenda: <?= $vdata['agenda'] ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['agenda'] ?></span>
                                             </td>
                                             <!-- <td>
                                                 <div class="dropdown">
@@ -142,7 +140,7 @@
                                         <th class="">Nama Mahasiswa</th>
                                         <th class="">NIM</th>
                                         <th class="">Lokasi Bimbingan</th>
-                                        <th class="">Hasil Bimbingan</th>
+                                        <!-- <th class="">Hasil Bimbingan</th> -->
                                         <th class="">Status Ajuan</th>
                                         <th class="">Waktu Bimbingan</th>
                                         <th class="">Jadwal Bimbingan</th>
@@ -163,7 +161,6 @@
                                             <td contenteditable="false" class="nama_mahasiswa"><?= $vdata['mahasiswa_nama'] ?></td>
                                             <td contenteditable="false" class="nim"><?= $nim ?></td>
                                             <td data-id="<?= $vdata['id_pengajuanbimbingan'] ?>" contenteditable="false" class="lokasi_bimbingan"><?= $vdata['lokasi_bimbingan'] ?></td>
-                                            <td data-id="<?= $vdata['id_pengajuanbimbingan'] ?>" contenteditable="false" class="hasil_bimbingan"><?= $vdata['hasil_bimbingan'] ?></td>
                                             <td>
                                                 <?php if ($vdata['status_ajuan'] == 'PENDING') : ?>
                                                     <div class="dropdown">
@@ -470,32 +467,37 @@
 
 
     function saveChanges(id) {
-    console.log("Changes saved for id:", id);
-    var cells = document.querySelectorAll('td[data-id="' + id + '"]');
-    var data = {};
-    cells.forEach(function(cell) {
-        data[cell.classList[0]] = cell.innerText;
-        cell.setAttribute('contenteditable', 'false');
-    });
+        console.log("Changes saved for id:", id);
+        var cells = document.querySelectorAll('td[data-id="' + id + '"]');
+        var data = {};
+        cells.forEach(function(cell) {
+            data[cell.classList[0]] = cell.innerText;
+            cell.setAttribute('contenteditable', 'false');
+        });
 
+        console.log("Data to be sent:", data);
 
-    // Mengirim data menggunakan AJAX
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "update/bimbingan/" + id, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            console.log("Data berhasil disimpan");
-            // Mengubah ikon tombol dari Check menjadi Edit setelah berhasil disimpan
-            var editIcon = document.getElementById('editIcon_' + id);
-            editIcon.innerHTML = '<!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo8/dist/../src/media/svg/icons/Navigation/Edit.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1"><title>Edit</title><defs/><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><polygon points="0 0 24 0 24 24 0 24"/><path d="M10.25,19.1614792 L10.25,20 L3,20 L3,12.75 L3.6767915,12.0732085 L10.25,5.5 L11.0606602,6.31066017 C11.2454599,6.49545992 11.3738866,6.74145715 11.4289322,7.00867322 L11.5,7.20710678 L11.5,9 L15,9 L15,10 L11.5,10 L11.5,19 L10.25,19 L10.25,19.1614792 Z M20.8535534,4.85355339 C21.0488155,5.04881554 21.0488155,5.36526891 20.8535534,5.56053107 L19.439,6.975 L17.025,4.561 L18.439,3.14644661 C18.6342621,2.95118446 18.9507155,2.95118446 19.1464466,3.14644661 L20.8535534,4.85355339 Z M16.5606602,8.14644661 L19.1464466,10.7322331 C19.3417087,10.9274953 19.3417087,11.2439487 19.1464466,11.4392108 L18.439,12.1464466 L17.878,11.5854466 L20.121,9.34244661 L20.682,9.90444661 C20.857357,10.0798042 21.1246605,10.0798042 21.3,9.90444661 C21.475337,9.72910961 21.475337,9.46180614 21.3,9.28644661 L16.5606602,4.54710678 C16.365398,4.35184462 16.0489446,4.35184462 15.8536824,4.54710678 L14.1464466,6.25434262 L16.391,8.499 L16.5606602,8.66866017 C16.7559214,8.86392133 17.0723748,8.86392133 17.2676062,8.66866017 C17.4628683,8.47339801 17.4628683,8.1569446 17.2676062,7.96168245 L16.5606602,8.14644661 Z" fill="#000000" fill-rule="nonzero" transform="translate(12.000000, 12.000000) rotate(-135.000000) translate(-12.000000, -12.000000) "/></g></svg><!--end::Svg Icon-->';
-        }
-    };
-    xhr.send(JSON.stringify(data));
+        // Mengirim data menggunakan AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/update/bimbingan/" + id, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    console.log("Data berhasil disimpan", xhr.responseText);
+                    // Mengubah ikon tombol dari Check menjadi Edit setelah berhasil disimpan
+                    var editIcon = document.getElementById('editIcon_' + id);
+                    editIcon.innerHTML = '<!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo8/dist/../src/media/svg/icons/Navigation/Edit.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1"><title>Edit</title><defs/><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><polygon points="0 0 24 0 24 24 0 24"/><path d="M10.25,19.1614792 L10.25,20 L3,20 L3,12.75 L3.6767915,12.0732085 L10.25,5.5 L11.0606602,6.31066017 C11.2454599,6.49545992 11.3738866,6.74145715 11.4289322,7.00867322 L11.5,7.20710678 L11.5,9 L15,9 L15,10 L11.5,10 L11.5,19 L10.25,19 L10.25,19.1614792 Z M20.8535534,4.85355339 C21.0488155,5.04881554 21.0488155,5.36526891 20.8535534,5.56053107 L19.439,6.975 L17.025,4.561 L18.439,3.14644661 C18.6342621,2.95118446 18.9507155,2.95118446 19.1464466,3.14644661 L20.8535534,4.85355339 Z M16.5606602,8.14644661 L19.1464466,10.7322331 C19.3417087,10.9274953 19.3417087,11.2439487 19.1464466,11.4392108 L18.439,12.1464466 L17.878,11.5854466 L20.121,9.34244661 L20.682,9.90444661 C20.857357,10.0798042 21.1246605,10.0798042 21.3,9.90444661 C21.475337,9.72910961 21.475337,9.46180614 21.3,9.28644661 L16.5606602,4.54710678 C16.365398,4.35184462 16.0489446,4.35184462 15.8536824,4.54710678 L14.1464466,6.25434262 L16.391,8.499 L16.5606602,8.66866017 C16.7559214,8.86392133 17.0723748,8.86392133 17.2676062,8.66866017 C17.4628683,8.47339801 17.4628683,8.1569446 17.2676062,7.96168245 L16.5606602,8.14644661 Z" fill="#000000" fill-rule="nonzero" transform="translate(12.000000, 12.000000) rotate(-135.000000) translate(-12.000000, -12.000000) "/></g></svg><!--end::Svg Icon-->';
+                } else {
+                    console.log("Error saving data", xhr.status, xhr.responseText);
+                }
+            }
+        };
+        xhr.send(JSON.stringify(data));
 
-    //Reload halaman setelah file berhasil diunggah
-    location.reload();
-}
+        //Reload halaman setelah file berhasil diunggah
+        location.reload();
+    }
 
     </script>
 <?= $this->endSection() ?>

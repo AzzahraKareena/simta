@@ -50,32 +50,98 @@ class SyaratKelulusanController extends ResourceController
         return view('syaratkelulusan/create', $operation);
     }
     
+    // public function store()
+    // {
+    //     // $data = $this->request->getPost();
+    //     // get data from request per field
+    //     $syaratKelulusanModel = new SyaratKelulusanModel();
+    //     $judulAcc = (new JudulAccModel())->where('mhs_id', session()->get('user_id'))->get()->getRow('id_accjudul');
+    //     // dd($judulAcc);
+
+    //     $data = [
+    //         // id_mhs get from user session
+    //         'id_mhs'  => session()->get('user_id'),
+    //         'poster' => $this->request->getPost('poster'),
+    //         'lembar_pengesahan' => $this->request->getPost('lembar_pengesahan'),
+    //         'lembar_persetujuan' => $this->request->getPost('lembar_persetujuan'),
+    //         'bukti_pelunasan_ukt' => $this->request->getPost('bukti_pelunasan_ukt'),
+    //         'surat_bebas_lab' => $this->request->getPost('surat_bebas_lab'),
+    //         'aplikasi_ta' => $this->request->getPost('aplikasi_ta'),
+    //         // 'laporan_ta_word' => $this->request->getPost('laporan_ta_word'),
+    //         'laporan_ta_pdf' => $this->request->getPost('laporan_ta_pdf'),
+    //         'ktp' => $this->request->getPost('ktp'),
+
+    //     ];
+    //     // dd($data);
+        
+    //     $insert = $syaratKelulusanModel->insert($data);
+    //     // dd($insert);
+    //     if ($insert) {
+    //         if ($judulAcc) {
+    //             $mahasiswaBimbinganModel = new MahasiswaBimbinganModel();
+    //             $mahasiswaBimbinganModel->updateTrackingByJudulAccId($judulAcc, 'Unggah Syarat Kelulusan');
+    //         } else {
+    //             echo "Record with id_accjudul: $judulAcc not found";
+    //         }
+    //     }
+
+    //     if ($insert) {
+    //         return redirect()->to('syaratkelulusan');
+    //     } else {
+    //         return $this->response->setJSON(['status' => 'error', 'message' => 'Data gagal disimpan']);
+    //     }
+    // }
+
     public function store()
     {
-        // $data = $this->request->getPost();
-        // get data from request per field
         $syaratKelulusanModel = new SyaratKelulusanModel();
         $judulAcc = (new JudulAccModel())->where('mhs_id', session()->get('user_id'))->get()->getRow('id_accjudul');
-        // dd($judulAcc);
-
+        $staf = (new JudulAccModel())->where('mhs_id', session()->get('user_id'))->get()->getRow('dospem_acc');
+    
+        // dd($staf);
+        // Array untuk menyimpan nama file yang berhasil diunggah
+        $uploadedFiles = [];
+    
+        // List of file input names
+        $fileInputs = ['laporan_ta_pdf', 'poster', 'lembar_pengesahan', 'lembar_persetujuan', 'bukti_pelunasan_ukt', 'surat_bebas_lab', 'aplikasi_ta', 'ktp'];
+    
+        foreach ($fileInputs as $fileInput) {
+            // Get the uploaded file
+            $file = $this->request->getFile($fileInput);
+    
+            // Check if the file is valid and not moved
+            if ($file->isValid() && !$file->hasMoved()) {
+                // Generate a unique name for the file and move it to the public/uploads directory
+                $newName = $file->getName();
+                $file->move('public/assets/syarat-kelulusan/', $newName);
+    
+                // Save the new file name in the array
+                $uploadedFiles[$fileInput] = $newName;
+            } else {
+                // If any file is invalid, return an error response
+                return $this->response->setJSON(['status' => 'error', 'message' => 'File ' . $fileInput . ' gagal diunggah']);
+            }
+        }
+    
+        // Prepare data for insertion
         $data = [
-            // id_mhs get from user session
-            'id_mhs'  => session()->get('user_id'),
-            'poster' => $this->request->getPost('poster'),
-            'lembar_pengesahan' => $this->request->getPost('lembar_pengesahan'),
-            'lembar_persetujuan' => $this->request->getPost('lembar_persetujuan'),
-            'bukti_pelunasan_ukt' => $this->request->getPost('bukti_pelunasan_ukt'),
-            'surat_bebas_lab' => $this->request->getPost('surat_bebas_lab'),
-            'aplikasi_ta' => $this->request->getPost('aplikasi_ta'),
-            // 'laporan_ta_word' => $this->request->getPost('laporan_ta_word'),
-            'laporan_ta_pdf' => $this->request->getPost('laporan_ta_pdf'),
-            'ktp' => $this->request->getPost('ktp'),
-
+            'id_mhs' => session()->get('user_id'),
+            'poster' => $uploadedFiles['poster'] ?? null,
+            'lembar_pengesahan' => $uploadedFiles['lembar_pengesahan'] ?? null,
+            'lembar_persetujuan' => $uploadedFiles['lembar_persetujuan'] ?? null,
+            'bukti_pelunasan_ukt' => $uploadedFiles['bukti_pelunasan_ukt'] ?? null,
+            'surat_bebas_lab' => $uploadedFiles['surat_bebas_lab'] ?? null,
+            'aplikasi_ta' => $uploadedFiles['aplikasi_ta'] ?? null,
+            'laporan_ta_pdf' => $uploadedFiles['laporan_ta_pdf'] ?? null,
+            'ktp' => $uploadedFiles['ktp'] ?? null,
+            'status_pengajuan' => 'Sedang Diproses',
+            'id_staf' => $staf,
         ];
-        // dd($data);
-        
+    
+        // Insert data into the database
         $insert = $syaratKelulusanModel->insert($data);
-        // dd($insert);
+    
+        // Check if insert was successful
         if ($insert) {
             if ($judulAcc) {
                 $mahasiswaBimbinganModel = new MahasiswaBimbinganModel();
@@ -83,14 +149,13 @@ class SyaratKelulusanController extends ResourceController
             } else {
                 echo "Record with id_accjudul: $judulAcc not found";
             }
-        }
-
-        if ($insert) {
+    
             return redirect()->to('syaratkelulusan');
         } else {
             return $this->response->setJSON(['status' => 'error', 'message' => 'Data gagal disimpan']);
         }
-    }
+    }    
+
 
     public function edit($id = null)
     {

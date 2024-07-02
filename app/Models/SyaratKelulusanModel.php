@@ -13,6 +13,7 @@ class SyaratKelulusanModel extends Model
     protected $allowedFields = [
         'id_syarat_kelulusan',
         'id_mhs',
+        'id_staf',
         'poster',
         'lembar_pengesahan',
         'lembar_persetujuan',

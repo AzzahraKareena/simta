@@ -33,7 +33,7 @@ class PengajuanUjianProposalController extends BaseController
                 if ($ujian['mahasiswa'] == session()->get('user_id')) {
                     $getData[] = $ujian; // Tambahkan ke array
                 }
-            } 
+            }
         }
         // Cek apakah mahasiswa yang login sudah memiliki data pengajuan
         $mahasiswaId = session()->get('user_id');

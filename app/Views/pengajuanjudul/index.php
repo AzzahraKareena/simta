@@ -95,7 +95,7 @@
                                 <?php endif; ?>
                                 </tbody>
                             </table>
-                            <?php elseif(session()->get('nama') == 'masbahah aprilio' || session()->get('role') == 'Admin'): ?>
+                            <?php elseif(session()->get('nama') == 'Masbahah ' || session()->get('role') == 'Koordinator'): ?>
                                 <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4" id="dt_pengajuanjudul">
                                 <thead>
                                     <tr class="fw-bolder text-center align-middle text-muted">
@@ -149,7 +149,7 @@
                                                     </span> -->
                                                     <!--end::Svg Icon-->
                                                 <!-- </a> -->
-                                                <?php if(session()->get('role') == 'Koordinator' || session()->get('nama') == 'masbahah aprilio'): ?>
+                                                <?php if(session()->get('role') == 'Koordinator' || session()->get('nama') == 'Masbahah '): ?>
                                                 <a href="<?= base_url('judulacc/create/' . $item['id_pengajuanjudul']) ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Judul Acc">
                                                     <span class="svg-icon svg-icon-3">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">

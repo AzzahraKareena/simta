@@ -74,7 +74,7 @@
                                                             </svg>
                                                         </span>
                                                     </a>
-                                                    <?php if(session()->get('role') == 'Koordinator'  || session()->get('nama') == 'masbahah aprilio'): ?>
+                                                    <?php if(session()->get('role') == 'Koordinator'  || session()->get('nama') == 'Masbahah'): ?>
                                                         <a href="<?= base_url('rilisjadwal/edit/'.$item['id_rilis_jadwal']) ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Edit Data">
                                                             <span class="svg-icon svg-icon-3">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
