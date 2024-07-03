@@ -36,7 +36,7 @@ class MahasiswaController extends BaseController
     public function edit($id)
     {
         $mahasiswa = new MahasiswaModel();
-        $dataForm = $mastermahasiswa->find($id);
+        $dataForm = $mahasiswa->find($id);
         $operation['dataForm'] = $dataForm;
         $operation['title'] = 'Data Master Staf';
         $operation['sub_title'] = '';

@@ -17,9 +17,13 @@ class RekapitulasiController extends BaseController
 {
     public function index()
     {
-        $data = $this->hitungNilaiMahasiswa();
+        // $data = $this->hitungNilaiMahasiswa();
+        $data = [
+            'data' => $this->hitungNilaiMahasiswa(),
+            'tahun' => $this->request->getVar('tahun') ?? date('Y')
+        ];
 
-        return view('rekapitulasi-nilai/index', ['data' => $data]);
+        return view('rekapitulasi-nilai/index', $data);
     }
 
     public function cetak($id)
@@ -79,7 +83,8 @@ class RekapitulasiController extends BaseController
         // $mahasiswaModel = new MahasiswaModel();
         // $mahasiswas = $mahasiswaModel->findAll(); 
         $mahasiswaModel = new JadwalSidangModel();
-        $mahasiswas = $mahasiswaModel->getJadwal();
+        $tahun = $this->request->getVar('tahun') ?? date('Y');
+        $mahasiswas = $mahasiswaModel->getJadwal($tahun);
 
         $data = [];
 
@@ -97,6 +102,7 @@ class RekapitulasiController extends BaseController
                 'nilaiSeminar' => $rataNilaiSeminar,
                 'nilaiSidang' => $rataNilaiSidang,
                 'nilaiAkhir' => $nilaiAkhir,
+                'tahun' => $tahun
             ];
         }
 

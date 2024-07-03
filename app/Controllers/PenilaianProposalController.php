@@ -89,7 +89,9 @@ class PenilaianProposalController extends BaseController
 
     public function table()
     {
-        $data = (new PenilaianProposalModel())->getKriteria();
+        $model = new PenilaianProposalModel();
+        $tahun = $this->request->getVar('tahun') ?? date('Y');
+        $data = $model->getKriteria($tahun);
         // dd($data);
 
         $id_mhs = null; // Nilai default jika tidak ada data
@@ -126,6 +128,7 @@ class PenilaianProposalController extends BaseController
             'title' => 'Penilaian Ujian Proposal',
             'sub_title' => 'Daftar Penilaian Ujian Proposal',
             'nim' => $mahasiswa,
+            'tahun' => $tahun
         ];
         // dd($operation['nim']);
         return view("penilaianproposal/index", $operation);

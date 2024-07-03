@@ -17,9 +17,9 @@ class JudulAccController extends ResourceController
     public function table() {
         // dd(session()->get('role'));
         $bimbinganModel = new JudulAccModel();
-    
-        // Fetch data from bimbingan
-        $data = $bimbinganModel->getPengajuan();
+        $tahun = $this->request->getVar('tahun') ?? date('Y');
+        $data = $bimbinganModel->getPengajuan($tahun);
+        
         $getData = []; // Inisialisasi sebagai array kosong
         
         foreach ($data as $bimbingan) {
@@ -37,6 +37,7 @@ class JudulAccController extends ResourceController
         }
     
         $operation['data'] = $getData;
+        $operation['tahun'] = $tahun;
         $operation['title'] = 'Judul Acc';
         $operation['sub_title'] = 'Daftar Judul Acc';
     

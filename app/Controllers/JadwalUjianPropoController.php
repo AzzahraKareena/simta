@@ -17,7 +17,10 @@ class JadwalUjianPropoController extends BaseController
     public function table()
     {
         // dd(session()->get('user_id'));
-        $data = (new JadwalUjianPropoModel())->getJadwal();
+        $model = new JadwalUjianPropoModel();
+        $tahun = $this->request->getVar('tahun') ?? date('Y');
+        $data = $model->getJadwal($tahun);
+
         $getData = []; 
         
         foreach ($data as $jadwal) {
@@ -36,10 +39,11 @@ class JadwalUjianPropoController extends BaseController
             }
         }
         $operation['data'] = $getData;
+        $operation['tahun'] = $tahun;
         $operation['title'] = 'Rilis Jadwal Ujian Proposal';
         $operation['sub_title'] = 'Daftar Jadwal Ujian Proposal';
         // dd($operation['data']);
-        return view("rilisjadwal/index", ['data' => $operation['data']]);
+        return view("rilisjadwal/index", $operation);
     }
     
     public function create($id)

@@ -90,7 +90,9 @@ class PenilaianSidangController extends BaseController
 
     public function table()
     {
-        $data = (new PenilaianSidangModel())->getKriteria();
+        $model = new PenilaianSidangModel();
+        $tahun = $this->request->getVar('tahun') ?? date('Y');
+        $data = $model->getKriteria($tahun);
         // dd(session()->get());
 
         $id_mhs = null; // Nilai default jika tidak ada data
@@ -127,6 +129,7 @@ class PenilaianSidangController extends BaseController
             'title' => 'Penilaian Sidang Akhir',
             'sub_title' => 'Daftar Penilaian Sidang Akhir',
             'nim' => $mahasiswa,
+            'tahun' => $tahun
         ];
         // dd($operation['nim']);
         return view("penilaiansidang/index", $operation);

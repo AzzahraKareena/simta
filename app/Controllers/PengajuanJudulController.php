@@ -29,7 +29,8 @@ class PengajuanJudulController extends ResourceController
     {
 
         $indikatorModel = new PengajuanJudulModel();
-        $operation = $indikatorModel->getPengajuan();
+        $tahun = $this->request->getVar('tahun') ?? date('Y');
+        $operation = $indikatorModel->getPengajuan($tahun);
         // dd($operation);        
         $getData = []; // Inisialisasi sebagai array kosong
         
@@ -55,6 +56,7 @@ class PengajuanJudulController extends ResourceController
                 }
             }
         $operation['pengajuan'] = $getData;
+        $operation['tahun'] = $tahun;
         $operation['title'] = 'PengajuanJudul';
         $operation['mahasiswaSudahMengajukan'] = $mahasiswaSudahMengajukan;
         // Load the view with the prepared data

@@ -27,7 +27,8 @@ class PengajuanBimbinganModel extends Model
 
     public function withMhs()
     {
-        return $this->join('users as mhs', 'mhs.id = simta_pengajuanbimbingan.id_mhs');
+        return $this->join('users as mhs', 'mhs.id = simta_pengajuanbimbingan.id_mhs')
+        ->join('mahasiswa', 'mhs.id=mahasiswa.id_user');
     }
 
     public function withStaff()
@@ -40,12 +41,14 @@ class PengajuanBimbinganModel extends Model
         return $this->join('simta_acc_judul as judulacc', 'judulacc.id_accjudul = simta_pengajuanbimbingan.id_accjudul');
     }
 
-    public function getPengajuan()
+    public function getPengajuan($tahun = null)
     {
+        $tahun = $tahun ?? date('Y');
         return $this->select('simta_pengajuanbimbingan.*, mhs.nama as mahasiswa_nama, staff.nama as staff_nama,  judulacc.judul_acc as judul_judul_acc')
                     ->withMhs()
                     ->withStaff()
                     ->withJudul()
+                    ->where('mahasiswa.th_lulus', $tahun)
                     ->findAll();
     }
 }

@@ -30,6 +30,19 @@
                                     <input type="text" data-kt-docs-table-filter="search" class="form-control form-control-solid w-250px ps-15" placeholder="Search Data"/>
                                 </div>
                                 <!--end::Search-->
+                                <form action="/syaratkelulusan" method="get" class="d-flex align-items-center position-relative my-1 mt-3" id="myForm" role="form">
+                                    <label for="" class="form-label me-3">Tahun</label>
+                                    <select id="tahun_filter" name="tahun" class="selectFilter form-select form-select-solid w-150px">
+                                        <?php
+                                        $thn_skr = date('Y');
+                                        for ($x = $thn_skr; $x >= 2020; $x--) {
+                                        ?>
+                                        <option value="<?= $x; ?>" <?= ($x == $tahun) ? 'selected' : ''; ?>><?= $x; ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </form>
 
                                 <!--begin::Toolbar-->
                                 <div class="d-flex justify-content-end" data-kt-docs-table-toolbar="base">
@@ -56,6 +69,8 @@
                                 <!--begin::Table head-->
                                 <thead>
                                     <tr class="fw-bolder text-muted">
+                                        <th class="">Nama Mahasiswa</th>
+                                        <th class="">NIM</th>
                                         <th class="">Poster</th>
                                         <th class="">Lembar Pengesahan</th>
                                         <th class="">Lembar Persetujuan</th>
@@ -72,90 +87,87 @@
                                 <tbody>
                                     <?php foreach ($data as $vdata): ?>
                                         <tr>
+                                            <td class="text-dark fw-bolder"><?= $vdata['mahasiswa_nama']; ?></td>
+                                            <td class="text-dark fw-bolder"><?= $vdata['nim']; ?></td>
                                             <td>
-                                                <?php if (!empty($vdata->poster)): ?>
+                                                <?php if (!empty($vdata['poster'])): ?>
                                                     <div>
-                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->poster) ?>" target="_blank">
-                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->poster ?></span>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata['poster']) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['poster'] ?></span>
                                                         </a>
                                                     </div>
                                                 <?php endif; ?>
                                             </td>
                                             <td>
-                                                <?php if (!empty($vdata->lembar_pengesahan)): ?>
+                                                <?php if (!empty($vdata['lembar_pengesahan'])): ?>
                                                     <div>
-                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->lembar_pengesahan) ?>" target="_blank">
-                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->lembar_pengesahan ?></span>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata['lembar_pengesahan']) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['lembar_pengesahan'] ?></span>
                                                         </a>
                                                     </div>
                                                 <?php endif; ?>
                                             </td>
                                             <td>
-                                            <?php if (!empty($vdata->lembar_persetujuan)): ?>
+                                            <?php if (!empty($vdata['lembar_persetujuan'])): ?>
                                                     <div>
-                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->lembar_persetujuan) ?>" target="_blank">
-                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->lembar_persetujuan ?></span>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata['lembar_persetujuan']) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['lembar_persetujuan'] ?></span>
                                                         </a>
                                                     </div>
                                                 <?php endif; ?>
                                             </td>
                                             <td>
-                                                <?php if (!empty($vdata->bukti_pelunasan_ukt)): ?>
+                                                <?php if (!empty($vdata['bukti_pelunasan_ukt'])): ?>
                                                     <div>
-                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->bukti_pelunasan_ukt) ?>" target="_blank">
-                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->bukti_pelunasan_ukt ?></span>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata['bukti_pelunasan_ukt']) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['bukti_pelunasan_ukt'] ?></span>
                                                         </a>
                                                     </div>
                                                 <?php endif; ?>
-                                                <!-- <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->bukti_pelunasan_ukt ?></span> -->
                                             </td>
                                             <td>
-                                                <?php if (!empty($vdata->surat_bebas_lab)): ?>
+                                                <?php if (!empty($vdata['surat_bebas_lab'])): ?>
                                                     <div>
-                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->surat_bebas_lab) ?>" target="_blank">
-                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->surat_bebas_lab ?></span>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata['surat_bebas_lab']) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['surat_bebas_lab'] ?></span>
                                                         </a>
                                                     </div>
                                                 <?php endif; ?>
-                                                <!-- <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->surat_bebas_lab ?></span> -->
                                             </td>
                                             <td>
-                                                <?php if (!empty($vdata->aplikasi_ta)): ?>
+                                                <?php if (!empty($vdata['aplikasi_ta'])): ?>
                                                     <div>
-                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->aplikasi_ta) ?>" target="_blank">
-                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->aplikasi_ta ?></span>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata['aplikasi_ta']) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['aplikasi_ta'] ?></span>
                                                         </a>
                                                     </div>
                                                 <?php endif; ?>
-                                                <!-- <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->aplikasi_ta ?></span> -->
                                             </td>
                                             <td>
-                                                <?php if (!empty($vdata->laporan_ta_pdf)): ?>
+                                                <?php if (!empty($vdata['laporan_ta_pdf'])): ?>
                                                     <div>
-                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->laporan_ta_pdf) ?>" target="_blank">
-                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->laporan_ta_pdf ?></span>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata['laporan_ta_pdf']) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['laporan_ta_pdf'] ?></span>
                                                         </a>
                                                     </div>
                                                 <?php endif; ?>
-                                                <!-- <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->laporan_ta_pdf ?></span> -->
                                             </td>
                                             <td>
-                                                <?php if (!empty($vdata->ktp)): ?>
+                                                <?php if (!empty($vdata['ktp'])): ?>
                                                     <div>
-                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->ktp) ?>" target="_blank">
-                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->ktp ?></span>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata['ktp']) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['ktp'] ?></span>
                                                         </a>
                                                     </div>
                                                 <?php endif; ?>
-                                                <!-- <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->ktp ?></span> -->
                                             </td>
                                             <td>
-                                                <?php if ($vdata->status_syarat == 'Sedang Diproses') : ?>
-                                                    <div class="badge badge-warning"><?= $vdata->status_syarat ?></div>
-                                                <?php elseif ($vdata->status_syarat == 'Validasi') : ?>
-                                                    <div class="badge badge-success"><?= $vdata->status_syarat ?></div>
+                                                <?php if ($vdata['status_syarat'] == 'Sedang Diproses') : ?>
+                                                    <div class="badge badge-warning"><?= $vdata['status_syarat'] ?></div>
+                                                <?php elseif ($vdata['status_syarat'] == 'Validasi') : ?>
+                                                    <div class="badge badge-success"><?= $vdata['status_syarat'] ?></div>
                                                 <?php else : ?>
-                                                    <div class="badge badge-success"><?= $vdata->status_syarat ?></div>
+                                                    <div class="badge badge-success"><?= $vdata['status_syarat'] ?></div>
                                                 <?php endif; ?>
                                             </td>
                                             
@@ -173,6 +185,8 @@
                                 <!--begin::Table head-->
                                 <thead>
                                     <tr class="fw-bolder text-muted">
+                                        <th class="">Nama Mahasiswa</th>
+                                        <th class="">NIM</th>
                                         <th class="">Poster</th>
                                         <th class="">Lembar Pengesahan</th>
                                         <th class="">Lembar Persetujuan</th>
@@ -189,87 +203,89 @@
                                 <tbody>
                                     <?php foreach ($data as $vdata): ?>
                                         <tr>
+                                            <td class="text-dark fw-bolder"><?= $vdata['mahasiswa_nama']; ?></td>
+                                            <td class="text-dark fw-bolder"><?= $vdata['nim']; ?></td>
                                             <td>
-                                                <?php if (!empty($vdata->poster)): ?>
+                                                <?php if (!empty($vdata['poster'])): ?>
                                                     <div>
-                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->poster) ?>" target="_blank">
-                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->poster ?></span>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata['poster']) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['poster'] ?></span>
                                                         </a>
                                                     </div>
                                                 <?php endif; ?>
                                             </td>
                                             <td>
-                                                <?php if (!empty($vdata->lembar_pengesahan)): ?>
+                                                <?php if (!empty($vdata['lembar_pengesahan'])): ?>
                                                     <div>
-                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->lembar_pengesahan) ?>" target="_blank">
-                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->lembar_pengesahan ?></span>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata['lembar_pengesahan']) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['lembar_pengesahan'] ?></span>
                                                         </a>
                                                     </div>
                                                 <?php endif; ?>
                                             </td>
                                             <td>
-                                            <?php if (!empty($vdata->lembar_persetujuan)): ?>
+                                            <?php if (!empty($vdata['lembar_persetujuan'])): ?>
                                                     <div>
-                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->lembar_persetujuan) ?>" target="_blank">
-                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->lembar_persetujuan ?></span>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata['lembar_persetujuan']) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['lembar_persetujuan'] ?></span>
                                                         </a>
                                                     </div>
                                                 <?php endif; ?>
                                             </td>
                                             <td>
-                                                <?php if (!empty($vdata->bukti_pelunasan_ukt)): ?>
+                                                <?php if (!empty($vdata['bukti_pelunasan_ukt'])): ?>
                                                     <div>
-                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->bukti_pelunasan_ukt) ?>" target="_blank">
-                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->bukti_pelunasan_ukt ?></span>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata['bukti_pelunasan_ukt']) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['bukti_pelunasan_ukt'] ?></span>
                                                         </a>
                                                     </div>
                                                 <?php endif; ?>
-                                                <!-- <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->bukti_pelunasan_ukt ?></span> -->
+                                                <!-- <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['bukti_pelunasan_ukt'] ?></span> -->
                                             </td>
                                             <td>
-                                                <?php if (!empty($vdata->surat_bebas_lab)): ?>
+                                                <?php if (!empty($vdata['surat_bebas_lab'])): ?>
                                                     <div>
-                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->surat_bebas_lab) ?>" target="_blank">
-                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->surat_bebas_lab ?></span>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata['surat_bebas_lab']) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['surat_bebas_lab'] ?></span>
                                                         </a>
                                                     </div>
                                                 <?php endif; ?>
-                                                <!-- <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->surat_bebas_lab ?></span> -->
+                                                <!-- <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['surat_bebas_lab'] ?></span> -->
                                             </td>
                                             <td>
-                                                <?php if (!empty($vdata->aplikasi_ta)): ?>
+                                                <?php if (!empty($vdata['aplikasi_ta'])): ?>
                                                     <div>
-                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->aplikasi_ta) ?>" target="_blank">
-                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->aplikasi_ta ?></span>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata['aplikasi_ta']) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['aplikasi_ta'] ?></span>
                                                         </a>
                                                     </div>
                                                 <?php endif; ?>
-                                                <!-- <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->aplikasi_ta ?></span> -->
+                                                <!-- <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['aplikasi_ta'] ?></span> -->
                                             </td>
                                             <td>
-                                                <?php if (!empty($vdata->laporan_ta_pdf)): ?>
+                                                <?php if (!empty($vdata['laporan_ta_pdf'])): ?>
                                                     <div>
-                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->laporan_ta_pdf) ?>" target="_blank">
-                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->laporan_ta_pdf ?></span>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata['laporan_ta_pdf']) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['laporan_ta_pdf'] ?></span>
                                                         </a>
                                                     </div>
                                                 <?php endif; ?>
-                                                <!-- <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->laporan_ta_pdf ?></span> -->
+                                                <!-- <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['laporan_ta_pdf'] ?></span> -->
                                             </td>
                                             <td>
-                                                <?php if (!empty($vdata->ktp)): ?>
+                                                <?php if (!empty($vdata['ktp'])): ?>
                                                     <div>
-                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata->ktp) ?>" target="_blank">
-                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->ktp ?></span>
+                                                        <a href="<?= base_url('public/assets/syarat-kelulusan/' . $vdata['ktp']) ?>" target="_blank">
+                                                            <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['ktp'] ?></span>
                                                         </a>
                                                     </div>
                                                 <?php endif; ?>
-                                                <!-- <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata->ktp ?></span> -->
+                                                <!-- <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['ktp'] ?></span> -->
                                             </td>
                                             <td>
-                                                <select name="status" id="status_validasi" onchange="updateValidationStatus(<?= $vdata->id_syarat_kelulusan ?>, this.value)">
-                                                    <option value="Sedang Diproses" <?= ($vdata->status_syarat == 'Sedang Diproses') ? 'selected' : '' ?> class="btn-warning">Sedang Diproses</option>
-                                                    <option value="Validasi" <?= ($vdata->status_syarat == 'Validasi') ? 'selected' : '' ?> class="btn-success">Validasi</option>
+                                                <select name="status" id="status_validasi" onchange="updateValidationStatus(<?= $vdata['id_syarat_kelulusan'] ?>, this.value)">
+                                                    <option value="Sedang Diproses" <?= ($vdata['status_syarat'] == 'Sedang Diproses') ? 'selected' : '' ?> class="btn-warning">Sedang Diproses</option>
+                                                    <option value="Validasi" <?= ($vdata['status_syarat'] == 'Validasi') ? 'selected' : '' ?> class="btn-success">Validasi</option>
                                                 </select>
                                             </td>
                                         </tr>

@@ -24,7 +24,8 @@ class PengajuanBimbinganController extends ResourceController
 
     public function get_data() {
         $bimbinganModel = new PengajuanBimbinganModel();
-        $data = $bimbinganModel->getPengajuan();
+        $tahun = $this->request->getVar('tahun') ?? date('Y');
+        $data = $bimbinganModel->getPengajuan($tahun);
 
         $id_mhs = null; // Nilai default jika tidak ada data
         if (!empty($data)) {
@@ -67,6 +68,7 @@ class PengajuanBimbinganController extends ResourceController
         // Since I'm not using it as a REST API, send it to view
         $operation['data'] = $getData;
         $operation['nim'] = $mahasiswa;
+        $operation['tahun'] = $tahun;
         $operation['title'] = 'Pengajuan Bimbingan';
         $operation['sub_title'] = 'Daftar Pengajuan Bimbingan Tugas Akhir';
         $operation['tracking'] = $enum_values;

@@ -32,6 +32,20 @@
                                 </div>
                                 <!--end::Search-->
 
+                                <form action="/rekapitulasi-nilai" method="get" class="d-flex align-items-center position-relative my-1 mt-3" id="myForm" role="form">
+                                    <label for="" class="form-label me-3">Tahun</label>
+                                    <select id="tahun_filter" name="tahun" class="selectFilter form-select form-select-solid w-150px">
+                                        <?php
+                                        $thn_skr = date('Y');
+                                        for ($x = $thn_skr; $x >= 2020; $x--) {
+                                        ?>
+                                        <option value="<?= $x; ?>" <?= ($x == $tahun) ? 'selected' : ''; ?>><?= $x; ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </form>
+
                                 <!--begin::Toolbar-->
                                 <!-- <?php if(session()->get('role') == 'Dosen'): ?>
                                 <div class="d-flex justify-content-end" data-kt-docs-table-toolbar="base">

@@ -21,7 +21,8 @@ class PenilaianSemhasModel extends Model
 
     public function withMhs()
     {
-        return $this->join('users as mhs', 'mhs.id = simta_penilaian_seminarhasil.id_mhs');
+        return $this->join('users as mhs', 'mhs.id = simta_penilaian_seminarhasil.id_mhs')
+        ->join('mahasiswa', 'mhs.id=mahasiswa.id_user');
     }
     
     
@@ -34,12 +35,14 @@ class PenilaianSemhasModel extends Model
     }
 
 
-    public function getKriteria()
+    public function getKriteria($tahun = null)
     {
+        $tahun = $tahun ?? date('Y');
         return $this->select('simta_penilaian_seminarhasil.*,pembimbing.nama as dospem_nama, judul.judul_acc as judul_judul_acc, jdw.tgl_ujian as jadwal, mhs.nama as mhs_nama, staff.nama as staff_nama')
                     ->withStaff()
                     ->withMhs()
                     ->rilisJadwal()
+                    ->where('mahasiswa.th_lulus', $tahun)
                     ->findAll();
     }
 

@@ -17,7 +17,10 @@ class PengajuanUjianProposalController extends BaseController
 {
     public function table()
     {
-        $data = (new PengajuanUjianProposalModel())->getAllPengajuanWithJadwal();
+        $model = new PengajuanUjianProposalModel();
+        $tahun = $this->request->getVar('tahun') ?? date('Y');
+        $data = $model->getAllPengajuanWithJadwal($tahun);
+
         $getData = []; // Inisialisasi sebagai array kosong
         
         foreach ($data as $ujian) {
@@ -46,6 +49,7 @@ class PengajuanUjianProposalController extends BaseController
             }
         }
         $operation['data'] = $getData;
+        $operation['tahun'] = $tahun;
         $operation['mahasiswaSudahMengajukan'] = $mahasiswaSudahMengajukan;
         // dd($data);
         $operation['title'] = 'Pengajuan Ujian Proposal';

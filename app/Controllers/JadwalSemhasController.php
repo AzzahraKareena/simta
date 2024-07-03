@@ -18,7 +18,10 @@ class JadwalSemhasController extends BaseController
     public function table()
     {
         // dd(session()->get('user_id'));
-        $data = (new JadwalSemhasModel())->getJadwal();
+        $model = new JadwalSemhasModel();
+        $tahun = $this->request->getVar('tahun') ?? date('Y');
+        $data = $model->getJadwal($tahun);
+
         $getData = []; // Inisialisasi sebagai array kosong
         
         foreach ($data as $jadwal) {
@@ -38,10 +41,11 @@ class JadwalSemhasController extends BaseController
         }
         // dd($data);
         $operation['data'] = $getData;
+        $operation['tahun'] = $tahun;
         $operation['title'] = 'Rilis Jadwal Seminar Hasil';
         $operation['sub_title'] = 'Daftar Jadwal Seminar Hasil';
         // dd($operation['data']);
-        return view("rilisjadwalsemhas/index", ['data' => $operation['data']]);
+        return view("rilisjadwalsemhas/index", $operation);
     }
     
     // public function create()

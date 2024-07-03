@@ -19,7 +19,9 @@ class JadwalSidangController extends BaseController
 {
     public function table()
     {
-        $data = (new JadwalSidangModel())->getJadwal();
+        $model = new JadwalSidangModel();
+        $tahun = $this->request->getVar('tahun') ?? date('Y');
+        $data = $model->getJadwal($tahun);
         $getData = []; // Inisialisasi sebagai array kosong
         
         foreach ($data as $jadwal) {
@@ -27,6 +29,8 @@ class JadwalSidangController extends BaseController
                 if ($jadwal['id_penguji1'] == session()->get('user_id')) {
                     $getData[] = $jadwal;
                 }elseif ($jadwal['id_penguji2'] == session()->get('user_id')) {
+                    $getData[] = $jadwal;
+                }elseif ($jadwal['id_penguji3'] == session()->get('user_id')) {
                     $getData[] = $jadwal;
                 }
             } elseif (session()->get('role') == 'Mahasiswa') {
@@ -38,10 +42,11 @@ class JadwalSidangController extends BaseController
             }
         }
         $operation['data'] = $getData;
+        $operation['tahun'] = $tahun;
         $operation['title'] = 'Rilis Jadwal Sidang TA';
         $operation['sub_title'] = 'Daftar Jadwal Sidang TA';
         // dd($operation['data']);
-        return view("rilisjadwalsidang/index", ['data' => $operation['data']]);
+        return view("rilisjadwalsidang/index", $operation);
     }
 
     public function store()

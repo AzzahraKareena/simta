@@ -68,12 +68,14 @@ class MahasiswaBimbinganController extends BaseController
     {
         $model = new MahasiswaBimbinganModel();
         $dosenId = session()->get('user_id');
-        $data = $model->getUserByDosen($dosenId);
+        $tahun = $this->request->getVar('tahun') ?? date('Y');
+        $data = $model->getUserByDosen($dosenId, $tahun);
         
         // Debugging data
         error_log(print_r($data, true));
 
         $operation['data'] = $data;
+        $operation['tahun'] = $tahun;
         $operation['title'] = 'Mahasiswa Bimbingan';
         $operation['sub_title'] = 'Daftar Mahasiswa Bimbingan Tugas Akhir';
 
@@ -84,7 +86,10 @@ class MahasiswaBimbinganController extends BaseController
     {
         $mahasiswaModel = new MahasiswaBimbinganModel();
         $dosenId = session()->get('user_id');
-        $data = $mahasiswaModel->getUserByDosen($dosenId);
+
+        $tahun = $this->request->getVar('tahun') ?? date('Y');
+        $data = $mahasiswaModel->getUserByDosen($dosenId, $tahun);
+        // $data = $mahasiswaModel->getUserByDosen($dosenId);
 
         $id_mhs = null;
         if (!empty($data)) {

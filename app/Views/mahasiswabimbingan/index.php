@@ -31,6 +31,20 @@
                             </div>
                             <!--end::Search-->
 
+                            <form action="/mahasiswabimbingan" method="get" class="d-flex align-items-center position-relative my-1 mt-3" id="myForm" role="form">
+                                <label for="" class="form-label me-3">Tahun</label>
+                                <select id="tahun_filter" name="tahun" class="selectFilter form-select form-select-solid w-150px">
+                                    <?php
+                                    $thn_skr = date('Y');
+                                    for ($x = $thn_skr; $x >= 2020; $x--) {
+                                    ?>
+                                    <option value="<?= $x; ?>" <?= ($x == $tahun) ? 'selected' : ''; ?>><?= $x; ?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
+                            </form>
+
                             <!--begin::Toolbar-->
                             <div class="d-flex justify-content-end" data-kt-docs-table-toolbar="base">
                                 <!--begin::Add customer-->
@@ -50,7 +64,7 @@
                         <!--end::Wrapper-->
                         <div class="table-responsive">
                             <!--begin::Table-->
-                            <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4" id="dt_pengajuanbimbingan">
+                            <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4" id="table1">
                                 <!--begin::Table head-->
                                 <thead>
                                     <tr class="fw-bolder text-muted">

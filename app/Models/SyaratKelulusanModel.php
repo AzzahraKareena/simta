@@ -24,4 +24,13 @@ class SyaratKelulusanModel extends Model
         'status_syarat'
     ];
 
+    public function getKelulusan($tahun = null)
+    {
+        $tahun = $tahun ?? date('Y');
+        return $this->select('simta_syarat_kelulusan.*, mahasiswa.nama as mahasiswa_nama, mahasiswa.nim as nim')
+                    ->join('users', 'simta_syarat_kelulusan.id_mhs=users.id')
+                    ->join('mahasiswa', 'users.id=mahasiswa.id_user')
+                    ->where('mahasiswa.th_lulus', $tahun)
+                    ->findAll();
+    }
 }

@@ -24,14 +24,17 @@ class SyaratKelulusanController extends ResourceController
         public function get_data() {
             $mahasiswaModel = new MahasiswaModel();
             $syaratKelulusanModel = new SyaratKelulusanModel();
+            $tahun = $this->request->getVar('tahun') ?? date('Y');
+            $data = $syaratKelulusanModel->getKelulusan($tahun);
         
-            $data = $syaratKelulusanModel->asObject()->findAll();
-            foreach ($data as $syarat) {
-            $mahasiswa = $mahasiswaModel->where('id_user', $syarat->id_mhs)->first();
-            // $syarat->nama_mahasiswa = $mahasiswa->nama;
-            }
+            // $data = $syaratKelulusanModel->asObject()->findAll();
+            // foreach ($data as $syarat) {
+            // $mahasiswa = $mahasiswaModel->where('id_user', $syarat->id_mhs)->first();
+            // // $syarat->nama_mahasiswa = $mahasiswa->nama;
+            // }
         
             $operation['data'] = $data;
+            $operation['tahun'] = $tahun;
             $operation['title'] = 'Syarat Kelulusan';
             $operation['sub_title'] = 'Daftar Syarat Kelulusan Tugas Akhir';
             return view("syaratkelulusan/index", $operation);

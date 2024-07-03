@@ -33,11 +33,13 @@ class MahasiswaBimbinganModel extends Model
     //                 ->findAll();
     // }
 
-    public function getUserByDosen($dosenId)
+    public function getUserByDosen($dosenId, $tahun = null)
     {
+        $tahun = $tahun ?? date('Y');
         return $this->select('simta_mahasiswa_bimbingan.*, mh.nama as mahasiswa_nama, mh.th_lulus as angkatan, judulacc.judul_acc as judul_acc, staf.nama as dospem_nama')
                     ->withJudul()
                     ->where('judulacc.dospem_acc', $dosenId)
+                    ->where('mh.th_lulus', $tahun)
                     ->findAll();
     }
 

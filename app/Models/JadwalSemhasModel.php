@@ -19,8 +19,9 @@ class JadwalSemhasModel extends Model
         'id_pengajuansemhas',
     ];
 
-    public function getJadwal() 
+    public function getJadwal($tahun = null) 
     {
+        $tahun = $tahun ?? date('Y');
         return $this->select('mahasiswa.nama as nama_mhs, mahasiswa.nim as nim,  mahasiswa.prodi as prodi, u3.id as id_mhs, u1.nama as penguji1, simta_acc_judul.judul_acc as judul, simta_rilis_jadwal_semhas.*')
             ->join('users as u1', 'simta_rilis_jadwal_semhas.id_penguji1=u1.id')
             // ->join('users as u2', 'simta_rilis_jadwal_semhas.id_penguji2=u2.id')
@@ -28,6 +29,7 @@ class JadwalSemhasModel extends Model
             ->join('users as u3', 'simta_pengajuan_seminarhasil.id_mhs=u3.id')
             ->join('mahasiswa', 'u3.id=mahasiswa.id_user')
             ->join('simta_acc_judul', 'simta_pengajuan_seminarhasil.id_accjudul=simta_acc_judul.id_accjudul')
+            ->where('mahasiswa.th_lulus', $tahun)
             ->findAll();
     }
 

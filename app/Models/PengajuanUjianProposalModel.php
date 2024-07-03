@@ -26,7 +26,8 @@ class PengajuanUjianProposalModel extends Model
 
     public function withMhs()
     {
-        return $this->join('users as mhs', 'mhs.id = simta_pengajuan_ujianproposal.mahasiswa');
+        return $this->join('users as mhs', 'mhs.id = simta_pengajuan_ujianproposal.mahasiswa')
+        ->join('mahasiswa', 'mhs.id=mahasiswa.id_user');
     }
 
     public function withDospem()
@@ -65,12 +66,14 @@ class PengajuanUjianProposalModel extends Model
     }
 
 
-    public function getAllPengajuanWithJadwal()
+    public function getAllPengajuanWithJadwal($tahun = null)
     {
+        $tahun = $tahun ?? date('Y');
         return $this->select('simta_pengajuan_ujianproposal.*, mhs.nama as nama_mhs, judulacc.judul_acc as judul, simta_rilis_jadwal.id_rilis_jadwal as jadwal_id')
                     ->join('simta_rilis_jadwal', 'simta_pengajuan_ujianproposal.id_ujianproposal = simta_rilis_jadwal.id_pengajuanujianpropo', 'left')
                     ->withMhs()
                     ->withJudul()
+                    ->where('mahasiswa.th_lulus', $tahun)
                     ->findAll();
     }
 

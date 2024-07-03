@@ -19,7 +19,8 @@ class JudulAccModel extends Model
 
     public function withMhs()
     {
-        return $this->join('users as mhs', 'mhs.id = simta_acc_judul.mhs_id');
+        return $this->join('users as mhs', 'mhs.id = simta_acc_judul.mhs_id')
+        ->join('mahasiswa', 'mhs.id=mahasiswa.id_user');
     }
 
     public function withDospem()
@@ -32,11 +33,13 @@ class JudulAccModel extends Model
     //     return $this->join('simta_pengajuanjudul as judul', 'judul.id = simta_acc_judul.dospem_acc');
     // }
 
-    public function getPengajuan()
+    public function getPengajuan($tahun = null)
     {
+        $tahun = $tahun ?? date('Y');
         return $this->select('simta_acc_judul.*, mhs.nama as mahasiswa_nama, dospem.nama as dospem_nama')
                     ->withMhs()
                     ->withDospem()
+                    ->where('mahasiswa.th_lulus', $tahun)
                     ->findAll();
     }
 }

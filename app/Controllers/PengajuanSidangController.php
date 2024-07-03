@@ -12,7 +12,9 @@ class PengajuanSidangController extends BaseController
 {
     public function table()
     {
-        $data = (new PengajuanSidangModel())->getAllPengajuanWithJadwal();
+        $model = new PengajuanSidangModel();
+        $tahun = $this->request->getVar('tahun') ?? date('Y');
+        $data = $model->getAllPengajuanWithJadwal($tahun);
 
         $getData = [];
         
@@ -42,6 +44,7 @@ class PengajuanSidangController extends BaseController
             }
         }
         $operation['data'] = $getData;
+        $operation['tahun'] = $tahun;
         $operation['mahasiswaSudahMengajukan'] = $mahasiswaSudahMengajukan;
         $operation['title'] = 'Pengajuan Sidang';
         $operation['sub_title'] = 'Daftar Pengajuan Sidang';

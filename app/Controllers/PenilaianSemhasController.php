@@ -90,7 +90,9 @@ class PenilaianSemhasController extends BaseController
 
     public function table()
     {
-        $data = (new PenilaianSemhasModel())->getKriteria();
+        $model = new PenilaianSemhasModel();
+        $tahun = $this->request->getVar('tahun') ?? date('Y');
+        $data = $model->getKriteria($tahun);
         // dd($data);
 
         $id_mhs = null; // Nilai default jika tidak ada data
@@ -127,6 +129,7 @@ class PenilaianSemhasController extends BaseController
             'title' => 'Penilaian Seminar Hasil',
             'sub_title' => 'Daftar Penilaian Seminar Hasil',
             'nim' => $mahasiswa,
+            'tahun' => $tahun
         ];
         // dd($operation['nim']);
         return view("penilaiansemhas/index", $operation);

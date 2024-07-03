@@ -30,7 +30,8 @@ class PengajuanSidangModel extends Model
 
     public function withMhs()
     {
-        return $this->join('users as mhs', 'mhs.id = simta_pengajuan_sidang.id_mhs');
+        return $this->join('users as mhs', 'mhs.id = simta_pengajuan_sidang.id_mhs')
+        ->join('mahasiswa', 'mhs.id=mahasiswa.id_user');
     }
 
     public function withJudul()
@@ -52,12 +53,14 @@ class PengajuanSidangModel extends Model
         return $query->first();
     }
 
-    public function getAllPengajuanWithJadwal()
+    public function getAllPengajuanWithJadwal($tahun = null)
     {
+        $tahun = $tahun ?? date('Y');
         return $this->select('simta_pengajuan_sidang.*, mhs.nama as nama_mhs, judulacc.judul_acc as judul, simta_rilis_jadwal_sidang.id_rilis_jadwal_sidang as jadwal_id')
                     ->join('simta_rilis_jadwal_sidang', 'simta_pengajuan_sidang.id_sidang = simta_rilis_jadwal_sidang.id_pengajuansidang', 'left')
                     ->withMhs()
                     ->withJudul()
+                    ->where('mahasiswa.th_lulus', $tahun)
                     ->findAll();
     }
 }

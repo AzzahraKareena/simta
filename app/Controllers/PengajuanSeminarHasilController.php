@@ -14,7 +14,10 @@ class PengajuanSeminarHasilController extends BaseController
 {
     public function table()
     {
-        $data = (new PengajuanSeminarHasilModel())->getAllPengajuanWithJadwal();
+        $model = new PengajuanSeminarHasilModel();
+        $tahun = $this->request->getVar('tahun') ?? date('Y');
+        $data = $model->getAllPengajuanWithJadwal($tahun);
+
         $getData = []; 
         foreach ($data as $ujian) {
             if (session()->get('role') == 'Dosen') {
@@ -39,6 +42,7 @@ class PengajuanSeminarHasilController extends BaseController
             }
         }
         $operation['data'] = $getData;
+        $operation['tahun'] = $tahun;
         $operation['mahasiswaSudahMengajukan'] = $mahasiswaSudahMengajukan;
         
         $operation['title'] = 'Data Pengajuan Seminar Hasil';
