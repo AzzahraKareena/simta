@@ -593,6 +593,12 @@ License: For each use you must have a valid license purchased only from above li
 		<script src="<?= base_url('assets/js/scripts.bundle.js')?>"></script>
 		<script src="<?= base_url('assets/plugins/custom/prismjs/prismjs.bundle.js')?>"></script>
 		<script src="<?= base_url('assets/plugins/custom/datatables/datatables.bundle.js')?>"></script>
+		<script src="<?= base_url('assets/js/custom/apps/subscriptions/list/export.js') ?>"></script>
+		<script src="<?= base_url('assets/js/custom/apps/subscriptions/list/list.js') ?>"></script>
+		<script src="<?= base_url('assets/js/custom/widgets.js') ?>"></script>
+		<script src="<?= base_url('assets/js/custom/apps/chat/chat.js') ?>"></script>
+		<script src="<?= base_url('assets/js/custom/modals/create-app.js') ?>"></script>
+		<script src="<?= base_url('assets/js/custom/modals/upgrade-plan.js') ?>"></script>
 		<!-- <script src="<?= base_url('assets/js/trix.js')?>"></script> -->
 		<script>
 			KTUtil.onDOMContentLoaded(function () {
