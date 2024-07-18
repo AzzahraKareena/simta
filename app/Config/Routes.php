@@ -51,7 +51,7 @@ $routes->group('pengajuanjudul', static function ($routes) {
     $routes->post('store', 'PengajuanJudulController::store');
     $routes->get('edit/(:num)', 'PengajuanJudulController::edit/$1');
     $routes->post('update/(:num)', 'PengajuanJudulController::update/$1');
-    $routes->get('delete/(:num)', 'PengajuanJudulController::delete/$1');
+    $routes->post('delete/(:num)', 'PengajuanJudulController::delete/$1');
 });
 
 //JUDUL ACC
