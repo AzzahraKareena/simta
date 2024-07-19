@@ -185,7 +185,7 @@
                         </a>
                     </div>
                     <div class="menu-item">
-                        <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "pengajuansidang" ? "active" : "" ?>" href="<?= base_url('')?>">
+                        <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "pengajuansidang" ? "active" : "" ?>" href="<?= base_url('pengajuansidang')?>">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                                 <span class="svg-icon svg-icon-2">
