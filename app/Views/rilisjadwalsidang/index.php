@@ -51,6 +51,9 @@
                     <a class="nav-link text-active-primary me-6 active" href="<?= base_url('rilisjadwalsidang') ?>">Jadwal Sidang Tugas Akhir</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link text-active-primary me-6" href="<?= base_url('penilaiansidang') ?>">Penilaian Sidang Akhir</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link text-active-primary me-6" href="<?= base_url('syaratkelulusan') ?>">Unggah Syarat Kelulusan</a>
                 </li>
                 <!--end::Nav item-->
