@@ -94,7 +94,7 @@
                         </svg>
                     </span>
                     <!--end::Svg Icon-->
-                    <input type="text" data-kt-subscription-table-filter="search" class="form-control form-control-solid w-250px ps-14" placeholder="Cari Pengajuan Sidang" />
+                    <input type="text" data-kt-subscription-table-filter="search" class="form-control form-control-solid w-250px ps-14" placeholder="Cari Jadwal Sidang" />
                 </div>
                 <!--end::Search-->
             </div>
@@ -153,13 +153,13 @@
                             <th width="15%" class="min-w-150px text-center">Judul TA</th>
                             <th width="22%" class="min-w-150px text-center">Tanggal Ujian</th>
                             <th width="22%" class="min-w-150px text-center">Waktu</th>
-                            <th width="22%" class="min-w-150px text-center">Penguji 1</th>
+                            <!-- <th width="22%" class="min-w-150px text-center">Penguji 1</th>
                             <th width="22%" class="min-w-150px text-center">Penguji 2</th>
                             <th width="22%" class="min-w-150px text-center">Penguji 3</th>
                             <?php if(session()->get('role') == 'Admin' || session()->get('role') == 'Mahasiswa') : ?>
                                 <th width="22%" class="min-w-150px text-center">Surat Undangan</th>
                                 <th width="22%" class="min-w-150px text-center">Surat Tugas</th>
-                            <?php endif; ?>
+                            <?php endif; ?> -->
                             <th width="15%" class="min-w-150px text-center">#</th>
                         </tr>
                     </thead>
@@ -174,17 +174,18 @@
                                 <td><?= $vdata['judul'] ?></td>
                                 <td><?= $vdata['tgl_ujian'] ?></td>
                                 <td><?= $vdata['jam_start'] ?> - <?= $vdata['jam_end']; ?></td>
-                                <td><?= $vdata['penguji1'] ?></td>
+                                <!-- <td><?= $vdata['penguji1'] ?></td>
                                 <td><?= $vdata['penguji2'] ?></td>
                                 <td><?= $vdata['penguji3'] ?></td>
                                 <?php if(session()->get('role') == 'Admin' || session()->get('role') == 'Mahasiswa') : ?>
                                 <td class="text-center">
                                     <?php if($vdata['surat_undangan'] == null && session()->get('role') == 'Admin') : ?>
                                         <button onclick="uploadSuratUndangan(<?php echo $vdata['id_rilis_jadwal_sidang']; ?>)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" title="Upload Surat Undangan">
-                                            <span class="svg-icon svg-icon-muted svg-icon-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path opacity="0.3" d="M11 13H7C6.4 13 6 12.6 6 12C6 11.4 6.4 11 7 11H11V13ZM17 11H13V13H17C17.6 13 18 12.6 18 12C18 11.4 17.6 11 17 11Z" fill="currentColor"/>
-                                            <path d="M22 12C22 17.5 17.5 22 12 22C6.5 22 2 17.5 2 12C2 6.5 6.5 2 12 2C17.5 2 22 6.5 22 12ZM17 11H13V7C13 6.4 12.6 6 12 6C11.4 6 11 6.4 11 7V11H7C6.4 11 6 11.4 6 12C6 12.6 6.4 13 7 13H11V17C11 17.6 11.4 18 12 18C12.6 18 13 17.6 13 17V13H17C17.6 13 18 12.6 18 12C18 11.4 17.6 11 17 11Z" fill="currentColor"/>
-                                            </svg>
+                                            <span class="svg-icon svg-icon-muted svg-icon-3">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path opacity="0.3" d="M11 13H7C6.4 13 6 12.6 6 12C6 11.4 6.4 11 7 11H11V13ZM17 11H13V13H17C17.6 13 18 12.6 18 12C18 11.4 17.6 11 17 11Z" fill="currentColor"/>
+                                                    <path d="M22 12C22 17.5 17.5 22 12 22C6.5 22 2 17.5 2 12C2 6.5 6.5 2 12 2C17.5 2 22 6.5 22 12ZM17 11H13V7C13 6.4 12.6 6 12 6C11.4 6 11 6.4 11 7V11H7C6.4 11 6 11.4 6 12C6 12.6 6.4 13 7 13H11V17C11 17.6 11.4 18 12 18C12.6 18 13 17.6 13 17V13H17C17.6 13 18 12.6 18 12C18 11.4 17.6 11 17 11Z" fill="currentColor"/>
+                                                </svg>
                                             </span>
                                         </button>
                                     <?php elseif($vdata['surat_undangan'] == null && session()->get('role') != 'Admin') : ?>
@@ -211,7 +212,7 @@
                                             download
                                         </a>
                                     <?php endif; ?>
-                                </td>
+                                </td> -->
                                 <?php endif; ?>
                                 <td>
                                     <div class="d-flex justify-content-end flex-shrink-0">
@@ -318,7 +319,7 @@
                     <!--begin::Heading-->
                     <div class="text-center mb-13">
                         <!--begin::Title-->
-                        <h1 class="mb-3">Detail Pengajuan Sidang</h1>
+                        <h1 class="mb-3">Detail Jadwal Sidang</h1>
                     </div>
                     <!--end::Heading-->
                     <!--begin::Users-->
@@ -330,35 +331,65 @@
                                 <table class="table table-flush align-middle table-row-bordered table-row-solid gy-3 gs-2" width="100%">
                                     <tbody>
                                         <tr>
-                                            <th width="40%" class="fs-6 fw-bolder">Laporan Tugas Akhir</th>
+                                            <th width="40%" class="fs-6 fw-bolder">Penguji 1</th>
                                             <td width="60%">
                                                 <a href="<?= base_url('public/assets/proposal/' . $vdata['nama_mhs']) ?>" target="_blank">
-                                                    <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['nama_mhs'] ?></span>
+                                                    <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['penguji1'] ?></span>
                                                 </a>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th class="fs-6 fw-bolder">Transkrip Nilai</th>
+                                            <th class="fs-6 fw-bolder">Penguji 2</th>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['nama_mhs'] ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['penguji2'] ?></span>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th class="fs-6 fw-bolder">Berita Acara KMM</th>
+                                            <th class="fs-6 fw-bolder">Penguji 3</th>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['nama_mhs'] ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['penguji3'] ?></span>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th class="fs-6 fw-bolder">Surat Rekomendasi</th>
+                                            <th class="fs-6 fw-bolder">Surat Undangan</th>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['nama_mhs'] ?></span>
+                                                <?php if($vdata['surat_undangan'] == null && session()->get('role') == 'Admin') : ?>
+                                                    <button onclick="uploadSuratUndangan(<?php echo $vdata['id_rilis_jadwal_sidang']; ?>)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" title="Upload Surat Undangan">
+                                                        <span class="svg-icon svg-icon-muted svg-icon-3">
+                                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path opacity="0.3" d="M11 13H7C6.4 13 6 12.6 6 12C6 11.4 6.4 11 7 11H11V13ZM17 11H13V13H17C17.6 13 18 12.6 18 12C18 11.4 17.6 11 17 11Z" fill="currentColor"/>
+                                                                <path d="M22 12C22 17.5 17.5 22 12 22C6.5 22 2 17.5 2 12C2 6.5 6.5 2 12 2C17.5 2 22 6.5 22 12ZM17 11H13V7C13 6.4 12.6 6 12 6C11.4 6 11 6.4 11 7V11H7C6.4 11 6 11.4 6 12C6 12.6 6.4 13 7 13H11V17C11 17.6 11.4 18 12 18C12.6 18 13 17.6 13 17V13H17C17.6 13 18 12.6 18 12C18 11.4 17.6 11 17 11Z" fill="currentColor"/>
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                <?php elseif($vdata['surat_undangan'] == null && session()->get('role') != 'Admin') : ?>
+                                                    -
+                                                <?php else : ?>
+                                                    <a href="<?= base_url('public/assets/surat-undangan/'. $vdata['surat_undangan']) ?>" target="_blank" class="btn btn-sm btn-info">
+                                                        download
+                                                    </a>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th class="fs-6 fw-bolder">KRS</th>
+                                            <th class="fs-6 fw-bolder">Surat Tugas</th>
                                             <td class="text-dark fs-6">
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['nama_mhs'] ?></span>
+                                                <?php if($vdata['surat_tugas'] == null && session()->get('role') == 'Admin') : ?>
+                                                    <button onclick="uploadSuratTugas(<?php echo $vdata['id_rilis_jadwal_sidang']; ?>)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" title="Upload Surat Tugas">
+                                                        <span class="svg-icon svg-icon-muted svg-icon-3">
+                                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path opacity="0.3" d="M11 13H7C6.4 13 6 12.6 6 12C6 11.4 6.4 11 7 11H11V13ZM17 11H13V13H17C17.6 13 18 12.6 18 12C18 11.4 17.6 11 17 11Z" fill="currentColor"/>
+                                                                <path d="M22 12C22 17.5 17.5 22 12 22C6.5 22 2 17.5 2 12C2 6.5 6.5 2 12 2C17.5 2 22 6.5 22 12ZM17 11H13V7C13 6.4 12.6 6 12 6C11.4 6 11 6.4 11 7V11H7C6.4 11 6 11.4 6 12C6 12.6 6.4 13 7 13H11V17C11 17.6 11.4 18 12 18C12.6 18 13 17.6 13 17V13H17C17.6 13 18 12.6 18 12C18 11.4 17.6 11 17 11Z" fill="currentColor"/>
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                <?php elseif($vdata['surat_tugas'] == null && session()->get('role') != 'Admin') : ?>
+                                                    -
+                                                <?php else : ?>
+                                                    <a href="<?= base_url('public/assets/surat-tugas/'. $vdata['surat_tugas']) ?>" target="_blank" class="btn btn-sm btn-info">
+                                                        download
+                                                    </a>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
                                     </tbody>
