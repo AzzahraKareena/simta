@@ -40,7 +40,7 @@
             <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-6 fw-bold flex-nowrap">
                 <!--begin::Nav item-->
                 <li class="nav-item">
-                    <a class="nav-link text-active-primary me-6" href="<?= base_url('pengajuansidang') ?>">Pengajuan Bimbingan</a>
+                    <a class="nav-link text-active-primary me-6" href="<?= base_url('pengajuanbimbingan') ?>">Pengajuan Bimbingan</a>
                 </li>
                 <!--end::Nav item-->
                 <!--begin::Nav item-->
@@ -48,10 +48,10 @@
                     <a class="nav-link text-active-primary me-6 active" href="<?= base_url('pengajuansidang') ?>">Pengajuan Sidang Tugas Akhir</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-active-primary me-6" href="<?= base_url('pengajuansidang') ?>">Jadwal Sidang Tugas Akhir</a>
+                    <a class="nav-link text-active-primary me-6" href="<?= base_url('rilisjadwalsidang') ?>">Jadwal Sidang Tugas Akhir</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-active-primary me-6" href="<?= base_url('pengajuansidang') ?>">Unggah Syarat Kelulusan</a>
+                    <a class="nav-link text-active-primary me-6" href="<?= base_url('syaratkelulusan') ?>">Unggah Syarat Kelulusan</a>
                 </li>
                 <!--end::Nav item-->
             </ul>
@@ -164,11 +164,11 @@
                             <?php endif; ?>
                             <th width="25%" class="min-w-175px text-center">Abstrak</th>
                             <th width="22%" class="min-w-150px text-center">Revisi Laporan</th>
-                            <th width="15%" class="min-w-150px text-center">Laporan Tugas Akhir</th>
-                            <th width="22%" class="min-w-150px text-center">Transkrip Nilai</th>
-                            <th width="22%" class="min-w-150px text-center">Berita Acara KMM</th>
-                            <th width="22%" class="min-w-150px text-center">Surat Rekomendasi</th>
-                            <th width="22%" class="min-w-150px text-center">KRS</th>
+                            <!-- <th width="15%" class="min-w-150px text-center">Laporan Tugas Akhir</th> -->
+                            <!-- <th width="22%" class="min-w-150px text-center">Transkrip Nilai</th> -->
+                            <!-- <th width="22%" class="min-w-150px text-center">Berita Acara KMM</th> -->
+                            <!-- <th width="22%" class="min-w-150px text-center">Surat Rekomendasi</th> -->
+                            <!-- <th width="22%" class="min-w-150px text-center">KRS</th> -->
                             <th width="22%" class="min-w-150px text-center">Ajuan Tanggal Ujian</th>
                             <th width="23%"class="min-w-150px text-center">Status</th>
                             <th width="15%" class="min-w-150px text-center">#</th>
@@ -193,15 +193,17 @@
                                 </td>
                                 <?php if(session()->get('role') !== 'Mahasiswa'): ?>
                                     <td>
-                                        <?php if (!empty($vdata['revisi_laporan'])): ?>
-                                            <div>
-                                                <a href="<?= base_url('public/assets/revisi_sidang/' . $vdata['revisi_laporan']) ?>" target="_blank">
+                                        <div>
+                                            <a href="<?= base_url('public/assets/revisi_sidang/' . $vdata['revisi_laporan']) ?>" target="_blank">
+                                                <?php if (!empty($vdata['revisi_laporan'])): ?>
                                                     <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['revisi_laporan'] ?? '-'?></span>
-                                                </a>
+                                                <?php else: ?>
+                                                    <span class="text-dark fw-bolder text-hover-primary d-block fs-6">-</span>
+                                                <?php endif; ?>
+                                            </a>
                                             </div>
-                                        <?php endif; ?>
                                     </td>
-                                    <td>
+                                    <!-- <td>
                                         <?php if (!empty($vdata['laporan_ta'])): ?>
                                             <div>
                                                 <a href="<?= base_url('public/assets/proposal/' . $vdata['laporan_ta']) ?>" target="_blank">
@@ -209,16 +211,16 @@
                                                 </a>
                                             </div>
                                         <?php endif; ?>
-                                    </td>
+                                    </td> -->
                                 <?php else: ?>
                                         <td>
                                             <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['revisi_laporan'] ?? '-' ?></span>
                                         </td>
-                                        <td>
+                                        <!-- <td>
                                             <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['laporan_ta'] ?></span>
-                                        </td>
+                                        </td> -->
                                 <?php endif; ?>
-                                <td>
+                                <!-- <td>
                                     <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['transkrip_nilai'] ?></span>
                                 </td>
                                 <td>
@@ -229,7 +231,7 @@
                                 </td>
                                 <td>
                                     <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['krs'] ?></span>
-                                </td>
+                                </td> -->
                                 <td>
                                     <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['ajuan_tgl_ujian'] ?></span>
                                 </td>
@@ -377,6 +379,14 @@
                                                 </span>
                                             </a>
                                         <?php endif; ?>
+
+                                        <a href="#" class="btn btn-icon btn-light-info btn-active-color-light btn-sm me-1" data-bs-toggle="modal" data-bs-target="#detailPengajuanSidang<?= $vdata['id_sidang'] ?>">
+                                            <span class="svg-icon svg-icon-3">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                    <path d="M15 12c0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3 3 1.346 3 3zm9-.449s-4.252 8.449-11.985 8.449c-7.18 0-12.015-8.449-12.015-8.449s4.446-7.551 12.015-7.551c7.694 0 11.985 7.551 11.985 7.551zm-7 .449c0-2.757-2.243-5-5-5s-5 2.243-5 5 2.243 5 5 5 5-2.243 5-5z" fill="black"/>
+                                                </svg>
+                                            </span>
+                                        </a>
                                     </div>
                                 </td>
                                 <!-- button -->
@@ -434,93 +444,81 @@
 </div>
 
 <?php foreach ($data as $vdata) : ?>
-<div class="modal fade" id="detailPengajuanSidang" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog mw-650px">
-        <div class="modal-content">
-            <div class="modal-header pb-0 border-0 justify-content-end">
-                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
-                    <span class="svg-icon svg-icon-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
-                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
-                        </svg>
-                    </span>
-                </div>
-            </div>
-            <div class="modal-body scroll-y mx-5 mx-xl-18 pt-0 pb-15">
-                <!--begin::Heading-->
-                <div class="text-center mb-13">
-                    <!--begin::Title-->
-                    <h1 class="mb-3">Detail Pengajuan Sidang</h1>
-                </div>
-                <!--end::Heading-->
-                <!--begin::Users-->
-                <div class="mb-15">
-                    <!--begin::List-->
-                    <div class="mh-375px scroll-y me-n7 pe-7">
-                        <div class="table-responsive">
-                            <!--begin::Table-->
-                            <table class="table table-flush align-middle table-row-bordered table-row-solid gy-3 gs-2" width="100%">
-                                <tbody>
-                                    <?php foreach ($data as $vdata) : ?>
-                                        
-                                        <tr>
-                                            <th width="40%" class="fs-6 fw-bolder">Nama</th>
-                                            <td width="60%">
-                                                <span class="text-dark fs-6"><?= ucwords($vdata['abstrak']) ?></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th class="fs-6 fw-bolder">Judul 1</th>
-                                            <td>
-                                                <span class="fw-bolder text-dark fs-6"><?= $vdata['abstrak'] ?></span>
-                                                <span class="text-dark fs-6"><?= $vdata['abstrak'] ?></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th class="fs-6 fw-bolder">Judul 2</th>
-                                            <td>
-                                                <span class="fw-bolder text-dark fs-6"><?= $vdata['abstrak'] ?></span>
-                                                <span class="text-dark fs-6"><?= $vdata['abstrak'] ?></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th class="fs-6 fw-bolder">Judul 3</th>
-                                            <td>
-                                                <span class="fw-bolder text-dark fs-6"><?= $vdata['abstrak'] ?></span>
-                                                <span class="text-dark fs-6"><?= $vdata['abstrak'] ?></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th class="fs-6 fw-bolder">Dosen Pembimbing 1</th>
-                                            <td class="text-dark fs-6"><?= $vdata['abstrak'] ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th class="fs-6 fw-bolder">Dosen Pembimbing 2</th>
-                                            <td class="text-dark fs-6"><?= $vdata['abstrak'] ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th class="fs-6 fw-bolder">Status Pengajuan</th>
-                                            <td>
-                                                <span class="badge badge-light-dabger fs-7 fw-bolder"><?= $vdata['abstrak']; ?></span>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                                <!--end::Tbody-->
-                            </table>
-                            <!--end::Table-->
-                        </div>
+    <div class="modal fade" id="detailPengajuanSidang<?= $vdata['id_sidang'] ?>" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog mw-650px">
+            <div class="modal-content">
+                <div class="modal-header pb-0 border-0 justify-content-end">
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <span class="svg-icon svg-icon-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                            </svg>
+                        </span>
                     </div>
-                    <!--end::List-->
                 </div>
+                <div class="modal-body scroll-y mx-5 mx-xl-18 pt-0 pb-15">
+                    <!--begin::Heading-->
+                    <div class="text-center mb-13">
+                        <!--begin::Title-->
+                        <h1 class="mb-3">Detail Pengajuan Sidang</h1>
+                    </div>
+                    <!--end::Heading-->
+                    <!--begin::Users-->
+                    <div class="mb-15">
+                        <!--begin::List-->
+                        <div class="mh-375px scroll-y me-n7 pe-7">
+                            <div class="table-responsive">
+                                <!--begin::Table-->
+                                <table class="table table-flush align-middle table-row-bordered table-row-solid gy-3 gs-2" width="100%">
+                                    <tbody>
+                                        <tr>
+                                            <th width="40%" class="fs-6 fw-bolder">Laporan Tugas Akhir</th>
+                                            <td width="60%">
+                                                <a href="<?= base_url('public/assets/proposal/' . $vdata['laporan_ta']) ?>" target="_blank">
+                                                    <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['laporan_ta'] ?></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="fs-6 fw-bolder">Transkrip Nilai</th>
+                                            <td>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['transkrip_nilai'] ?></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="fs-6 fw-bolder">Berita Acara KMM</th>
+                                            <td>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['beritaacara_kmm'] ?></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="fs-6 fw-bolder">Surat Rekomendasi</th>
+                                            <td>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['surat_rekomendasi'] ?></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="fs-6 fw-bolder">KRS</th>
+                                            <td class="text-dark fs-6">
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['krs'] ?></span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <!--end::Tbody-->
+                                </table>
+                                <!--end::Table-->
+                            </div>
+                        </div>
+                        <!--end::List-->
+                    </div>
+                </div>
+                <!--end::Modal body-->
             </div>
-            <!--end::Modal body-->
+            <!--end::Modal content-->
         </div>
-        <!--end::Modal content-->
+        <!--end::Modal dialog-->
     </div>
-    <!--end::Modal dialog-->
-</div>
 <?php endforeach; ?>
 
 <script>
@@ -571,6 +569,3 @@
 </script>
 <?= $this->endSection() ?>
 
-<?= $this->section('js_custom') ?>
-    <?= view('pengajuansidang/javascript') ?>
-<?= $this->endSection() ?>
