@@ -195,7 +195,7 @@
                                     <span class="menu-title">Data Timeline</span>
                                 </a>
                             </div>
-                            <?php if(session()->get('role') == 'Dosen' || session()->get('unsername') == 'masbahah'): ?>
+                            <?php if(session()->get('role') == 'Dosen' || session()->get('nama') == 'Masbahah'): ?>
                                 <div class="menu-item">
                                     <a class="menu-link <?= explode('users', service('router')->getMatchedRoute()[0])[0] == "users" ? "active" : "" ?>" href="<?= base_url('users')?>">
                                         <span class="menu-bullet">

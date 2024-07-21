@@ -615,6 +615,23 @@ License: For each use you must have a valid license purchased only from above li
 				});
 			});
 		</script>
+		<script>
+			$(document).ready(function() {
+				$('#dataTable2').DataTable();
+
+				var table = $('#dataTable').DataTable({
+					columnDefs: [{
+						targets: 3,
+						data: 'tracking'
+					}],
+				});
+
+				$('#tracking_filter').on('change', function() {
+					table.column(3).search($('#tracking_filter').val())
+						.draw();
+				});
+			});
+		</script>
 		<?= $this->renderSection('js_custom') ?>
 
 		<!--end::Global Javascript Bundle-->

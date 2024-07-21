@@ -1,6 +1,8 @@
 <?= $this->extend('layouts\main') ?>
 
 <?= $this->section('content') ?>
+
+<?php if(session()->get('role') != 'Admin'): ?>
 <div class="card card-flush pb-0 bgi-position-y-top bgi-no-repeat mb-10" style="background-size: auto calc(50% + 5rem); background-position-x: 100%; background-image: url('assets/media/illustrations/sketchy-1/4.png')">
     <!--begin::Card header-->
     <div class="card-header pt-10">
@@ -22,12 +24,7 @@
             <!--begin::Title-->
             <div class="d-flex flex-column">
                 <h2 class="mb-1">Jadwal Sidang TA</h2>
-                <!-- <div class="text-muted fw-bolder">
-                <a href="#">Keenthemes</a>
-                <span class="mx-3">|</span>
-                <a href="#">File Manager</a>
-                <span class="mx-3">|</span>2.6 GB
-                <span class="mx-3">|</span>758 items</div> -->
+                
             </div>
             <!--end::Title-->
         </div>
@@ -50,9 +47,11 @@
                 <li class="nav-item">
                     <a class="nav-link text-active-primary me-6 active" href="<?= base_url('rilisjadwalsidang') ?>">Jadwal Sidang Tugas Akhir</a>
                 </li>
+                <?php if(session()->get('role') == 'Dosen' || session()->get('role') == 'Koordinator' || session()->get('nama') == 'Masbahah '): ?>
                 <li class="nav-item">
                     <a class="nav-link text-active-primary me-6" href="<?= base_url('penilaiansidang') ?>">Penilaian Sidang Akhir</a>
                 </li>
+                <?php endif; ?>
                 <li class="nav-item">
                     <a class="nav-link text-active-primary me-6" href="<?= base_url('syaratkelulusan') ?>">Unggah Syarat Kelulusan</a>
                 </li>
@@ -63,27 +62,10 @@
     </div>
     <!--end::Card body-->
 </div>
+<?php endif ?>
 <!--end::Card-->
 <!--begin::Card-->
 <div class="card card-flush">
-    <!--begin::Card header-->
-    <!-- <div class="card-header border-0 pt-5">
-        <h3 class="card-title align-items-start flex-column">
-            <span class="card-label fw-bolder fs-3 mb-1">New Arrivals</span>
-            <span class="text-muted mt-1 fw-bold fs-7">Over 500 new products</span>
-        </h3>
-        <div class="card-toolbar">
-            <a href="#" class="btn btn-sm btn-light-primary">
-            <span class="svg-icon svg-icon-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />
-                    <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
-                </svg>
-            </span>New Member</a>
-        </div>
-    </div> -->
-    <!--end::Header-->
-    <?php if (!empty($data) && is_array($data)) : ?>
         <div class="card-header border-0 pt-6">
             <!--begin::Card title-->
             <div class="card-title">
@@ -143,6 +125,7 @@
         </div>
         <!--end::Card header-->
         <!--begin::Body-->
+    <?php if (!empty($data) && is_array($data)) : ?>
         <div class="card-body py-3">
             <!--begin::Table container-->
             <div class="table-responsive">
@@ -219,7 +202,7 @@
                                 <?php endif; ?>
                                 <td>
                                     <div class="d-flex justify-content-end flex-shrink-0">
-                                        <a href="<?= base_url('rilisjadwalsidang/berita-acara/'. $vdata['id_rilis_jadwal_sidang']) ?>" target="_blank" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" title="Unduh Berita Acara">
+                                        <a href="<?= base_url('rilisjadwalsidang/berita-acara/'. $vdata['id_rilis_jadwal_sidang']) ?>" target="_blank" class="btn btn-icon btn-light-warning btn-active-color-light btn-sm me-1" data-bs-toggle="tooltip" title="Unduh Berita Acara">
                                             <span class="svg-icon svg-icon-muted svg-icon-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path opacity="0.3" d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM12.5 18C12.5 17.4 12.6 17.5 12 17.5H8.5C7.9 17.5 8 17.4 8 18C8 18.6 7.9 18.5 8.5 18.5L12 18C12.6 18 12.5 18.6 12.5 18ZM16.5 13C16.5 12.4 16.6 12.5 16 12.5H8.5C7.9 12.5 8 12.4 8 13C8 13.6 7.9 13.5 8.5 13.5H15.5C16.1 13.5 16.5 13.6 16.5 13ZM12.5 8C12.5 7.4 12.6 7.5 12 7.5H8C7.4 7.5 7.5 7.4 7.5 8C7.5 8.6 7.4 8.5 8 8.5H12C12.6 8.5 12.5 8.6 12.5 8Z" fill="currentColor"/>
                                                 <rect x="7" y="17" width="6" height="2" rx="1" fill="currentColor"/>
@@ -237,7 +220,7 @@
                                             </span>
                                         </a>
                                         <?php if(session()->get('role') == 'Dosen'): ?>
-                                            <a href="<?= base_url('penilaiansidang/create/' . $vdata['id_rilis_jadwal_sidang']) ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Penilian Sidang Akhir">
+                                            <a href="<?= base_url('penilaiansidang/create/' . $vdata['id_rilis_jadwal_sidang']) ?>" class="btn btn-icon btn-light-success btn-active-color-light btn-sm me-1" title="Penilian Sidang Akhir">
                                                 <span class="svg-icon svg-icon-muted svg-icon-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M14 18V16H10V18L9 20H15L14 18Z" fill="currentColor"/>
                                                     <path opacity="0.3" d="M20 4H17V3C17 2.4 16.6 2 16 2H8C7.4 2 7 2.4 7 3V4H4C3.4 4 3 4.4 3 5V9C3 11.2 4.8 13 7 13C8.2 14.2 8.8 14.8 10 16H14C15.2 14.8 15.8 14.2 17 13C19.2 13 21 11.2 21 9V5C21 4.4 20.6 4 20 4ZM5 9V6H7V11C5.9 11 5 10.1 5 9ZM19 9C19 10.1 18.1 11 17 11V6H19V9ZM17 21V22H7V21C7 20.4 7.4 20 8 20H16C16.6 20 17 20.4 17 21ZM10 9C9.4 9 9 8.6 9 8V5C9 4.4 9.4 4 10 4C10.6 4 11 4.4 11 5V8C11 8.6 10.6 9 10 9ZM10 13C9.4 13 9 12.6 9 12V11C9 10.4 9.4 10 10 10C10.6 10 11 10.4 11 11V12C11 12.6 10.6 13 10 13Z" fill="currentColor"/>
@@ -246,7 +229,7 @@
                                             </a>
                                         <?php endif ?>
                                         <?php if(session()->get('role') == 'Koordinator'  || session()->get('nama') == 'Masbahah '): ?>
-                                            <a href="<?= base_url('rilisjadwalsidang/edit/'.$vdata['id_rilis_jadwal_sidang']) ?>" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Edit Data">
+                                            <a href="<?= base_url('rilisjadwalsidang/edit/'.$vdata['id_rilis_jadwal_sidang']) ?>" class="btn btn-icon btn-light-primary btn-active-color-light btn-sm me-1" title="Edit Data">
                                                 <span class="svg-icon svg-icon-3">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                         <path opacity="0.3" d="M21.4 8.35303L19.241 10.511L13.485 4.755L15.643 2.59595C16.0248 2.21423 16.5426 1.99988 17.0825 1.99988C17.6224 1.99988 18.1402 2.21423 18.522 2.59595L21.4 5.474C21.7817 5.85581 21.9962 6.37355 21.9962 6.91345C21.9962 7.45335 21.7817 7.97122 21.4 8.35303ZM3.68699 21.932L9.88699 19.865L4.13099 14.109L2.06399 20.309C1.98815 20.5354 1.97703 20.7787 2.03189 21.0111C2.08674 21.2436 2.2054 21.4561 2.37449 21.6248C2.54359 21.7934 2.75641 21.9115 2.989 21.9658C3.22158 22.0201 3.4647 22.0084 3.69099 21.932H3.68699Z" fill="black" />
@@ -255,7 +238,7 @@
                                                 </span>
                                             </a>
                                             <form action="<?= base_url('rilisjadwalsidang/delete/'.$vdata['id_rilis_jadwal_sidang']) ?>" method="POST">
-                                                <button type="submit" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" title="Hapus Data">
+                                                <button type="submit" class="btn btn-icon btn-light-danger btn-active-color-light btn-sm" title="Hapus Data">
                                                     <span class="svg-icon svg-icon-3">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                             <path d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z" fill="black" />

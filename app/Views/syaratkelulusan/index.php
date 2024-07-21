@@ -1,6 +1,7 @@
 <?= $this->extend('layouts\main') ?>
 
 <?= $this->section('content') ?>
+<?php if(session()->get('role') != 'Admin'): ?>
 <div class="card card-flush pb-0 bgi-position-y-top bgi-no-repeat mb-10" style="background-size: auto calc(50% + 5rem); background-position-x: 100%; background-image: url('assets/media/illustrations/sketchy-1/4.png')">
     <!--begin::Card header-->
     <div class="card-header pt-10">
@@ -22,12 +23,6 @@
             <!--begin::Title-->
             <div class="d-flex flex-column">
                 <h2 class="mb-1">Unggah SYarat Kelulusan</h2>
-                <!-- <div class="text-muted fw-bolder">
-                <a href="#">Keenthemes</a>
-                <span class="mx-3">|</span>
-                <a href="#">File Manager</a>
-                <span class="mx-3">|</span>2.6 GB
-                <span class="mx-3">|</span>758 items</div> -->
             </div>
             <!--end::Title-->
         </div>
@@ -50,9 +45,11 @@
                 <li class="nav-item">
                     <a class="nav-link text-active-primary me-6" href="<?= base_url('rilisjadwalsidang') ?>">Jadwal Sidang Tugas Akhir</a>
                 </li>
+                <?php if(session()->get('role') == 'Dosen' || session()->get('role') == 'Koordinator' || session()->get('nama') == 'Masbahah '): ?>
                 <li class="nav-item">
                     <a class="nav-link text-active-primary me-6" href="<?= base_url('penilaiansidang') ?>">Penilaian Sidang Akhir</a>
                 </li>
+                <?php endif; ?>
                 <li class="nav-item">
                     <a class="nav-link text-active-primary me-6 active" href="<?= base_url('syaratkelulusan') ?>">Unggah Syarat Kelulusan</a>
                 </li>
@@ -63,27 +60,10 @@
     </div>
     <!--end::Card body-->
 </div>
+<?php endif; ?>
 <!--end::Card-->
 <!--begin::Card-->
 <div class="card card-flush">
-    <!--begin::Card header-->
-    <!-- <div class="card-header border-0 pt-5">
-        <h3 class="card-title align-items-start flex-column">
-            <span class="card-label fw-bolder fs-3 mb-1">New Arrivals</span>
-            <span class="text-muted mt-1 fw-bold fs-7">Over 500 new products</span>
-        </h3>
-        <div class="card-toolbar">
-            <a href="#" class="btn btn-sm btn-light-primary">
-            <span class="svg-icon svg-icon-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />
-                    <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
-                </svg>
-            </span>New Member</a>
-        </div>
-    </div> -->
-    <!--end::Header-->
-    <?php if (!empty($data) && is_array($data)) : ?>
         <div class="card-header border-0 pt-6">
             <!--begin::Card title-->
             <div class="card-title">
@@ -111,10 +91,6 @@
                         <!--begin::Select-->
                         <form action="/pengajuansidang" method="get" class="d-flex align-items-center position-relative my-1 mt-3" id="myForm" role="form">
                             <select id="tahun_filter" name="tahun" class="form-select form-select-sm form-select-solid w-125px" data-control="select2" data-placeholder="Select Tahun" data-hide-search="true">
-                                <!-- <option value="1" selected="selected">1 Hours</option>
-                                <option value="2">6 Hours</option>
-                                <option value="3">12 Hours</option>
-                                <option value="4">24 Hours</option> -->
                                 <?php
                                     $thn_skr = date('Y');
                                     for ($x = $thn_skr; $x >= 2020; $x--) {
@@ -144,6 +120,7 @@
         </div>
         <!--end::Card header-->
         <!--begin::Body-->
+    <?php if (!empty($data) && is_array($data)) : ?>
         <div class="card-body py-3">
             <!--begin::Table container-->
             <div class="table-responsive">
@@ -368,12 +345,13 @@
                                         </div>
                                     </td> -->
                                     <td>
-                                        <select name="status" id="status_validasi" onchange="updateValidationStatus(<?= $vdata['id_syarat_kelulusan'] ?>, this.value)">
+                                        <select class="form-select form-select-sm" name="status" id="status_validasi" onchange="updateValidationStatus(<?= $vdata['id_syarat_kelulusan'] ?>, this.value)">
                                             <option value="Sedang Diproses" <?= ($vdata['status_syarat'] == 'Sedang Diproses') ? 'selected' : '' ?> class="btn-warning">Sedang Diproses</option>
                                             <option value="Validasi" <?= ($vdata['status_syarat'] == 'Validasi') ? 'selected' : '' ?> class="btn-success">Validasi</option>
                                         </select>
                                     </td>
-                                    <td>
+                                    <td class="align-middle ps-5">
+                                        <div class="d-flex justify-content-center">
                                         <a href="#" class="btn btn-icon btn-light-info btn-active-color-light btn-sm me-1" data-bs-toggle="modal" data-bs-target="#detailSyaratKelulusan<?= $vdata['id_syarat_kelulusan'] ?>">
                                             <span class="svg-icon svg-icon-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -381,6 +359,7 @@
                                                 </svg>
                                             </span>
                                         </a>
+                                        </div>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
