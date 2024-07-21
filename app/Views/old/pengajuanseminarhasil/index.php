@@ -510,5 +510,5 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('js_custom') ?>
-    <?= view('pengajuanseminarhasil/javascript') ?>
+    <?= view('old/pengajuanseminarhasil/javascript') ?>
 <?= $this->endSection() ?>

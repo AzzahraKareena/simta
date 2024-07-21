@@ -110,6 +110,16 @@
                     <div class="my-1 me-4">
                         <!--begin::Select-->
                         <form action="/pengajuanjudul" method="get" class="d-flex align-items-center position-relative my-1 mt-3" id="myForm" role="form">
+                            <select id="mahasiswa_filter" name="mahasiswa" class="form-select form-select-sm form-select-solid w-125px" data-control="select2" data-placeholder="Select Mahasiswa" data-hide-search="true">
+                                <option value="mengajukan">Mengajukan Judul</option>
+                                <option value="belum">Belum Mengajukan Judul</option>
+                            </select>
+                        </form>
+                        <!--end::Select-->
+                    </div>
+                    <div class="my-1 me-4">
+                        <!--begin::Select-->
+                        <form action="/pengajuanjudul" method="get" class="d-flex align-items-center position-relative my-1 mt-3" id="myForm" role="form">
                             <select id="tahun_filter" name="tahun" class="form-select form-select-sm form-select-solid w-125px" data-control="select2" data-placeholder="Select Tahun" data-hide-search="true">
                                 <!-- <option value="1" selected="selected">1 Hours</option>
                                 <option value="2">6 Hours</option>
