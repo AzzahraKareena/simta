@@ -118,7 +118,7 @@ class PenilaianSemhasController extends BaseController
                 if ($nilai['id_staf'] == session()->get('user_id')) {
                     $getData[] = $nilai; // Tambahkan ke array
                 }
-            } elseif (session()->get('role') == 'Admin') {
+            } elseif (session()->get('role') == 'Admin' || session()->get('role') == 'Koordinator') {
                 // Jika rolenya adalah "Dosen", maka hanya data yang sesuai dengan ID staf yang sedang login yang akan ditampilkan
                     $getData[] = $nilai; // Tambahkan ke array
             }
