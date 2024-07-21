@@ -248,7 +248,7 @@
                         </a>
                     </div>
                     <div class="menu-item">
-                        <a class="menu-link <?= in_array(service('router')->getMatchedRoute()[0], ['pengajuanjudul', 'judulacc', 'pengajuanujianproposal', 'rilisjadwal']) ? 'active' : '' ?>" href="<?= base_url('pengajuanjudul')?>">
+                        <a class="menu-link <?= in_array(service('router')->getMatchedRoute()[0], ['pengajuanjudul', 'judulacc', 'pengajuanujianproposal', 'rilisjadwal', 'penilaianproposal']) ? 'active' : '' ?>" href="<?= base_url('pengajuanjudul')?>">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                                 <span class="svg-icon svg-icon-2">
@@ -264,7 +264,7 @@
                         </a>
                     </div>
                     <div class="menu-item">
-                        <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "pengajuanseminarhasil" ? "active" : "" ?>" href="<?= base_url('pengajuanseminarhasil')?>">
+                        <a class="menu-link <?= in_array(service('router')->getMatchedRoute()[0], ['pengajuanseminarhasil', 'rilisjadwalsemhas', 'penilaiansemhas']) ? 'active' : '' ?>" href="<?= base_url('pengajuanseminarhasil')?>">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                                 <span class="svg-icon svg-icon-2">
@@ -280,7 +280,7 @@
                         </a>
                     </div>
                     <div class="menu-item">
-                        <a class="menu-link <?= in_array(service('router')->getMatchedRoute()[0], ['pengajuansidang', 'rilisjadwalsidang', 'syaratkelulusan']) ? 'active' : '' ?>" href="<?= base_url('pengajuansidang')?>">
+                        <a class="menu-link <?= in_array(service('router')->getMatchedRoute()[0], ['pengajuansidang', 'rilisjadwalsidang', 'penilaiansidang', 'syaratkelulusan']) ? 'active' : '' ?>" href="<?= base_url('pengajuansidang')?>">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                                 <span class="svg-icon svg-icon-2">
