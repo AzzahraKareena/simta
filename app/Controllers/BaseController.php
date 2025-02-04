@@ -8,6 +8,7 @@ use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use App\Models\MahasiswaBimbinganModel;
 
 /**
  * Class BaseController
@@ -54,5 +55,20 @@ abstract class BaseController extends Controller
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = \Config\Services::session();
+    }
+    protected function setNotifications()
+    {
+        $model = new MahasiswaBimbinganModel();
+        $dosenId = session()->get('user_id');
+        $tahun = date('Y'); // atau dapat diubah sesuai kebutuhan
+        $data = $model->getUserByDosen($dosenId, $tahun);
+        
+        if ($data) {
+            foreach ($data as $item) {
+                $dataString = '<b>' . htmlspecialchars($item['mahasiswa_nama']) . '</b>, ';
+                $dataString .= 'sudah melakukan  <b>' . htmlspecialchars($item['tracking']) . '</b>';
+                session()->setFlashdata('alert_message_' . htmlspecialchars($item['mahasiswa_nama']), $dataString);
+            }
+        }
     }
 }

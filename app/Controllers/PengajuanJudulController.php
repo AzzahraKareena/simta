@@ -6,10 +6,11 @@ namespace App\Controllers;
 use App\Models\PengajuanJudulModel;
 use CodeIgniter\I18n\Time;
 use App\Models\MahasiswaModel;
-use App\Models\StafModels;
+use App\Models\StafModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\RESTful\ResourceController;
 // use chriskacerguis\RestServer\RestController;
+use App\Models\MahasiswaBimbinganModel;
 
 class PengajuanJudulController extends ResourceController
 {
@@ -20,13 +21,30 @@ class PengajuanJudulController extends ResourceController
     public function __construct()
     {
         $this->model = new PengajuanJudulModel();
-        // $staff = new StafModels();
+        // $staff = new StafModel();
 
         // $this->request->setHeader('Content-Type', 'application/json');
+    }
+
+    private function setNotifications()
+    {
+        $model = new MahasiswaBimbinganModel();
+        $dosenId = session()->get('user_id');
+        $tahun = date('Y'); // atau dapat diubah sesuai kebutuhan
+        $data = $model->getUserByDosen($dosenId, $tahun);
+        
+        if ($data) {
+            foreach ($data as $item) {
+                $dataString = '<b>' . htmlspecialchars($item['mahasiswa_nama']) . '</b>, ';
+                $dataString .= 'sudah melakukan  <b>' . htmlspecialchars($item['tracking']) . '</b>';
+                session()->setFlashdata('alert_message_' . htmlspecialchars($item['mahasiswa_nama']), $dataString);
+            }
+        }
     }
     
     public function table()
     {
+        $this->setNotifications();
 
         $indikatorModel = new PengajuanJudulModel();
         $tahun = $this->request->getVar('tahun') ?? date('Y');
@@ -94,14 +112,14 @@ class PengajuanJudulController extends ResourceController
     public function getStaf()
     {
         // $data = $staff->findAll();
-        $data = (new StafModels())->asArray()->findAll();
+        $data = (new StafModel())->asArray()->findAll();
         return $this->respond($data);
     }
     
     public function create()
     {
         // $data['title'] = 'Ajukan Judul';
-        $data['rekomendasi_dosen'] = (new StafModels())->asArray()->findAll();
+        $data['rekomendasi_dosen'] = (new StafModel())->asArray()->findAll();
         return view('pengajuanjudul/create', $data);
     }
 
@@ -141,7 +159,7 @@ class PengajuanJudulController extends ResourceController
         $pengajuanjudul = new PengajuanJudulModel();
         $data = [
             'dataForm' => $pengajuanjudul->find($id),
-            'rekomendasi_dosen' => (new StafModels())->asArray()->findAll()
+            'rekomendasi_dosen' => (new StafModel())->asArray()->findAll()
         ];
         // $dataForm = $pengajuanjudul->find($id);
         return view('pengajuanjudul/acc-dosen', $data);

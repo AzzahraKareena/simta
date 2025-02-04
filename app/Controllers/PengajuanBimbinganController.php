@@ -14,12 +14,30 @@ class PengajuanBimbinganController extends ResourceController
 {
     public function table()
     {
+        $this->setNotifications();
+        
         $data = (new PengajuanBimbinganModel())->asArray()->findAll();
         
         $operation['data'] = $data;
         $operation['title'] = 'Pengajuan Bimbingan';
         $operation['sub_title'] = 'Daftar Pengajuan Bimbingan Tugas Akhir';
         return view("pengajuanbimbingan/index", $operation);
+    }
+
+    private function setNotifications()
+    {
+        $model = new MahasiswaBimbinganModel();
+        $dosenId = session()->get('user_id');
+        $tahun = date('Y'); // atau dapat diubah sesuai kebutuhan
+        $data = $model->getUserByDosen($dosenId, $tahun);
+        
+        if ($data) {
+            foreach ($data as $item) {
+                $dataString = '<b>' . htmlspecialchars($item['mahasiswa_nama']) . '</b>, ';
+                $dataString .= 'sudah melakukan  <b>' . htmlspecialchars($item['tracking']) . '</b>';
+                session()->setFlashdata('alert_message_' . htmlspecialchars($item['mahasiswa_nama']), $dataString);
+            }
+        }
     }
 
     public function get_data() {

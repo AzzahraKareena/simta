@@ -1,18 +1,6 @@
 <?= $this->extend('layouts\main') ?>
 
 <?= $this->section('content') ?>
-<?php
-// Iterate over all session flash data and display them as alerts
-foreach (session()->getFlashdata() as $key => $message) {
-    if (strpos($key, 'alert_message_') === 0) {
-        echo '
-        <div class="alert alert-primary alert-dismissible fade show" role="alert">
-            ' . $message . '
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>';
-    }
-}
-?>
 
 <div class="card card-bordered">
     <div class="card-header">

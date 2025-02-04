@@ -22,7 +22,7 @@
             <!--end::Icon-->
             <!--begin::Title-->
             <div class="d-flex flex-column">
-                <h2 class="mb-1">Unggah SYarat Kelulusan</h2>
+                <h2 class="mb-1">Unggah Syarat Kelulusan</h2>
             </div>
             <!--end::Title-->
         </div>
@@ -104,7 +104,13 @@
                         <!--end::Select-->
                     </div>
                     <!--end::Filter-->
-                    
+                    <a href="<?= base_url('syaratkelulusan/create') ?>" class="btn btn-sm btn-primary my-4">
+                    <span class="svg-icon svg-icon-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />
+                            <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
+                        </svg>
+                    </span>Syarat Kelulusan</a>
                     <!--end::Add subscription-->
                 </div>
                 <!--end::Toolbar-->

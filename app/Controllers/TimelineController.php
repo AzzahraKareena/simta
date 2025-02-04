@@ -10,11 +10,24 @@ class TimelineController extends BaseController
 {
     public function table()
     {
-        $data = (new TimelineModel())->asArray()->findAll();
-        
+        $timelineModel = new TimelineModel();
+        $tahun = $this->request->getGet('tahun'); // Ambil data dari parameter GET
+
+        if ($tahun) {
+            $data = $timelineModel->where('tahun', $tahun)->asArray()->findAll();
+        } else {
+            $data = $timelineModel->asArray()->findAll();
+        }
+
+        $tahunList = $timelineModel->select('tahun')->distinct()->findAll();
+        $tahunOptions = array_column($tahunList, 'tahun');
+
         $operation['data'] = $data;
         $operation['title'] = 'Timeline';
         $operation['sub_title'] = 'Setting timeline setiap periode Tugas Akhir';
+        $operation['tahun_options'] = $tahunOptions;
+        $operation['selectedTahun'] = $tahun;
+        
         return view("timeline/index", $operation);
     }
     

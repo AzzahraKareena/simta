@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\StafModels;
+use App\Models\StafModel;
 use App\Libraries\CustomPDF;
 use App\Models\JudulAccModel;
 use App\Controllers\BaseController;
@@ -14,6 +14,8 @@ class PengajuanSeminarHasilController extends BaseController
 {
     public function table()
     {
+        $this->setNotifications();
+        
         $model = new PengajuanSeminarHasilModel();
         $tahun = $this->request->getVar('tahun') ?? date('Y');
         $data = $model->getAllPengajuanWithJadwal($tahun);
@@ -181,15 +183,26 @@ class PengajuanSeminarHasilController extends BaseController
 
     public function createJadwal($id)
     {
-        // $id_mhs = session()->get('user_id');
         $pengajuanSeminar = new PengajuanSeminarHasilModel();
         $dataPengajuan = $pengajuanSeminar->getMhs($id);
+
+        // Ambil nama dosen penguji 1 dari id_dosen_penguji1
+        $dosenModel = new StafModel();
+        $dosenPenguji1 = $dosenModel->where('id_user', $dataPengajuan['id_dosen_penguji1'])->asArray()->first();
+
         $operation['title'] = 'Pengajuan Ujian Proposal';
         $operation['sub_title'] = 'Buat Pengajuan Ujian Proposal Baru';
         $operation['pengajuan'] = $dataPengajuan;
-        $operation['dosen'] = (new StafModels())->where('jenis', 'Dosen')->asArray()->findAll();
-        // dd($operation['pengajuan']);
-        return view('rilisjadwalsemhas/create', ['pengajuan' => $operation['pengajuan'], 'dosen' => $operation['dosen']]);
+        $operation['dosen'] = (new StafModel())->where('jenis', 'Dosen')->asArray()->findAll();
+        $operation['nama_dosen_penguji1'] = $dosenPenguji1['nama']; // Nama dosen penguji 1
+        $operation['id_dosen_penguji1'] = $dataPengajuan['id_dosen_penguji1']; // ID dosen penguji 1
+
+        return view('rilisjadwalsemhas/create', [
+            'pengajuan' => $operation['pengajuan'],
+            'dosen' => $operation['dosen'],
+            'nama_dosen_penguji1' => $operation['nama_dosen_penguji1'],
+            'id_dosen_penguji1' => $operation['id_dosen_penguji1']
+        ]);
     }
 
     public function rekomendasi($id)

@@ -105,12 +105,12 @@ class PenilaianProposalController extends BaseController
             $mahasiswaNim = new MahasiswaModel();
             $mahasiswa = $mahasiswaNim->where('id_user', $id_mhs)->get()->getRow()->nim;
         } else {
-            $mahasiswa = 'Data tidak ditemukan'; 
+            $mahasiswa = 'Data tidak ditemukan';
         }
 
         // Fetch data from bimbingan
         $getData = []; // Inisialisasi sebagai array kosong
-        
+
         foreach ($data as $nilai) {
             if (session()->get('role') == 'Dosen') {
                 // Jika rolenya adalah "Mahasiswa", maka hanya data yang sesuai dengan ID mahasiswa yang sedang login yang akan ditampilkan
@@ -119,7 +119,7 @@ class PenilaianProposalController extends BaseController
                 }
             } elseif (session()->get('role') == 'Admin') {
                 // Jika rolenya adalah "Dosen", maka hanya data yang sesuai dengan ID staf yang sedang login yang akan ditampilkan
-                    $getData[] = $nilai; // Tambahkan ke array
+                $getData[] = $nilai; // Tambahkan ke array
             }
         }
 
@@ -132,7 +132,6 @@ class PenilaianProposalController extends BaseController
         ];
         // dd($operation['nim']);
         return view("penilaianproposal/index", $operation);
-        
     }
 
     public function create($id = null)
@@ -174,7 +173,20 @@ class PenilaianProposalController extends BaseController
         $total = 0; // Inisialisasi total nilai
 
         foreach ($indikator_ids as $id_indikator) {
-            $nilai_indikator = isset($nilai[$id_indikator]) ? $nilai[$id_indikator] : 0; // Jika nilai tidak ada, gunakan 0
+            if (!isset($nilai[$id_indikator]) || $nilai[$id_indikator] === '') {
+                return $this->response->setJSON(['status' => 'error', 'message' => 'Semua nilai harus diisi']);
+            }
+    
+            $nilai_indikator = $nilai[$id_indikator];
+            
+            // Dapatkan nilai maksimum dari database
+            $indikatorModel = new IndikatorModel();
+            $max_nilai = $indikatorModel->find($id_indikator)['max_nilai'];
+
+            // Validasi nilai tidak boleh lebih dari max_nilai
+            if ($nilai_indikator > $max_nilai) {
+                return $this->response->setJSON(['status' => 'error', 'message' => 'Nilai tidak boleh lebih dari ' . $max_nilai]);
+            }
 
             // Tambahkan nilai indikator ke total
             $total += $nilai_indikator;
@@ -193,24 +205,24 @@ class PenilaianProposalController extends BaseController
             // Insert detail penilaian
             foreach ($indikator_ids as $id_indikator) {
                 $nilai_indikator = isset($nilai[$id_indikator]) ? $nilai[$id_indikator] : null;
-    
+
                 // Data untuk detail penilaian
                 $detail_data = [
                     'id_penilaian_proposal' => $insert,
                     'id_indikator' => $id_indikator,
                     'nilai' => $nilai_indikator,
                 ];
-    
+
                 // Insert detail penilaian ke dalam database
                 $detail_insert = $detail->insert($detail_data);
-    
+
                 if (!$detail_insert) {
                     // Jika gagal memasukkan detail penilaian, maka batalkan penilaian utama
                     $penilaian->delete($insert);
                     return $this->response->setJSON(['status' => 'error', 'message' => 'Gagal menyimpan detail penilaian']);
                 }
             }
-    
+
             return redirect()->to('penilaianproposal');
         } else {
             return $this->response->setJSON(['status' => 'error', 'message' => 'Data gagal disimpan']);
@@ -258,7 +270,7 @@ class PenilaianProposalController extends BaseController
     {
         $penilaian = new PenilaianProposalModel();
         $detail = new PenilaianProposalDetailModel();
-        
+
         $id_penilaian_detail = $this->request->getPost('id_penilaian_detail');
         $indikator_ids = $this->request->getPost('indikator'); // Array of indikator IDs
         $nilai = $this->request->getPost('nilai');
@@ -288,7 +300,7 @@ class PenilaianProposalController extends BaseController
                 ];
                 $detail->update($id_detail, $detailData);
             }
-    
+
             return redirect()->to('penilaianproposal');
         } else {
             return $this->response->setJSON(['status' => 'error', 'message' => 'Data gagal disimpan']);
@@ -301,5 +313,4 @@ class PenilaianProposalController extends BaseController
         $penilaian->delete($id);
         return redirect()->to('penilaianproposal');
     }
-
 }

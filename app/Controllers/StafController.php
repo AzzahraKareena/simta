@@ -3,14 +3,14 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\StafModels;
+use App\Models\StafModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class StafController extends BaseController
 {
     public function table()
     {
-        $data = (new StafModels())->asArray()->findAll();
+        $data = (new StafModel())->asArray()->findAll();
         
         $operation['data'] = $data;
         $operation['title'] = 'Data Master Staf';
@@ -36,7 +36,7 @@ class StafController extends BaseController
     public function edit($id)
     {
         $staf = new StafModel();
-        $dataForm = $masterstaf->find($id);
+        $dataForm = $staf->find($id); // Perbaikan nama variabel
         $operation['dataForm'] = $dataForm;
         $operation['title'] = 'Data Master Staf';
         $operation['sub_title'] = '';

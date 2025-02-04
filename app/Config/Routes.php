@@ -15,6 +15,10 @@ $routes->get('/login', 'Auth::index');
 $routes->post('/auth/processLogin', 'Auth::processLogin');
 $routes->get('/logout', 'Auth::logout');
 
+//tambahan baru untuk notif wa dan timeline option select
+$routes->get('/reminder', 'ReminderController::index');
+$routes->get('timeline/table', 'TimelineController::table');
+
 //TIMELINE
 // $routes->group('timeline', ['filter' => 'AuthFilter'], static function ($routes) {
 $routes->group('timeline', ['filter' => 'AuthFilter'], static function ($routes) {
@@ -251,7 +255,13 @@ $routes->group('mahasiswabimbingan', static function ($routes) {
     $routes->get('edit/(:segment)', 'MahasiswaBimbinganController::edit/$1');
     $routes->post('update/(:segment)', 'MahasiswaBimbinganController::update/$1');
     $routes->get('delete/(:num)', 'MahasiswaBimbinganController::delete/$1');
-});  
+}); 
+
+//TRACKING
+$routes->group('tracking', static function ($routes) {
+    $routes->get('/', 'TrackingController::table');
+});
+
 
 //UNGGAH SYARAT KELULUSAN
 $routes->group('syaratkelulusan', static function ($routes) {

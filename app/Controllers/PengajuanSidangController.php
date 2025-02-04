@@ -12,6 +12,8 @@ class PengajuanSidangController extends BaseController
 {
     public function table()
     {
+        $this->setNotifications();
+        
         $model = new PengajuanSidangModel();
         $tahun = $this->request->getVar('tahun') ?? date('Y');
         $data = $model->getAllPengajuanWithJadwal($tahun);

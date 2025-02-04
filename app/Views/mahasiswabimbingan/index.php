@@ -1,7 +1,7 @@
 <?= $this->extend('layouts\main') ?>
 
 <?= $this->section('content') ?>
-<div class="card card-flush">\
+<div class="card card-flush">
     <div class="card-header border-0 pt-6">
         <!--begin::Card title-->
         <div class="card-title">

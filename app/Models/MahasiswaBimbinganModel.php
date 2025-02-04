@@ -26,12 +26,12 @@ class MahasiswaBimbinganModel extends Model
                     ->join('mahasiswa as mh', 'mhs.id = mh.id_user');
     }
 
-    // public function getUser()
-    // {
-    //     return $this->select('simta_mahasiswa_bimbingan.*, mh.nama as mahasiswa_nama, mh.th_lulus as angkatan, judulacc.judul_acc as judul_acc, staf.nama as dospem_nama')
-    //                 ->withJudul()
-    //                 ->findAll();
-    // }
+    public function getAllMahasiswaBimbingan()
+    {
+        return $this->select('simta_mahasiswa_bimbingan.*, mh.nama as mahasiswa_nama, mh.th_lulus as angkatan, judulacc.judul_acc as judul_acc, staf.nama as dospem_nama')
+                    ->withJudul()
+                    ->findAll();
+    }
 
     public function getUserByDosen($dosenId, $tahun = null)
     {
@@ -48,7 +48,8 @@ class MahasiswaBimbinganModel extends Model
         return $this->where('judul_acc_id', $judulAccId)->set(['tracking' => $newTracking])->update();
     }
 
+    public function getAllBimbingan()
+    {
+        return $this->findAll();
+    }
 }
-
-
-

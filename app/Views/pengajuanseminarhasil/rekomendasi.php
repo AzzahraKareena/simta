@@ -13,7 +13,7 @@
                 <tr>
                     <td width="25%">Nama</td>
                     <td width="2%">:</td>
-                    <td width="73%"><?= $rekom['nama_pembimbing']; ?></td>
+                    <td width="73%"><?= $rekom['nama_dosen']; ?></td>
                 </tr>
                 <tr>
                     <td>NIP</td>
@@ -53,7 +53,7 @@
                 <td width="45%">
                     <span>Madiun, ................................................. <?= date('Y') ?></span><br><br>
                     <span>Pembimbing TA</span><br><br><br><br><br>
-                    <span><?= $rekom['nama_pembimbing']; ?></span>
+                    <span><?= $rekom['nama_dosen']; ?></span>
                     <hr style="border: none; height: 1px;">
                     <span>NIP. <?= $rekom['nip_pembimbing']; ?></span><br>
                 </td>

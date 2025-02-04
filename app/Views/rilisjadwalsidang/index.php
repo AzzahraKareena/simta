@@ -198,8 +198,8 @@
                                             download
                                         </a>
                                     <?php endif; ?>
-                                </td> -->
-                                <?php endif; ?>
+                                </td> 
+                                <?php endif; ?>-->
                                 <td>
                                     <div class="d-flex justify-content-end flex-shrink-0">
                                         <a href="<?= base_url('rilisjadwalsidang/berita-acara/'. $vdata['id_rilis_jadwal_sidang']) ?>" target="_blank" class="btn btn-icon btn-light-warning btn-active-color-light btn-sm me-1" data-bs-toggle="tooltip" title="Unduh Berita Acara">
@@ -394,5 +394,95 @@
         <!--end::Modal dialog-->
     </div>
 <?php endforeach; ?>
+
+<script>
+    function uploadSuratUndangan(jadwalsidangID) {
+
+        var fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = 'application/pdf'; // Set hanya menerima file PDF
+
+        fileInput.onchange = function(e) {
+            var file = e.target.files[0];
+            
+            if (!file || file.type !== 'application/pdf') {
+                alert('Mohon pilih file PDF.');
+                return;
+            }
+
+            var formData = new FormData();
+            formData.append('file', file);
+
+            var route = 'upload/surat-undangan/' + jadwalsidangID;
+            console.log('Upload route:', route); // Debugging log
+
+            fetch(route, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Gagal mengunggah file');
+                }
+                return response.text();
+            })
+            .then(data => {
+                console.log('Respon dari server:', data);
+
+                //Reload halaman setelah file berhasil diunggah
+                location.reload();
+            })
+            .catch(error => {
+                console.error('Terjadi kesalahan:', error);
+            });
+        };
+
+        fileInput.click();
+    }
+
+    function uploadSuratTugas(jadwalsidangID) {
+        var fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = 'application/pdf'; // Set hanya menerima file PDF
+
+        fileInput.onchange = function(e) {
+            var file = e.target.files[0];
+            
+            if (!file || file.type !== 'application/pdf') {
+                alert('Mohon pilih file PDF.');
+                return;
+            }
+
+            var formData = new FormData();
+            formData.append('file', file);
+
+            var route = 'upload/surat-tugas/' + jadwalsidangID;
+            console.log('Upload route:', route); // Debugging log
+
+            fetch(route, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Gagal mengunggah file');
+                }
+                return response.text();
+            })
+            .then(data => {
+                console.log('Respon dari server:', data);
+
+                //Reload halaman setelah file berhasil diunggah
+                location.reload();
+            })
+            .catch(error => {
+                console.error('Terjadi kesalahan:', error);
+            });
+        };
+
+        fileInput.click();
+    }
+
+</script>
 <?= $this->endSection() ?>
 

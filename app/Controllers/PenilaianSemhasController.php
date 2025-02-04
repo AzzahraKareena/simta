@@ -118,7 +118,7 @@ class PenilaianSemhasController extends BaseController
                 if ($nilai['id_staf'] == session()->get('user_id')) {
                     $getData[] = $nilai; // Tambahkan ke array
                 }
-            } elseif (session()->get('role') == 'Admin' || session()->get('role') == 'Koordinator') {
+            } elseif (session()->get('role') == 'Admin') {
                 // Jika rolenya adalah "Dosen", maka hanya data yang sesuai dengan ID staf yang sedang login yang akan ditampilkan
                     $getData[] = $nilai; // Tambahkan ke array
             }
@@ -176,7 +176,20 @@ class PenilaianSemhasController extends BaseController
         $total = 0; // Inisialisasi total nilai
 
         foreach ($indikator_ids as $id_indikator) {
-            $nilai_indikator = isset($nilai[$id_indikator]) ? $nilai[$id_indikator] : 0; // Jika nilai tidak ada, gunakan 0
+            if (!isset($nilai[$id_indikator]) || $nilai[$id_indikator] === '') {
+                return $this->response->setJSON(['status' => 'error', 'message' => 'Semua nilai harus diisi']);
+            }
+    
+            $nilai_indikator = $nilai[$id_indikator];
+            
+            // Dapatkan nilai maksimum dari database
+            $indikatorModel = new IndikatorSemhasModel();
+            $max_nilai = $indikatorModel->find($id_indikator)['max_nilai'];
+
+            // Validasi nilai tidak boleh lebih dari max_nilai
+            if ($nilai_indikator > $max_nilai) {
+                return $this->response->setJSON(['status' => 'error', 'message' => 'Nilai tidak boleh lebih dari ' . $max_nilai]);
+            }
 
             // Tambahkan nilai indikator ke total
             $total += $nilai_indikator;

@@ -45,21 +45,21 @@
                 <!--end::Nav item-->
                 <!--begin::Nav item-->
                 <li class="nav-item">
-                    <a class="nav-link text-active-primary me-6" href="<?= base_url('judulacc')?>">Judul yang Diterima</a>
+                    <a class="nav-link text-active-primary me-6" href="<?= base_url('judulacc') ?>">Judul yang Diterima</a>
                 </li>
                 <!-- <li class="nav-item">
-                    <a class="nav-link text-active-primary me-6" href="<?= base_url('pengajuanbimbingan')?>">Pengajuan Bimbingan</a>
+                    <a class="nav-link text-active-primary me-6" href="<?= base_url('pengajuanbimbingan') ?>">Pengajuan Bimbingan</a>
                 </li> -->
                 <li class="nav-item">
-                    <a class="nav-link text-active-primary me-6" href="<?= base_url('pengajuanujianproposal')?>">Pengajuan Ujian Proposal</a>
+                    <a class="nav-link text-active-primary me-6" href="<?= base_url('pengajuanujianproposal') ?>">Pengajuan Ujian Proposal</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-active-primary me-6" href="<?= base_url('rilisjadwal')?>">Jadwal Ujian Proposal</a>
+                    <a class="nav-link text-active-primary me-6" href="<?= base_url('rilisjadwal') ?>">Jadwal Ujian Proposal</a>
                 </li>
-                <?php if(session()->get('role') == 'Dosen' || session()->get('role') == 'Koordinator' || session()->get('nama') == 'Masbahah '): ?>
-                <li class="nav-item">
-                    <a class="nav-link text-active-primary me-6" href="<?= base_url('penilaianproposal')?>">Penilaian Ujian Proposal</a>
-                </li>
+                <?php if (session()->get('role') == 'Dosen' || session()->get('role') == 'Koordinator' || session()->get('nama') == 'Masbahah ') : ?>
+                    <li class="nav-item">
+                        <a class="nav-link text-active-primary me-6" href="<?= base_url('penilaianproposal') ?>">Penilaian Ujian Proposal</a>
+                    </li>
                 <?php endif; ?>
                 <!--end::Nav item-->
             </ul>
@@ -99,12 +99,12 @@
                     <form action="/pengajuanjudul" method="get" class="d-flex align-items-center position-relative my-1 mt-3" id="myForm" role="form">
                         <select id="tahun_filter" name="tahun" class="form-select form-select-sm form-select-solid w-125px" data-control="select2" data-placeholder="Select Tahun" data-hide-search="true">
                             <?php
-                                $thn_skr = date('Y');
-                                for ($x = $thn_skr; $x >= 2020; $x--) {
-                                ?>
+                            $thn_skr = date('Y');
+                            for ($x = $thn_skr; $x >= 2020; $x--) {
+                            ?>
                                 <option value="<?= $x; ?>" <?= ($x == $tahun) ? 'selected' : ''; ?>><?= $x; ?></option>
-                                <?php
-                                }
+                            <?php
+                            }
                             ?>
                         </select>
                     </form>
@@ -112,22 +112,24 @@
                 </div>
                 <!--end::Filter-->
                 <!--begin::Add subscription-->
-                <?php if (session()->get('role') == 'Mahasiswa' && !$mahasiswaSudahMengajukan): ?>
+                <?php if (session()->get('role') == 'Mahasiswa' && !$mahasiswaSudahMengajukan) : ?>
                     <a href="<?= base_url('pengajuanjudul/create') ?>" class="btn btn-sm btn-primary my-4">
-                    <span class="svg-icon svg-icon-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />
-                            <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
-                        </svg>
-                    </span>Pengajuan</a>
+                        <span class="svg-icon svg-icon-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />
+                                <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
+                            </svg>
+                        </span>Pengajuan</a>
                 <?php endif; ?>
                 <!--end::Add subscription-->
             </div>
             <!--end::Toolbar-->
+
             <!--begin::Group actions-->
             <div class="d-flex justify-content-end align-items-center d-none" data-kt-subscription-table-toolbar="selected">
                 <div class="fw-bolder me-5">
-                <span class="me-2" data-kt-subscription-table-select="selected_count"></span>Selected</div>
+                    <span class="me-2" data-kt-subscription-table-select="selected_count"></span>Selected
+                </div>
                 <button type="button" class="btn btn-danger" data-kt-subscription-table-select="delete_selected">Delete Selected</button>
             </div>
             <!--end::Group actions-->
@@ -156,16 +158,16 @@
                     <!--begin::Tbody-->
                     <tbody class="fw-6 fw-bold text-gray-600">
                         <?php foreach ($pengajuan as $item) : ?>
-                            <?php 
-                                if ($item['status_pj'] == 'DIAJUKAN') {
-                                    $warna = 'dark';
-                                } elseif ($item['status_pj'] == 'DISETUJUI') {
-                                    $warna = 'success';
-                                } elseif ($item['status_pj'] == 'DITOLAK') {
-                                    $warna = 'danger';
-                                } else {
-                                    $warna = 'primary';
-                                }
+                            <?php
+                            if ($item['status_pj'] == 'DIAJUKAN') {
+                                $warna = 'dark';
+                            } elseif ($item['status_pj'] == 'DISETUJUI') {
+                                $warna = 'success';
+                            } elseif ($item['status_pj'] == 'DITOLAK') {
+                                $warna = 'danger';
+                            } else {
+                                $warna = 'primary';
+                            }
                             ?>
                             <tr>
                                 <td>
@@ -190,10 +192,12 @@
                                     <div class="d-flex justify-content-center">
                                         <a href="#" class="btn btn-icon btn-light-info btn-active-color-light btn-sm me-1" data-bs-toggle="modal" data-bs-target="#detailPengajuanJudul<?= $item['id_pengajuanjudul']; ?>">
                                             <span class="svg-icon svg-icon-3">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 12c0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3 3 1.346 3 3zm9-.449s-4.252 8.449-11.985 8.449c-7.18 0-12.015-8.449-12.015-8.449s4.446-7.551 12.015-7.551c7.694 0 11.985 7.551 11.985 7.551zm-7 .449c0-2.757-2.243-5-5-5s-5 2.243-5 5 2.243 5 5 5 5-2.243 5-5z" fill="black"/></svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                    <path d="M15 12c0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3 3 1.346 3 3zm9-.449s-4.252 8.449-11.985 8.449c-7.18 0-12.015-8.449-12.015-8.449s4.446-7.551 12.015-7.551c7.694 0 11.985 7.551 11.985 7.551zm-7 .449c0-2.757-2.243-5-5-5s-5 2.243-5 5 2.243 5 5 5 5-2.243 5-5z" fill="black" />
+                                                </svg>
                                             </span>
                                         </a>
-                                        <?php if(session()->get('role') == 'Koordinator' || session()->get('nama') == 'Masbahah '): ?>
+                                        <?php if (session()->get('role') == 'Koordinator' || session()->get('nama') == 'Masbahah ') : ?>
                                             <a href="<?= base_url('judulacc/create/' . $item['id_pengajuanjudul']) ?>" class="btn btn-icon btn-light-primary btn-active-color-light btn-sm me-1">
                                                 <span class="svg-icon svg-icon-3">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -217,7 +221,7 @@
                                                 <!--end::Svg Icon-->
                                             </button>
                                         </form>
-                                    </div> 
+                                    </div>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -237,11 +241,12 @@
                 <!--end::Title-->
                 <!--begin::Description-->
                 <p class="text-gray-400 fs-4 fw-bold py-7"><?= session()->get('role') == 'Mahasiswa' ? 'Klik tombol dibawah untuk menambahkan' : 'Belum ada data' ?>
-                <br />Pengajuan Judul.</p>
+                    <br />Pengajuan Judul.
+                </p>
                 <!--end::Description-->
                 <!--begin::Action-->
-                <?php if(session()->get('role') == 'Mahasiswa'): ?>
-                    <a href="<?= base_url('pengajuanjudul/create') ?>" class="btn btn-primary er fs-6 px-8 py-4" >Tambah Pengajuan Judul</a>
+                <?php if (session()->get('role') == 'Mahasiswa') : ?>
+                    <a href="<?= base_url('pengajuanjudul/create') ?>" class="btn btn-primary er fs-6 px-8 py-4">Tambah Pengajuan Judul</a>
                 <?php endif; ?>
                 <!--end::Action-->
             </div>
@@ -255,89 +260,89 @@
 </div>
 
 <?php foreach ($pengajuan as $item) : ?>
-<div class="modal fade" id="detailPengajuanJudul<?= $item['id_pengajuanjudul']; ?>" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog mw-650px">
-        <div class="modal-content">
-            <div class="modal-header pb-0 border-0 justify-content-end">
-                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
-                    <span class="svg-icon svg-icon-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
-                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
-                        </svg>
-                    </span>
+    <div class="modal fade" id="detailPengajuanJudul<?= $item['id_pengajuanjudul']; ?>" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog mw-650px">
+            <div class="modal-content">
+                <div class="modal-header pb-0 border-0 justify-content-end">
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <span class="svg-icon svg-icon-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                            </svg>
+                        </span>
+                    </div>
                 </div>
-            </div>
-            <div class="modal-body scroll-y mx-5 mx-xl-18 pt-0 pb-15">
-                <!--begin::Heading-->
-                <div class="text-center mb-13">
-                    <!--begin::Title-->
-                    <h1 class="mb-3">Detail Pengajuan Judul</h1>
-                </div>
-                <!--end::Heading-->
-                <!--begin::Users-->
-                <div class="mb-15">
-                    <!--begin::List-->
-                    <div class="mh-375px scroll-y me-n7 pe-7">
-                        <div class="table-responsive">
-                            <!--begin::Table-->
-                            <table class="table table-flush align-middle table-row-bordered table-row-solid gy-3 gs-2" width="100%">
-                                <tbody>
-                                    <tr>
-                                        <th width="40%" class="fs-6 fw-bolder">Nama</th>
-                                        <td width="60%">
-                                            <span class="text-dark fs-6"><?= ucwords($item['mahasiswa_nama']) ?></span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th class="fs-6 fw-bolder">Judul 1</th>
-                                        <td>
-                                            <p class="fw-bolder text-dark fs-6"><?= $item['nama_judul1'] ?></p>
-                                            <p class="text-dark fs-6"><?= $item['deskripsi_sistem1'] ?></p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th class="fs-6 fw-bolder">Judul 2</th>
-                                        <td>
-                                            <p class="fw-bolder text-dark fs-6"><?= $item['nama_judul2'] ?></p>
-                                            <p class="text-dark fs-6"><?= $item['deskripsi_sistem2'] ?></p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th class="fs-6 fw-bolder">Judul 3</th>
-                                        <td>
-                                            <p class="fw-bolder text-dark fs-6"><?= $item['nama_judul3'] ?></p>
-                                            <p class="text-dark fs-6"><?= $item['deskripsi_sistem3'] ?></p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th class="fs-6 fw-bolder">Dosen Pembimbing 1</th>
-                                        <td class="text-dark fs-6"><?= $item['dospem1_nama'] ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th class="fs-6 fw-bolder">Dosen Pembimbing 2</th>
-                                        <td class="text-dark fs-6"><?= $item['dospem2_nama'] ?></td>
-                                    </tr>
-                                    <!-- <tr>
+                <div class="modal-body scroll-y mx-5 mx-xl-18 pt-0 pb-15">
+                    <!--begin::Heading-->
+                    <div class="text-center mb-13">
+                        <!--begin::Title-->
+                        <h1 class="mb-3">Detail Pengajuan Judul</h1>
+                    </div>
+                    <!--end::Heading-->
+                    <!--begin::Users-->
+                    <div class="mb-15">
+                        <!--begin::List-->
+                        <div class="mh-375px scroll-y me-n7 pe-7">
+                            <div class="table-responsive">
+                                <!--begin::Table-->
+                                <table class="table table-flush align-middle table-row-bordered table-row-solid gy-3 gs-2" width="100%">
+                                    <tbody>
+                                        <tr>
+                                            <th width="40%" class="fs-6 fw-bolder">Nama</th>
+                                            <td width="60%">
+                                                <span class="text-dark fs-6"><?= ucwords($item['mahasiswa_nama']) ?></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="fs-6 fw-bolder">Judul 1</th>
+                                            <td>
+                                                <p class="fw-bolder text-dark fs-6"><?= $item['nama_judul1'] ?></p>
+                                                <p class="text-dark fs-6"><?= $item['deskripsi_sistem1'] ?></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="fs-6 fw-bolder">Judul 2</th>
+                                            <td>
+                                                <p class="fw-bolder text-dark fs-6"><?= $item['nama_judul2'] ?></p>
+                                                <p class="text-dark fs-6"><?= $item['deskripsi_sistem2'] ?></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="fs-6 fw-bolder">Judul 3</th>
+                                            <td>
+                                                <p class="fw-bolder text-dark fs-6"><?= $item['nama_judul3'] ?></p>
+                                                <p class="text-dark fs-6"><?= $item['deskripsi_sistem3'] ?></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="fs-6 fw-bolder">Dosen Pembimbing 1</th>
+                                            <td class="text-dark fs-6"><?= $item['dospem1_nama'] ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="fs-6 fw-bolder">Dosen Pembimbing 2</th>
+                                            <td class="text-dark fs-6"><?= $item['dospem2_nama'] ?></td>
+                                        </tr>
+                                        <!-- <tr>
                                         <th class="fs-6 fw-bolder">Status Pengajuan</th>
                                         <td>
                                             <span class="badge badge-light-<?= $warna; ?> fs-7 fw-bolder"><?= $item['status_pj']; ?></span>
                                         </td>
                                     </tr> -->
-                                </tbody>
-                                <!--end::Tbody-->
-                            </table>
-                            <!--end::Table-->
+                                    </tbody>
+                                    <!--end::Tbody-->
+                                </table>
+                                <!--end::Table-->
+                            </div>
                         </div>
+                        <!--end::List-->
                     </div>
-                    <!--end::List-->
                 </div>
+                <!--end::Modal body-->
             </div>
-            <!--end::Modal body-->
+            <!--end::Modal content-->
         </div>
-        <!--end::Modal content-->
+        <!--end::Modal dialog-->
     </div>
-    <!--end::Modal dialog-->
-</div>
 <?php endforeach; ?>
 <?= $this->endSection() ?>
