@@ -7,15 +7,11 @@ use Ramsey\Uuid\Uuid;
 
 class MahasiswaModel extends Model
 {
-    protected $uuidFields       = ['id_mhs'];
     protected $table            = 'mahasiswa';
     protected $primaryKey       = 'id_mhs';
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
-    protected $allowedFields    = ['id_mhs', 'id_user', 'nama', 'nim', 'prodi', 'no_telp', 'th_masuk', 'th_lulus', 'kelas', 'status'];
-    protected $validationRules = [
-        'id_mhs' => 'required'
-    ];
+    protected $allowedFields    = [ 'id_user', 'nama', 'nim', 'prodi', 'no_telp', 'th_masuk', 'th_lulus', 'kelas', 'status'];
 
     // public function getMahasiswabyUserId()
     // {
@@ -55,7 +51,8 @@ class MahasiswaModel extends Model
 
     public function withUser()
     {
-        return $this->join('users as mhs', 'mhs.id = mahasiswa.id_user');
+        return $this->select('mahasiswa.*, users.email, users.username, users.password_hash, users.role')
+                    ->join('users', 'users.id = mahasiswa.id_user'); 
     }
 
     public function getUser()

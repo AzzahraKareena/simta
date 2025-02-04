@@ -35,11 +35,20 @@ class Auth extends Controller
         // Lakukan pengecekan di database atau sistem autentikasi lainnya
         // Misalnya, Anda bisa menggunakan model User
         $userModel = new \App\Models\UsersModel();
+        $mhsModel = new \App\Models\MahasiswaModel();
+        $stafModel = new \App\Models\StafModel();
         $user = $userModel->asArray()->where('email', $email)->first();
-
+        
         if (!$user || !password_verify($password, $user['password_hash'])) {
             return redirect()->back()->withInput()->with('authError', 'Email atau password salah');
         }
+
+        $nama = $mhsModel->asArray()->where('id_user', $user['id'])->first();
+        if (!$nama) {
+            $nama = $stafModel->asArray()->where('id_user', $user['id'])->first();
+        }
+
+        $nama = $nama ? $nama['nama'] :  $user['nama'];
 
         // Login berhasil, simpan informasi user ke dalam sesi
         $session = session();
@@ -47,7 +56,7 @@ class Auth extends Controller
             'user_id' => $user['id'],
             'email' => $user['email'],
             'role' => $user['role'],
-            'nama' => $user['nama'],
+            'nama' => $nama,
             'logged_in' => true,
             // Tambahkan informasi lain yang diperlukan
         ]);

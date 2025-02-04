@@ -49,6 +49,18 @@
                                         <input class="form-control form-control-lg form-control-solid" type="text" name="nama" autocomplete="off" placeholder="Input nama mahasiswa" value="<?= old('nama')?? $dataForm->nama??"" ?>" required />
                                     </div>
                                     <div class="fv-row mb-10">
+                                    <label class="form-label required fs-6 fw-bolder text-dark">Email</label>
+                                    <input class="form-control form-control-lg form-control-solid" type="email" name="email" autocomplete="off" placeholder="Input email" value="<?= old('email') ?? $dataForm->email ?? "" ?>" required />
+                                </div>
+                                <div class="fv-row mb-10">
+                                    <label class="form-label required fs-6 fw-bolder text-dark">Username</label>
+                                    <input class="form-control form-control-lg form-control-solid" type="text" name="username" autocomplete="off" placeholder="Input username" value="<?= old('username') ?? $dataForm->username ?? "" ?>" required />
+                                </div>
+                                <div class="fv-row mb-10">
+                                    <label class="form-label required fs-6 fw-bolder text-dark">Password</label>
+                                    <input class="form-control form-control-lg form-control-solid" type="password" name="password" autocomplete="off" placeholder="Input password" />
+                                </div>
+                                    <div class="fv-row mb-10">
                                         <label class="form-label required fs-6 fw-bolder text-dark">NIM</label>
                                         <input class="form-control form-control-lg form-control-solid" type="text" name="nim" autocomplete="off" placeholder="Input NIM" value="<?= old('nim')?? $dataForm->nim??"" ?>" required />
                                     </div>
