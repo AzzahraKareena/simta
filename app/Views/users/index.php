@@ -35,7 +35,7 @@
                                 <!--begin::Toolbar-->
                                 <div class="d-flex justify-content-end" data-kt-docs-table-toolbar="base">
                                     <!--begin::Add customer-->
-                                    <a href="<?= base_url('users/create')?>" class="btn btn-primary" data-bs-toggle="tooltip" title="Klik tambah data">
+                                    <!-- <a href="<?= base_url('users/create')?>" class="btn btn-primary" data-bs-toggle="tooltip" title="Klik tambah data">
                                         <span class="svg-icon svg-icon-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                 <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black"></rect>
@@ -43,7 +43,7 @@
                                             </svg>
                                         </span>
                                         Tambah Data
-                                    </a>
+                                    </a> -->
                                     <!--end::Add customer-->
                                 </div>
                                 <!--end::Toolbar-->
@@ -59,12 +59,7 @@
                                         <th class="">Email</th>
                                         <th class="">Username</th>
                                         <th class="">Password Hash</th>
-                                        <th class="">Reset Hash</th>
-                                        <th class="">Reset At</th>
-                                        <th class="">Reset Expires</th>
-                                        <th class="">Activate Hash</th>
-                                        <th class="">Status</th>
-                                        <th class="">Status Message</th>
+   
                                         <!-- <th class="">Active</th>
                                         <th class="">Force Pass Reset</th>
                                         <th class="">Created At</th>
@@ -83,35 +78,35 @@
                                             
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata['username'] ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['username'] ?></span>
                                                
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata['password_hash'] ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['password_hash'] ?></span>
                                                
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata['reset_hash'] ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['reset_hash'] ?></span>
                                                 
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata['reset_at'] ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['reset_at'] ?></span>
                                            
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata['reset_expires'] ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['reset_expires'] ?></span>
                                                 
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata['activate_hash'] ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['activate_hash'] ?></span>
                                                 
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata['status'] ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['status'] ?></span>
                                                 
                                             </td>
                                             <td>
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6">Start: <?= $vdata['status_message'] ?></span>
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['status_message'] ?></span>
                                                 
                                             </td>
                                             <td>

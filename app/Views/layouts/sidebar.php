@@ -231,7 +231,8 @@
                                 </a>
                             </div>
                         <?php endif; ?>
-                        <?php if (session()->get('role') == 'Dosen' && trim(session()->get('nama')) == 'Masbahah') : ?>
+                     
+                        <?php if (session()->get('role') == 'Koordinator') : ?>
                             <div class="menu-item">
                                 <a class="menu-link <?= service('router')->getMatchedRoute()[0] == "tracking" ? "active" : "" ?>" href="<?= base_url('tracking') ?>">
                                     <span class="menu-icon">
