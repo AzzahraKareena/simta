@@ -47,6 +47,7 @@ class StafController extends BaseController
         $userModel->save([
             'email' => $data['email'],
             'username' => $data['username'],
+            'nama' => $data['nama'],
             'password_hash' => $data['password_hash'],
             'role' => $data['role'],  // Atur role sesuai kebutuhan
             'created_at' => date('Y-m-d H:i:s'),
@@ -63,6 +64,7 @@ class StafController extends BaseController
             'nip' => $data['nip'],
             'no_telp' => $data['no_telp'],
             'alamat' => $data['alamat'],
+            'jenis' => $data['role'], // Atur role sesuai kebutuhan
 
         ]);
     

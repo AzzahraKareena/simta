@@ -74,6 +74,8 @@ class PengajuanBimbinganController extends ResourceController
                 if ($bimbingan['id_staf'] == session()->get('user_id')) {
                     $getData[] = $bimbingan; // Tambahkan ke array
                 }
+            } elseif (session()->get('role') == 'Koordinator') {
+                $getData[] = $bimbingan; // Tambahkan ke array
             }
         }
     

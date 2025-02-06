@@ -55,9 +55,11 @@
                     <a class="nav-link text-active-primary me-6" href="<?= base_url('penilaiansidang') ?>">Penilaian Sidang Akhir</a>
                 </li>
                 <?php endif; ?>
+                <?php if(session()->get('role') == 'Mahasiswa'): ?>
                 <li class="nav-item">
-                    <a class="nav-link text-active-primary me-6" href="<?= base_url('syaratkelulusan') ?>">Unggah Syarat Kelulusan</a>
+                    <a class="nav-link text-active-primary me-6 active" href="<?= base_url('syaratkelulusan') ?>">Unggah Syarat Kelulusan</a>
                 </li>
+                <?php endif; ?>
                 <!--end::Nav item-->
             </ul>
         </div>
@@ -318,7 +320,7 @@
                                             <?php endif; ?>
                                         <?php endif; ?>
 
-                                    <?php elseif(session()->get('role') == 'Mahasiswa'): ?>
+                                    <?php elseif(session()->get('role') == 'Mahasiswa' || session()->get('role') == 'Koordinator' ) : ?>
                                         <!-- Button code here -->
                                         <?php if (!empty($vdata) && isset($vdata['status_pengajuan'])) : ?>
                                             <?php if ($vdata['status_pengajuan'] == 'PENDING') : ?>
@@ -410,16 +412,20 @@
         <div class="card-body pb-0">
             <!--begin::Heading-->
             <div class="card-px text-center pt-20 pb-5">
+            <?php if(session()->get('role') == 'Mahasiswa'): ?>
                 <!--begin::Title-->
                 <h2 class="fs-2x fw-bolder mb-0">Ajukan Pengajuan Sidang</h2>
                 <!--end::Title-->
                 <!--begin::Description-->
                 <p class="text-gray-400 fs-4 fw-bold py-7">Klik tombol dibawah untuk menambahkan
-                <br />Pengajuan SIdang.</p>
+                <br />Pengajuan Sidang.</p>
                 <!--end::Description-->
                 <!--begin::Action-->
                 <a href="<?= base_url('pengajuansidang/create') ?>" class="btn btn-primary er fs-6 px-8 py-4" >Tambah Pengajuan Sidang</a>
                 <!--end::Action-->
+                <?php else : ?>
+                <h2 class="fs-2x fw-bolder mb-0">Belum Ada Pengajuan Sidang</h2>
+                <?php endif; ?>
             </div>
             <!--end::Heading-->
             <!--begin::Illustration-->

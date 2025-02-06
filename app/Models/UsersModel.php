@@ -9,6 +9,6 @@ class UsersModel extends Model
     protected $table = 'users';
     protected $primaryKey = 'id';
     protected $useAutoIncrement = true;
-    protected $allowedFields = ['email', 'username', 'password_hash', 'role'];
+    protected $allowedFields = ['nama','email', 'username', 'password_hash', 'role'];
     
 }

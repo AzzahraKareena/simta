@@ -188,20 +188,21 @@ class PengajuanSeminarHasilController extends BaseController
 
         // Ambil nama dosen penguji 1 dari id_dosen_penguji1
         $dosenModel = new StafModel();
-        $dosenPenguji1 = $dosenModel->where('id_user', $dataPengajuan['id_dosen_penguji1'])->asArray()->first();
+        $dosenPenguji1 = $dosenModel->where('id_user', $dataPengajuan['id_penguji1'])->asArray()->first();
 
         $operation['title'] = 'Pengajuan Ujian Proposal';
         $operation['sub_title'] = 'Buat Pengajuan Ujian Proposal Baru';
         $operation['pengajuan'] = $dataPengajuan;
         $operation['dosen'] = (new StafModel())->where('jenis', 'Dosen')->asArray()->findAll();
-        $operation['nama_dosen_penguji1'] = $dosenPenguji1['nama']; // Nama dosen penguji 1
-        $operation['id_dosen_penguji1'] = $dataPengajuan['id_dosen_penguji1']; // ID dosen penguji 1
+        // $operation['nama_dosen_penguji1'] = $dosenPenguji1['nama']; // Nama dosen penguji 1
+        $operation['id_penguji1'] = $dataPengajuan['id_penguji1']; // ID dosen penguji 1
+        // dd($dataPengajuan);
 
         return view('rilisjadwalsemhas/create', [
             'pengajuan' => $operation['pengajuan'],
             'dosen' => $operation['dosen'],
-            'nama_dosen_penguji1' => $operation['nama_dosen_penguji1'],
-            'id_dosen_penguji1' => $operation['id_dosen_penguji1']
+            'nama_dosen_penguji1' => $dataPengajuan['nama_dosen'],
+            'id_dosen_penguji1' => $dataPengajuan['id_dospem']
         ]);
     }
 
