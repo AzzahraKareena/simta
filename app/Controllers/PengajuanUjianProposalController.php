@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use TCPDF;
-use App\Models\StafModels;
+use App\Models\StafModel;
 use App\Libraries\CustomPDF;
 use App\Models\JudulAccModel;
 use App\Models\MahasiswaModel;
@@ -245,7 +245,7 @@ class PengajuanUjianProposalController extends BaseController
         $operation['title'] = 'Jadwal Ujian Proposal';
         $operation['sub_title'] = 'Buat Jadwal Ujian Proposal Baru';
         $operation['pengajuan'] = $dataPengajuanUjian;
-        $operation['dosen'] = (new StafModels())->asArray()->findAll();
+        $operation['dosen'] = (new StafModel())->asArray()->findAll();
 
         return view('rilisjadwal/create', $operation);
     }

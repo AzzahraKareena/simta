@@ -58,7 +58,14 @@ class PengajuanJudulController extends ResourceController
                 if ($bimbingan['id_mhs'] == session()->get('user_id')) {
                     $getData[] = $bimbingan; // Tambahkan ke array
                 }
-            } elseif (session()->get('nama') == 'Masbahah ' || session()->get('role') == 'Koordinator'){
+            } 
+            elseif (session()->get('role') == 'Dosen') {
+                // Jika rolenya adalah "Mahasiswa", maka hanya data yang sesuai dengan ID mahasiswa yang sedang login yang akan ditampilkan
+                if ($bimbingan['id_dospem'] == session()->get('user_id') ||  $bimbingan['id_rekom_dospem1'] == session()->get('user_id')||  $bimbingan['id_rekom_dospem2'] == session()->get('user_id')) {
+                    $getData[] = $bimbingan; // Tambahkan ke array
+                }
+            } 
+            elseif (session()->get('role') == 'Koordinator'){
                  $getData[] = $bimbingan;
             }
         }

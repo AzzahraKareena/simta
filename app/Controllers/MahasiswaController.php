@@ -41,6 +41,7 @@ class MahasiswaController extends BaseController
         $userModel =  new \App\Models\UsersModel();
         $userData = [
             'email'         => $data['email'],
+            'nama' => $data['nama'],
             'username'      => $data['username'],
             'password_hash' => $data['password_hash'],
             'role'          => "Mahasiswa",  // Role diset ke Mahasiswa

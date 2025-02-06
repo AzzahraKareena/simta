@@ -33,6 +33,8 @@ class JudulAccController extends ResourceController
                 if ($bimbingan['dospem_acc'] == session()->get('user_id')) {
                     $getData[] = $bimbingan; // Tambahkan ke array
                 }
+            } else {
+                $getData[] = $bimbingan; 
             }
         }
     

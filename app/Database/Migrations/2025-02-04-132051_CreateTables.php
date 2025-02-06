@@ -430,7 +430,7 @@ class CreateTables extends Migration
             ],
         ]);
         $this->forge->addKey('id_accjudul', true);
-        $this->forge->addForeignKey('mhs_id', 'mahasiswa', 'id_mhs', 'SET NULL', 'CASCADE');
+        $this->forge->addForeignKey('mhs_id',  'users', 'id',  'SET NULL', 'CASCADE');
         $this->forge->addForeignKey('dospem_acc', 'users', 'id', 'SET NULL', 'CASCADE');
         $this->forge->createTable('simta_acc_judul');
 
@@ -629,8 +629,8 @@ class CreateTables extends Migration
             ],
         ]);
         $this->forge->addKey('id_surat', true);
-        $this->forge->addForeignKey('id_mhs', 'mahasiswa', 'id_mhs', 'CASCADE', 'CASCADE');
-        $this->forge->addForeignKey('id_staf', 'simta_masterstaf', 'id_masterstaf', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('id_mhs', 'users', 'id',  'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('id_staf',  'users', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('simta_mengelola_surat');
 
         // Tabel simta_pengajuanbimbingan
@@ -714,8 +714,8 @@ class CreateTables extends Migration
             ],
         ]);
         $this->forge->addKey('id_pengajuanbimbingan', true);
-        $this->forge->addForeignKey('id_mhs', 'mahasiswa', 'id_mhs', 'SET NULL', 'CASCADE');
-        $this->forge->addForeignKey('id_staf', 'simta_masterstaf', 'id_masterstaf', 'SET NULL', 'CASCADE');
+        $this->forge->addForeignKey('id_mhs',  'users', 'id',  'SET NULL', 'CASCADE');
+        $this->forge->addForeignKey('id_staf', 'users', 'id',  'SET NULL', 'CASCADE');
         $this->forge->addForeignKey('id_accjudul', 'simta_acc_judul', 'id_accjudul', 'SET NULL', 'CASCADE');
         $this->forge->createTable('simta_pengajuanbimbingan');
 
@@ -814,7 +814,7 @@ class CreateTables extends Migration
             ],
         ]);
         $this->forge->addKey('id_pengajuanjudul', true);
-        $this->forge->addForeignKey('id_mhs', 'mahasiswa', 'id_mhs', 'SET NULL', 'CASCADE');
+        $this->forge->addForeignKey('id_mhs', 'users', 'id', 'SET NULL', 'CASCADE');
         $this->forge->addForeignKey('id_rekom_dospem1', 'users', 'id', 'SET NULL', 'CASCADE');
         $this->forge->addForeignKey('id_rekom_dospem2', 'users', 'id', 'SET NULL', 'CASCADE');
         $this->forge->createTable('simta_pengajuanjudul');
@@ -896,7 +896,7 @@ class CreateTables extends Migration
             ],
         ]);
         $this->forge->addKey('id_seminarhasil', true);
-        $this->forge->addForeignKey('id_mhs', 'mahasiswa', 'id_mhs', 'SET NULL', 'CASCADE');
+        $this->forge->addForeignKey('id_mhs',  'users', 'id', 'SET NULL', 'CASCADE');
         $this->forge->addForeignKey('id_dospem', 'users', 'id', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('id_accjudul', 'simta_acc_judul', 'id_accjudul', 'SET NULL', 'CASCADE');
         $this->forge->createTable('simta_pengajuan_seminarhasil');
@@ -996,7 +996,7 @@ class CreateTables extends Migration
             ],
         ]);
         $this->forge->addKey('id_sidang', true);
-        $this->forge->addForeignKey('id_mhs', 'mahasiswa', 'id_mhs', 'SET NULL', 'CASCADE');
+        $this->forge->addForeignKey('id_mhs',  'users', 'id', 'SET NULL', 'CASCADE');
         $this->forge->addForeignKey('id_accjudul', 'simta_acc_judul', 'id_accjudul', 'SET NULL', 'CASCADE');
         $this->forge->createTable('simta_pengajuan_sidang');
 
@@ -1082,8 +1082,10 @@ class CreateTables extends Migration
             ],
         ]);
         $this->forge->addKey('id_ujianproposal', true);
-        $this->forge->addForeignKey('mahasiswa', 'mahasiswa', 'id_mhs', 'SET NULL', 'CASCADE');
+        $this->forge->addForeignKey('mahasiswa',  'users', 'id',  'SET NULL', 'CASCADE');
         $this->forge->addForeignKey('id_dospem', 'users', 'id', 'SET NULL', 'CASCADE');
+        $this->forge->addForeignKey('id_penguji1', 'users', 'id', 'SET NULL', 'CASCADE');
+        $this->forge->addForeignKey('id_penguji2', 'users', 'id', 'SET NULL', 'CASCADE');
         $this->forge->addForeignKey('judul_acc_id', 'simta_acc_judul', 'id_accjudul', 'SET NULL', 'CASCADE');
         $this->forge->createTable('simta_pengajuan_ujianproposal');
 
@@ -1280,8 +1282,8 @@ class CreateTables extends Migration
             ],
         ]);
         $this->forge->addKey('id_penilaian', true);
-        $this->forge->addForeignKey('id_staf', 'simta_masterstaf', 'id_masterstaf', 'SET NULL', 'CASCADE');
-        $this->forge->addForeignKey('id_mhs', 'mahasiswa', 'id_mhs', 'SET NULL', 'CASCADE');
+        $this->forge->addForeignKey('id_staf',  'users', 'id', 'SET NULL', 'CASCADE');
+        $this->forge->addForeignKey('id_mhs',  'users', 'id', 'SET NULL', 'CASCADE');
         $this->forge->addForeignKey('id_rilis_jadwal', 'simta_rilis_jadwal', 'id_rilis_jadwal', 'SET NULL', 'CASCADE');
         $this->forge->createTable('simta_penilaian_seminarhasil');
 
@@ -1354,8 +1356,8 @@ class CreateTables extends Migration
             ],
         ]);
         $this->forge->addKey('id_penilaian', true);
-        $this->forge->addForeignKey('id_staf', 'simta_masterstaf', 'id_masterstaf', 'SET NULL', 'CASCADE');
-        $this->forge->addForeignKey('id_mhs', 'mahasiswa', 'id_mhs', 'SET NULL', 'CASCADE');
+        $this->forge->addForeignKey('id_staf',  'users', 'id',  'SET NULL', 'CASCADE');
+        $this->forge->addForeignKey('id_mhs', 'users', 'id',  'SET NULL', 'CASCADE');
         $this->forge->addForeignKey('id_rilis_jadwal', 'simta_rilis_jadwal_sidang', 'id_rilis_jadwal_sidang', 'SET NULL', 'CASCADE');
         $this->forge->createTable('simta_penilaian_sidang');
 
@@ -1428,8 +1430,8 @@ class CreateTables extends Migration
             ],
         ]);
         $this->forge->addKey('id_penilaian', true);
-        $this->forge->addForeignKey('id_staf', 'simta_masterstaf', 'id_masterstaf', 'SET NULL', 'CASCADE');
-        $this->forge->addForeignKey('id_mhs', 'mahasiswa', 'id_mhs', 'SET NULL', 'CASCADE');
+        $this->forge->addForeignKey('id_staf', 'users', 'id',  'SET NULL', 'CASCADE');
+        $this->forge->addForeignKey('id_mhs',  'users', 'id',  'SET NULL', 'CASCADE');
         $this->forge->addForeignKey('id_rilis_jadwal', 'simta_rilis_jadwal', 'id_rilis_jadwal', 'SET NULL', 'CASCADE');
         $this->forge->createTable('simta_penilaian_ujianproposal');
 
@@ -1543,8 +1545,8 @@ class CreateTables extends Migration
             ],
         ]);
         $this->forge->addKey('id_syarat_kelulusan', true);
-        $this->forge->addForeignKey('id_mhs', 'mahasiswa', 'id_mhs', 'SET NULL', 'CASCADE');
-        $this->forge->addForeignKey('id_staf', 'simta_masterstaf', 'id_masterstaf', 'SET NULL', 'CASCADE');
+        $this->forge->addForeignKey('id_mhs', 'users', 'id',  'SET NULL', 'CASCADE');
+        $this->forge->addForeignKey('id_staf',  'users', 'id',  'SET NULL', 'CASCADE');
         $this->forge->createTable('simta_syarat_kelulusan');
 
         // Tabel simta_timeline

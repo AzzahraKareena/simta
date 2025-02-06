@@ -375,6 +375,7 @@
         <div class="card-body pb-0">
             <!--begin::Heading-->
             <div class="card-px text-center pt-20 pb-5">
+            <?php if(session()->get('role') == 'Mahasiswa'): ?>
                 <!--begin::Title-->
                 <h2 class="fs-2x fw-bolder mb-0">Ajukan Pengajuan Seminar Hasil</h2>
                 <!--end::Title-->
@@ -385,6 +386,9 @@
                 <!--begin::Action-->
                 <a href="<?= base_url('pengajuanseminarhasil/create') ?>" class="btn btn-primary er fs-6 px-8 py-4" >Tambah Pengajuan Seminar Hasil</a>
                 <!--end::Action-->
+                <?php else : ?>
+                <h2 class="fs-2x fw-bolder mb-0">Belum Ada Pengajuan Seminar Hasil</h2>
+                <?php endif; ?>
             </div>
             <!--end::Heading-->
             <!--begin::Illustration-->
