@@ -30,11 +30,12 @@ class PenilaianSemhasDetailModel extends Model
                     ->join('mahasiswa as mh', 'mhs.id=mh.id_user');
     }
 
-    public function getDetail()
+    public function getDetail($id)
     {
         return $this->select('simta_penilaian_seminarhasil_detail.*, judul.judul_acc as judul_judul_acc,peng.id_mhs as peng_id_mhs, mh.nim as nim, mh.prodi as prodi, mhs.nama as mhs_nama, staf.nama as staf_nama, stf.nip as stf_nip, indi.nama as indi, indi.max_nilai as indi_nilai, kriteria.nama_kriteria as kri, kriteria.id_kriteria as id_kri')
                     ->withIndikator()
                     ->withPenilaian()
+                    ->where('pnl.id_penilaian', $id) 
                     ->findAll();
     }
 

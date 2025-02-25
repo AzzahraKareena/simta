@@ -60,7 +60,7 @@
                                         <select class="form-select form-select-lg form-select-solid" name="id_penguji1" required>
                                             <option value="">Pilih Ketua Penguji</option>
                                             <?php foreach ($dosen as $penguji): ?>
-                                                <option value="<?= $penguji['id_user'] ?>" <?= ($penguji['id_user'] == old('id_penguji1') || (isset($dataForm['id_penguji1']) && $penguji['id_user'] == $dataForm['id_penguji1'])) ? 'selected' : '' ?>>
+                                                <option value="<?= $penguji['id'] ?>" <?= ($penguji['id'] == old('id_penguji1') || (isset($dataForm['id_penguji1']) && $penguji['id_user'] == $dataForm['id_penguji1'])) ? 'selected' : '' ?>>
                                                     <?= $penguji['nama'] ?>
                                                 </option>
                                             <?php endforeach; ?>
@@ -71,7 +71,7 @@
                                         <select class="form-select form-select-lg form-select-solid" name="id_penguji2" required>
                                             <option value="">Pilih Sekretaris Penguji</option>
                                             <?php foreach ($dosen as $penguji): ?>
-                                                <option value="<?= $penguji['id_user'] ?>" <?= ($penguji['id_user'] == old('id_penguji2') || (isset($dataForm['id_penguji2']) && $penguji['id_user'] == $dataForm['id_penguji2'])) ? 'selected' : '' ?>>
+                                                <option value="<?= $penguji['id'] ?>" <?= ($penguji['id'] == old('id_penguji2') || (isset($dataForm['id_penguji2']) && $penguji['id_user'] == $dataForm['id_penguji2'])) ? 'selected' : '' ?>>
                                                     <?= $penguji['nama'] ?>
                                                 </option>
                                             <?php endforeach; ?>
@@ -82,7 +82,7 @@
                                         <select class="form-select form-select-lg form-select-solid" name="id_penguji3" required>
                                             <option value="">Pilih</option>
                                             <?php foreach ($dosen as $penguji): ?>
-                                                <option value="<?= $penguji['id_user'] ?>" <?= ($penguji['id_user'] == old('id_penguji3') || (isset($dataForm['id_penguji3']) && $penguji['id_user'] == $dataForm['id_penguji3'])) ? 'selected' : '' ?>>
+                                                <option value="<?= $penguji['id'] ?>" <?= ($penguji['id'] == old('id_penguji3') || (isset($dataForm['id_penguji3']) && $penguji['id_user'] == $dataForm['id_penguji3'])) ? 'selected' : '' ?>>
                                                     <?= $penguji['nama'] ?>
                                                 </option>
                                             <?php endforeach; ?>

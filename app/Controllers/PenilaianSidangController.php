@@ -121,6 +121,9 @@ class PenilaianSidangController extends BaseController
             } elseif (session()->get('role') == 'Admin') {
                 // Jika rolenya adalah "Dosen", maka hanya data yang sesuai dengan ID staf yang sedang login yang akan ditampilkan
                 $getData[] = $nilai; // Tambahkan ke array
+            } elseif (session()->get('role') == 'Koordinator') {
+                // Jika rolenya adalah "Dosen", maka hanya data yang sesuai dengan ID staf yang sedang login yang akan ditampilkan
+                $getData[] = $nilai; // Tambahkan ke array
             }
         }
 

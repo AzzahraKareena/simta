@@ -145,6 +145,7 @@ class PengajuanJudulController extends ResourceController
             'catatan'  => $this->request->getVar('catatan'), 
             'id_rekom_dospem1'  => $this->request->getVar('id_rekom_dospem1'), 
             'id_rekom_dospem2'  => $this->request->getVar('id_rekom_dospem2'), 
+            'created_at'  => date('Y-m-d H:i:s'),
         ];
         // dd($data);
         $insert = $this->model->insert($data);

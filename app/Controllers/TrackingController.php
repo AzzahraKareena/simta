@@ -23,7 +23,7 @@ class TrackingController extends BaseController
         error_log('Nama: ' . $nama);
         
         // Ambil data sesuai dengan role dan nama
-        if ($role == 'Dosen' || $nama == 'Masbahah') {
+        if ($role == 'Dosen' || $role == 'Koordinator') {
             $data = $model->getAllMahasiswaBimbingan();
         } else {
             $data = []; // Atau data yang relevan jika role atau nama tidak sesuai

@@ -62,6 +62,7 @@ class PengajuanJudulModel extends Model
                     ->withDospem1()
                     ->withDospem2()
                     ->where('mahasiswa.th_lulus', $tahun)
+                    ->orderBy('created_at', 'DESC')                     
                     ->findAll();
     }
 }
