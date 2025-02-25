@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\StafModel;
+use App\Models\UsersModel;
 use App\Models\JudulAccModel;
 use App\Controllers\BaseController;
 use App\Models\PengajuanSidangModel;
@@ -189,7 +189,7 @@ class PengajuanSidangController extends BaseController
         $operation['title'] = 'Pengajuan Sidang TA';
         $operation['sub_title'] = 'Buat Pengajuan Sidang TA Baru';
         $operation['pengajuan'] = $dataPengajuan;
-        $operation['dosen'] = (new StafModel())->where('jenis', 'Dosen')->asArray()->findAll();
+        $operation['dosen'] = (new UsersModel())->where('role', 'Dosen')->asArray()->findAll();
         // dd($operation['pengajuan']);
         return view('rilisjadwalsidang/create', ['pengajuan' => $operation['pengajuan'], 'dosen' => $operation['dosen']]);
     }

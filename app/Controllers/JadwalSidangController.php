@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use TCPDF;
-use App\Models\StafModels;
+use App\Models\StafModel;
 use App\Libraries\CustomPDF;
 use App\Models\JudulAccModel;
 use App\Models\MahasiswaModel;
@@ -66,7 +66,7 @@ class JadwalSidangController extends BaseController
         $operation['dataForm'] = $dataForm;
         $operation['title'] = 'Rilis Jadwal Sidang TA';
         $operation['sub_title'] = 'Edit Jadwal Sidang TA';
-        $operation['dosen'] = (new StafModels())->asArray()->findAll();
+        $operation['dosen'] = (new StafModel())->asArray()->findAll();
         return view('rilisjadwalsidang/edit', $operation);
     }
 

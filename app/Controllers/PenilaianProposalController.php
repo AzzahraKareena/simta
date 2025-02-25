@@ -11,6 +11,7 @@ use App\Models\PengajuanJudulModel;
 use App\Models\PengajuanUjianProposalModel;
 use App\Models\PenilaianProposalDetailModel;
 use App\Models\PenilaianProposalModel;
+use App\Libraries\CustomPDF;
 use TCPDF;
 
 class PenilaianProposalController extends BaseController
@@ -18,16 +19,19 @@ class PenilaianProposalController extends BaseController
 
     public function penilaian($id = null)
     {
+        
+        // echo "Fungsi penilaian dipanggil dengan ID: " . $id;
         helper('my_date_helper');
-
+    
         $model = new PenilaianProposalDetailModel();
         $nilai = $model->getDetail($id);
-
+        
+        // dd($nilai);
+    
         if (!$nilai) {
-            // Handle case when no data is found, e.g., redirect or show an error
             return redirect()->back()->with('error', 'Data tidak ditemukan');
         }
-
+    
         $groupedData = [];
         foreach ($nilai as $indi) {
             $id_kriteria = $indi['id_kri'];
@@ -39,13 +43,14 @@ class PenilaianProposalController extends BaseController
             }
             $groupedData[$id_kriteria]['indi'][] = $indi;
         }
+    
         // Ambil tanggal saat ini
         $currentDate = date('d');
         $currentMonth = date('F'); // Nama bulan lengkap
         $currentYear = date('Y');
         $data = [
             'mhs' => [
-                'peng_id_mhs' => $nilai[0]['peng_id_mhs'],  // Ensure this key exists in the $nilai array
+                'peng_id_mhs' => $nilai[0]['peng_id_mhs'],
                 'mhs_nama' => $nilai[0]['mhs_nama'],
                 'nim' => $nilai[0]['nim'],
                 'prodi' => $nilai[0]['prodi'],
@@ -59,30 +64,30 @@ class PenilaianProposalController extends BaseController
             ],
         ];
         // dd($data);
-
         $html = view('penilaianproposal/penilaian-proposal', $data);
-
-        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-        // Setel margin
+     
+    
+        // Inisialisasi PDF
+        $pdf = new CustomPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
         $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
         $pdf->setPrintHeader(false);
-
+    
         // Tambahkan halaman baru
         $pdf->AddPage();
-
+    
         // Tambahkan logo dan judul ke header
         $pdf->SetFont('times', 'B', 14);
         $pdf->Cell(0, 11, 'LEMBAR PENILAIAN PROPOSAL TUGAS AKHIR,', 0, 1, 'C', 0, '', 0, false, 'M', 'M');
         $pdf->SetFont('times', '', 12);
         $pdf->Ln(0);  // Tambahkan jarak setelah header
-
+    
         // Tulis konten HTML
         $pdf->writeHTML($html, true, false, true, false, '');
-
-        // Atur response untuk menampilkan PDF
+    
+        // // Atur response untuk menampilkan PDF
         $this->response->setContentType('application/pdf');
         $pdf->Output('penilaian-proposal.pdf', 'I');
     }
@@ -231,7 +236,7 @@ class PenilaianProposalController extends BaseController
 
     public function edit($id = null)
     {
-        $model = (new PenilaianProposalDetailModel())->where('id_penilaian_proposal', $id)->getDetail();
+        $model = (new PenilaianProposalDetailModel())->where('id_penilaian_pro', $id)->getDetail();
 
         if (!$model) {
             // Handle case when no data is found, e.g., redirect or show an error
