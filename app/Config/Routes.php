@@ -344,4 +344,11 @@ $routes->group('penilaiansidang', static function ($routes) {
     $routes->post('delete/(:num)', 'PenilaianSidangController::delete/$1');
 });
 
+//PROFILE
+$routes->group('profile', static function ($routes) {
+    $routes->get('/', 'ProfileController::index');
+    $routes->get('edit', 'ProfileController::edit');
+    $routes->post('update', 'ProfileController::update');
+});
+
 

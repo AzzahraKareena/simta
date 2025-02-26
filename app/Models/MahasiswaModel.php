@@ -49,6 +49,8 @@ class MahasiswaModel extends Model
     //     return $query->getResult();
     // }
 
+    
+
     public function withUser()
     {
         return $this->select('mahasiswa.*, users.email, users.username, users.password_hash, users.role')
