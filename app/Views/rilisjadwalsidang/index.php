@@ -6,7 +6,7 @@
 <div class="card card-flush pb-0 bgi-position-y-top bgi-no-repeat mb-10" style="background-size: auto calc(50% + 5rem); background-position-x: 100%; background-image: url('assets/media/illustrations/sketchy-1/4.png')">
     <!--begin::Card header-->
     <div class="card-header pt-10">
-        <div class="d-flex align-items-center">
+        <div class="d-flex align-vdatas-center">
             <!--begin::Icon-->
             <div class="symbol symbol-circle me-5">
                 <div class="symbol-label bg-transparent text-primary border border-secondary border-dashed">
@@ -32,6 +32,12 @@
     <!--end::Card header-->
     <!--begin::Card body-->
     <div class="card-body pb-0">
+                <!-- Check if the student has not submitted revisions -->
+                <?php if (session()->get('role') == 'Mahasiswa' && $status_laporan == 'REVISI'): ?>
+            <div class="alert alert-warning">
+                Mahasiswa harus menyelesaikan revisi sebelum ke tahap berikutnya.
+            </div>
+        <?php endif; ?>
         <!--begin::Navs-->
         <div class="d-flex overflow-auto h-55px">
             <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-6 fw-bold flex-nowrap">
@@ -48,13 +54,13 @@
                     <a class="nav-link text-active-primary me-6 active" href="<?= base_url('rilisjadwalsidang') ?>">Jadwal Sidang Tugas Akhir</a>
                 </li>
                 <?php if(session()->get('role') == 'Dosen' || session()->get('role') == 'Koordinator' || session()->get('nama') == 'Masbahah '): ?>
-                <li class="nav-item">
-                    <a class="nav-link text-active-primary me-6" href="<?= base_url('penilaiansidang') ?>">Penilaian Sidang Akhir</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-active-primary me-6 " href="<?= base_url('penilaiansidang') ?>">Penilaian Sidang Akhir</a>
+                    </li>
                 <?php endif; ?>
                 <?php if(session()->get('role') == 'Mahasiswa'): ?>
                 <li class="nav-item">
-                    <a class="nav-link text-active-primary me-6 active" href="<?= base_url('syaratkelulusan') ?>">Unggah Syarat Kelulusan</a>
+                    <a class="nav-link text-active-primary me-6" href="<?= base_url('syaratkelulusan') ?>">Unggah Syarat Kelulusan</a>
                 </li>
                 <?php endif; ?>
                 <!--end::Nav item-->
@@ -72,7 +78,7 @@
             <!--begin::Card title-->
             <div class="card-title">
                 <!--begin::Search-->
-                <div class="d-flex align-items-center position-relative my-1">
+                <div class="d-flex align-vdatas-center position-relative my-1">
                     <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
                     <span class="svg-icon svg-icon-1 position-absolute ms-6">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -93,7 +99,7 @@
                     <!--begin::Filter-->
                     <div class="my-1 me-4">
                         <!--begin::Select-->
-                        <form action="/rilisjadwalsidang" method="get" class="d-flex align-items-center position-relative my-1 mt-3" id="myForm" role="form">
+                        <form action="/rilisjadwalsidang" method="get" class="d-flex align-vdatas-center position-relative my-1 mt-3" id="myForm" role="form">
                             <select id="tahun_filter" name="tahun" class="form-select form-select-sm form-select-solid w-125px" data-control="select2" data-placeholder="Select Tahun" data-hide-search="true">
                                 <!-- <option value="1" selected="selected">1 Hours</option>
                                 <option value="2">6 Hours</option>
@@ -116,7 +122,7 @@
                 </div>
                 <!--end::Toolbar-->
                 <!--begin::Group actions-->
-                <div class="d-flex justify-content-end align-items-center d-none" data-kt-subscription-table-toolbar="selected">
+                <div class="d-flex justify-content-end align-vdatas-center d-none" data-kt-subscription-table-toolbar="selected">
                     <div class="fw-bolder me-5">
                     <span class="me-2" data-kt-subscription-table-select="selected_count"></span>Selected</div>
                     <button type="button" class="btn btn-danger" data-kt-subscription-table-select="delete_selected">Delete Selected</button>
@@ -141,6 +147,8 @@
                             <th width="15%" class="min-w-150px text-center">Judul TA</th>
                             <th width="22%" class="min-w-150px text-center">Tanggal Ujian</th>
                             <th width="22%" class="min-w-150px text-center">Waktu</th>
+                            <th width="22%" class="min-w-150px text-center">Status Laporan</th>
+                            <th width="22%" class="min-w-150px text-center">Revisi Laporan</th>
                             <!-- <th width="22%" class="min-w-150px text-center">Penguji 1</th>
                             <th width="22%" class="min-w-150px text-center">Penguji 2</th>
                             <th width="22%" class="min-w-150px text-center">Penguji 3</th>
@@ -162,6 +170,128 @@
                                 <td><?= $vdata['judul'] ?></td>
                                 <td><?= $vdata['tgl_ujian'] ?></td>
                                 <td><?= $vdata['jam_start'] ?> - <?= $vdata['jam_end']; ?></td>
+                                <td class="text-center">
+                                    <?php if(session()->get('role') == 'Dosen' || session()->get('role') == 'Koordinator'): ?>
+                                        <?php if (!empty($vdata) && isset($vdata['status_laporan'])) : ?>
+                                            <?php if ($vdata['status_laporan'] == 'PENDING') : ?>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-sm btn-warning dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        PENDING
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-dark">
+                                                        <li>
+                                                            <a class="dropdown-vdata" href="#">
+                                                                <form class="alert-verifikasi" action="/update/status_laporan/sidang/<?= $vdata['id_sidang']; ?>" method="POST">
+                                                                    <?= csrf_field() ?>
+                                                                    <input type="hidden" value="DITERIMA" name="status">
+                                                                    <button type="submit" class="dropdown-vdata" data-toggle="tooltip" title="Verifikasi">DITERIMA</button>
+                                                                </form>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-vdata" href="#">
+                                                                <form class="alert-verifikasi" action="/update/status_laporan/sidang/<?= $vdata['id_sidang']; ?>" method="POST">
+                                                                    <?= csrf_field() ?>
+                                                                    <input type="hidden" value="REVISI" name="status">
+                                                                    <button type="submit" class="dropdown-vdata" data-toggle="tooltip" title="Verifikasi">REVISI</button>
+                                                                </form>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-vdata" href="#">
+                                                                <form class="alert-verifikasi" action="/update/status_laporan/sidang/<?= $vdata['id_sidang']; ?>" method="POST">
+                                                                    <?= csrf_field() ?>
+                                                                    <input type="hidden" value="DITOLAK" name="status">
+                                                                    <button type="submit" class="dropdown-vdata" data-toggle="tooltip" title="Verifikasi">DITOLAK</button>
+                                                                </form>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            <?php elseif ($vdata['status_laporan'] == 'REVISI') : ?>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-sm btn-info dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        REVISI
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-dark">
+                                                        <li>
+                                                            <a class="dropdown-vdata" href="#">
+                                                                <form class="alert-verifikasi" action="/update/status_laporan/sidang/<?= $vdata['id_sidang']; ?>" method="POST">
+                                                                    <?= csrf_field() ?>
+                                                                    <input type="hidden" value="DITERIMA" name="status">
+                                                                    <button type="submit" class="dropdown-vdata" data-toggle="tooltip" title="Verifikasi"> REVISI DITERIMA</button>
+                                                                </form>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-vdata" href="#">
+                                                                <form class="alert-verifikasi" action="/update/status_laporan/sidang/<?= $vdata['id_sidang']; ?>" method="POST">
+                                                                    <?= csrf_field() ?>
+                                                                    <input type="hidden" value="DITOLAK" name="status">
+                                                                    <button type="submit" class="dropdown-vdata" data-toggle="tooltip" title="Verifikasi"> REVISI DITOLAK</button>
+                                                                </form>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            <?php elseif ($vdata['status_laporan'] == 'DITOLAK') : ?>
+                                            <div class="dropdown">
+                                                <button class="btn btn-sm btn-danger dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                REVISI DITOLAK
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-dark">
+                                                    <li>
+                                                        <a class="dropdown-vdata" href="#">
+                                                            <form class="alert-verifikasi" action="/update/status_laporan/sidang/<?= $vdata['id_sidang']; ?>" method="POST">
+                                                                <?= csrf_field() ?>
+                                                                <input type="hidden" value="DITERIMA" name="status">
+                                                                <button type="submit" class="dropdown-vdata" data-toggle="tooltip" title="Verifikasi">REVISI DITERIMA</button>
+                                                            </form>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-vdata" href="#">
+                                                            <form class="alert-verifikasi" action="/update/status_laporan/sidang/<?= $vdata['id_sidang']; ?>" method="POST">
+                                                                <?= csrf_field() ?>
+                                                                <input type="hidden" value="REVISI" name="status">
+                                                                <button type="submit" class="dropdown-vdata" data-toggle="tooltip" title="Verifikasi">REVISI</button>
+                                                            </form>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <?php elseif ($vdata['status_laporan'] == 'DITERIMA') : ?>
+                                                <div class="badge badge-success">REVISI <?= $vdata['status_laporan'] ?></div>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
+
+                                    <?php elseif(session()->get('role') == 'Mahasiswa' || session()->get('role') == 'Koordinator' ) : ?>
+                                        <!-- Button code here -->
+                                        <?php if (!empty($vdata) && isset($vdata['status_laporan'])) : ?>
+                                            <?php if ($vdata['status_laporan'] == 'PENDING') : ?>
+                                                <div class="badge badge-warning center"><?= $vdata['status_laporan'] ?></div>
+                                            <?php elseif ($vdata['status_laporan'] == 'DITOLAK') : ?>
+                                                <div class="badge badge-danger">REVISI <?= $vdata['status_laporan'] ?></div>
+                                            <?php elseif ($vdata['status_laporan'] == 'DITERIMA') : ?>
+                                                <div class="badge badge-success">REVISI <?= $vdata['status_laporan'] ?></div>
+                                            <?php elseif ($vdata['status_laporan'] == 'REVISI') : ?>
+                                                <div class="badge badge-info"><?= $vdata['status_laporan'] ?></div>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                        <div>
+                                            <a href="<?= base_url('public/assets/revisi_sidang/' . $vdata['revisi_laporan']) ?>" target="_blank">
+                                                <?php if (!empty($vdata['revisi_laporan'])): ?>
+                                                    <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['revisi_laporan'] ?? '-'?></span>
+                                                <?php else: ?>
+                                                    <span class="text-dark fw-bolder text-hover-primary d-block fs-6">-</span>
+                                                <?php endif; ?>
+                                            </a>
+                                            </div>
+                                    </td>
+                        
                                 <!-- <td><?= $vdata['penguji1'] ?></td>
                                 <td><?= $vdata['penguji2'] ?></td>
                                 <td><?= $vdata['penguji3'] ?></td>
@@ -222,6 +352,14 @@
                                             </span>
                                         </a>
                                         <?php if(session()->get('role') == 'Dosen'): ?>
+                                            <a href="<?= base_url('revisisidang/create/' . $vdata['id_rilis_jadwal_sidang']) ?>" class="btn btn-icon btn-light-success btn-active-color-light btn-sm me-1" data-bs-toggle="tooltip" title="Tambah Catatan Revisi">
+                                                <span class="svg-icon svg-icon-muted svg-icon-3">
+                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M3 17.25V21h3.75l11.25-11.25-3.75-3.75L3 17.25z" fill="currentColor"/>
+                                                        <path d="M21 4.5c0-.83-.67-1.5-1.5-1.5-.39 0-.76.15-1.04.43l-2.25 2.25 3.75 3.75 2.25-2.25c.28-.28.43-.65.43-1.04z" fill="currentColor"/>
+                                                    </svg>
+                                                </span>
+                                            </a>
                                             <a href="<?= base_url('penilaiansidang/create/' . $vdata['id_rilis_jadwal_sidang']) ?>" class="btn btn-icon btn-light-success btn-active-color-light btn-sm me-1" title="Penilian Sidang Akhir">
                                                 <span class="svg-icon svg-icon-muted svg-icon-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M14 18V16H10V18L9 20H15L14 18Z" fill="currentColor"/>
@@ -230,6 +368,17 @@
                                                 </span>
                                             </a>
                                         <?php endif ?>
+                                        <?php if(session()->get('role') == 'Mahasiswa' && $vdata['status_laporan'] == 'REVISI'): ?>
+                                    <button onclick="openFileUploaderLaporan(<?php echo $vdata['id_sidang']; ?>)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" title="Upload Revisi">
+                                        <span class="svg-icon svg-icon-muted svg-icon-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path opacity="0.3" d="M10 4H21C21.6 4 22 4.4 22 5V7H10V4Z" fill="currentColor"/>
+                                        <path d="M10.4 3.60001L12 6H21C21.6 6 22 6.4 22 7V19C22 19.6 21.6 20 21 20H3C2.4 20 2 19.6 2 19V4C2 3.4 2.4 3 3 3H9.20001C9.70001 3 10.2 3.20001 10.4 3.60001ZM12 16.8C11 16.8 10.2 16.4 9.5 15.8C8.8 15.1 8.5 14.3 8.5 13.3C8.5 12.8 8.59999 12.3 8.79999 11.9L10 13.1V10.1C10 9.50001 9.6 9.10001 9 9.10001H6L7.29999 10.4C6.79999 11.3 6.5 12.2 6.5 13.3C6.5 14.8 7.10001 16.2 8.10001 17.2C9.10001 18.2 10.5 18.8 12 18.8C12.6 18.8 13 18.3 13 17.8C13 17.2 12.6 16.8 12 16.8ZM16.7 16.2C17.2 15.3 17.5 14.4 17.5 13.3C17.5 11.8 16.9 10.4 15.9 9.39999C14.9 8.39999 13.5 7.79999 12 7.79999C11.4 7.79999 11 8.19999 11 8.79999C11 9.39999 11.4 9.79999 12 9.79999C12.9 9.79999 13.8 10.2 14.5 10.8C15.2 11.5 15.5 12.3 15.5 13.3C15.5 13.8 15.4 14.3 15.2 14.7L14 13.5V16.5C14 17.1 14.4 17.5 15 17.5H18L16.7 16.2Z" fill="currentColor"/>
+                                        <path opacity="0.3" d="M12 16.8C11 16.8 10.2 16.4 9.5 15.8C8.8 15.1 8.5 14.3 8.5 13.3C8.5 12.8 8.59999 12.3 8.79999 11.9L7.29999 10.4C6.79999 11.3 6.5 12.2 6.5 13.3C6.5 14.8 7.10001 16.2 8.10001 17.2C9.10001 18.2 10.5 18.8 12 18.8C12.6 18.8 13 18.3 13 17.8C13 17.2 12.6 16.8 12 16.8Z" fill="currentColor"/>
+                                        <path opacity="0.3" d="M15.5 13.3C15.5 13.8 15.4 14.3 15.2 14.7L16.7 16.2C17.2 15.3 17.5 14.4 17.5 13.3C17.5 11.8 16.9 10.4 15.9 9.39999C14.9 8.39999 13.5 7.79999 12 7.79999C11.4 7.79999 11 8.19999 11 8.79999C11 9.39999 11.4 9.79999 12 9.79999C12.9 9.79999 13.8 10.2 14.5 10.8C15.1 11.5 15.5 12.4 15.5 13.3Z" fill="currentColor"/>
+                                        </svg>
+                                        </span>
+                                    </button>
+                                <?php endif; ?>
                                         <?php if(session()->get('role') == 'Koordinator'  || session()->get('nama') == 'Masbahah '): ?>
                                             <a href="<?= base_url('rilisjadwalsidang/edit/'.$vdata['id_rilis_jadwal_sidang']) ?>" class="btn btn-icon btn-light-primary btn-active-color-light btn-sm me-1" title="Edit Data">
                                                 <span class="svg-icon svg-icon-3">
@@ -486,5 +635,51 @@
     }
 
 </script>
+
+<script>
+   function openFileUploaderLaporan(sidangID) {
+
+var fileInput = document.createElement('input');
+fileInput.type = 'file';
+fileInput.accept = 'application/pdf'; // Set hanya menerima file PDF
+
+fileInput.onchange = function(e) {
+    var file = e.target.files[0];
+    
+    if (!file || file.type !== 'application/pdf') {
+        alert('Mohon pilih file PDF.');
+        return;
+    }
+
+    var formData = new FormData();
+    formData.append('file', file);
+
+    var route = 'upload/revisi/sidang/' + sidangID;
+    console.log('Upload route:', route); // Debugging log
+
+    fetch(route, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Gagal mengunggah file');
+        }
+        return response.text();
+    })
+    .then(data => {
+        console.log('Respon dari server:', data);
+
+        //Reload halaman setelah file berhasil diunggah
+        location.reload();
+    })
+    .catch(error => {
+        console.error('Terjadi kesalahan:', error);
+    });
+};
+
+fileInput.click();
+}
+    </script>
 <?= $this->endSection() ?>
 

@@ -117,7 +117,7 @@ class JadwalSemhasController extends BaseController
         // dd($data);
 
         $html = view('rilisjadwal/berita-acara', $data);
-        $html2 = view('rilisjadwal/berita-acara-2', $data);
+        $html2 = view('rilisjadwal/lembar-revisi-1', $data);
         // $html3 = view('rilisjadwal/berita-acara-3', $data);
 
         $pdf = new CustomPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, 'F4', true, 'UTF-8', false);
@@ -143,7 +143,7 @@ class JadwalSemhasController extends BaseController
 
         // Atur response untuk menampilkan PDF
         $this->response->setContentType('application/pdf');
-        $pdf->Output('berita-acara.pdf', 'I');
+        $pdf->Output('lembar-revisi-dan-berita-acara.pdf', 'I');
     }
 
     public function persetujuan($id)

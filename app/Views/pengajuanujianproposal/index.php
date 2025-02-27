@@ -148,8 +148,8 @@
                             <?php endif; ?>
                             <th width="10%" class="min-w-150px ps-5">Proposal TA</th>
                             <th width="15%" class="min-w-175px ps-5">Ajuan Tanggal Ujian</th>
-                            <th width="10%" class="min-w-150px ps-5">Revisi Proposal</th>
-                            <th width="10%" class="min-w-150px ps-5">Status</th>
+                            <!-- <th width="10%" class="min-w-150px ps-5">Revisi Proposal</th> -->
+                            <th width="10%" class="min-w-150px ps-5">Status Pengajuan</th>
                             <th width="10%" class="min-w-100px text-center">#</th>
                         </tr>
                     </thead>
@@ -185,7 +185,7 @@
                                     <?php endif; ?>
                                 </td>
                                 <td class="ps-5"><?= $vdata['ajuan_tgl_ujian'] ?? '-' ?></td>
-                                <td class="ps-5">
+                                <!-- <td class="ps-5">
                                     <?php if (!empty($vdata['revisi_proposal'])): ?>
                                         <a href="<?= base_url('pengajuanujianproposal/unduh-revisi/'. $vdata['id_ujianproposal']) ?>" class="btn btn-sm btn-light-primary btn-active-color-light me-1" title="Unduh Revisi" target="_blank">
                                             Download
@@ -193,7 +193,7 @@
                                     <?php else: ?>
                                         -
                                     <?php endif; ?>
-                                </td>
+                                </td> -->
                                 <td class="ps-5">
                                     <?php if (session()->get('role') == 'Mahasiswa'): ?>
                                         <span class="badge badge-light-<?= $warna; ?> fs-7 fw-bolder"><?= $vdata['status_pengajuan']; ?></span>
@@ -214,7 +214,7 @@
                                                                 </form>
                                                             </a>
                                                         </li>
-                                                        <li>
+                                                        <!-- <li>
                                                             <a class="dropdown-item" href="#">
                                                                 <form class="alert-verifikasi" action="/update/status_up/<?= $vdata['id_ujianproposal']; ?>" method="POST">
                                                                     <?= csrf_field() ?>
@@ -222,7 +222,7 @@
                                                                     <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">REVISI</button>
                                                                 </form>
                                                             </a>
-                                                        </li>
+                                                        </li> -->
                                                         <li>
                                                             <a class="dropdown-item" href="#">
                                                                 <form class="alert-verifikasi" action="/update/status_up/<?= $vdata['id_ujianproposal']; ?>" method="POST">

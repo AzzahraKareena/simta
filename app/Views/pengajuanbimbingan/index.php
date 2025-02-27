@@ -76,8 +76,8 @@
                 <table class="table table-flush align-middle table-row-bordered table-row-solid gy-4 gs-9" width="100%">
                     <!--begin::Thead-->
                     <thead class="border-gray-200 fs-5 fw-bold bg-lighten">
-                        <tr>
-                            <?php if(session()->get('role') == 'Dosen'): ?>
+                        <tr><th>No</th>
+                            <?php if(session()->get('role') == 'Dosen' || session()->get('role') == 'Koordinator'): ?>
                             <th width="25%" class="min-w-150px">Nama Mahasiswa</th>
                             <th width="20%" class="min-w-150px ps-5">Judul TA</th>
                             <?php endif; ?>
@@ -86,14 +86,14 @@
                             <th width="10%" class="min-w-150px ps-5">Waktu Bimbingan</th>
                             <th width="10%" class="min-w-150px ps-5">Agenda</th>
                             <th width="10%" class="min-w-150px ps-5">Status</th>
-                            <?php if(session()->get('role') == 'Dosen'): ?>
                             <th width="10%" class="min-w-150px ps-5"></th>
-                            <?php endif; ?>
+           
                         </tr>
                     </thead>
                     <!--end::Thead-->
                     <!--begin::Tbody-->
                     <tbody class="fw-6 fw-bold text-gray-600">
+                    <?php $counter = 1; ?>
                         <?php foreach ($data as $vdata) : ?>
                             <?php 
                                 if ($vdata['status_ajuan'] == 'PENDING') {
@@ -105,7 +105,8 @@
                                 }
                             ?>
                             <tr>
-                                <?php if(session()->get('role') == 'Dosen'): ?>
+                            <td><?= $counter++; ?></td>
+                                <?php if(session()->get('role') == 'Dosen'|| session()->get('role') == 'Koordinator'): ?>
                                 <td class="nilaiId d-none"><?= $vdata['mahasiswa_nama'] ?></td>
                                 <td class="ps-5">
                                     <span contenteditable="false" class="nama_mahasiswa fw-bolder d-block fs-6"><?= ucwords($vdata['mahasiswa_nama']) ?></span>
@@ -118,7 +119,7 @@
                                 <td data-id="<?= $vdata['id_pengajuanbimbingan'] ?>" contenteditable="false" class="waktu_bimbingan ps-5"><?= $vdata['waktu_bimbingan'] ?></td>
                                 <td data-id="<?= $vdata['id_pengajuanbimbingan'] ?>" contenteditable="false" class="agenda ps-5"><?= $vdata['agenda'] ?></td>
                                 <td class="ps-5">
-                                    <?php if (session()->get('role') == 'Mahasiswa'): ?>
+                                    <?php if (session()->get('role') != 'Dosen'): ?>
                                         <span class="badge badge-light-<?= $warna; ?> fs-7 fw-bolder"><?= $vdata['status_ajuan']; ?></span>
                                     <?php else: ?>
                                         <?php if ($vdata['status_ajuan'] == 'PENDING') : ?>
@@ -202,7 +203,7 @@
                                         <?php endif; ?>
                                     <?php endif; ?>
                                 </td>
-                                <?php if(session()->get('role') == 'Dosen'): ?>
+                                <?php if(session()->get('role') == 'Dosen' || session()->get('role') == 'Mahasiswa'): ?>
                                 <td class="align-middle ps-5">
                                     <div class="d-flex justify-content-center">
                                         <!-- <a href="#" class="btn btn-icon btn-light-info btn-active-color-light btn-sm me-1" data-bs-toggle="modal" data-bs-target="#detailPengajuanJudul<?= $vdata['id_pengajuanbimbingan']; ?>">
@@ -220,6 +221,7 @@
                                             </span>
                                             <!--end::Svg Icon-->
                                         </button>
+                                        <?php elseif(session()->get('role') == 'Dosen'): ?>
                                         <form action="<?= base_url('pengajuanbimbingan/delete/'.$vdata['id_pengajuanbimbingan']) ?>" method="post">
                                             <?php csrf_field() ?>
                                             <button type="submit" class="btn btn-icon btn-light-danger btn-active-color-light btn-sm">

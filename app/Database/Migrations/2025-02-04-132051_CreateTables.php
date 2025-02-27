@@ -883,6 +883,12 @@ class CreateTables extends Migration
                 'constraint' => '100',
                 'null' => true,
             ],
+            'status_laporan' => [
+                'type' => 'VARCHAR',
+                'constraint' => '100',
+                'null' => true,
+            ],
+
             'id_penguji1' => [
                 'type' => 'VARCHAR',
                 'constraint' => '100',
@@ -960,6 +966,11 @@ class CreateTables extends Migration
                 'null' => true,
             ],
             'status_pengajuan' => [
+                'type' => 'VARCHAR',
+                'constraint' => '100',
+                'null' => true,
+            ],
+            'status_laporan' => [
                 'type' => 'VARCHAR',
                 'constraint' => '100',
                 'null' => true,
@@ -1060,8 +1071,13 @@ class CreateTables extends Migration
             ],
             'status_pengajuan' => [
                 'type' => 'ENUM',
-                'constraint' => ['PENDING', 'DITOLAK', 'DITERIMA', 'REVISI'],
+                'constraint' => ['PENDING', 'DITOLAK', 'DITERIMA'],
                 'default' => 'PENDING',
+            ],
+            'status_proposal' => [
+                'type' => 'ENUM',
+                'constraint' => ['PENDING', 'DITOLAK', 'DITERIMA', 'REVISI'],
+                'default' => 'REVISI',
             ],
             'id_penguji1' => [
                 'type' => 'INT',
@@ -1136,6 +1152,108 @@ class CreateTables extends Migration
     $this->forge->addForeignKey('id_penguji2', 'users', 'id', 'SET NULL', 'CASCADE');
     $this->forge->createTable('simta_rilis_jadwal');
     
+    // tabel revisi_proposal
+    $this->forge->addField([
+        'id' => [
+            'type' => 'INT',
+            'auto_increment' => true,
+        ],
+        'id_ujianproposal' => [
+            'type' => 'INT',
+            'null' => false,
+            'unsigned' => true,
+        ],
+        'id_rilis_jadwal' => [
+            'type' => 'INT',
+            'null' => false,
+            'unsigned' => true,
+        ],
+        'id_penguji' => [
+            'type' => 'INT',
+            'null' => false,
+            'unsigned' => true,
+        ],
+        'catatan_revisi' => [
+            'type' => 'TEXT',
+            'null' => true,
+        ],
+        'created_at' => [
+            'type' => 'TIMESTAMP',
+            'default' => 'CURRENT_TIMESTAMP',
+        ],
+    ]);
+
+    $this->forge->addPrimaryKey('id');
+    $this->forge->addForeignKey('id_ujianproposal', 'simta_pengajuan_ujianproposal', 'id_ujianproposal', 'CASCADE', 'CASCADE');
+    $this->forge->addForeignKey('id_rilis_jadwal', 'simta_rilis_jadwal', 'id_rilis_jadwal', 'CASCADE', 'CASCADE');
+    $this->forge->createTable('simta_revisi_proposal');
+
+    $this->forge->addField([
+        'id_revisi_semhas' => [
+            'type' => 'INT',
+            'auto_increment' => true,
+        ],
+        'id_rilis_jadwal_semhas' => [
+            'type' => 'INT',
+            'constraint' => 11,
+            'null' => false,
+            'unsigned' => true,
+        ],
+        'id_penguji' => [
+            'type' => 'INT',
+            'constraint' => 11,
+            'null' => false,
+            'unsigned' => true,
+        ],
+        
+        'catatan_revisi' => [
+            'type' => 'TEXT',
+            'null' => true,
+        ],
+        'created_at' => [
+            'type' => 'TIMESTAMP',
+            'default' => 'CURRENT_TIMESTAMP',
+        ],
+    ]);
+    
+    $this->forge->addPrimaryKey('id_revisi_semhas');
+    $this->forge->addForeignKey('id_rilis_jadwal_semhas', 'simta_rilis_jadwal_semhas', 'id_rilis_jadwal_semhas', 'CASCADE', 'CASCADE');
+    $this->forge->addForeignKey('id_penguji', 'users', 'id', 'CASCADE', 'CASCADE'); // Assuming 'users' table has the 'id' field
+    $this->forge->createTable('simta_revisi_semhas');
+
+//revisi sidang
+    $this->forge->addField([
+        'id_revisi_sidang' => [
+            'type' => 'INT',
+            'auto_increment' => true,
+        ],
+        'id_rilis_jadwal_sidang' => [
+            'type' => 'INT',
+            'constraint' => 11,
+            'null' => false,
+            'unsigned' => true,
+        ],
+        'id_penguji' => [
+            'type' => 'INT',
+            'constraint' => 11,
+            'null' => false,
+            'unsigned' => true,
+        ],
+        
+        'catatan_revisi' => [
+            'type' => 'TEXT',
+            'null' => true,
+        ],
+        'created_at' => [
+            'type' => 'TIMESTAMP',
+            'default' => 'CURRENT_TIMESTAMP',
+        ],
+    ]);
+    
+    $this->forge->addPrimaryKey('id_revisi_sidang');
+    $this->forge->addForeignKey('id_rilis_jadwal_sidang', 'simta_rilis_jadwal_sidang', 'id_rilis_jadwal_sidang', 'CASCADE', 'CASCADE');
+    $this->forge->addForeignKey('id_penguji', 'users', 'id', 'CASCADE', 'CASCADE'); // Assuming 'users' table has the 'id' field
+    $this->forge->createTable('simta_revisi_sidang');
 
         // Tabel simta_rilis_jadwal_semhas
         $this->forge->addField([

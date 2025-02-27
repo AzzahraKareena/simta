@@ -63,25 +63,44 @@ class UsersController extends ResourceController
         $operation['sub_title'] = 'Add New User';
         return view('users/create', $operation);
     }
-    // PUT update user
-    public function update($id = null)
-    {
-        $rules = [
-            'email' => 'required|valid_email',
-            'username' => 'required|alpha_numeric_punct|min_length[3]|max_length[30]',
-            'password_hash' => 'required',
-            'role' => 'required',
-            'group_id' => 'required|numeric' // Assuming 'group_id' is provided in request
-        ];
 
-        if (!$this->validate($rules)) {
-            return $this->failValidationErrors($this->validator->getErrors());
-        }
-
-        $data = $this->request->getJSON();
-        $this->model->updateUser($id, (array) $data);
-        return $this->respond(['message' => 'User updated successfully']);
+    public function edit($id = null)
+{
+    $user = $this->model->find($id);
+    if (!$user) {
+        return $this->failNotFound('User  not found');
     }
+
+    $operation['user'] = $user;
+    $operation['title'] = 'Edit User';
+    $operation['sub_title'] = 'Update User Details';
+    return view('users/create', $operation);
+}
+public function update($id = null)
+{
+    $rules = [
+        'email' => 'required|valid_email',
+        'username' => 'required|alpha_numeric_punct|min_length[3]|max_length[30]',
+        'password' => 'permit_empty|min_length[6]', // Allow empty password
+    ];
+
+    if (!$this->validate($rules)) {
+        return $this->failValidationErrors($this->validator->getErrors());
+    }
+
+    $data = $this->request->getPost(); // Use getPost() to retrieve form data
+
+    // Only hash the password if it's provided
+    if (!empty($data['password'])) {
+        $data['password_hash'] = password_hash($data['password'], PASSWORD_BCRYPT);
+    } else {
+        unset($data['password']); // Remove password if not provided
+    }
+
+    // Update the user using the built-in update method
+    $this->model->update($id, $data);
+    return redirect()->to('users');
+}
 
     // DELETE user
     public function delete($id = null)

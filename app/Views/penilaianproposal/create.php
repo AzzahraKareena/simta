@@ -106,6 +106,10 @@
                             <?php endforeach ?>
                             </tbody>
                         </table>
+
+
+                        
+             
                         <!--begin::Actions-->
                         <div class="text-end">
                             <!--begin::Submit button-->
@@ -151,6 +155,8 @@
         const form = document.getElementById('form_pengajuanjudul');
         const submitButton = document.getElementById('confirmSubmit');
         const mainSubmitButton = document.querySelector('button[data-bs-toggle="modal"]');
+        const addRevisionFieldButton = document.getElementById('addRevisionField');
+        const revisionFieldsContainer = document.getElementById('revisionFields');
 
         function validateForm() {
             let isValid = true;
@@ -158,9 +164,9 @@
             inputs.forEach(input => {
                 if (input.value.trim() === '') {
                     isValid = false;
-                    input.classList.add('is-invalid'); // Menandai input yang tidak valid
+                    input.classList.add('is-invalid');
                 } else {
-                    input.classList.remove('is-invalid'); // Menghapus tanda input yang valid
+                    input.classList.remove('is-invalid');
                 }
             });
             return isValid;
@@ -168,57 +174,34 @@
 
         function handleFormSubmit(event) {
             if (validateForm()) {
-                // Jika semua input valid, tampilkan modal konfirmasi
-                console.log('Form valid. Menampilkan modal konfirmasi.');
                 $('#confirmationModal').modal('show');
             } else {
-                // Jika ada input yang kosong, tampilkan alert error
-                console.log('Ada nilai yang kosong!. Menampilkan alert error.');
                 Swal.fire({
                     icon: 'error',
                     title: 'Ada nilai yang kosong!',
                     text: 'Harap isi semua nilai sebelum melanjutkan.',
                     confirmButtonText: 'OK'
                 });
-                event.preventDefault(); // Mencegah form submit
+                event.preventDefault();
             }
         }
 
-        // Menangani klik pada tombol submit modal
         submitButton.addEventListener('click', function() {
-            console.log('Men-submit form dari modal konfirmasi.');
             form.submit();
         });
 
-        // Menangani klik pada tombol submit utama
         if (mainSubmitButton) {
             mainSubmitButton.addEventListener('click', handleFormSubmit);
         }
 
-        // Validasi input nilai
-        function validateInput(input) {
-            const max = parseInt(input.getAttribute('max'));
-            const value = parseInt(input.value);
-
-            if (value > max) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Nilai tidak valid',
-                    text: 'Nilai tidak boleh lebih dari ' + max,
-                    confirmButtonText: 'OK'
-                });
-                input.value = max; // Kembalikan nilai ke nilai maksimum
-            }
-        }
-
-        document.querySelectorAll('input[type="number"]').forEach(input => {
-            input.addEventListener('input', function() {
-                validateInput(input);
-            });
+        addRevisionFieldButton.addEventListener('click', function() {
+            const newField = document.createElement('div');
+            newField.className = 'mb-3';
+            newField.innerHTML = '<input type="text" class="form-control" name="catatan_revisi[]" placeholder="Masukkan catatan revisi">';
+            revisionFieldsContainer.appendChild(newField);
         });
     });
 </script>
-
 <?= $this->endSection() ?>
 
 

@@ -6,6 +6,7 @@ use App\Models\UsersModel;
 use App\Models\JudulAccModel;
 use App\Controllers\BaseController;
 use App\Models\PengajuanSidangModel;
+use App\Models\PengajuanBimbinganModel;
 use App\Models\MahasiswaBimbinganModel;
 
 class PengajuanSidangController extends BaseController
@@ -15,15 +16,16 @@ class PengajuanSidangController extends BaseController
         $this->setNotifications();
         
         $model = new PengajuanSidangModel();
+        $bimbingan = new PengajuanBimbinganModel();
         $tahun = $this->request->getVar('tahun') ?? date('Y');
         $data = $model->getAllPengajuanWithJadwal($tahun);
-
+        
         $getData = [];
         
         foreach ($data as $ujian) {
             if (session()->get('role') == 'Koordinator' || session()->get('nama') == 'Masbahah ') {
-                    $getData[] = $ujian; 
-            }elseif (session()->get('role') == 'Dosen') {
+                $getData[] = $ujian; 
+            } elseif (session()->get('role') == 'Dosen') {
                 if ($ujian['id_dospem'] == session()->get('user_id')) {
                     $getData[] = $ujian; 
                 }
@@ -31,13 +33,29 @@ class PengajuanSidangController extends BaseController
                 if ($ujian['id_mhs'] == session()->get('user_id')) {
                     $getData[] = $ujian; 
                 }
-            }elseif (session()->get('role') == 'Koordinator') {
-                    $getData[] = $ujian; 
             }
         }
-        // Cek apakah mahasiswa yang login sudah memiliki data pengajuan
+    
+        // Cek jumlah pengajuan bimbingan yang disetujui
         $mahasiswaId = session()->get('user_id');
-        // dd($mahasiswaId);
+        $jumlah_bimbingan = $bimbingan->where('id_mhs', $mahasiswaId)
+        ->where('status_ajuan', 'DITERIMA')
+        ->countAllResults();
+        // $approvedCount = 0;
+    
+        // if (is_array($jumlah_bimbingan) && !empty($jumlah_bimbingan)) {
+        //     foreach ($jumlah_bimbingan as $bimbinganItem) {
+        //         if ($bimbinganItem['status_ajuan'] == 'DITERIMA') {
+        //             $approvedCount++;
+        //         }
+        //     }
+        // } else {
+        //     // Handle the case where there are no approved guidance submissions
+        //     $approvedCount = 0; // or any other logic you want to apply
+        // }
+        
+    
+        // Cek apakah mahasiswa sudah mengajukan
         $mahasiswaSudahMengajukan = false;
         foreach ($data as $item) {
             if ($item['id_mhs'] == $mahasiswaId && $item['status_pengajuan'] != 'DITOLAK') {
@@ -45,11 +63,20 @@ class PengajuanSidangController extends BaseController
                 break;
             }
         }
+    
+        // Tambahkan informasi ke operasi
         $operation['data'] = $getData;
         $operation['tahun'] = $tahun;
         $operation['mahasiswaSudahMengajukan'] = $mahasiswaSudahMengajukan;
+        $operation['approvedCount'] = $jumlah_bimbingan; // Tambahkan jumlah pengajuan yang disetujui
         $operation['title'] = 'Pengajuan Sidang';
         $operation['sub_title'] = 'Daftar Pengajuan Sidang';
+    
+        // Cek apakah mahasiswa bisa mengajukan sidang
+        // if (session()->get('role') == 'Mahasiswa' && $approvedCount < 9) {
+        //     return redirect()->to('pengajuansidang')->with('error', 'Anda tidak dapat mengajukan sidang karena jumlah pengajuan bimbingan yang disetujui kurang dari 9 kali.');
+        // }
+    
         return view("pengajuansidang/index", $operation);
     }
     
@@ -192,5 +219,29 @@ class PengajuanSidangController extends BaseController
         $operation['dosen'] = (new UsersModel())->where('role', 'Dosen')->asArray()->findAll();
         // dd($operation['pengajuan']);
         return view('rilisjadwalsidang/create', ['pengajuan' => $operation['pengajuan'], 'dosen' => $operation['dosen']]);
+    }
+    
+    public function updateStatusLaporan($id = null)
+    {
+        $pengajuanSidangModel = new PengajuanSidangModel();
+        $mahasiswaBimbinganModel = new MahasiswaBimbinganModel();
+
+        // Ambil status dari post data
+        $status = $this->request->getPost('status');
+
+        // Update status_pengajuan di tabel pengajuan_ujian_proposal
+        $pengajuanSidangModel->update($id, ['status_laporan' => $status]);
+
+        // Jika status adalah REVISI, update tracking di tabel simta_mahasiswa_bimbingan
+        if ($status === 'REVISI') {
+            // Dapatkan data judul_acc_id dari tabel pengajuan_ujian_proposal
+            $pengajuan = $pengajuanSidangModel->find($id);
+            if ($pengajuan) {
+                $judul_acc_id = $pengajuan['judul_acc_id'];
+                $mahasiswaBimbinganModel->updateTrackingByJudulAccId($judul_acc_id, 'Revisi Sidang');
+            }
+        }
+
+        return redirect()->to('rilisjadwalsidang');
     }
 }

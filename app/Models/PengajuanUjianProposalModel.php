@@ -21,7 +21,8 @@ class PengajuanUjianProposalModel extends Model
         'ajuan_tgl_ujian',
         'status_pengajuan',
         'status_ajuan_revisi',
-        'jadwal'
+        'jadwal',
+        'status_proposal'
     ];
 
     public function withMhs()

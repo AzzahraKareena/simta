@@ -79,6 +79,13 @@ $routes->group('api/pengajuanjudul', static function ($routes) {
     $routes->get('delete/(:num)', 'PengajuanJudulController::delete/$1');
 });
 
+$routes->get('revisiproposal/create/(:num)', 'RevisiProposalController::create/$1');
+$routes->post('revisiproposal/store', 'RevisiProposalController::store');
+$routes->get('revisisemhas/create/(:num)', 'RevisiSemhasController::create/$1');
+$routes->post('revisisemhas/store', 'RevisiSemhasController::store');
+$routes->get('revisisidang/create/(:num)', 'RevisiSidangController::create/$1');
+$routes->post('revisisidang/store', 'RevisiSidangController::store');
+
 $routes->post('pengajuanjudul/update_status/(:num)', 'PengajuanJudulController::updateStatus/$1');
 $routes->get('pengajuanjudul/ubah-status/(:num)', 'PengajuanJudulController::editStatus/$1');
 $routes->post('update/status/(:num)', 'PengajuanBimbinganController::updateStatus/$1');
@@ -87,16 +94,21 @@ $routes->post('upload/jadwal/(:num)', 'PengajuanUjianProposalController::uploadJ
 $routes->post('update/bimbingan/(:num)', 'PengajuanBimbinganController::updateBimbingan/$1');
 
 $routes->post('update/status_up/(:num)', 'PengajuanUjianProposalController::updateStatus/$1');
+$routes->post('update/status_proposal/(:num)', 'PengajuanUjianProposalController::updateStatusProposal/$1');
 $routes->post('upload/revisi/(:num)', 'PengajuanUjianProposalController::uploadRevisi/$1');
 $routes->post('update/status_up/semhas/(:num)', 'PengajuanSeminarHasilController::updateStatus/$1');
+$routes->post('update/status_laporan/semhas/(:num)', 'PengajuanSeminarHasilController::updateStatusLaporan/$1');
 $routes->post('upload/revisi/semhas/(:num)', 'PengajuanSeminarHasilController::uploadRevisi/$1');
 $routes->post('update/status_up/sidang/(:num)', 'PengajuanSidangController::updateStatus/$1');
+$routes->post('update/status_laporan/sidang/(:num)', 'PengajuanSidangController::updateStatusLaporan/$1');
 $routes->post('upload/revisi/sidang/(:num)', 'PengajuanSidangController::uploadRevisi/$1');
 $routes->post('upload/surat-undangan/(:num)', 'JadwalSidangController::uploadSuratUndangan/$1');
 $routes->post('upload/surat-tugas/(:num)', 'JadwalSidangController::uploadSuratTugas/$1');
 
 $routes->get('rekapitulasi-nilai', 'RekapitulasiController::index');
 $routes->get('rekapitulasi-nilai/cetak/(:num)', 'RekapitulasiController::cetak/$1');
+
+
 
 //PENGAJUAN BIMBINGAN
 $routes->group('pengajuanbimbingan', static function ($routes) {

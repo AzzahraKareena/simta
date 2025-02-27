@@ -36,6 +36,8 @@ License: For each use you must have a valid license purchased only from above li
 		<!-- <link href="<?= base_url('assets/css/trix.css')?>" rel="stylesheet" type="text/css" /> -->
 		<link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
   		<script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
+		  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+		  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 		<!--end::Global Stylesheets Bundle-->
 	</head>
 	<!--end::Head-->

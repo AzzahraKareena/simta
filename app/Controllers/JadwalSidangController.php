@@ -139,9 +139,9 @@ class JadwalSidangController extends BaseController
         // dd($data);
 
         $html = view('rilisjadwal/berita-acara', $data);
-        $html2 = view('rilisjadwal/berita-acara-2', $data);
-        $html3 = view('rilisjadwal/berita-acara-3', $data);
-        $html4 = view('rilisjadwal/berita-acara-4', $data);
+        $html2 = view('rilisjadwal/lembar-revisi-1', $data);
+        $html3 = view('rilisjadwal/lembar-revisi-2', $data);
+        $html4 = view('rilisjadwal/lembar-revisi-3', $data);
 
         $pdf = new CustomPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, 'F4', true, 'UTF-8', false);
         // Setel margin

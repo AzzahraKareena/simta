@@ -51,7 +51,7 @@
                 <?php endif; ?>
                 <?php if(session()->get('role') == 'Mahasiswa'): ?>
                 <li class="nav-item">
-                    <a class="nav-link text-active-primary me-6 active" href="<?= base_url('syaratkelulusan') ?>">Unggah Syarat Kelulusan</a>
+                    <a class="nav-link text-active-primary me-6" href="<?= base_url('syaratkelulusan') ?>">Unggah Syarat Kelulusan</a>
                 </li>
                 <?php endif; ?>
                 <!--end::Nav item-->

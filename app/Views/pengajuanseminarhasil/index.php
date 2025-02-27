@@ -144,8 +144,8 @@
                                 <th width="23%" class="min-w-175px">Nama</th>
                                 <th width="25%" class="min-w-150px">Judul</th>
                             <?php endif; ?>
-                            <th width="15%" class="min-w-150px">Status</th>
-                            <th width="22%" class="min-w-150px">Revisi Laporan</th>
+                            <th width="15%" class="min-w-150px">Status Pengajuan</th>
+                            <!-- <th width="22%" class="min-w-150px">Revisi Laporan</th> -->
                             <th width="22%" class="min-w-150px">Laporan TA</th>
                             <th width="15%" class="min-w-150px"></th>
                         </tr>
@@ -177,7 +177,7 @@
                                 </td>
                                 <?php endif; ?>
                                 <td>
-                                    <?php if(session()->get('role') == 'Dosen'): ?>
+                                    <?php if(session()->get('role') == 'Dosen' || session()->get('role') == 'Koordinator'): ?>
                                         <?php if (!empty($item) && isset($item['status_pengajuan'])) : ?>
                                             <?php if ($item['status_pengajuan'] == 'PENDING') : ?>
                                                 <div class="dropdown">
@@ -194,7 +194,7 @@
                                                                 </form>
                                                             </a>
                                                         </li>
-                                                        <li>
+                                                        <!-- <li>
                                                             <a class="dropdown-item" href="#">
                                                                 <form class="alert-verifikasi" action="/update/status_up/semhas/<?= $item['id_seminarhasil']; ?>" method="POST">
                                                                     <?= csrf_field() ?>
@@ -202,7 +202,7 @@
                                                                     <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">REVISI</button>
                                                                 </form>
                                                             </a>
-                                                        </li>
+                                                        </li> -->
                                                         <li>
                                                             <a class="dropdown-item" href="#">
                                                                 <form class="alert-verifikasi" action="/update/status_up/semhas/<?= $item['id_seminarhasil']; ?>" method="POST">
@@ -290,15 +290,15 @@
                                     <span class="badge badge-light-<?= $warna; ?> fs-7 fw-bolder"><?= $item['status_pengajuan']; ?></span>
                                 </td> -->
                                 <?php if(session()->get('role') !== 'Mahasiswa'): ?>
-                                <td>
+                                <!-- <td>
                                     <?php if (!empty($item['revisi_laporan'])): ?>
                                         <div>
                                             <a href="<?= base_url('pengajuanseminarhasil/unduh-revisi/'. $item['id_seminarhasil']) ?>" target="_blank">
                                                 <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $item['revisi_laporan'] ?></span>
                                             </a>
                                         </div>
-                                    <?php endif; ?>
-                                </td>
+                                        <?php endif; ?>
+                                    </td> -->
                                 <td>
                                     <?php if (!empty($item['laporan_ta'])): ?>
                                         <div>
@@ -350,6 +350,7 @@
                                         </svg></span>
                                     </a>
                                 <?php endif; ?>
+                                
                                 <?php if(session()->get('role') == 'Mahasiswa' && $item['status_pengajuan'] == 'REVISI'): ?>
                                     <button onclick="openFileUploaderLaporan(<?php echo $item['id_seminarhasil']; ?>)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" title="Upload Revisi">
                                         <span class="svg-icon svg-icon-muted svg-icon-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -360,6 +361,16 @@
                                         </svg>
                                         </span>
                                     </button>
+                                <?php endif; ?>
+                                <?php if($item['status_pengajuan'] == 'DITERIMA'): ?>
+                                    <a href="<?= base_url('rilisjadwalsemhas/lembar-persetujuan/'. $item['jadwal_id']) ?>" target="_blank" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" title="Unduh Lembar Persetujuan">
+                                            <span class="svg-icon svg-icon-muted svg-icon-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path opacity="0.3" d="M14 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V8L14 2Z" fill="currentColor"/>
+                                            <path d="M20 8L14 2V6C14 7.10457 14.8954 8 16 8H20Z" fill="currentColor"/>
+                                            <path d="M10.3629 14.0084L8.92108 12.6429C8.57518 12.3153 8.03352 12.3153 7.68761 12.6429C7.31405 12.9967 7.31405 13.5915 7.68761 13.9453L10.2254 16.3488C10.6111 16.714 11.215 16.714 11.6007 16.3488L16.3124 11.8865C16.6859 11.5327 16.6859 10.9379 16.3124 10.5841C15.9665 10.2565 15.4248 10.2565 15.0789 10.5841L11.4631 14.0084C11.1546 14.3006 10.6715 14.3006 10.3629 14.0084Z" fill="currentColor"/>
+                                            </svg>
+                                            </span>
+                                        </a>
                                 <?php endif; ?>
                                 </td>
                             </tr>
