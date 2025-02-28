@@ -45,7 +45,7 @@
                 <!--end::Nav item-->
                 <!--begin::Nav item-->
                 <li class="nav-item">
-                    <a class="nav-link text-active-primary me-6" href="<?= base_url('rilisjadwalsemhas') ?>">Penilaian Seminar Hasil</a>
+                    <a class="nav-link text-active-primary me-6" href="<?= base_url('rilisjadwalsemhas') ?>">Rilis Jadwal Seminar Hasil</a>
                 </li>
                 <?php if(session()->get('role') == 'Dosen' || session()->get('role') == 'Koordinator' || session()->get('nama') == 'Masbahah '): ?>
                     <li class="nav-item">

@@ -11,15 +11,15 @@
                     <!--begin::Header-->
                     <div class="card-header border-0 pt-5">
                         <h3 class="card-title align-items-start flex-column">
-                            <span class="card-label fw-bolder fs-3 mb-1">Form Users</span>
-                            <span class="text-muted mt-1 fw-bold fs-7">Isi data users dengan benar</span>
+                        <span class="card-label fw-bolder fs-3 mb-1"><?= $title ?></span>
+                        <span class="text-muted mt-1 fw-bold fs-7"><?= $sub_title ?></span>
                         </h3>
                     </div>
                     <!--end::Header-->
                     <!--begin::Body-->
                     <div class="card-body py-3">
                         <!--begin::Form-->
-                        <form class="form w-100" method="post" id="form_users" action="<?= service('router')->getMatchedRoute()[0] == "users/create" ? base_url('api/users') : base_url('api/users'.$dataForm->id??"") ?>">
+                        <form class="form w-100" method="post" id="form_users"  action="<?= base_url('users/' . ($user ? 'update/' . $user['id'] : 'store')) ?>">
                             <?= csrf_field() ?>
                             <!--begin::Input group-->
                             <?php if (session()->getFlashdata('errorForm')) : ?>
@@ -44,18 +44,18 @@
                             <?php endif; ?>
                             <div class="row">
                                 <div class="col-12 col-md-6">
-                                    <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">Email</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="email" name="email" autocomplete="off" placeholder="Input email" value="<?= old('email')?? $dataForm->email??"" ?>" required />
-                                    </div>
-                                    <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">Username</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="text" name="username" autocomplete="off" placeholder="Input username" value="<?= old('username')?? $dataForm->username??"" ?>" required />
-                                    </div>
-                                    <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">Password</label>
-                                        <input class="form-control form-control-lg form-control-solid" type="password" name="password" autocomplete="off" placeholder="Input password" value="<?= old('password_hash')?? $dataForm->password_hash??"" ?>" required />
-                                    </div>
+                                <div class="fv-row mb-10">
+                                    <label class="form-label required fs-6 fw-bolder text-dark">Email</label>
+                                    <input class="form-control form-control-lg form-control-solid" type="email" name="email" autocomplete="off" placeholder="Input email" value="<?= old('email', $user['email'] ?? '') ?>" required />
+                                </div>
+                                <div class="fv-row mb-10">
+                                    <label class="form-label required fs-6 fw-bolder text-dark">Username</label>
+                                    <input class="form-control form-control-lg form-control-solid" type="text" name="username" autocomplete="off" placeholder="Input username" value="<?= old('username', $user['username'] ?? '') ?>" required />
+                                </div>
+                                <div class="fv-row mb-10">
+                                    <label class="form-label required fs-6 fw-bolder text-dark">Password</label>
+                                    <input class="form-control form-control-lg form-control-solid" type="password" name="password" autocomplete="off" placeholder="Leave blank to keep current password" />
+                                </div>
                                     
                                         
                             <!--begin::Actions-->

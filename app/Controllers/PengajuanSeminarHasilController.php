@@ -112,19 +112,19 @@ class PengajuanSeminarHasilController extends BaseController
 
     public function updateStatus($id = null)
     {
-        $pengajuanUjianProposalModel = new PengajuanSeminarHasilModel();
+        $pengajuanSeminarHasilModel = new PengajuanSeminarHasilModel();
         $mahasiswaBimbinganModel = new MahasiswaBimbinganModel();
 
         // Ambil status dari post data
         $status = $this->request->getPost('status');
 
         // Update status_pengajuan di tabel pengajuan_ujian_proposal
-        $pengajuanUjianProposalModel->update($id, ['status_pengajuan' => $status]);
+        $pengajuanSeminarHasilModel->update($id, ['status_pengajuan' => $status]);
 
         // Jika status adalah REVISI, update tracking di tabel simta_mahasiswa_bimbingan
         if ($status === 'REVISI') {
             // Dapatkan data judul_acc_id dari tabel pengajuan_ujian_proposal
-            $pengajuan = $pengajuanUjianProposalModel->find($id);
+            $pengajuan = $pengajuanSeminarHasilModel->find($id);
             if ($pengajuan) {
                 $judul_acc_id = $pengajuan['id_accjudul'];
                 $mahasiswaBimbinganModel->updateTrackingByJudulAccId($judul_acc_id, 'Revisi Seminar Hasil');
@@ -136,7 +136,7 @@ class PengajuanSeminarHasilController extends BaseController
 
     public function uploadRevisi($semhasId, $id = null)
     {
-        $pengajuanUjianProposalModel = new PengajuanSeminarHasilModel();
+        $pengajuanSeminarHasilModel = new PengajuanSeminarHasilModel();
         $mahasiswaBimbinganModel = new MahasiswaBimbinganModel();
 
         $uploadedFile = $this->request->getFile('file');
@@ -146,13 +146,13 @@ class PengajuanSeminarHasilController extends BaseController
             $uploadedFile->move('public/assets/revisi_semhas/', $newFileName);
 
             // Simpan detail file ke dalam database
-            $pengajuanUjianProposalModel->update($semhasId, [
+            $pengajuanSeminarHasilModel->update($semhasId, [
                 'revisi_laporan' => $newFileName,
                 'revisi_laporan_date' => date('Y-m-d H:i:s')
             ]);
 
             // Dapatkan data pengajuan berdasarkan ID
-            $pengajuan = $pengajuanUjianProposalModel->find($semhasId);
+            $pengajuan = $pengajuanSeminarHasilModel->find($semhasId);
             if ($pengajuan) {
                 $judul_acc_id = $pengajuan['id_accjudul'];
                 $mahasiswaBimbinganModel->updateTrackingByJudulAccId($judul_acc_id, 'Pengumpulan Revisi Seminar Hasil');
@@ -234,4 +234,28 @@ class PengajuanSeminarHasilController extends BaseController
         $this->response->setContentType('application/pdf');
         $pdf->Output('rekomendasi.pdf', 'I');
     }
+    public function updateStatusLaporan($id = null)
+    {
+        $pengajuanSeminarHasilModel = new PengajuanSeminarHasilModel();
+        $mahasiswaBimbinganModel = new MahasiswaBimbinganModel();
+
+        // Ambil status dari post data
+        $status = $this->request->getPost('status');
+
+        // Update status_pengajuan di tabel pengajuan_ujian_proposal
+        $pengajuanSeminarHasilModel->update($id, ['status_laporan' => $status]);
+
+        // Jika status adalah REVISI, update tracking di tabel simta_mahasiswa_bimbingan
+        if ($status === 'REVISI') {
+            // Dapatkan data judul_acc_id dari tabel pengajuan_ujian_proposal
+            $pengajuan = $pengajuanSeminarHasilModel->find($id);
+            if ($pengajuan) {
+                $judul_acc_id = $pengajuan['judul_acc_id'];
+                $mahasiswaBimbinganModel->updateTrackingByJudulAccId($judul_acc_id, 'Revisi Seminar Hasil');
+            }
+        }
+
+        return redirect()->to('rilisjadwalsemhas');
+    }
+    
 }

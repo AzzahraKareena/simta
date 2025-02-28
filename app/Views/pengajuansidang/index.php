@@ -21,7 +21,7 @@
             <!--end::Icon-->
             <!--begin::Title-->
             <div class="d-flex flex-column">
-                <h2 class="mb-1">Ujian Proposal</h2>
+                <h2 class="mb-1">Sidang Tugas Akhir</h2>
                 <!-- <div class="text-muted fw-bolder">
                 <a href="#">Keenthemes</a>
                 <span class="mx-3">|</span>
@@ -153,14 +153,14 @@
                                 <th width="25%" class="min-w-150px text-center">Judul TA</th>
                             <?php endif; ?>
                             <th width="25%" class="min-w-175px text-center">Abstrak</th>
-                            <th width="22%" class="min-w-150px text-center">Revisi Laporan</th>
-                            <!-- <th width="15%" class="min-w-150px text-center">Laporan Tugas Akhir</th> -->
+                            <!-- <th width="22%" class="min-w-150px text-center">Revisi Laporan</th> -->
+                            <th width="15%" class="min-w-150px text-center">Laporan Tugas Akhir</th>
                             <!-- <th width="22%" class="min-w-150px text-center">Transkrip Nilai</th> -->
                             <!-- <th width="22%" class="min-w-150px text-center">Berita Acara KMM</th> -->
                             <!-- <th width="22%" class="min-w-150px text-center">Surat Rekomendasi</th> -->
                             <!-- <th width="22%" class="min-w-150px text-center">KRS</th> -->
                             <th width="22%" class="min-w-150px text-center">Ajuan Tanggal Ujian</th>
-                            <th width="23%"class="min-w-150px text-center">Status</th>
+                            <th width="23%"class="min-w-150px text-center">Status Pengajuan</th>
                             <th width="15%" class="min-w-150px text-center">#</th>
                         </tr>
                     </thead>
@@ -182,7 +182,7 @@
                                     <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['abstrak'] ?></span>
                                 </td>
                                 <?php if(session()->get('role') !== 'Mahasiswa'): ?>
-                                    <td>
+                                    <!-- <td>
                                         <div>
                                             <a href="<?= base_url('public/assets/revisi_sidang/' . $vdata['revisi_laporan']) ?>" target="_blank">
                                                 <?php if (!empty($vdata['revisi_laporan'])): ?>
@@ -192,8 +192,8 @@
                                                 <?php endif; ?>
                                             </a>
                                             </div>
-                                    </td>
-                                    <!-- <td>
+                                    </td> -->
+                                    <td>
                                         <?php if (!empty($vdata['laporan_ta'])): ?>
                                             <div>
                                                 <a href="<?= base_url('public/assets/proposal/' . $vdata['laporan_ta']) ?>" target="_blank">
@@ -201,7 +201,7 @@
                                                 </a>
                                             </div>
                                         <?php endif; ?>
-                                    </td> -->
+                                    </td>
                                 <?php else: ?>
                                         <td>
                                             <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['revisi_laporan'] ?? '-' ?></span>
@@ -226,7 +226,7 @@
                                     <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['ajuan_tgl_ujian'] ?></span>
                                 </td>
                                 <td class="text-center">
-                                    <?php if(session()->get('role') == 'Dosen'): ?>
+                                    <?php if(session()->get('role') == 'Dosen'|| session()->get('role') == 'Koordinator'): ?>
                                         <?php if (!empty($vdata) && isset($vdata['status_pengajuan'])) : ?>
                                             <?php if ($vdata['status_pengajuan'] == 'PENDING') : ?>
                                                 <div class="dropdown">
@@ -421,7 +421,9 @@
                 <br />Pengajuan Sidang.</p>
                 <!--end::Description-->
                 <!--begin::Action-->
-                <a href="<?= base_url('pengajuansidang/create') ?>" class="btn btn-primary er fs-6 px-8 py-4" >Tambah Pengajuan Sidang</a>
+                <button id="tambahPengajuanButton" class="btn btn-primary my-4">
+                    Tambah Pengajuan Sidang
+                </button>
                 <!--end::Action-->
                 <?php else : ?>
                 <h2 class="fs-2x fw-bolder mb-0">Belum Ada Pengajuan Sidang</h2>
@@ -560,6 +562,31 @@
         fileInput.click();
     }
 
+
+
+</script>
+
+<script>
+    document.getElementById('tambahPengajuanButton').addEventListener('click', function() {
+        // Fetch the approved count from a data attribute or a variable
+        const approvedCount = <?= $approvedCount; ?>; // Assuming you pass this variable from the controller
+
+        if (approvedCount < 9) {
+            // Display a SweetAlert if the count is less than 9
+            Swal.fire({
+                icon: 'warning',
+                title: 'Pengajuan Sidang Tidak Dapat Dilakukan',
+                text: `Anda tidak dapat mengajukan sidang karena jumlah pengajuan bimbingan yang disetujui hanya ${approvedCount} kali. Silakan ajukan bimbingan terlebih dahulu.`,
+                confirmButtonText: 'OK',
+            }).then(() => {
+                // Redirect to the bimbingan page after the alert is closed
+                window.location.href = '<?= base_url('pengajuanbimbingan') ?>'; // Adjust the URL as necessary
+            });
+        } else {
+            // Redirect to the pengajuan form if the count is 9 or more
+            window.location.href = '<?= base_url('pengajuansidang/create') ?>'; // Adjust the URL as necessary
+        }
+    });
 </script>
 <?= $this->endSection() ?>
 

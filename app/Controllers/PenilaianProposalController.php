@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\JudulAccModel;
 use App\Models\MahasiswaModel;
+use App\Models\RevisiProposalModel;
 use App\Models\IndikatorModel;
 use App\Models\JadwalUjianPropoModel;
 use App\Models\PengajuanJudulModel;
@@ -80,7 +81,7 @@ class PenilaianProposalController extends BaseController
     
         // Tambahkan logo dan judul ke header
         $pdf->SetFont('times', 'B', 14);
-        $pdf->Cell(0, 11, 'LEMBAR PENILAIAN PROPOSAL TUGAS AKHIR,', 0, 1, 'C', 0, '', 0, false, 'M', 'M');
+        $pdf->Cell(0, 11, 'LEMBAR PENILAIAN PROPOSAL TUGAS AKHIR', 0, 1, 'C', 0, '', 0, false, 'M', 'M');
         $pdf->SetFont('times', '', 12);
         $pdf->Ln(0);  // Tambahkan jarak setelah header
     
@@ -227,6 +228,22 @@ class PenilaianProposalController extends BaseController
                     return $this->response->setJSON(['status' => 'error', 'message' => 'Gagal menyimpan detail penilaian']);
                 }
             }
+
+                // Save revision notes
+        if (!empty($catatan_revisi)) {
+            foreach ($catatan_revisi as $revisi) {
+                if (!empty($revisi)) {
+                    // Assuming you have a model for revisions
+                    $revisiModel = new RevisiProposalModel();
+                    $revisiModel->insert([
+                        'id_penilaian_pro' => $insert,
+                        'catatan_revisi' => $revisi,
+                        'id_penguji' => session()->get('user_id'),
+                        'id_rilis_jadwal' => $rilis,
+                    ]);
+                }
+            }
+        }
 
             return redirect()->to('penilaianproposal');
         } else {

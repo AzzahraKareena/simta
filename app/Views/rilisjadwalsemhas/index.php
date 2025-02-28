@@ -32,9 +32,15 @@
             <!--end::Title-->
         </div>
     </div>
-    <!--end::Card header-->
+
     <!--begin::Card body-->
     <div class="card-body pb-0">
+                <!-- Check if the student has not submitted revisions -->
+                <?php if (session()->get('role') == 'Mahasiswa' && $status_laporan == 'REVISI'): ?>
+            <div class="alert alert-warning">
+                Mahasiswa harus menyelesaikan revisi sebelum ke tahap berikutnya.
+            </div>
+        <?php endif; ?>
         <!--begin::Navs-->
         <div class="d-flex overflow-auto h-55px">
             <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-6 fw-bold flex-nowrap">
@@ -154,7 +160,9 @@
                             <?php endif; ?>
                             <th width="15%" class="min-w-150px">Tanggal Ujian</th>
                             <th width="22%" class="min-w-150px">Penguji 1</th>
-                            <th width="15%" class="min-w-150px"></th>
+                            <th width="20%" class="min-w-150px ps-5">Status Laporan</th>
+                            <th width="20%" class="min-w-150px ps-5">Revisi Laporan</th>
+                            <th width="15%" class="min-w-150px">#</th>
                         </tr>
                     </thead>
                     <!--end::Thead-->
@@ -178,6 +186,128 @@
                                 <td>
                                     <span class="fw-bolder d-block fs-6"><?= ucwords($item['penguji1']) ?></span>
                                 </td>
+                                <td>
+                                    <?php if(session()->get('role') == 'Dosen' || session()->get('role') == 'Koordinator'): ?>
+                                        <?php if (!empty($item) && isset($item['status_laporan'])) : ?>
+                                            <?php if ($item['status_laporan'] == 'PENDING') : ?>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-sm btn-warning dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        PENDING
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-dark">
+                                                        <li>
+                                                            <a class="dropdown-item" href="#">
+                                                                <form class="alert-verifikasi" action="/update/status_laporan/semhas/<?= $item['id_seminarhasil']; ?>" method="POST">
+                                                                    <?= csrf_field() ?>
+                                                                    <input type="hidden" value="DITERIMA" name="status">
+                                                                    <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">REVISI DITERIMA</button>
+                                                                </form>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item" href="#">
+                                                                <form class="alert-verifikasi" action="/update/status_laporan/semhas/<?= $item['id_seminarhasil']; ?>" method="POST">
+                                                                    <?= csrf_field() ?>
+                                                                    <input type="hidden" value="REVISI" name="status">
+                                                                    <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">REVISI</button>
+                                                                </form>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item" href="#">
+                                                                <form class="alert-verifikasi" action="/update/status_laporan/semhas/<?= $item['id_seminarhasil']; ?>" method="POST">
+                                                                    <?= csrf_field() ?>
+                                                                    <input type="hidden" value="DITOLAK" name="status">
+                                                                    <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">REVISI DITOLAK</button>
+                                                                </form>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            <?php elseif ($item['status_laporan'] == 'REVISI') : ?>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-sm btn-info dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        REVISI
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-dark">
+                                                        <li>
+                                                            <a class="dropdown-item" href="#">
+                                                                <form class="alert-verifikasi" action="/update/status_laporan/semhas/<?= $item['id_seminarhasil']; ?>" method="POST">
+                                                                    <?= csrf_field() ?>
+                                                                    <input type="hidden" value="DITERIMA" name="status">
+                                                                    <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">REVISI DITERIMA</button>
+                                                                </form>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item" href="#">
+                                                                <form class="alert-verifikasi" action="/update/status_laporan/semhas/<?= $item['id_seminarhasil']; ?>" method="POST">
+                                                                    <?= csrf_field() ?>
+                                                                    <input type="hidden" value="DITOLAK" name="status">
+                                                                    <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">REVISI DITOLAK</button>
+                                                                </form>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            <?php elseif ($item['status_laporan'] == 'DITOLAK') : ?>
+                                            <div class="dropdown">
+                                                <button class="btn btn-sm btn-danger dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                REVISI DITOLAK
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-dark">
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">
+                                                            <form class="alert-verifikasi" action="/update/status_laporan/semhas/<?= $item['id_seminarhasil']; ?>" method="POST">
+                                                                <?= csrf_field() ?>
+                                                                <input type="hidden" value="DITERIMA" name="status">
+                                                                <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">REVISI DITERIMA</button>
+                                                            </form>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">
+                                                            <form class="alert-verifikasi" action="/update/status_laporan/semhas/<?= $item['id_seminarhasil']; ?>" method="POST">
+                                                                <?= csrf_field() ?>
+                                                                <input type="hidden" value="REVISI" name="status">
+                                                                <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">REVISI</button>
+                                                            </form>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <?php elseif ($item['status_laporan'] == 'DITERIMA') : ?>
+                                                <div class="badge badge-success">REVISI <?= $item['status_laporan'] ?></div>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
+
+                                        <?php elseif(session()->get('role') == 'Mahasiswa'): ?>
+                                            <!-- Button code here -->
+                                            <?php if (!empty($item) && isset($item['status_laporan'])) : ?>
+                                                <?php if ($item['status_laporan'] == 'PENDING') : ?>
+                                                    <div class="badge badge-warning"><?= $item['status_laporan'] ?></div>
+                                                <?php elseif ($item['status_laporan'] == 'DITOLAK') : ?>
+                                                    <div class="badge badge-danger">REVISI <?= $item['status_laporan'] ?></div>
+                                                <?php elseif ($item['status_laporan'] == 'DITERIMA') : ?>
+                                                    <div class="badge badge-success">REVISI <?= $item['status_laporan'] ?></div>
+                                                <?php elseif ($item['status_laporan'] == 'REVISI') : ?>
+                                                    <div class="badge badge-info"><?= $item['status_laporan'] ?></div>
+                                                <?php endif; ?>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
+                                </td>
+                                <td>
+                                    <?php if (!empty($item['revisi_laporan'])): ?>
+                                        <div>
+                                            <a href="<?= base_url('pengajuanseminarhasil/unduh-revisi/'. $item['id_seminarhasil']) ?>" target="_blank">
+                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $item['revisi_laporan'] ?></span>
+                                            </a>
+                                        </div>
+                                        <?php else: ?>
+                                            <p>-</p>
+                                        <?php endif; ?>
+                                        
+                                    </td>
                                 <td class="d-flex justify-content-center text-center">
                                     <div class="d-flex justify-content-end flex-shrink-0">
                                         <?php if(session()->get('role') == 'Dosen'): ?>
@@ -203,6 +333,14 @@
                                                     <!--end::Svg Icon-->
                                                 </button>
                                             </form>
+                                            <a href="<?= base_url('revisisemhas/create/' . $item['id_rilis_jadwal_semhas']) ?>" class="btn btn-icon btn-light-success btn-active-color-light btn-sm me-1" data-bs-toggle="tooltip" title="Tambah Catatan Revisi">
+                                                <span class="svg-icon svg-icon-muted svg-icon-3">
+                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M3 17.25V21h3.75l11.25-11.25-3.75-3.75L3 17.25z" fill="currentColor"/>
+                                                        <path d="M21 4.5c0-.83-.67-1.5-1.5-1.5-.39 0-.76.15-1.04.43l-2.25 2.25 3.75 3.75 2.25-2.25c.28-.28.43-.65.43-1.04z" fill="currentColor"/>
+                                                    </svg>
+                                                </span>
+                                            </a>
                                             <a href="<?= base_url('penilaiansemhas/create/' . $item['id_rilis_jadwal_semhas']) ?>" class="btn btn-icon btn-light-primary btn-active-color-light btn-sm me-1" title="Penilian Semhas">
                                                 <span class="svg-icon svg-icon-muted svg-icon-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M14 18V16H10V18L9 20H15L14 18Z" fill="currentColor"/>
@@ -211,24 +349,26 @@
                                                 </span>
                                             </a>
                                         <?php endif ?>
-                                        <a href="<?= base_url('rilisjadwalsemhas/berita-acara/'. $item['id_rilis_jadwal_semhas']) ?>" target="_blank" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" title="Unduh Berita Acara">
-                                            <span class="svg-icon svg-icon-muted svg-icon-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path opacity="0.3" d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM12.5 18C12.5 17.4 12.6 17.5 12 17.5H8.5C7.9 17.5 8 17.4 8 18C8 18.6 7.9 18.5 8.5 18.5L12 18C12.6 18 12.5 18.6 12.5 18ZM16.5 13C16.5 12.4 16.6 12.5 16 12.5H8.5C7.9 12.5 8 12.4 8 13C8 13.6 7.9 13.5 8.5 13.5H15.5C16.1 13.5 16.5 13.6 16.5 13ZM12.5 8C12.5 7.4 12.6 7.5 12 7.5H8C7.4 7.5 7.5 7.4 7.5 8C7.5 8.6 7.4 8.5 8 8.5H12C12.6 8.5 12.5 8.6 12.5 8Z" fill="currentColor"/>
-                                                <rect x="7" y="17" width="6" height="2" rx="1" fill="currentColor"/>
-                                                <rect x="7" y="12" width="10" height="2" rx="1" fill="currentColor"/>
-                                                <rect x="7" y="7" width="6" height="2" rx="1" fill="currentColor"/>
-                                                <path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="currentColor"/>
+                                        <a href="<?= base_url('rilisjadwalsemhas/berita-acara/'. $item['id_rilis_jadwal_semhas']) ?>" target="_blank" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" title="Unduh Catatan Revisi dan Berita Acara">
+                                            <span class="svg-icon svg-icon-muted svg-icon-3">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M12 15.5L16.5 11H14V3H10V11H7.5L12 15.5Z" fill="currentColor"/>
+                                                    <path opacity="0.3" d="M4 19H20C20.6 19 21 19.4 21 20C21 20.6 20.6 21 20 21H4C3.4 21 3 20.6 3 20C3 19.4 3.4 19 4 19Z" fill="currentColor"/>
                                                 </svg>
                                             </span>
                                         </a>
-                                        <a href="<?= base_url('rilisjadwalsemhas/lembar-persetujuan/'. $item['id_rilis_jadwal_semhas']) ?>" target="_blank" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" title="Unduh Lembar Persetujuan">
-                                            <span class="svg-icon svg-icon-muted svg-icon-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path opacity="0.3" d="M14 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V8L14 2Z" fill="currentColor"/>
-                                            <path d="M20 8L14 2V6C14 7.10457 14.8954 8 16 8H20Z" fill="currentColor"/>
-                                            <path d="M10.3629 14.0084L8.92108 12.6429C8.57518 12.3153 8.03352 12.3153 7.68761 12.6429C7.31405 12.9967 7.31405 13.5915 7.68761 13.9453L10.2254 16.3488C10.6111 16.714 11.215 16.714 11.6007 16.3488L16.3124 11.8865C16.6859 11.5327 16.6859 10.9379 16.3124 10.5841C15.9665 10.2565 15.4248 10.2565 15.0789 10.5841L11.4631 14.0084C11.1546 14.3006 10.6715 14.3006 10.3629 14.0084Z" fill="currentColor"/>
-                                            </svg>
-                                            </span>
-                                        </a>
+                                        <?php if(session()->get('role') == 'Mahasiswa' && $item['status_laporan'] == 'REVISI'): ?>
+                                    <button onclick="openFileUploaderLaporan(<?php echo $item['id_seminarhasil']; ?>)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" title="Upload Revisi">
+                                        <span class="svg-icon svg-icon-muted svg-icon-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path opacity="0.3" d="M10 4H21C21.6 4 22 4.4 22 5V7H10V4Z" fill="currentColor"/>
+                                        <path d="M10.4 3.60001L12 6H21C21.6 6 22 6.4 22 7V19C22 19.6 21.6 20 21 20H3C2.4 20 2 19.6 2 19V4C2 3.4 2.4 3 3 3H9.20001C9.70001 3 10.2 3.20001 10.4 3.60001ZM12 16.8C11 16.8 10.2 16.4 9.5 15.8C8.8 15.1 8.5 14.3 8.5 13.3C8.5 12.8 8.59999 12.3 8.79999 11.9L10 13.1V10.1C10 9.50001 9.6 9.10001 9 9.10001H6L7.29999 10.4C6.79999 11.3 6.5 12.2 6.5 13.3C6.5 14.8 7.10001 16.2 8.10001 17.2C9.10001 18.2 10.5 18.8 12 18.8C12.6 18.8 13 18.3 13 17.8C13 17.2 12.6 16.8 12 16.8ZM16.7 16.2C17.2 15.3 17.5 14.4 17.5 13.3C17.5 11.8 16.9 10.4 15.9 9.39999C14.9 8.39999 13.5 7.79999 12 7.79999C11.4 7.79999 11 8.19999 11 8.79999C11 9.39999 11.4 9.79999 12 9.79999C12.9 9.79999 13.8 10.2 14.5 10.8C15.2 11.5 15.5 12.3 15.5 13.3C15.5 13.8 15.4 14.3 15.2 14.7L14 13.5V16.5C14 17.1 14.4 17.5 15 17.5H18L16.7 16.2Z" fill="currentColor"/>
+                                        <path opacity="0.3" d="M12 16.8C11 16.8 10.2 16.4 9.5 15.8C8.8 15.1 8.5 14.3 8.5 13.3C8.5 12.8 8.59999 12.3 8.79999 11.9L7.29999 10.4C6.79999 11.3 6.5 12.2 6.5 13.3C6.5 14.8 7.10001 16.2 8.10001 17.2C9.10001 18.2 10.5 18.8 12 18.8C12.6 18.8 13 18.3 13 17.8C13 17.2 12.6 16.8 12 16.8Z" fill="currentColor"/>
+                                        <path opacity="0.3" d="M15.5 13.3C15.5 13.8 15.4 14.3 15.2 14.7L16.7 16.2C17.2 15.3 17.5 14.4 17.5 13.3C17.5 11.8 16.9 10.4 15.9 9.39999C14.9 8.39999 13.5 7.79999 12 7.79999C11.4 7.79999 11 8.19999 11 8.79999C11 9.39999 11.4 9.79999 12 9.79999C12.9 9.79999 13.8 10.2 14.5 10.8C15.1 11.5 15.5 12.4 15.5 13.3Z" fill="currentColor"/>
+                                        </svg>
+                                        </span>
+                                    </button>
+                                <?php endif; ?>
+                
                                         <a href="<?= base_url('pengajuanseminarhasil/rekomendasi/'. $item['id_pengajuansemhas']) ?>" target="_blank" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" title="Unduh Surat Rekomendasi">
                                             <span class="svg-icon svg-icon-muted svg-icon-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path opacity="0.3" d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM12.5 18C12.5 17.4 12.6 17.5 12 17.5H8.5C7.9 17.5 8 17.4 8 18C8 18.6 7.9 18.5 8.5 18.5L12 18C12.6 18 12.5 18.6 12.5 18ZM16.5 13C16.5 12.4 16.6 12.5 16 12.5H8.5C7.9 12.5 8 12.4 8 13C8 13.6 7.9 13.5 8.5 13.5H15.5C16.1 13.5 16.5 13.6 16.5 13ZM12.5 8C12.5 7.4 12.6 7.5 12 7.5H8C7.4 7.5 7.5 7.4 7.5 8C7.5 8.6 7.4 8.5 8 8.5H12C12.6 8.5 12.5 8.6 12.5 8Z" fill="currentColor"/>
@@ -270,7 +410,53 @@
             <!--end::Illustration-->
         </div>
     <?php endif; ?>
+
 </div>
 
+<script>
+        function openFileUploaderLaporan(semhasID) {
+    
+            var fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = 'application/pdf'; // Set hanya menerima file PDF
 
+            fileInput.onchange = function(e) {
+                var file = e.target.files[0];
+                
+                if (!file || file.type !== 'application/pdf') {
+                    alert('Mohon pilih file PDF.');
+                    return;
+                }
+
+                var formData = new FormData();
+                formData.append('file', file);
+
+                var route = 'upload/revisi/semhas/' + semhasID;
+                console.log('Upload route:', route); // Debugging log
+
+                fetch(route, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Gagal mengunggah file');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    console.log('Respon dari server:', data);
+
+                    //Reload halaman setelah file berhasil diunggah
+                    location.reload();
+                })
+                .catch(error => {
+                    console.error('Terjadi kesalahan:', error);
+                });
+            };
+
+            fileInput.click();
+        }
+
+    </script>
 <?= $this->endSection() ?>

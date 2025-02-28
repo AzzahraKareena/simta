@@ -20,6 +20,7 @@ class PengajuanSeminarHasilModel extends Model
         'revisi_laporan_date',
         'ajuan_tgl_ujian',
         'status_pengajuan',
+        'status_laporan',
         'id_penguji1',
         'id_penguji2'
     ];

@@ -53,7 +53,10 @@
                                         <textarea class="form-control" name="abstrak" id="" rows="10"><?= old('abstrak')?? $dataForm->abstrak??"" ?></textarea>
                                     </div>
                                     <div class="fv-row mb-10">
-                                        <label class="form-label required fs-6 fw-bolder text-dark">Proposal Tugas Akhir</label>
+                                    <label class="form-label required fs-6 fw-bolder text-dark">
+                                            Proposal Tugas Akhir 
+                                            <span style="color: red;" class="text-bold text-sm">  (Yang sudah disetujui dosen pembimbing)</span>
+                                        </label>
                                         <input class="form-control form-control-lg form-control-solid" type="file" name="proposal_ta" accept=".pdf" required />
                                     </div>
                                     <div class="row">
