@@ -175,7 +175,15 @@ class PengajuanSeminarHasilController extends BaseController
             $filePath = FCPATH . 'public/assets/revisi_semhas/' . $file['revisi_laporan'];
             $fileName = $file['revisi_laporan'];
 
-            return $this->response->download($filePath, null)->setFileName($fileName);
+            if (file_exists($filePath)) {
+                // Mengatur header untuk menampilkan PDF di browser
+                return $this->response
+                    ->setHeader('Content-Type', 'application/pdf')
+                    ->setHeader('Content-Disposition', 'inline; filename="' . basename($filePath) . '"')
+                    ->setBody(file_get_contents($filePath));
+            } else {
+                throw new \CodeIgniter\Exceptions\PageNotFoundException('File not found');
+            }
         } else {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('File not found');
         }

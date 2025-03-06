@@ -524,7 +524,72 @@ class CreateTables extends Migration
         $this->forge->addKey('id_mahasiswa_bimbingan', true);
         $this->forge->addForeignKey('judul_acc_id', 'simta_acc_judul', 'id_accjudul', 'SET NULL', 'CASCADE');
         $this->forge->createTable('simta_mahasiswa_bimbingan');
+        // jadwal bimbingan
+        $this->forge->addField([
+            'id' => [
+                'type' => 'INT',
+                'unsigned' => true,
+                'auto_increment' => true,
+            ],
+            'id_dosen' => [
+                'type' => 'INT',
+                'unsigned' => true,
+                'constraint' => 11,
+            ],
+            'tanggal' => [
+                'type' => 'DATE',
+            ],
+            'waktu' => [
+                'type' => 'TIME',
+            ],
+            'tempat' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+            ],
+            'created_at' => [
+                'type' => 'DATETIME',
+                'default' => 'CURRENT_TIMESTAMP',
+            ],
+            'updated_at' => [
+                'type' => 'DATETIME',
+                'default' => 'CURRENT_TIMESTAMP',
+                'on_update' => 'CURRENT_TIMESTAMP',
+            ],
+        ]);
 
+        $this->forge->addKey('id', true);
+        $this->forge->addForeignKey('id_dosen', 'users', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('id_mahasiswa', 'mahasiswa', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->createTable('simta_jadwal_bimbingan');
+        //logbook
+        $this->forge->addField([
+            'id' => [
+                'type' => 'INT',
+                'unsigned' => true,
+                'auto_increment' => true,
+            ],
+            'id_jadwal' => [
+                'type' => 'INT',
+                'unsigned' => true,
+            ],
+            'catatan' => [
+                'type' => 'TEXT',
+            ],
+            'created_at' => [
+                'type' => 'DATETIME',
+                'default' => 'CURRENT_TIMESTAMP',
+            ],
+            'updated_at' => [
+                'type' => 'DATETIME',
+                'default' => 'CURRENT_TIMESTAMP',
+                'on_update' => 'CURRENT_TIMESTAMP',
+            ],
+        ]);
+
+        $this->forge->addKey('id', true);
+        $this->forge->addForeignKey('id_jadwal', 'jadwal_bimbingan', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->createTable('simta_logbook');
+        
         // Tabel simta_masterstaf
         $this->forge->addField([
             'id_masterstaf' => [

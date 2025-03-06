@@ -284,7 +284,8 @@
                                         <div>
                                             <a href="<?= base_url('public/assets/revisi_sidang/' . $vdata['revisi_laporan']) ?>" target="_blank">
                                                 <?php if (!empty($vdata['revisi_laporan'])): ?>
-                                                    <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $vdata['revisi_laporan'] ?? '-'?></span>
+                                                    <span class="btn btn-sm btn-light-primary btn-active-color-light me-1">
+                                                    Lihat Revisi</span>
                                                 <?php else: ?>
                                                     <span class="text-dark fw-bolder text-hover-primary d-block fs-6">-</span>
                                                 <?php endif; ?>

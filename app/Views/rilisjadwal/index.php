@@ -30,7 +30,7 @@
     <!--begin::Card body-->
     <div class="card-body pb-0">
                 <!-- Check if the student has not submitted revisions -->
-                <?php if (session()->get('role') == 'Mahasiswa' && $status_laporan == 'REVISI'): ?>
+                <?php if (session()->get('role') == 'Mahasiswa'): ?>
             <div class="alert alert-warning">
                 Mahasiswa harus menyelesaikan revisi sebelum ke tahap berikutnya.
             </div>
@@ -136,7 +136,10 @@
                             <th width="20%" class="min-w-150px ps-5">Tanggal Ujian</th>
                             <th width="20%" class="min-w-150px ps-5">Penguji</th>
                             <th width="20%" class="min-w-150px ps-5">Status Proposal</th>
-                            <th width="20%" class="min-w-150px ps-5">Revisi Proposal</th>
+                            <th width="20%" class="min-w-150px ps-5">
+                                    Revisi Proposal 
+                                    
+                                </th>
                             <th width="20%" class="min-w-150px text-center">#</th>
                         </tr>
                     </thead>
@@ -267,10 +270,10 @@
                                 <td class="ps-5">
                                     <?php if (!empty($item['revisi_proposal'])): ?>
                                         <a href="<?= base_url('pengajuanujianproposal/unduh-revisi/'. $item['id_ujianproposal']) ?>" class="btn btn-sm btn-light-primary btn-active-color-light me-1" title="Unduh Revisi" target="_blank">
-                                            Download
+                                            Lihat Revisi
                                         </a>
                                     <?php else: ?>
-                                        -
+                                        <span class="text-danger">*) file revisi dan tanda tangan hasil revisi</span>
                                     <?php endif; ?>
                                 </td>
                                 <td class="align-middle ps-5">

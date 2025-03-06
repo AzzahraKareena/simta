@@ -364,3 +364,22 @@ $routes->group('profile', static function ($routes) {
 });
 
 
+$routes->group('jadwalbimbingan', function($routes) {
+    $routes->get('/', 'JadwalBimbinganController::index');
+    $routes->get('create', 'JadwalBimbinganController::create');
+    $routes->post('store', 'JadwalBimbinganController::store');
+    $routes->get('edit/(:num)', 'JadwalBimbinganController::edit/$1');
+    $routes->post('update/(:num)', 'JadwalBimbinganController::update/$1');
+    $routes->post('delete/(:num)', 'JadwalBimbinganController::delete/$1');
+});
+
+$routes->group('logbook', function($routes) {
+    $routes->get('/', 'LogbookController::index');
+    $routes->get('show/(:num)', 'LogbookController::show/$1');
+    $routes->get('create', 'LogbookController::create');
+    $routes->post('store', 'LogbookController::store');
+    $routes->get('edit/(:num)', 'LogbookController::edit/$1');
+    $routes->post('update/(:num)', 'LogbookController::update/$1');
+    $routes->post('delete/(:num)', 'LogbookController::delete/$1');
+});
+$routes->get('logbook/view/(:num)', 'LogbookController::view/$1');
