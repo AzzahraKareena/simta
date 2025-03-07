@@ -299,8 +299,8 @@
                                 <td>
                                     <?php if (!empty($item['revisi_laporan'])): ?>
                                         <div>
-                                            <a href="<?= base_url('pengajuanseminarhasil/unduh-revisi/'. $item['id_seminarhasil']) ?>" target="_blank">
-                                                <span class="text-dark fw-bolder text-hover-primary d-block fs-6"><?= $item['revisi_laporan'] ?></span>
+                                            <a href="<?= base_url('pengajuanseminarhasil/unduh-revisi/'. $item['id_seminarhasil']) ?>" target="_blank" class="btn btn-sm btn-light-primary btn-active-color-light me-1" title="Unduh Revisi" target="_blank">
+                                            Lihat Revisi
                                             </a>
                                         </div>
                                         <?php else: ?>

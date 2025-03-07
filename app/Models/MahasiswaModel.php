@@ -12,7 +12,14 @@ class MahasiswaModel extends Model
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
     protected $allowedFields    = [ 'id_user', 'nama', 'nim', 'prodi', 'no_telp', 'th_masuk', 'th_lulus', 'kelas', 'status'];
-
+   
+    public function findAllMahasiswa()
+    {
+        return $this->db->table('mahasiswa')
+            ->select('id_mhs, nama') // Ensure you select the 'nama' field
+            ->get()
+            ->getResult();
+    }
     // public function getMahasiswabyUserId()
     // {
     //     $user_id = user()->id;

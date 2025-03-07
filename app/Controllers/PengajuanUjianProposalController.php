@@ -242,13 +242,21 @@ class PengajuanUjianProposalController extends BaseController
     {
         $fileModel = new PengajuanUjianProposalModel();
         $file = $fileModel->find($id);
-
+    
         if ($file) {
             // Menambahkan path absolut
             $filePath = FCPATH . 'public/assets/revisi_ujian/' . $file['revisi_proposal'];
-            $fileName = $file['revisi_proposal'];
-
-            return $this->response->download($filePath, null)->setFileName($fileName);
+    
+            // Memeriksa apakah file ada
+            if (file_exists($filePath)) {
+                // Mengatur header untuk menampilkan PDF di browser
+                return $this->response
+                    ->setHeader('Content-Type', 'application/pdf')
+                    ->setHeader('Content-Disposition', 'inline; filename="' . basename($filePath) . '"')
+                    ->setBody(file_get_contents($filePath));
+            } else {
+                throw new \CodeIgniter\Exceptions\PageNotFoundException('File not found');
+            }
         } else {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('File not found');
         }

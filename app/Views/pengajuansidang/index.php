@@ -243,7 +243,7 @@
                                                                 </form>
                                                             </a>
                                                         </li>
-                                                        <li>
+                                                        <!-- <li>
                                                             <a class="dropdown-item" href="#">
                                                                 <form class="alert-verifikasi" action="/update/status_up/sidang/<?= $vdata['id_sidang']; ?>" method="POST">
                                                                     <?= csrf_field() ?>
@@ -251,7 +251,7 @@
                                                                     <button type="submit" class="dropdown-item" data-toggle="tooltip" title="Verifikasi">REVISI</button>
                                                                 </form>
                                                             </a>
-                                                        </li>
+                                                        </li> -->
                                                         <li>
                                                             <a class="dropdown-item" href="#">
                                                                 <form class="alert-verifikasi" action="/update/status_up/sidang/<?= $vdata['id_sidang']; ?>" method="POST">
@@ -576,11 +576,11 @@
             Swal.fire({
                 icon: 'warning',
                 title: 'Pengajuan Sidang Tidak Dapat Dilakukan',
-                text: `Anda tidak dapat mengajukan sidang karena jumlah pengajuan bimbingan yang disetujui hanya ${approvedCount} kali. Silakan ajukan bimbingan terlebih dahulu.`,
+                text: `Anda tidak dapat mengajukan sidang karena jumlah logbook hanya ${approvedCount} kali. Silakan isi logbook terlebih dahulu.`,
                 confirmButtonText: 'OK',
             }).then(() => {
                 // Redirect to the bimbingan page after the alert is closed
-                window.location.href = '<?= base_url('pengajuanbimbingan') ?>'; // Adjust the URL as necessary
+                window.location.href = '<?= base_url('logbook') ?>'; // Adjust the URL as necessary
             });
         } else {
             // Redirect to the pengajuan form if the count is 9 or more

@@ -6,7 +6,7 @@ use App\Models\UsersModel;
 use App\Models\JudulAccModel;
 use App\Controllers\BaseController;
 use App\Models\PengajuanSidangModel;
-use App\Models\PengajuanBimbinganModel;
+use App\Models\LogbookModel;
 use App\Models\MahasiswaBimbinganModel;
 
 class PengajuanSidangController extends BaseController
@@ -16,7 +16,7 @@ class PengajuanSidangController extends BaseController
         $this->setNotifications();
         
         $model = new PengajuanSidangModel();
-        $bimbingan = new PengajuanBimbinganModel();
+        $bimbingan = new LogbookModel();
         $tahun = $this->request->getVar('tahun') ?? date('Y');
         $data = $model->getAllPengajuanWithJadwal($tahun);
         
@@ -38,8 +38,7 @@ class PengajuanSidangController extends BaseController
     
         // Cek jumlah pengajuan bimbingan yang disetujui
         $mahasiswaId = session()->get('user_id');
-        $jumlah_bimbingan = $bimbingan->where('id_mhs', $mahasiswaId)
-        ->where('status_ajuan', 'DITERIMA')
+        $jumlah_bimbingan = $bimbingan->where('id_mahasiswa', $mahasiswaId)
         ->countAllResults();
         // $approvedCount = 0;
     
@@ -203,7 +202,15 @@ class PengajuanSidangController extends BaseController
             $filePath = FCPATH . 'public/assets/revisi_sidang/' . $file['revisi_laporan'];
             $fileName = $file['revisi_laporan'];
 
-            return $this->response->download($filePath, null)->setFileName($fileName);
+            if (file_exists($filePath)) {
+                // Mengatur header untuk menampilkan PDF di browser
+                return $this->response
+                    ->setHeader('Content-Type', 'application/pdf')
+                    ->setHeader('Content-Disposition', 'inline; filename="' . basename($filePath) . '"')
+                    ->setBody(file_get_contents($filePath));
+            } else {
+                throw new \CodeIgniter\Exceptions\PageNotFoundException('File not found');
+            }
         } else {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('File not found');
         }
